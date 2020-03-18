@@ -13,10 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="64dp"
-        android:background="@drawable/buttom_signup"
-        android:backgroundTint="#123285"
+        android:background="@drawable/buttom_without_corners"
+        android:backgroundTint="#FFFFFF"
+        android:onClick="signIn"
         android:text="Sign In"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,10 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="80dp"
-        android:background="@drawable/buttom_signup"
-        android:backgroundTint="#FFFFFF"
+        android:background="@drawable/buttom_without_corners"
+        android:backgroundTint="#123285"
         android:text="Sign Up"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/buttonSignIn"
@@ -42,8 +43,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
-        android:background="@drawable/buttom_signup"
-        android:backgroundTint="#00FFFFFF"
+        android:background="@drawable/edittext_without_corners"
         android:ems="10"
         android:hint="Contraseña"
         android:inputType="textPassword"
@@ -59,8 +59,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="200dp"
         android:layout_marginEnd="50dp"
-        android:background="@drawable/buttom_signup"
-        android:backgroundTint="#00FFFFFF"
+        android:background="@drawable/edittext_without_corners"
         android:ems="10"
         android:hint="Username o Correo electronico"
         android:inputType="textEmailAddress"
@@ -82,6 +81,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        android:background="@drawable/buttom_signup"/>
+        android:background="@drawable/buttom_without_corners"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
