@@ -49,5 +49,7 @@ class SignUpActivity : AppCompatActivity() {
         val intent = Intent(this, SignInActivity::class.java).apply {
         }
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
     }
 }
