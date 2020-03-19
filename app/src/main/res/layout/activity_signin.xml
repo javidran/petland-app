@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@mipmap/ic_launcher_foreground">
+    tools:context=".SignInActivity"
+    android:background="#000000">
 
     <Button
         android:id="@+id/buttonSignIn"
@@ -14,7 +14,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="64dp"
         android:background="@drawable/buttom_without_corners"
-        android:backgroundTint="#123285"
+        android:backgroundTint="#0277BD"
         android:text="Sign In"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         android:backgroundTint="#FFFFFF"
         android:onClick="signUp"
         android:text="Sign Up"
-        android:textColor="#000000"
+        android:textColor="#C3C9D4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/buttonSignIn"
@@ -50,7 +50,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -66,7 +67,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="10dp"/>
 
     <Button
         android:id="@+id/buttonContinuar"
@@ -75,12 +77,12 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
-        android:backgroundTint="#0BA3BD"
+        android:background="@drawable/buttom_without_corners"
+        android:backgroundTint="#00C4CC"
         android:text="Continuar"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        android:background="@drawable/buttom_without_corners"/>
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
