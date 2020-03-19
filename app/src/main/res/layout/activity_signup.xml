@@ -15,7 +15,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="64dp"
 
-        android:background="@drawable/buttom_without_corners"
+        android:background="@drawable/button_with_borders"
         android:backgroundTint="#FFFFFF"
         android:onClick="signIn"
         android:text="Sign In"
@@ -100,7 +100,7 @@
         android:background="@drawable/edittext_without_corners"
         android:ems="10"
         android:hint="Fecha de nacimiento"
-        android:inputType="textPostalAddress"
+        android:inputType="text|date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
