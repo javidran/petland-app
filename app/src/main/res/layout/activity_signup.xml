@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity"
-    android:background="@mipmap/ic_launcher_foreground">
+    android:background="#F7F7FA">
+    <!-- android:background="@mipmap/ic_launcher_foreground"> -->
 
 
     <Button
