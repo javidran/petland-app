@@ -21,7 +21,6 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
         val textView: TextView = findViewById(R.id.editTextBirthday)
-        textView.text = SimpleDateFormat("dd.MM.yyyy").format(System.currentTimeMillis())
 
         var cal = Calendar.getInstance()
 

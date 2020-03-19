@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignInActivity"
-    android:background="#F7F7FA">
+    android:background="@drawable/half_circle" >
 
     <Button
         android:id="@+id/buttonSignIn"
