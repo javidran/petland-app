@@ -7,11 +7,11 @@
         android:useLevel="false">
         <gradient
             android:startColor="#68D6DF"
-            android:centerColor="#7EB7E2"
-            android:endColor="#9998EB"  />
+            android:endColor="#9998EB"
+            android:angle="270"/>
         <size
             android:width="60dp"
-            android:height="60dp" />
+            android:height="30dp" />
     </shape>
 </item>
 </layer-list>
