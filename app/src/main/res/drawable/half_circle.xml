@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:right="-400dp"
-   android:left="150dp">
+<item android:right="-600dp"
+   android:left="230dp">
     <shape
         android:shape="oval"
         android:useLevel="false">
