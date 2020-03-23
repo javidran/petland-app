@@ -5,22 +5,25 @@ import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.startActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.parse.ParseUser
+import kotlinx.android.synthetic.main.activity_signup.*
 import java.util.*
+
 
 class SignUpActivity : AppCompatActivity() {
 
+    lateinit var date: Date
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-        val textView: TextView = findViewById(R.id.editTextBirthday)
+        val textViewBirthday: TextView = findViewById(R.id.editTextBirthday)
 
         var cal = Calendar.getInstance()
 
@@ -31,11 +34,12 @@ class SignUpActivity : AppCompatActivity() {
 
             val myFormat = "dd.MM.yyyy" // mention the format you need
             val sdf = SimpleDateFormat(myFormat, Locale.US)
-            textView.text = sdf.format(cal.time)
+            date = cal.time
+            textViewBirthday.text = sdf.format(cal.time)
 
         }
 
-        textView.setOnClickListener {
+        textViewBirthday.setOnClickListener {
             DatePickerDialog(this@SignUpActivity, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
@@ -50,5 +54,30 @@ class SignUpActivity : AppCompatActivity() {
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 
+
     }
+    fun createUser (view: View) {
+        Log.d("SignUp", "creandousuario")
+        val user =   ParseUser()
+       /* user.username = "editTextUsername.text.toString()"
+        Log.d("SignUp", user.username)
+        user.setPassword(editTextPassword.text.toString())
+        user.email = editTextEmail.text.toString()
+
+        user.put("name", editTextName.text.toString())
+*/
+        user.username = "javidran"
+        user.setPassword("1234")
+        user.email = "javidran80@gmail.com"
+        user.put( "name", "Javier")
+        user.signUpInBackground { e ->
+            if (e == null) {
+                Log.d("SignUp", "Usuario creado correctamente")
+            } else {
+                e.printStackTrace()
+                Log.d("SignUp", "No se ha podido crear el usuario")
+            }
+        }
+    }
+
 }

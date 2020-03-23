@@ -164,6 +164,7 @@
         android:backgroundTint="#00C4CC"
         android:text="Crear Cuenta"
         android:textColor="#FFFFFF"
+        android:onClick="createUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
