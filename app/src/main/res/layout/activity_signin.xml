@@ -53,11 +53,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUsername"
         android:padding="10dp"/>
 
     <EditText
-        android:id="@+id/editTextEmail"
+        android:id="@+id/editTextUsername"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
@@ -66,7 +66,7 @@
         android:background="@drawable/edittext_without_corners"
         android:ems="10"
         android:textColorHint="#BBC1CE"
-        android:hint="Username o Correo electronico"
+        android:hint="Username"
         android:textColor="#9E9E9E"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,6 +85,7 @@
         android:background="@drawable/buttom_without_corners"
         android:backgroundTint="#00C4CC"
         android:text="Continuar"
+        android:onClick="login"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

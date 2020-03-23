@@ -57,19 +57,14 @@ class SignUpActivity : AppCompatActivity() {
 
     }
     fun createUser (view: View) {
-        Log.d("SignUp", "creandousuario")
         val user =   ParseUser()
-       /* user.username = "editTextUsername.text.toString()"
-        Log.d("SignUp", user.username)
+        user.username = editTextUsername.text.toString()
         user.setPassword(editTextPassword.text.toString())
         user.email = editTextEmail.text.toString()
 
         user.put("name", editTextName.text.toString())
-*/
-        user.username = "javidran"
-        user.setPassword("1234")
-        user.email = "javidran80@gmail.com"
-        user.put( "name", "Javier")
+        user.put ("birthday", date)
+
         user.signUpInBackground { e ->
             if (e == null) {
                 Log.d("SignUp", "Usuario creado correctamente")
