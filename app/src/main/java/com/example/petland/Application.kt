@@ -10,7 +10,7 @@ class Application : Application() {
         super.onCreate()
         Log.d("petland", "inicializando parse server")
         Parse.initialize(Parse.Configuration.Builder(this)
-            .applicationId("myAppId")
+            .applicationId("petland")
             .server("http://petland.sytes.net:1337/parse")
             .build()
         )
