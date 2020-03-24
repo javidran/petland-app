@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity"
-    android:background="#F7F7FA">
-    <!-- android:background="@mipmap/ic_launcher_foreground"> -->
+    android:background="@drawable/half_circle"  >
 
 
     <Button
@@ -16,7 +15,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="64dp"
 
-        android:background="@drawable/buttom_without_corners"
+        android:background="@drawable/button_with_borders"
         android:backgroundTint="#FFFFFF"
         android:onClick="signIn"
         android:text="Sign In"
@@ -108,8 +107,8 @@
         android:ems="10"
         android:textColorHint="#BBC1CE"
         android:hint="Fecha de nacimiento"
+        android:inputType="text|date"
         android:textColor="#9E9E9E"
-        android:inputType="textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -163,8 +162,10 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/buttom_without_corners"
         android:backgroundTint="#00C4CC"
+        android:textAllCaps="false"
         android:text="Crear Cuenta"
         android:textColor="#FFFFFF"
+        android:onClick="createUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
