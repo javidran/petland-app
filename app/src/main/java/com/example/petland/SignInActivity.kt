@@ -23,12 +23,17 @@ class SignInActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
     fun login(view: View) {
-        ParseUser.logInInBackground(editTextUsername.text.toString(), editTextPassword.text.toString()) { user, e ->
+        /*ParseUser.logInInBackground(editTextUsername.text.toString(), editTextPassword.text.toString()) { user, e ->
             if (user != null) {
                 Log.d("Login", "El usuario ha entrado correctamente")
             } else {
                 Log.d("Login", "No existe usuario")
             }
+        }*/
+        val intent = Intent(this, MenuActivity::class.java).apply {
         }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
+
 }
