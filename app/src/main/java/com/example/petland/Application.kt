@@ -14,7 +14,7 @@ class Application : Application() {
             .server("http://petland.sytes.net:1337/parse")
             .build()
         )
-        Log.d("petland", "parse server inicializado")
+        Log.d("petland", "Parse server inicializado")
     }
 
 }
