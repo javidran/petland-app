@@ -2,6 +2,7 @@ package com.example.petland
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -16,7 +17,6 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
-
     }
 
     fun signUp(view: View) {
@@ -25,30 +25,38 @@ class SignInActivity : AppCompatActivity() {
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
+
     fun login(view: View) {
-       val intent = Intent(this, MenuActivity::class.java).apply {
-       }
-
-        ParseUser.logInInBackground(editTextUsername.text.toString(), editTextPassword.text.toString()) { user, e ->
-            if (user != null) {
-                Log.d("Login", "El usuario ha entrado correctamente")
-               startActivity(intent)
-               overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            } else {
-                Log.d("Login", "No existe usuario")
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle("Usuario incorrecto")
-                builder.setMessage("No existe usuario o contraseña incorrecta")
-                builder.setNeutralButton("Cancel"){dialogInterface , which ->
-                    Toast.makeText(applicationContext,"",Toast.LENGTH_LONG).show()
+        val intent = Intent(this, MenuActivity::class.java).apply {
+        }
+        if (TextUtils.isEmpty(editTextUsername.getText())) {
+            editTextUsername.setError("Username necesario")
+        }
+        else if (TextUtils.isEmpty(editTextPassword.getText())) {
+            editTextPassword.setError("Contraseña necesaria")
+        }
+        else {
+            ParseUser.logInInBackground(
+                editTextUsername.text.toString(),
+                editTextPassword.text.toString()
+            ) { user, e ->
+                if (user != null) {
+                    Log.d("Login", "El usuario ha entrado correctamente")
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
-                val alertDialog: AlertDialog = builder.create()
-                alertDialog.show()
-
+                else {
+                    Log.d("Login", "No existe usuario")
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Usuario incorrecto")
+                    builder.setMessage("No existe usuario o contraseña incorrecta")
+                    builder.setNeutralButton("OK") { dialogInterface, which ->
+                        Toast.makeText(applicationContext, "", Toast.LENGTH_LONG).show()
+                    }
+                    val alertDialog: AlertDialog = builder.create()
+                    alertDialog.show()
                 }
-
             }
-
+        }
     }
-
 }
