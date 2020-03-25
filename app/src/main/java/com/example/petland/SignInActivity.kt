@@ -29,7 +29,10 @@ class SignInActivity : AppCompatActivity() {
     fun login(view: View) {
         val intent = Intent(this, MenuActivity::class.java).apply {
         }
-        if (TextUtils.isEmpty(editTextUsername.getText())) {
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+       /* if (TextUtils.isEmpty(editTextUsername.getText())) {
             editTextUsername.setError("Username necesario")
         }
         else if (TextUtils.isEmpty(editTextPassword.getText())) {
@@ -49,6 +52,7 @@ class SignInActivity : AppCompatActivity() {
                     Log.d("Login", "No existe usuario")
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle("Usuario incorrecto")
+                    e.printStackTrace()
                     builder.setMessage("No existe usuario o contraseña incorrecta")
                     builder.setNeutralButton("OK") { dialogInterface, which ->
                         Toast.makeText(applicationContext, "", Toast.LENGTH_LONG).show()
@@ -57,6 +61,6 @@ class SignInActivity : AppCompatActivity() {
                     alertDialog.show()
                 }
             }
-        }
+        }*/
     }
 }

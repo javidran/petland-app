@@ -7,14 +7,30 @@
     tools:contex=".MenuActivity">
 
     <Button
+        android:id="@+id/buttonEditProfile"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="228dp"
+        android:background="@drawable/buttom_without_corners"
+        android:backgroundTint="#00C4CC"
+        android:onClick="EditProfile"
+        android:text="Editar perfil"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent" />
+
+    <Button
         android:id="@+id/buttonCrearCuenta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="516dp"
         android:background="@drawable/buttom_without_corners"
         android:backgroundTint="#00C4CC"
-        android:textAllCaps="false"
         android:text="LogOut"
+        android:textAllCaps="false"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

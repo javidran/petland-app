@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity"/>
+        <activity android:name=".EditProfileActivity"/>
         <activity android:name=".MenuActivity">
 
         </activity>
