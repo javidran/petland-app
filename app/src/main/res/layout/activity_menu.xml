@@ -7,17 +7,19 @@
     tools:contex=".MenuActivity">
 
     <Button
-        android:id="@+id/buttonCrearCuenta"
+        android:id="@+id/buttonLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="340dp"
         android:background="@drawable/buttom_without_corners"
         android:backgroundTint="#00C4CC"
         android:textAllCaps="false"
-        android:text="LogOut"
+        android:text="logOut"
         android:textColor="#FFFFFF"
+        android:onClick="logOut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- LLamar a la funcion logOut declarada en MenuActivity usando onClick-->
