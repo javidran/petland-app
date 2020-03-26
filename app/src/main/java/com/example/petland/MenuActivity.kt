@@ -8,8 +8,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import android.view.View
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.parse.ParseObject
 import com.parse.ParseQuery

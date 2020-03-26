@@ -7,13 +7,28 @@
     tools:contex=".MenuActivity">
 
     <Button
+        android:id="@+id/buttonEditProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/buttom_without_corners"
+        android:backgroundTint="#00C4CC"
+        android:onClick="EditProfile"
+        android:text="Editar Perfil"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogOut" />
+
+    <Button
         android:id="@+id/buttonLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/buttom_without_corners"
         android:backgroundTint="#00C4CC"
-        android:text="LogOut"
         android:textAllCaps="false"
         android:text="logOut"
         android:textColor="#FFFFFF"
