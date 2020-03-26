@@ -11,7 +11,7 @@ class Application : Application() {
         Log.d("petland", "inicializando parse server")
         Parse.initialize(Parse.Configuration.Builder(this)
             .applicationId("petland")
-            .server("http://dran.sytes.net:1337/parse")
+            .server("http://petland.sytes.net:1337/parse")
             .build()
         )
         Log.d("petland", "Parse server inicializado")
