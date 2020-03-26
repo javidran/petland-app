@@ -53,9 +53,8 @@ class SignUpActivity : AppCompatActivity() {
         }
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-
-
     }
+
     fun createUser (view: View) {
         val user =   ParseUser()
         user.username = editTextUsername.text.toString()
@@ -65,9 +64,13 @@ class SignUpActivity : AppCompatActivity() {
         user.put("name", editTextName.text.toString())
         user.put ("birthday", date)
 
+        val intent = Intent(this, MenuActivity::class.java).apply {
+        }
+
         user.signUpInBackground { e ->
             if (e == null) {
                 Log.d("SignUp", "Usuario creado correctamente")
+                startActivity(intent)
             } else {
                 e.printStackTrace()
                 Log.d("SignUp", "No se ha podido crear el usuario")

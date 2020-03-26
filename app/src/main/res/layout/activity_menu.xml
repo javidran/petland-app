@@ -13,7 +13,6 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/buttom_without_corners"
         android:backgroundTint="#00C4CC"
-        android:text="LogOut"
         android:textAllCaps="false"
         android:text="logOut"
         android:textColor="#FFFFFF"
