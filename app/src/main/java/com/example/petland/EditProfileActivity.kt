@@ -1,6 +1,7 @@
 package com.example.petland
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Build
@@ -8,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.parse.ParseUser
@@ -23,7 +25,15 @@ class EditProfileActivity : AppCompatActivity(){
         setContentView(R.layout.activity_editprofile)
         val textViewBirthday: TextView = findViewById(R.id.editTextBirthday)
         val cal = Calendar.getInstance()
-
+        val user = ParseUser.getCurrentUser()
+        editTextUsername.setText(user.get("username").toString())
+        editTextEmail.setText(user.get("email").toString())
+        val formatofecha = "dd.MM.yyyy"
+        val sdf = SimpleDateFormat(formatofecha, Locale.US)
+        val dateb = sdf.format(user.get("birthday"))
+        date = user.get("birthday") as Date
+        editTextBirthday.setText(dateb.toString())
+        editTextName.setText(user.get("name").toString())
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
@@ -46,16 +56,24 @@ class EditProfileActivity : AppCompatActivity(){
 
     }
     fun edit (view: View) {
-        val user= ParseUser.getCurrentUser();
+        val user= ParseUser.getCurrentUser()
         if (user != null) {
             user.username = editTextUsername.text.toString()
-            user.setPassword(editTextPassword.text.toString())
             user.email = editTextEmail.text.toString()
             user.put("name", editTextName.text.toString())
-            user.put("birthday", date)
+              user.put("birthday", date)
+            user.save()
+            Log.d("log", "se ha editado correctamente el perfil")
+            Toast.makeText(this@EditProfileActivity, "Se ha actualizado el perfil correctamente", Toast.LENGTH_LONG).show()
         } else {
            Log.d("log", "No se ha hecho log in en la aplicacion")
         }
+    }
+    fun volver(view: View) {
+        val intent = Intent(this, MenuActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
 

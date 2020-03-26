@@ -18,6 +18,7 @@
         android:ems="10"
         android:textColorHint="#BBC1CE"
         android:hint="Username"
+        android:onClick="volver"
         android:textColor="#BDBDBD"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +132,7 @@
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/buttonCrearCuenta"
+        android:id="@+id/buttonGuardarCambios"
         android:layout_width="286dp"
         android:layout_height="57dp"
         android:layout_marginStart="50dp"
@@ -142,10 +143,27 @@
         android:text="Guardar Cambios"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
+        android:onClick="edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/buttonVolver"
+        android:layout_width="136dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/buttom_without_corners"
+        android:backgroundTint="#00C4CC"
+        android:text="Volver"
+        android:onClick="volver"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
     <Button

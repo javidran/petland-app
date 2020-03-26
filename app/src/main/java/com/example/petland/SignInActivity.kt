@@ -29,10 +29,9 @@ class SignInActivity : AppCompatActivity() {
     fun login(view: View) {
         val intent = Intent(this, MenuActivity::class.java).apply {
         }
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
-       /* if (TextUtils.isEmpty(editTextUsername.getText())) {
+
+       if (TextUtils.isEmpty(editTextUsername.getText())) {
             editTextUsername.setError("Username necesario")
         }
         else if (TextUtils.isEmpty(editTextPassword.getText())) {
@@ -61,6 +60,6 @@ class SignInActivity : AppCompatActivity() {
                     alertDialog.show()
                 }
             }
-        }*/
+        }
     }
 }
