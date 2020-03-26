@@ -46,6 +46,7 @@ class SignInActivity : AppCompatActivity() {
                     Log.d("Login", "El usuario ha entrado correctamente")
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    finish()
                 }
                 else {
                     Log.d("Login", "No existe usuario")
