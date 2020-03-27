@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#0277BD">
 
@@ -14,14 +17,11 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="76dp"
         android:layout_marginEnd="50dp"
-        android:adjustViewBounds="true"
         android:background="@drawable/edittext_without_corners"
-        android:cropToPadding="false"
         android:ems="10"
         android:hint="Username"
         android:inputType="textEmailAddress"
         android:padding="10dp"
-        android:scaleType="fitXY"
         android:textColor="#BDBDBD"
         android:textColorHint="#BBC1CE"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,6 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/edittext_without_corners"
-        android:cropToPadding="false"
         android:ems="10"
         android:hint="Correo electrónico"
         android:inputType="textEmailAddress"
@@ -86,7 +85,6 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/edittext_without_corners"
         android:ems="10"
-        android:focusable="false"
         android:textColorHint="#BBC1CE"
         android:hint="Fecha de nacimiento"
         android:inputType="text|date"
@@ -97,7 +95,6 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextName"
         android:padding="10dp"
         tools:ignore="HardcodedText"
-        android:scaleType="fitXY"
         android:cropToPadding="false"
         />
 
@@ -108,12 +105,10 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="50dp"
-        android:adjustViewBounds="true"
         android:background="@drawable/buttom_without_corners"
         android:backgroundTint="#00C4CC"
         android:cropToPadding="false"
         android:onClick="edit"
-        android:scaleType="fitXY"
         android:text="Guardar Cambios"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -130,12 +125,10 @@
         android:layout_width="83dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:adjustViewBounds="true"
         android:background="@drawable/buttom_without_corners"
         android:backgroundTint="#00C4CC"
         android:cropToPadding="false"
         android:onClick="volver"
-        android:scaleType="fitXY"
         android:text="Volver"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -153,9 +146,7 @@
         android:adjustViewBounds="true"
         android:background="@drawable/buttom_without_corners"
         android:backgroundTint="#00C4CC"
-        android:cropToPadding="false"
         android:onClick="changepassword"
-        android:scaleType="fitXY"
         android:text="Cambiar contraseña"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -165,3 +156,4 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextBirthday"
         tools:ignore="HardcodedText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
