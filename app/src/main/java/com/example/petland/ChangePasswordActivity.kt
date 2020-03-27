@@ -18,6 +18,12 @@ class ChangePasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_changepassword)
     }
+    fun volveredit(view: View) {
+        val intent = Intent(this,EditProfileActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
 
     fun changePassword(view: View) {
         val user = ParseUser.getCurrentUser()
