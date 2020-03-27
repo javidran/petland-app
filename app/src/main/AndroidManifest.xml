@@ -23,6 +23,7 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity"/>
         <activity android:name=".EditProfileActivity"/>
+        <activity android:name=".ChangePasswordActivity"/>
         <activity android:name=".MenuActivity">
 
         </activity>

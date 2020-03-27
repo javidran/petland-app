@@ -46,12 +46,14 @@ class EditProfileActivity : AppCompatActivity(){
             }
 
         textViewBirthday.setOnClickListener {
-            DatePickerDialog(
+            val dialog = DatePickerDialog(
                 this@EditProfileActivity, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
+            )
+            dialog.datePicker.maxDate = Date().time
+            dialog.show()
         }
 
     }
@@ -74,6 +76,12 @@ class EditProfileActivity : AppCompatActivity(){
         }
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+    fun changepassword(view: View) {
+        val intent = Intent(this, ChangePasswordActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
 
