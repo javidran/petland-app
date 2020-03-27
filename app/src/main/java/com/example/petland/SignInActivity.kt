@@ -5,9 +5,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.parse.Parse
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
 
@@ -26,11 +25,20 @@ class SignInActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
+    fun progress (start:Boolean){
+        if (start) {
+            buttonContinuar.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+        }
+        else {
+            buttonContinuar.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
+        }
+    }
+
     fun login(view: View) {
         val intent = Intent(this, MenuActivity::class.java).apply {
         }
-
-
        if (TextUtils.isEmpty(editTextUsername.getText())) {
             editTextUsername.setError("Username necesario")
         }
@@ -38,6 +46,7 @@ class SignInActivity : AppCompatActivity() {
             editTextPassword.setError("Contraseña necesaria")
         }
         else {
+           progress(true)
             ParseUser.logInInBackground(
                 editTextUsername.text.toString(),
                 editTextPassword.text.toString()
@@ -48,16 +57,10 @@ class SignInActivity : AppCompatActivity() {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
                 else {
+                    progress(false)
                     Log.d("Login", "No existe usuario")
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Usuario incorrecto")
-                    e.printStackTrace()
-                    builder.setMessage("No existe usuario o contraseña incorrecta")
-                    builder.setNeutralButton("OK") { dialogInterface, which ->
-                        Toast.makeText(applicationContext, "", Toast.LENGTH_LONG).show()
-                    }
-                    val alertDialog: AlertDialog = builder.create()
-                    alertDialog.show()
+                    var error = ParseError()
+                    error.escribir(this, e)
                 }
             }
         }
