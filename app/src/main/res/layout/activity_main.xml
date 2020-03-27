@@ -40,7 +40,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/welcomeTitle"
         android:layout_width="287dp"
         android:layout_height="116dp"
         android:layout_marginBottom="8dp"
@@ -49,13 +49,13 @@
         PetLand"
         android:textColor="#FFFFFF"
         android:textSize="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/welcomeSubtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/welcomeSubtitle"
         android:layout_width="288dp"
         android:layout_height="56dp"
         android:layout_marginBottom="24dp"
@@ -78,7 +78,7 @@
         android:adjustViewBounds="true"
         android:cropToPadding="false"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/welcomeTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
