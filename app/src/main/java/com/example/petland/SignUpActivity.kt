@@ -57,6 +57,16 @@ class SignUpActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
+    private fun progress (start:Boolean){
+        if (start) {
+            buttonCrearCuenta.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+        }
+        else {
+            buttonCrearCuenta.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
+        }
+    }
 
     fun createUser(view: View) {
         //Comprobacion de campos correcta
@@ -81,7 +91,9 @@ class SignUpActivity : AppCompatActivity() {
         else if (editTextPassword.getText().toString() != editTextConfirmPassword.getText().toString()) {
             Toast.makeText(this@SignUpActivity, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show()
         }
-        else { //creacion del user
+        else {
+            progress(true)
+            //creacion del user
             val user = ParseUser()
             user.username = editTextUsername.text.toString()
             user.setPassword(editTextPassword.text.toString())
@@ -98,9 +110,12 @@ class SignUpActivity : AppCompatActivity() {
                     startActivity(intent)
                 } else {
                     e.printStackTrace()
+                    var error = ParseError()
+                    error.escribir(this, e)
                     Log.d("SignUp", "No se ha podido crear el usuario")
                 }
             }
+            progress(false)
         }
     }
 }
