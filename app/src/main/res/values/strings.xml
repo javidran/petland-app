@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">PetLand</string>
     <string name="passwordsDontMatch">Passwords don\'t match</string>
@@ -10,4 +11,27 @@
     <string name="emailNeeded">Email needed</string>
     <string name="nameNeeded">Name needed</string>
     <string name="birthdayNeeded">Birthday needed</string>
+    <string name="confirmPassword">Confirm password</string>
+    <string name="password">Password</string>
+    <string name="savePassword">Save password</string>
+    <string name="goBack">Return</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="birthday">Birthday</string>
+    <string name="saveChanges">Save changes</string>
+    <string name="changePassword">Change password</string>
+    <string name="registerInPetland">Sign up in Petland</string>
+    <string name="alreadyRegistered">I already registered</string>
+    <string name="welcome">Welcome to Petland</string>
+    <string name="welcomeDescription">The best pet app created by pet lovers</string>
+    <string name="editProfile">Edit profile</string>
+    <string name="logout">Log out</string>
+    <string name="createPet">Create pet</string>
+    <string name="petList">Pet list</string>
+    <string name="signIn">Sign in</string>
+    <string name="signUp">Sign up</string>
+    <string name="continueNext">Continue</string>
+    <string name="createAccount">Create account</string>
+    <string name="writePetName">Write your pet\'s name</string>
 </resources>
