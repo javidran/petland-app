@@ -16,32 +16,28 @@ import java.util.*
 
 
 class MenuActivity : AppCompatActivity(){
-   //  var Toolbar = toolbar
+    private val TAG = "Petland Dashboard"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
-       // Toolbar = findViewById(R.id.toolbar)
-        //setSupportActionBar(Toolbar)
 
         val buttonCreatePet : Button = findViewById(R.id.buttonCrearPet)
-
         buttonCreatePet.setOnClickListener { createPet()}
-
         updateList()
     }
 
-    fun logOut(view: View){//Paso view porque se llama desde el botno (en acivity_menu.xml)
+    fun logOut(view: View){
+        //Paso view porque se llama desde el boton (en acivity_menu.xml)
         val currentUser = ParseUser.getCurrentUser()
         if (currentUser != null) {
-            Log.d("LogOut","Log Out Correcto")//Mensaje en logcat
+            Log.d(TAG,getString(R.string.loggedOut)) //Mensaje en logcat
             ParseUser.logOut()
-            Toast.makeText(this,"Logged out",Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java).apply {//Para pasar de esta vista, de nuevo al SignIn
+            Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
             }
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-            //val currentUser = ParseUser.getCurrentUser() // this will now be null
         }
     }
 
@@ -65,7 +61,7 @@ class MenuActivity : AppCompatActivity(){
     }
 
     private fun updateList() {
-        var list = findViewById<TextView>(R.id.petList)
+        val list = findViewById<TextView>(R.id.petList)
         list.text = ""
 
         val query = ParseQuery.getQuery<ParseObject>("Pet")
@@ -77,13 +73,12 @@ class MenuActivity : AppCompatActivity(){
                     list.text = (list.text as String).plus("- ".plus(el.objectId).plus(" : ").plus(el.get("name")).plus("\n"))
                 }
             } else {
-                Log.d("MenuActivity", "PetQuery not completed")
+                Log.d(TAG, "PetQuery not completed")
             }
         }
-
-
     }
-    fun EditProfile(view: View) {
+
+    fun editProfile(view: View) {
         val intent = Intent(this, EditProfileActivity::class.java).apply {
         }
         startActivity(intent)

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="emailNeeded">Email necessari</string>
+    <string name="nameNeeded">Nom necessari</string>
+    <string name="birthdayNeeded">Aniversari necessari</string>
+    <string name="passwordNeeded">Contrasenya necessària</string>
+    <string name="usernameNeeded">Nom d\'usuari necessari</string>
+    <string name="loggedOut">Sesió tancada correctament</string>
+    <string name="profileEditedCorrectly">Perfil actualitzat correctament</string>
+    <string name="userNotLogged">No existeix cap sessió d\'usuari activa</string>
+    <string name="passwordChanged">Contrasenya actualitzada correctament</string>
+    <string name="passwordsDontMatch">Les contrasenyes no coincideixen</string>
+</resources>

@@ -1,4 +1,13 @@
 <resources>
-    <string name="app_name">PetLand</string>
-    <string name="Bienvenida">Welcome Front-End Team !</string>
+    <string name="app_name" translatable="false">PetLand</string>
+    <string name="passwordsDontMatch">Passwords don\'t match</string>
+    <string name="passwordChanged">Password updated correctly</string>
+    <string name="userNotLogged">Active user session isn\'t present</string>
+    <string name="profileEditedCorrectly">Profile updated correctly</string>
+    <string name="loggedOut">Correctly logged out</string>
+    <string name="usernameNeeded">Username needed</string>
+    <string name="passwordNeeded">Password needed</string>
+    <string name="emailNeeded">Email needed</string>
+    <string name="nameNeeded">Name needed</string>
+    <string name="birthdayNeeded">Birthday needed</string>
 </resources>

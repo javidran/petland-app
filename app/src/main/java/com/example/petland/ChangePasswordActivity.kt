@@ -8,17 +8,17 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.activity_changepassword.editTextConfirmPassword
-import kotlinx.android.synthetic.main.activity_changepassword.editTextPassword
+import kotlinx.android.synthetic.main.activity_changepassword.*
 
 
 class ChangePasswordActivity : AppCompatActivity() {
+    private val TAG = "Petland ChangePassword"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_changepassword)
     }
-    fun volveredit(view: View) {
+    fun returnHome(view: View) {
         val intent = Intent(this,EditProfileActivity::class.java).apply {
         }
         startActivity(intent)
@@ -28,14 +28,14 @@ class ChangePasswordActivity : AppCompatActivity() {
     fun changePassword(view: View) {
         val user = ParseUser.getCurrentUser()
         if (user != null) {
-            if (TextUtils.isEmpty(editTextConfirmPassword.getText())) {
-                editTextConfirmPassword.setError("Contraseña necesaria")
-            } else if (editTextPassword.getText().toString() != editTextConfirmPassword.getText()
+            if (TextUtils.isEmpty(editTextConfirmPassword.text)) {
+                editTextConfirmPassword.error = getString(R.string.passwordNeeded)
+            } else if (editTextPassword.text.toString() != editTextConfirmPassword.text
                     .toString()
             ) {
                 Toast.makeText(
                         this@ChangePasswordActivity,
-                        "Las contraseñas no coinciden",
+                        getString(R.string.passwordsDontMatch),
                         Toast.LENGTH_LONG
                     )
                     .show()
@@ -48,12 +48,12 @@ class ChangePasswordActivity : AppCompatActivity() {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 Toast.makeText(
                     this@ChangePasswordActivity,
-                    "Contraseña cambiada correctamente",
+                    getString(R.string.passwordChanged),
                     Toast.LENGTH_LONG
                 ).show()
             }
         } else {
-            Log.d("log", "No se ha hecho log in en la aplicacion")
+            Log.d(TAG, getString(R.string.userNotLogged))
         }
 
     }

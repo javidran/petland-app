@@ -13,7 +13,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/buttom_without_corners"
         android:backgroundTint="#00C4CC"
-        android:onClick="EditProfile"
+        android:onClick="editProfile"
         android:text="Editar Perfil"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"

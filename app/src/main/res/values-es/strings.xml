@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="passwordsDontMatch">Las contraseñas no coinciden</string>
+    <string name="passwordChanged">Contraseña actualizada correctamente</string>
+    <string name="userNotLogged">No existe ninguna sesión de usuario activa</string>
+    <string name="profileEditedCorrectly">Perfil actualizado correctamente</string>
+    <string name="loggedOut">Sesión cerrada correctamente</string>
+    <string name="usernameNeeded">Nombre de usuario necesario</string>
+    <string name="passwordNeeded">Contraseña necesaria</string>
+    <string name="emailNeeded">Email necesario</string>
+    <string name="nameNeeded">Nombre necesario</string>
+    <string name="birthdayNeeded">Cumpleaños necesario</string>
+</resources>
