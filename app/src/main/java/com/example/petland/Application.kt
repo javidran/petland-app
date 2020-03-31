@@ -5,16 +5,20 @@ import android.util.Log
 import com.parse.Parse
 
 class Application : Application() {
+    private val TAG = "Petland Application"
+
+    private val appId = "petland"
+    private val parseUrl = "http://petland.sytes.net:1337/parse"
 
     override fun onCreate() {
         super.onCreate()
-        Log.d("petland", "inicializando parse server")
+        Log.d(TAG, "Initializing Parse Server")
         Parse.initialize(Parse.Configuration.Builder(this)
-            .applicationId("petland")
-            .server("http://petland.sytes.net:1337/parse")
+            .applicationId(appId)
+            .server(parseUrl)
             .build()
         )
-        Log.d("petland", "Parse server inicializado")
+        Log.d(TAG, "Parse Server Initialized")
     }
 
 }

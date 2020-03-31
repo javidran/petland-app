@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="emailNeeded">Email necessari</string>
+    <string name="nameNeeded">Nom necessari</string>
+    <string name="birthdayNeeded">Aniversari necessari</string>
+    <string name="passwordNeeded">Contrasenya necessària</string>
+    <string name="usernameNeeded">Nom d\'usuari necessari</string>
+    <string name="loggedOut">Sesió tancada correctament</string>
+    <string name="profileEditedCorrectly">Perfil actualitzat correctament</string>
+    <string name="userNotLogged">No existeix cap sessió d\'usuari activa</string>
+    <string name="passwordChanged">Contrasenya actualitzada correctament</string>
+    <string name="passwordsDontMatch">Les contrasenyes no coincideixen</string>
+    <string name="savePassword">Guardar contrasenya</string>
+    <string name="confirmPassword">Confirmar contrasenya</string>
+    <string name="password">Contrasenya</string>
+    <string name="goBack">Retorna</string>
+    <string name="username">Nom d\'usuari</string>
+    <string name="email">Correu electrònic</string>
+    <string name="name">Nom</string>
+    <string name="birthday">Data de naixement</string>
+    <string name="saveChanges">Guarda canvis</string>
+    <string name="changePassword">Canvia contrasenya</string>
+    <string name="registerInPetland">Registrar-me en Petland</string>
+    <string name="alreadyRegistered">Ja estic enregistrat</string>
+    <string name="welcome">Benvingut a Petland</string>
+    <string name="welcomeDescription">La millor aplicació per mascotes creada per amants de les mascotes</string>
+    <string name="editProfile">Editar perfil</string>
+    <string name="logout">Tanca sessió</string>
+    <string name="createPet">Crear mascota</string>
+    <string name="petList">Llista de mascotes</string>
+    <string name="writePetName">Escriu el nom de la teva mascota</string>
+    <string name="signIn">Inicia sessió</string>
+    <string name="signUp">Registrar usuari</string>
+    <string name="continueNext">Continua</string>
+    <string name="createAccount">Crea compte</string>
+</resources>

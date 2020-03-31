@@ -2,19 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:contex=".MenuActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Button
         android:id="@+id/buttonEditProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/buttom_without_corners"
+        android:background="@drawable/button_without_corners"
         android:backgroundTint="#00C4CC"
-        android:onClick="EditProfile"
-        android:text="Editar Perfil"
+        android:onClick="editProfile"
+        android:text="@string/editProfile"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,10 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/buttom_without_corners"
+        android:background="@drawable/button_without_corners"
         android:backgroundTint="#00C4CC"
         android:textAllCaps="false"
-        android:text="logOut"
+        android:text="@string/logout"
         android:textColor="#FFFFFF"
         android:onClick="logOut"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,9 +40,9 @@
         android:id="@+id/buttonCrearPet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/buttom_without_corners"
+        android:background="@drawable/button_without_corners"
         android:backgroundTint="#00C4CC"
-        android:text="Crear Mascota"
+        android:text="@string/createPet"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -72,9 +70,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
-                android:text="Lista de mascotas"
-                android:textAlignment="textStart"
-                tools:layout_editor_absoluteY="52dp" />
+                android:text="@string/petList"
+                android:textAlignment="textStart"/>
         </LinearLayout>
     </ScrollView>
 
@@ -84,11 +81,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:ems="10"
-        android:hint="Escribe el nombre de la mascota"
+        android:hint="@string/writePetName"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/buttonCrearPet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <!-- LLamar a la funcion logOut declarada en MenuActivity usando onClick-->

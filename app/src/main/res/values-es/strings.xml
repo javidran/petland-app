@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="passwordsDontMatch">Las contraseñas no coinciden</string>
+    <string name="passwordChanged">Contraseña actualizada correctamente</string>
+    <string name="userNotLogged">No existe ninguna sesión de usuario activa</string>
+    <string name="profileEditedCorrectly">Perfil actualizado correctamente</string>
+    <string name="loggedOut">Sesión cerrada correctamente</string>
+    <string name="usernameNeeded">Nombre de usuario necesario</string>
+    <string name="passwordNeeded">Contraseña necesaria</string>
+    <string name="emailNeeded">Email necesario</string>
+    <string name="nameNeeded">Nombre necesario</string>
+    <string name="birthdayNeeded">Cumpleaños necesario</string>
+    <string name="savePassword">Guardar contraseña</string>
+    <string name="confirmPassword">Confirmar contraseña</string>
+    <string name="password">Contraseña</string>
+    <string name="goBack">Volver</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="email">Correo electrónico</string>
+    <string name="name">Nombre</string>
+    <string name="birthday">Fecha de nacimiento</string>
+    <string name="saveChanges">Guardar cambios</string>
+    <string name="changePassword">Cambiar contraseña</string>
+    <string name="registerInPetland">Registrarme en PetLand</string>
+    <string name="alreadyRegistered">Ya estoy registrado</string>
+    <string name="welcome">Bienvenido a Petland</string>
+    <string name="welcomeDescription">La mejor aplicación para mascotas creada por amantes de las mascotas</string>
+    <string name="editProfile">Editar perfil</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="createPet">Crear mascota</string>
+    <string name="petList">Lista de mascotas</string>
+    <string name="writePetName">Escribe el nombre de tu mascota</string>
+    <string name="signIn">Iniciar sesión</string>
+    <string name="signUp">Registar usuario</string>
+    <string name="continueNext">Continuar</string>
+    <string name="createAccount">Crear cuenta</string>
+</resources>

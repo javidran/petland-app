@@ -6,12 +6,12 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.parse.Parse
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
 
 
 class SignInActivity : AppCompatActivity() {
+    private val TAG = "Petland SignIn"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,29 +39,31 @@ class SignInActivity : AppCompatActivity() {
     fun login(view: View) {
         val intent = Intent(this, MenuActivity::class.java).apply {
         }
-       if (TextUtils.isEmpty(editTextUsername.getText())) {
-            editTextUsername.setError("Username necesario")
-        }
-        else if (TextUtils.isEmpty(editTextPassword.getText())) {
-            editTextPassword.setError("Contraseña necesaria")
-        }
-        else {
-           progress(true)
-            ParseUser.logInInBackground(
-                editTextUsername.text.toString(),
-                editTextPassword.text.toString()
-            ) { user, e ->
-                if (user != null) {
-                    Log.d("Login", "El usuario ha entrado correctamente")
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                    finish()
-                }
-                else {
-                    progress(false)
-                    Log.d("Login", "No existe usuario")
-                    var error = ParseError()
-                    error.escribir(this, e)
+        when {
+            TextUtils.isEmpty(editTextUsername.text) -> {
+                editTextUsername.error = getString(R.string.usernameNeeded)
+            }
+            TextUtils.isEmpty(editTextPassword.text) -> {
+                editTextPassword.error = getString(R.string.passwordNeeded)
+            }
+            else -> {
+                progress(true)
+                ParseUser.logInInBackground(
+                    editTextUsername.text.toString(),
+                    editTextPassword.text.toString()
+                ) { user, e ->
+                    if (user != null) {
+                        Log.d(TAG, "User logged in correctly.")
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        finish()
+                    }
+                    else {
+                        progress(false)
+                        Log.d(TAG, "User does not exist.")
+                        val error = ParseError()
+                        error.writeParseError(this, e)
+                    }
                 }
             }
         }
