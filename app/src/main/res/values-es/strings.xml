@@ -33,4 +33,8 @@
     <string name="signUp">Registar usuario</string>
     <string name="continueNext">Continuar</string>
     <string name="createAccount">Crear cuenta</string>
+    <string name="createFirstPet">Añadir mi primera mascota</string>
+    <string name="takeCareOfExistingPet">Cuidar una mascota</string>
+    <string name="timeToMakeAPetDescriprtion">Es el momento de añadir una mascota a petland</string>
+    <string name="timeToMakeAPetSubtitle">Ahora puedes añadir tu mascota o ser invitado a cuidar una</string>
 </resources>

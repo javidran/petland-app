@@ -34,4 +34,8 @@
     <string name="continueNext">Continue</string>
     <string name="createAccount">Create account</string>
     <string name="writePetName">Write your pet\'s name</string>
+    <string name="createFirstPet">Add my first pet</string>
+    <string name="takeCareOfExistingPet">Take care of a pet</string>
+    <string name="timeToMakeAPetDescriprtion">It\'s time to add a pet to Petland</string>
+    <string name="timeToMakeAPetSubtitle">You can add a pet you own or get invited to take care of an existing pet</string>
 </resources>
