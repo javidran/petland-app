@@ -15,7 +15,6 @@ import java.util.*
 
 class EditProfileActivity : AppCompatActivity(){
     private val TAG = "Petland EditProfile"
-
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
 
