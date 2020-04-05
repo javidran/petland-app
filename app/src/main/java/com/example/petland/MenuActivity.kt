@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.parse.ParseCloud
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
@@ -33,6 +34,17 @@ class MenuActivity : AppCompatActivity(){
         if (currentUser != null) {
             Log.d(TAG,getString(R.string.loggedOut)) //Mensaje en logcat
             ParseUser.logOut()
+            val params =
+                HashMap<String, String?>()
+            params["userId"] = currentUser.objectId
+            ParseCloud.callFunctionInBackground<Float>(
+                "deleteUserWithId",
+                params
+            ) { _, e ->
+                if (e == null) { // success
+                    Log.d(TAG, "User correctly deleted!")
+                }
+            }
             Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
             }
