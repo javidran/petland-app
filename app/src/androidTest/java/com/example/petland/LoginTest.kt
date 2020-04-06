@@ -35,7 +35,7 @@ class LoginTest {
 
     private fun loginWithTestUser() {
         onView(withId(R.id.buttonSignIn)).perform(click())
-        onView(withId(R.id.editTextUsername)).perform(typeText(testUser))
+        onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
         onView(withId(R.id.buttonContinuar)).perform(click())
         Thread.sleep(500)
