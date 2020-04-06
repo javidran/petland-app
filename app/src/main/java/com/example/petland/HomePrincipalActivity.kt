@@ -3,6 +3,7 @@ package com.example.petland
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
@@ -37,6 +38,10 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -64,10 +69,13 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
             R.id.nav_logout -> {
                 val currentUser = ParseUser.getCurrentUser()
                 if (currentUser != null) {
-                    Log.d(TAG,getString(R.string.loggedOut)) //Mensaje en logcat
+                    Log.d(TAG, getString(R.string.loggedOut)) //Mensaje en logcat
                     ParseUser.logOut()
                     Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
+                    val intent = Intent(
+                        this,
+                        MainActivity::class.java
+                    ).apply { //Para pasar de esta vista, de nuevo al SignIn
                     }
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -77,5 +85,18 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+        override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+            R.id.action_add -> {
+                // User chose the "Print" item
+                Toast.makeText(this,"add action",Toast.LENGTH_LONG).show()
+                true
+            }
 
-}
+            else -> {
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
