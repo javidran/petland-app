@@ -44,38 +44,38 @@ class MenuActivity : AppCompatActivity(){
 
 
     private fun createPet() {
-        val currentUser = ParseUser.getCurrentUser()
-        val textPetName = findViewById<EditText>(R.id.editNombrePet)
+            val currentUser = ParseUser.getCurrentUser()
+            val textPetName = findViewById<EditText>(R.id.editNombrePet)
 
-        val pet = ParseObject("Pet")
-        pet.put("name", textPetName.text.toString())
-        pet.put("birthday", Calendar.getInstance().time)
-        pet.put("chip", 123456)
-        pet.put("owner", currentUser)
-        val relation = pet.getRelation<ParseUser>("caregivers")
-        relation.add(currentUser)
-        pet.save()
+            val pet = ParseObject("Pet")
+            pet.put("name", textPetName.text.toString())
+            pet.put("birthday", Calendar.getInstance().time)
+            pet.put("chip", 123456)
+            pet.put("owner", currentUser)
+            val relation = pet.getRelation<ParseUser>("caregivers")
+            relation.add(currentUser)
+            pet.save()
 
-        textPetName.text.clear()
-        updateList()
-    }
-
-    private fun updateList() {
-        val list = findViewById<TextView>(R.id.petList)
-        list.text = ""
-
-        val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.whereEqualTo("owner", ParseUser.getCurrentUser())
-
-        query.findInBackground { result, e ->
-            if (e == null) {
-                for(el in result) {
-                    list.text = (list.text as String).plus("- ".plus(el.objectId).plus(" : ").plus(el.get("name")).plus("\n"))
-                }
-            } else {
-                Log.d(TAG, "PetQuery not completed")
-            }
+            textPetName.text.clear()
+            updateList()
         }
+
+        private fun updateList() {
+            val list = findViewById<TextView>(R.id.petList)
+            list.text = ""
+
+            val query = ParseQuery.getQuery<ParseObject>("Pet")
+            query.whereEqualTo("owner", ParseUser.getCurrentUser())
+
+            query.findInBackground { result, e ->
+                if (e == null) {
+                    for(el in result) {
+                        list.text = (list.text as String).plus("- ".plus(el.objectId).plus(" : ").plus(el.get("name")).plus("\n"))
+                    }
+                } else {
+                    Log.d(TAG, "PetQuery not completed")
+                }
+            }
     }
 
     fun editProfile(view: View) {
@@ -84,4 +84,14 @@ class MenuActivity : AppCompatActivity(){
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
+
+
+    // Test //////////////////////////////////////////////////////////
+    fun goToCreatePet(view: View) {
+        val intent = Intent(this, GetFirstPetActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
+    // End Of Test //////////////////////////////////////////////////////////
 }

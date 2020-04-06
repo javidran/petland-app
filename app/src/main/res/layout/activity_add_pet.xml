@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_grey_50">
+
+        <TextView
+            android:id="@+id/instructionsToCreateAPet"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="600dp"
+            android:gravity="center"
+            android:text="@string/instructionstocreateapetdescriprtion"
+            android:textColor="@color/md_grey_700"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/temporalAquiVaLaFoto"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="448dp"
+            android:gravity="center"
+            android:text="@string/temporalAquiVaLaFoto"
+            android:textColor="@color/md_grey_700"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.558"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextPetname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/edittext_without_corners"
+            android:ems="10"
+            android:hint="@string/petName"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textColor="@color/md_grey_400"
+            android:textColorHint="#BBC1CE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/temporalAquiVaLaFoto" />
+
+        <EditText
+            android:id="@+id/editTextBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="50dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/edittext_without_corners"
+            android:cropToPadding="false"
+            android:ems="10"
+            android:hint="@string/petsbirthday"
+            android:inputType="text|date"
+            android:padding="10dp"
+            android:textColor="@color/md_grey_400"
+            android:textColorHint="#BBC1CE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPetname" />
+
+
+        <EditText
+            android:id="@+id/editTextChip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="50dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/edittext_without_corners"
+            android:ems="10"
+            android:hint="@string/chip"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:textColor="@color/md_grey_400"
+            android:textColorHint="#BBC1CE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextBirthday" />
+
+
+        <Button
+            android:id="@+id/buttonCrearMascota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/button_without_corners"
+            android:backgroundTint="#7532E7"
+            android:cropToPadding="false"
+            android:text="@string/createNewPet"
+            android:textSize="16dp"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:onClick="createPet"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextChip"
+            app:layout_constraintVertical_bias="0.278" />
+
+        <Button
+            android:id="@+id/buttonVolver"
+            android:layout_width="83dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/button_without_corners"
+            android:backgroundTint="#00C4CC"
+            android:cropToPadding="false"
+            android:onClick="volver"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonCrearMascota"
+            app:layout_constraintVertical_bias="0.72" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -37,6 +37,8 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+
     <TextView
         android:id="@+id/welcomeTitle"
         android:layout_width="287dp"

@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/inverted_main_background">
 
-    <!--android:onClick="signUp"-->
-
-    <!--android:onClick="acceptInvitation"-->
-
     <Button
         android:id="@+id/buttonCreateFirstPet"
         android:layout_width="250dp"
@@ -21,6 +17,7 @@
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
+        android:onClick="createFirstPet"
         app:layout_constraintBottom_toTopOf="@+id/buttonTakeCareOfPet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -36,6 +33,7 @@
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
+        android:onClick="acceptInvitation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -56,13 +54,13 @@
 
     <TextView
         android:id="@+id/welcomeSubtitle"
-        android:layout_width="288dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="88dp"
         android:gravity="center"
         android:text="@string/timeToMakeAPetSubtitle"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonCreateFirstPet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"

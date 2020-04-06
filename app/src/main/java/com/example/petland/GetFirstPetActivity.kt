@@ -11,14 +11,20 @@ class GetFirstPetActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_get_first_pet)
     }
-    /*
+
     fun createFirstPet(view: View) {
-        val intent = Intent(this, createFirstPetActivity::class.java).apply {
+        val intent = Intent(this, AddPetActivity::class.java).apply {
         }
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
-     */
+
+    fun acceptInvitation(view: View) {
+        val intent = Intent(this, MenuActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
 
 }
