@@ -73,10 +73,7 @@ class AddPetActivity : AppCompatActivity() {
 
 
     fun volver(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
-        }
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        finish()
     }
 
 }

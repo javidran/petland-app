@@ -1,4 +1,4 @@
-package com.example.petland
+package com.example.petland.user_profile
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.R
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_editprofile.*
 import java.text.SimpleDateFormat
@@ -61,19 +62,21 @@ class EditProfileActivity : AppCompatActivity(){
             user.save()
             Log.d(TAG, getString(R.string.profileEditedCorrectly))
             Toast.makeText(this@EditProfileActivity, getString(R.string.profileEditedCorrectly), Toast.LENGTH_LONG).show()
+            finish()
         } else {
            Log.d(TAG, getString(R.string.userNotLogged))
         }
     }
     fun volver(view: View) {
-        val intent = Intent(this, UserProfileActivity::class.java).apply {}
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        finish()
     }
     fun changepassword(view: View) {
         val intent = Intent(this, ChangePasswordActivity::class.java).apply {}
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
 

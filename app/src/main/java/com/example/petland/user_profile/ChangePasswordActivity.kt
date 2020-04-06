@@ -1,4 +1,4 @@
-package com.example.petland
+package com.example.petland.user_profile
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.R
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_changepassword.*
 
@@ -19,10 +20,14 @@ class ChangePasswordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_changepassword)
     }
     fun returnHome(view: View) {
-        val intent = Intent(this,EditProfileActivity::class.java).apply {
+        val intent = Intent(this,
+            EditProfileActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        overridePendingTransition(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
     }
 
     fun changePassword(view: View) {
@@ -45,7 +50,10 @@ class ChangePasswordActivity : AppCompatActivity() {
                 val intent = Intent(this, EditProfileActivity::class.java).apply {
                 }
                 startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                overridePendingTransition(
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
                 Toast.makeText(
                     this@ChangePasswordActivity,
                     getString(R.string.passwordChanged),

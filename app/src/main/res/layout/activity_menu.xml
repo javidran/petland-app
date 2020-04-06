@@ -6,22 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Button
-        android:id="@+id/buttonEditProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/button_without_corners"
-        android:backgroundTint="#00C4CC"
-        android:onClick="editProfile"
-        android:text="@string/editProfile"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogOut" />
-
-    <Button
         android:id="@+id/buttonProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +20,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonEditProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogOut" />
+
 
     <Button
         android:id="@+id/buttonMakePet"
@@ -52,9 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonEditProfile" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/buttonProfile" />
 
     <Button
         android:id="@+id/buttonLogOut"

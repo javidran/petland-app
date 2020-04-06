@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserProfileActivity">
+    tools:context=".user_profile.UserProfileActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/profileImage"
             app:layout_constraintStart_toEndOf="@+id/profileImage"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
+            app:srcCompat="@drawable/icon_edit" />
 
         <TableLayout
             android:id="@+id/tableLayout3"
@@ -144,7 +144,7 @@
         </TableLayout>
 
         <Button
-            android:id="@+id/editProfile"
+            android:id="@+id/editProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
@@ -153,6 +153,7 @@
             android:text="@string/editProfile"
             android:textAlignment="center"
             android:textAllCaps="false"
+            android:textColor="?android:attr/textColorSecondary"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +170,7 @@
             app:layout_constraintEnd_toStartOf="@+id/dosPuntos5"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editProfile" />
+            app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
 
         <TextView
             android:id="@+id/dosPuntos5"
@@ -182,6 +183,37 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/petList" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/petList"
+            tools:itemCount="2"
+            tools:listitem="@layout/user_profile_pet_element">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/addPetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/transparent_button_with_borders"
+            android:shadowColor="#00FFFFFF"
+            android:text="@string/createPet"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
