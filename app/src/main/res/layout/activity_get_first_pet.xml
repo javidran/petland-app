@@ -1,86 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/main_background"
-    >
+    android:background="@drawable/inverted_main_background">
 
     <Button
-        android:id="@+id/buttonRegister"
+        android:id="@+id/buttonCreateFirstPet"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_without_corners"
-        android:backgroundTint="#00C4CC"
-        android:onClick="signUp"
-        android:text="@string/registerInPetland"
+        android:backgroundTint="#7532E7"
+        android:text="@string/createFirstPet"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSignIn"
+        android:textSize="16sp"
+        android:onClick="createFirstPet"
+        app:layout_constraintBottom_toTopOf="@+id/buttonTakeCareOfPet"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/buttonSignIn"
+        android:id="@+id/buttonTakeCareOfPet"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/button_without_corners"
-        android:backgroundTint="#6601EB"
-        android:onClick="signIn"
-        android:text="@string/alreadyRegistered"
+        android:layout_marginBottom="108dp"
+        android:background="@drawable/button_with_borders"
+        android:text="@string/takeCareOfExistingPet"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:onClick="acceptInvitation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-
     <TextView
         android:id="@+id/welcomeTitle"
         android:layout_width="287dp"
-        android:layout_height="116dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
         android:gravity="center"
-        android:text="@string/welcome"
+        android:text="@string/timeToMakeAPetDescriprtion"
         android:textColor="#FFFFFF"
-        android:textSize="48sp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/welcomeSubtitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/welcomeSubtitle"
-        android:layout_width="288dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="88dp"
         android:gravity="center"
-        android:text="@string/welcomeDescription"
+        android:text="@string/timeToMakeAPetSubtitle"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCreateFirstPet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        android:cropToPadding="false"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/welcomeTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/capa" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

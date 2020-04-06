@@ -27,6 +27,8 @@
         <activity android:name=".SignInActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".ChangePasswordActivity" />
+        <activity android:name=".GetFirstPetActivity" />
+        <activity android:name=".AddPetActivity" />
         <activity android:name=".MenuActivity"></activity>
     </application>
 
