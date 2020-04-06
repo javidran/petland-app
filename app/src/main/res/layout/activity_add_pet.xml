@@ -20,28 +20,24 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
             android:text="@string/instructionstocreateapetdescriprtion"
             android:textColor="@color/md_grey_700"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/temporalAquiVaLaFoto"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="517dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/temporalAquiVaLaFoto"
             android:textColor="@color/md_grey_700"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instructionsToCreateAPet"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/instructionsToCreateAPet" />
 
         <EditText
             android:id="@+id/editTextPetname"
@@ -58,7 +54,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
             android:textColor="@color/md_grey_400"
             android:textColorHint="#BBC1CE"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/temporalAquiVaLaFoto" />
 
@@ -109,8 +105,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         <Button
             android:id="@+id/buttonCrearMascota"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="50dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/button_without_corners"
             android:backgroundTint="#7532E7"
@@ -120,18 +117,16 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextChip"
-            app:layout_constraintVertical_bias="0.278" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextChip" />
 
         <Button
             android:id="@+id/buttonVolver"
             android:layout_width="83dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/button_without_corners"
             android:backgroundTint="#00C4CC"
             android:cropToPadding="false"
@@ -139,11 +134,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
             android:text="@string/cancel"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonCrearMascota"
-            app:layout_constraintVertical_bias="0.72" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonCrearMascota" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
