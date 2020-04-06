@@ -24,13 +24,7 @@ class AddPetActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_pet)
         val textViewBirthday: TextView = findViewById(R.id.editTextBirthday)
         val cal = Calendar.getInstance()
-        val user = ParseUser.getCurrentUser()
-        editTextUsername.setText(user.get("username").toString())
-        editTextEmail.setText(user.get("email").toString())
-        val dateb = sdf.format(user.get("birthday"))
-        date = user.get("birthday") as Date
-        editTextBirthday.setText(dateb.toString())
-        editTextName.setText(user.get("name").toString())
+
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
@@ -59,8 +53,8 @@ class AddPetActivity : AppCompatActivity() {
 
         val pet = ParseObject("Pet")
         pet.put("name", textPetName.text.toString())
-        pet.put("birthday", Calendar.getInstance().time) //Como lo cojo del calendario?
-        pet.put("chip", Integer.valueOf(chipNumber.text.toString())) //Funciona?
+        pet.put("birthday",date)
+        pet.put("chip", Integer.valueOf(chipNumber.text.toString()))
         pet.put("owner", currentUser)
         val relation = pet.getRelation<ParseUser>("caregivers")
         relation.add(currentUser)
