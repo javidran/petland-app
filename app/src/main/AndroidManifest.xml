@@ -18,6 +18,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity"/>
@@ -26,6 +28,10 @@
         <activity android:name=".MenuActivity">
 
         </activity>
+        <activity android:name=".HomePrincipalActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>

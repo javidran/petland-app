@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/nav_mascota"
+            android:title="Mi Mascota"/>
+        <item
+            android:id="@+id/nav_paseos"
+            android:title="Paseos"/>
+        <item
+            android:id="@+id/nav_mapa"
+            android:title="Mapa"/>
+        <item
+            android:id="@+id/nav_salud"
+            android:title="Salud"/>
+        <item
+            android:id="@+id/nav_eventos"
+            android:title="Eventos"/>
+
+    </group>
+
+
+    <item android:title="Ajustes de cuenta">
+        <menu>
+            <item
+                android:id="@+id/nav_perfil"
+                android:title="Mi Perfil"/>
+            <item
+                android:id="@+id/nav_logout"
+                android:title="Log Out"/>
+        </menu>
+    </item>
+</menu>
