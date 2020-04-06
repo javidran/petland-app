@@ -66,14 +66,12 @@ class EditProfileActivity : AppCompatActivity(){
         }
     }
     fun volver(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
-        }
+        val intent = Intent(this, UserProfileActivity::class.java).apply {}
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
     fun changepassword(view: View) {
-        val intent = Intent(this, ChangePasswordActivity::class.java).apply {
-        }
+        val intent = Intent(this, ChangePasswordActivity::class.java).apply {}
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }

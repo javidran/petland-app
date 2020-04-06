@@ -84,4 +84,11 @@ class MenuActivity : AppCompatActivity(){
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
+
+    fun accessProfile(view: View) {
+        val intent = Intent(this, UserProfileActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
 }

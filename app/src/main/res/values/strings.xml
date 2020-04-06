@@ -28,10 +28,12 @@
     <string name="editProfile">Edit profile</string>
     <string name="logout">Log out</string>
     <string name="createPet">Create pet</string>
-    <string name="petList">Pet list</string>
+    <string name="petList">My pets</string>
     <string name="signIn">Sign in</string>
     <string name="signUp">Sign up</string>
     <string name="continueNext">Continue</string>
     <string name="createAccount">Create account</string>
     <string name="writePetName">Write your pet\'s name</string>
+    <string name="myProfile">My profile</string>
+    <string name="dosPuntos" translatable="false">:      </string>
 </resources>

@@ -27,10 +27,11 @@
     <string name="editProfile">Editar perfil</string>
     <string name="logout">Cerrar sesión</string>
     <string name="createPet">Crear mascota</string>
-    <string name="petList">Lista de mascotas</string>
+    <string name="petList">Mis mascotas</string>
     <string name="writePetName">Escribe el nombre de tu mascota</string>
     <string name="signIn">Iniciar sesión</string>
     <string name="signUp">Registar usuario</string>
     <string name="continueNext">Continuar</string>
     <string name="createAccount">Crear cuenta</string>
+    <string name="myProfile">Mi perfil</string>
 </resources>
