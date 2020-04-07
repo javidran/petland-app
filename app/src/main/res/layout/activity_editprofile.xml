@@ -1,153 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#0277BD">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <EditText
-        android:id="@+id/editTextUsername"
+    <include
+        layout="@layout/content_edit_profile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/edittext_without_corners"
-        android:ems="10"
-        android:hint="@string/username"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textColor="#BDBDBD"
-        android:textColorHint="#BBC1CE"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonVolver" />
+        android:layout_height="match_parent"/>
 
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:adjustViewBounds="true"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/edittext_without_corners"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:scaleType="fitXY"
-        android:textColor="#BDBDBD"
-        android:textColorHint="#BBC1CE"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu"/>
 
-    <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="28dp"
-        android:adjustViewBounds="true"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/edittext_without_corners"
-        android:ems="10"
-        android:textColorHint="#BBC1CE"
-        android:hint="@string/name"
-        android:textColor="#9E9E9E"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextEmail"
-        android:padding="10dp"
-        android:scaleType="fitXY"
-        android:cropToPadding="false"/>
-
-    <EditText
-        android:id="@+id/editTextBirthday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:adjustViewBounds="true"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/edittext_without_corners"
-        android:ems="10"
-        android:textColorHint="#BBC1CE"
-        android:hint="@string/birthday"
-        android:inputType="text|date"
-        android:textColor="#9E9E9E"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName"
-        android:padding="10dp"
-        android:cropToPadding="false"
-        />
-
-    <Button
-        android:id="@+id/buttonGuardarCambios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/button_without_corners"
-        android:backgroundTint="#00C4CC"
-        android:cropToPadding="false"
-        android:onClick="edit"
-        android:text="@string/saveChanges"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCambiarpassword"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/buttonVolver"
-        android:layout_width="83dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/button_without_corners"
-        android:backgroundTint="#00C4CC"
-        android:cropToPadding="false"
-        android:onClick="volver"
-        android:text="@string/goBack"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.235"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/buttonCambiarpassword"
-        android:layout_width="206dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/button_without_corners"
-        android:backgroundTint="#00C4CC"
-        android:onClick="changepassword"
-        android:text="@string/changePassword"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextBirthday"
-        app:layout_constraintVertical_bias="0.046" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.drawerlayout.widget.DrawerLayout>
