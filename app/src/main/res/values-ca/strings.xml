@@ -33,4 +33,12 @@
     <string name="signUp">Registrar usuari</string>
     <string name="continueNext">Continua</string>
     <string name="createAccount">Crea compte</string>
+    <string name="accountSettings">Configuració de compte</string>
+    <string name="myProfile">Perfil</string>
+    <string name="myPet">La Meva Mascota</string>
+    <string name="walk">Passejos</string>
+    <string name="map">Mapa</string>
+    <string name="health">Salut</string>
+    <string name="events">Events</string>
+    <string name="add">Afegir</string>
 </resources>

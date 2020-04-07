@@ -5,31 +5,31 @@
     <group>
         <item
             android:id="@+id/nav_mascota"
-            android:title="Mi Mascota"/>
+            android:title="@string/myPet"/>
         <item
             android:id="@+id/nav_paseos"
-            android:title="Paseos"/>
+            android:title="@string/walk"/>
         <item
             android:id="@+id/nav_mapa"
-            android:title="Mapa"/>
+            android:title="@string/map"/>
         <item
             android:id="@+id/nav_salud"
-            android:title="Salud"/>
+            android:title="@string/health"/>
         <item
             android:id="@+id/nav_eventos"
-            android:title="Eventos"/>
+            android:title="@string/events"/>
 
     </group>
 
 
-    <item android:title="Ajustes de cuenta">
+    <item android:title="@string/accountSettings">
         <menu>
             <item
                 android:id="@+id/nav_perfil"
-                android:title="Mi Perfil"/>
+                android:title="@string/myProfile"/>
             <item
                 android:id="@+id/nav_logout"
-                android:title="Log Out"/>
+                android:title="@string/logout"/>
         </menu>
     </item>
 

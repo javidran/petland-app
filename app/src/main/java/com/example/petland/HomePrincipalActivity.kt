@@ -87,7 +87,6 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
     }
         override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
             R.id.action_add -> {
-                // User chose the "Print" item
                 Toast.makeText(this,"add action",Toast.LENGTH_LONG).show()
                 true
             }

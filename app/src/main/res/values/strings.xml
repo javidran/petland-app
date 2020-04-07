@@ -34,4 +34,12 @@
     <string name="continueNext">Continue</string>
     <string name="createAccount">Create account</string>
     <string name="writePetName">Write your pet\'s name</string>
+    <string name="accountSettings">Account settings</string>
+    <string name="myProfile">My Profile</string>
+    <string name="myPet">My Pet</string>
+    <string name="walk">Walks</string>
+    <string name="map">Map</string>
+    <string name="health">Health</string>
+    <string name="events">Events</string>
+    <string name="add">Add</string>
 </resources>
