@@ -4,16 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.parse.ParseUser
+
 
 class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -58,13 +59,14 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
 
             }
             R.id.nav_eventos -> {
-
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                transaction.add(R.id.frameLayout, BlankFragment.newInstance("hola", "que tal"))
+                transaction.commit()
             }
             R.id.nav_perfil -> {
-                val intent = Intent(this, EditProfileActivity::class.java).apply {
-                }
-                startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                transaction.add(R.id.frameLayout, EditProfileFragment.newInstance())
+                transaction.commit()
             }
             R.id.nav_logout -> {
                 val currentUser = ParseUser.getCurrentUser()

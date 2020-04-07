@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_editprofile.*
 import kotlinx.android.synthetic.main.content_edit_profile.*
+import kotlinx.android.synthetic.main.content_home_principal.*
 import java.text.SimpleDateFormat
 import java.util.*
 
