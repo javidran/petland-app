@@ -1,4 +1,4 @@
-package com.example.petland
+package com.example.petland.sign_in
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -9,6 +9,9 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.MenuActivity
+import com.example.petland.ParseError
+import com.example.petland.R
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signup.*
 import java.text.SimpleDateFormat
@@ -51,7 +54,10 @@ class SignUpActivity : AppCompatActivity() {
         val intent = Intent(this, SignInActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        overridePendingTransition(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
     }
 
     private fun progress (start:Boolean){

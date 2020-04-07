@@ -1,4 +1,4 @@
-package com.example.petland
+package com.example.petland.sign_in
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,9 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.MenuActivity
+import com.example.petland.ParseError
+import com.example.petland.R
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
 
@@ -22,7 +25,10 @@ class SignInActivity : AppCompatActivity() {
         val intent = Intent(this, SignUpActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
     fun progress (start:Boolean){
@@ -55,7 +61,10 @@ class SignInActivity : AppCompatActivity() {
                     if (user != null) {
                         Log.d(TAG, "User logged in correctly.")
                         startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        overridePendingTransition(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
+                        )
                         finish()
                     }
                     else {

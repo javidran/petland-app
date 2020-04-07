@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.sign_in.SignInActivity
+import com.example.petland.sign_in.SignUpActivity
 
 class MainActivity : AppCompatActivity() {
 

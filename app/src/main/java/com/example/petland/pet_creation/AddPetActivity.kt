@@ -1,4 +1,4 @@
-package com.example.petland
+package com.example.petland.pet_creation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,9 +8,10 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import com.example.petland.MenuActivity
+import com.example.petland.R
 import com.parse.ParseObject
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.activity_editprofile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -68,7 +69,10 @@ class AddPetActivity : AppCompatActivity() {
         val intent = Intent(this, MenuActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        overridePendingTransition(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
     }
 
 

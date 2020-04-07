@@ -1,9 +1,11 @@
-package com.example.petland
+package com.example.petland.pet_creation
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.MenuActivity
+import com.example.petland.R
 
 class GetFirstPetActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +18,10 @@ class GetFirstPetActivity: AppCompatActivity() {
         val intent = Intent(this, AddPetActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
 
@@ -24,7 +29,10 @@ class GetFirstPetActivity: AppCompatActivity() {
         val intent = Intent(this, MenuActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
 }

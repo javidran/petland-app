@@ -3,10 +3,9 @@ package com.example.petland.user_profile
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.petland.AddPetActivity
+import com.example.petland.pet_creation.AddPetActivity
 import com.example.petland.R
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_user_profile.*

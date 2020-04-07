@@ -23,12 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".SignInActivity" />
+        <activity android:name=".sign_in.SignUpActivity" />
+        <activity android:name=".sign_in.SignInActivity" />
         <activity android:name=".user_profile.EditProfileActivity" />
         <activity android:name=".user_profile.ChangePasswordActivity" />
-        <activity android:name=".GetFirstPetActivity" />
-        <activity android:name=".AddPetActivity" />
+        <activity android:name=".pet_creation.GetFirstPetActivity" />
+        <activity android:name=".pet_creation.AddPetActivity" />
         <activity android:name=".MenuActivity"></activity>
     </application>
 
