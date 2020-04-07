@@ -27,7 +27,7 @@ class PetAdapter(private val pets: List<ParseObject>) : RecyclerView.Adapter<Pet
         val name = pet.get("name").toString()
         val race = "Labrador (raza prueba)"
         val birthday = sdf.format(pet.get("birthday"))
-        holder.bindTodo(name, race, birthday)
+        holder.bindPetInfo(name, race, birthday)
     }
 
     class PetHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener  {
@@ -41,7 +41,7 @@ class PetAdapter(private val pets: List<ParseObject>) : RecyclerView.Adapter<Pet
             v.setOnClickListener(this)
         }
 
-        fun bindTodo(name:String, race:String, birthday:String) {
+        fun bindPetInfo(name:String, race:String, birthday:String) {
             this.name = name
             this.race = race
             this.birthday = birthday
@@ -51,7 +51,7 @@ class PetAdapter(private val pets: List<ParseObject>) : RecyclerView.Adapter<Pet
         }
 
         override fun onClick(v: View?) {
-                Toast.makeText(view.context, "Funcionalidad no disponible", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Funcionalidad no disponible", Toast.LENGTH_SHORT).show()
         }
 
     }

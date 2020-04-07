@@ -22,7 +22,10 @@ class UserProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
+
         recyclerView.isNestedScrollingEnabled = false;
+        layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
 
         editProfileButton.setOnClickListener { editProfile() }
         addPetButton.setOnClickListener { addPet() }
@@ -69,8 +72,6 @@ class UserProfileActivity : AppCompatActivity() {
         val pets = Pets()
         val petlist = pets.getPets()
         if(petlist != null) {
-            layoutManager = LinearLayoutManager(this)
-            recyclerView.layoutManager = layoutManager
             adapter = PetAdapter(petlist.toList())
             recyclerView.adapter = adapter
         }
