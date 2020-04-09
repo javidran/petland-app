@@ -6,7 +6,6 @@ import com.parse.Parse
 
 class Application : Application() {
     private val TAG = "Petland Application"
-
     private val appId = "petland"
     private val parseUrl = "http://petland.sytes.net:1337/parse"
 

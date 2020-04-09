@@ -34,4 +34,18 @@
     <string name="continueNext">Continue</string>
     <string name="createAccount">Create account</string>
     <string name="writePetName">Write your pet\'s name</string>
+    <string name="createFirstPet">Add my first pet</string>
+    <string name="takeCareOfExistingPet">Take care of a pet</string>
+    <string name="timeToMakeAPetDescriprtion">It\'s time to add a pet to Petland</string>
+    <string name="timeToMakeAPetSubtitle">You can add a pet you own or get invited to take care of a pet that\'s already registered in Petland</string>
+    <string name="test">test</string>
+    <string name="instructionstocreateapetdescriprtion">Fill the next form with the basic information about your pet</string>
+    <string name="temporalAquiVaLaFoto">En el circulo superior se podrá añadir la foto</string>
+    <string name="tapToAddPhoto">taptoAddPhoto</string>
+    <string name="petName">Pet\'s name</string>
+    <string name="petsbirthday">Pet\'s birthday</string>
+    <string name="chip">Chip number</string>
+    <string name="createNewPet">Register my pet</string>
+    <string name="cancel">Cancel</string>
+    <string name="profileCreatedCorrectly">Profile created correctly</string>
 </resources>
