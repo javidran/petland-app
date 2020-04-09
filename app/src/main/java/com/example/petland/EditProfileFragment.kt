@@ -1,4 +1,4 @@
-package com.example.petland
+/*package com.example.petland
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -133,4 +133,4 @@ class EditProfileFragment : Fragment() {
         fun newInstance() =
             EditProfileFragment().apply {}
     }
-}
+}*/
