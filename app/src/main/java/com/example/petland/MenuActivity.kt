@@ -13,6 +13,7 @@ import com.parse.ParseCloud
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
+import kotlinx.android.synthetic.main.activity_menu.*
 import java.util.*
 
 
@@ -26,7 +27,18 @@ class MenuActivity : AppCompatActivity(){
         val buttonCreatePet : Button = findViewById(R.id.buttonCrearPet)
         buttonCreatePet.setOnClickListener { createPet()}
         updateList()
+
+
+
+        deletUserButton.setOnClickListener {
+            deleteUser()
+        }
     }
+
+    fun deleteUser() {
+        Log.d(TAG, "Eliminando usuario")
+    }
+
 
     fun logOut(view: View){
         //Paso view porque se llama desde el boton (en acivity_menu.xml)
