@@ -37,7 +37,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     fun login(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
+        val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
         }
         when {
             TextUtils.isEmpty(editTextUsername.text) -> {
