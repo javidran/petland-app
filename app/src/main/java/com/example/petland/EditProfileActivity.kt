@@ -57,12 +57,12 @@ class EditProfileActivity : AppCompatActivity(){
             user.username = editTextUsername.text.toString()
             user.email = editTextEmail.text.toString()
             user.put("name", editTextName.text.toString())
-              user.put("birthday", date)
+            user.put("birthday", date)
             user.save()
             Log.d(TAG, getString(R.string.profileEditedCorrectly))
             Toast.makeText(this@EditProfileActivity, getString(R.string.profileEditedCorrectly), Toast.LENGTH_LONG).show()
         } else {
-           Log.d(TAG, getString(R.string.userNotLogged))
+            Log.d(TAG, getString(R.string.userNotLogged))
         }
     }
     fun volver(view: View) {
