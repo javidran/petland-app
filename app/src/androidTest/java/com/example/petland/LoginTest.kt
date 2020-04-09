@@ -1,8 +1,8 @@
 package com.example.petland
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -35,8 +35,8 @@ class LoginTest {
 
     private fun loginWithTestUser() {
         onView(withId(R.id.buttonSignIn)).perform(click())
-        onView(withId(R.id.editTextUsername)).perform(typeText(testUser))
-        onView(withId(R.id.editTextPassword)).perform(typeText(testPassword))
+        onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
+        onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
         onView(withId(R.id.buttonContinuar)).perform(click())
         Thread.sleep(500)
     }

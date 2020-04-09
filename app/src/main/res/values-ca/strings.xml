@@ -41,4 +41,18 @@
     <string name="health">Salut</string>
     <string name="events">Events</string>
     <string name="add">Afegir</string>
+    <string name="createFirstPet">Afegir la meva primera mascota</string>
+    <string name="takeCareOfExistingPet">Cuidar una mascota</string>
+    <string name="timeToMakeAPetDescriprtion">Es el moment d\'afegir una mascota a Petland</string>
+    <string name="timeToMakeAPetSubtitle">Ara pots afegir la teva propia mascota o ser convidat a cuidar-ne una que ja estigui registrada a Petland</string>
+    <string name="test">test</string>
+    <string name="instructionstocreateapetdescriprtion">Ompli el següent formulari amb la informació bàsica de la seva mascota</string>
+    <string name="temporalAquiVaLaFoto">En el circulo superior se podrá añadir la foto</string>
+    <string name="tapToAddPhoto">taptoAddPhoto</string>
+    <string name="petName">Nom de la teva mascota</string>
+    <string name="petsbirthday">Aniversari de la teva mascota</string>
+    <string name="chip">Número de xip</string>
+    <string name="createNewPet">Registrar la meva mascota</string>
+    <string name="cancel">Cancelar</string>
+    <string name="profileCreatedCorrectly">Perfil creat correctament</string>
 </resources>
