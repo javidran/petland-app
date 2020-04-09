@@ -14,23 +14,6 @@ import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-/*
-    -VER TODA LA INFO DEL ANIMAL                                                 1ª VISTA
-    -DARLE UN BOTON Y PODER EDITAR TODA LA INFO DEL ANIMAL                       1ª VISTA -> 2ª VISTA
-    -PODER EDITAR LA INFO                                                        2ª VISTA
-    -DAR A GUARDAR PARA PASARLO AL SERVER                                        2ª VISTA -> 1º VISTA
-    -DAR CANCELAR PARA VOLVER A VER LA INFO DEL ANIMAL                           2ª VISTA -> 1º VISTA
-
-    -EJEMPLO DE EDITAR CONTACTOS DE TELEFONO
-
-    PARA ENVIAR:
-        Intent intent = new Intent(Activity_Origen.this, Activity_Destino.class);
-        intent.putExtra("parametro", "string");
-        startActivity(intent);
-
-    RECIBIR:
-        getIntent().getExtras().getString("parametro");
- */
 class ViewPetProfileActivity : AppCompatActivity() {
 
     private lateinit var pett:ParseObject
@@ -73,11 +56,9 @@ class ViewPetProfileActivity : AppCompatActivity() {
 
         val intent = Intent(this, EditPetProfileActivity::class.java).apply {
         }
-        intent.putExtra("petName", "lia");
+        intent.putExtra("petId", "qOdVjE8aCi");
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
-
-
 
 }

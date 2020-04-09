@@ -7,15 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseRelation
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_edit_pet_profile.*
-import kotlinx.android.synthetic.main.activity_edit_pet_profile.editTextName
-import kotlinx.android.synthetic.main.activity_editprofile.*
-import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,19 +29,21 @@ class EditPetProfileActivity : AppCompatActivity() {
     }
 
     private fun setData() {
-        val namePet = intent.extras?.getString("petName");
+        val petId = intent.extras?.getString("petId");
         val pets = ParseQuery.getQuery<ParseObject>("Pet")
-        pets.whereEqualTo("name", namePet)
+        pets.whereEqualTo("objectId", petId)
         pett = pets.first
         val caregivers: ParseRelation<ParseUser> = pett.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
 
-        editTextName.setText(pett.get("name").toString())
-        editTextOwner.setText(listCaregivers.first.username)
-        val dateb = sdf.format(pett.get("birthday"))
-/*
-        val textViewBirthday: TextView = findViewById(R.id.editTextBirthday)
+        textViewName.text = pett.get("name").toString()
+        textViewOwner.text = listCaregivers.first.username
+
+        val textViewBirthday: TextView = findViewById(R.id.editTextBirth)
         val cal = Calendar.getInstance()
+        val dateb = sdf.format(pett.get("birthday"))
+        date = pett.get("birthday") as Date
+        editTextBirth.setText(dateb.toString())
 
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
@@ -66,7 +64,7 @@ class EditPetProfileActivity : AppCompatActivity() {
             dialog.datePicker.maxDate = Date().time
             dialog.show()
         }
-        */
+
 
         editTextChip.setText(pett.get("chip").toString())
 
@@ -87,11 +85,12 @@ class EditPetProfileActivity : AppCompatActivity() {
         val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(R.anim.slide_out_left, R.anim.slide_out_right)
     }
 
     fun save(view: View) {
         pett.put("chip", Integer.valueOf(editTextChip.text.toString()))
+        pett.put("birthday", date)
         pett.save()
         viewPetProfile(view)
     }

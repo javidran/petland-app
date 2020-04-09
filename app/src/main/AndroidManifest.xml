@@ -12,6 +12,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity android:name=".EditPetProfileActivity"></activity>
         <activity android:name=".ViewPetProfileActivity" />
@@ -37,7 +38,6 @@
         </activity>
         <activity android:name=".GetFirstPetActivity" />
         <activity android:name=".AddPetActivity" />
-        <activity android:name=".MenuActivity" />
     </application>
 
 </manifest>
