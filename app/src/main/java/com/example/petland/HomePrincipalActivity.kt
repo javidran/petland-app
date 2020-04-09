@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -102,5 +103,12 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
                 super.onOptionsItemSelected(item)
             }
         }
+    fun homeantiguo(view: View) {
+        val intent = Intent(this, MenuActivity::class.java).apply {
+        }
+
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
     }
 
