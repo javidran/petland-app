@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.parse.ParseUser
+import kotlinx.android.synthetic.main.content_home_principal.*
 
 
 class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -60,13 +61,15 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
             }
             R.id.nav_eventos -> {
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.add(R.id.frameLayout, BlankFragment.newInstance("hola", "que tal"))
+                frameLayout.removeAllViews()
+                transaction.replace(R.id.frameLayout, BlankFragment.newInstance("hola", "que tal"))
                 transaction.commit()
             }
             R.id.nav_perfil -> {
+              /*  frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.add(R.id.frameLayout, EditProfileFragment.newInstance())
-                transaction.commit()
+                transaction.replace(R.id.frameLayout, EditProfileFragment.newInstance())
+                transaction.commit()*/
             }
             R.id.nav_logout -> {
                 val currentUser = ParseUser.getCurrentUser()

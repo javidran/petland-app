@@ -51,6 +51,7 @@ class EditProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         var view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
 
 
