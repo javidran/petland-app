@@ -6,8 +6,7 @@
     android:fillViewport="true">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#0277BD">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/editTextUsername"

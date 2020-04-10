@@ -55,4 +55,6 @@
     <string name="createNewPet">Registrar my mascota</string>
     <string name="cancel">Cancelar</string>
     <string name="profileCreatedCorrectly">Perfil creado correctamente</string>
+    <string name="petCaregivers"> Cuidadores</string>
+    <string name="owner">Propietario</string>
 </resources>

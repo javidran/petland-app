@@ -57,4 +57,6 @@
     <string name="createNewPet">Register my pet</string>
     <string name="cancel">Cancel</string>
     <string name="profileCreatedCorrectly">Profile created correctly</string>
+    <string name="petCaregivers"> Caregivers</string>
+    <string name="owner">Owner</string>
 </resources>
