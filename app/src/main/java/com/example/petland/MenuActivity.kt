@@ -95,4 +95,11 @@ class MenuActivity : AppCompatActivity(){
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
     // End Of Test //////////////////////////////////////////////////////////
+
+    fun goToPetProfile(view: View) {
+        val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
 }

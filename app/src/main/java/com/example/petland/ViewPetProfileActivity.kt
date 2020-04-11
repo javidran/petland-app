@@ -16,7 +16,7 @@ import java.util.*
 
 class ViewPetProfileActivity : AppCompatActivity() {
 
-    private lateinit var pett:ParseObject
+    private lateinit var myPet:ParseObject
     private val TAG = "Petland EditPetProfile"
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     
@@ -28,16 +28,16 @@ class ViewPetProfileActivity : AppCompatActivity() {
 
     private fun setData() {
         val pets = ParseQuery.getQuery<ParseObject>("Pet")
-        pets.whereEqualTo("name", "lia")
-        pett = pets.first
-        val caregivers: ParseRelation<ParseUser> = pett.getRelation<ParseUser>("caregivers")
+        pets.whereEqualTo("name", "ej1")
+        myPet = pets.first
+        val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
 
-        textViewName.text = pett.get("name").toString()
+        textViewName.text = myPet.get("name").toString()
         textViewOwner.text = listCaregivers.first.username
-        val dateb = sdf.format(pett.get("birthday"))
+        val dateb = sdf.format(myPet.get("birthday"))
         textViewBirth.text = dateb.toString()
-        textViewChip.text = pett.get("chip").toString()
+        textViewChip.text = myPet.get("chip").toString()
 
         val list = findViewById<TextView>(R.id.petCaregiversList)
         list.text = ""
@@ -52,11 +52,18 @@ class ViewPetProfileActivity : AppCompatActivity() {
         }
     }
 
+    fun volver(view: View) {
+        val intent = Intent(this, MenuActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
     fun editPetProfile(view: View) {
 
         val intent = Intent(this, EditPetProfileActivity::class.java).apply {
         }
-        intent.putExtra("petId", "qOdVjE8aCi");
+        intent.putExtra("petId", myPet.objectId);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }

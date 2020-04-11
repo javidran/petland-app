@@ -17,7 +17,7 @@ import java.util.*
 
 class EditPetProfileActivity : AppCompatActivity() {
 
-    private lateinit var pett:ParseObject
+    private lateinit var myPet:ParseObject
     private val TAG = "Petland EditPetProfile"
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
@@ -29,20 +29,22 @@ class EditPetProfileActivity : AppCompatActivity() {
     }
 
     private fun setData() {
+        val user = ParseUser.getCurrentUser()
         val petId = intent.extras?.getString("petId");
         val pets = ParseQuery.getQuery<ParseObject>("Pet")
+
         pets.whereEqualTo("objectId", petId)
-        pett = pets.first
-        val caregivers: ParseRelation<ParseUser> = pett.getRelation<ParseUser>("caregivers")
+        myPet = pets.first
+        val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
 
-        textViewName.text = pett.get("name").toString()
+        textViewName.text = myPet.get("name").toString()
         textViewOwner.text = listCaregivers.first.username
 
         val textViewBirthday: TextView = findViewById(R.id.editTextBirth)
         val cal = Calendar.getInstance()
-        val dateb = sdf.format(pett.get("birthday"))
-        date = pett.get("birthday") as Date
+        val dateb = sdf.format(myPet.get("birthday"))
+        date = myPet.get("birthday") as Date
         editTextBirth.setText(dateb.toString())
 
         val dateSetListener =
@@ -66,7 +68,7 @@ class EditPetProfileActivity : AppCompatActivity() {
         }
 
 
-        editTextChip.setText(pett.get("chip").toString())
+        editTextChip.setText(myPet.get("chip").toString())
 
         val list = findViewById<TextView>(R.id.petCaregiversList)
         list.text = ""
@@ -79,19 +81,48 @@ class EditPetProfileActivity : AppCompatActivity() {
                 Log.d(TAG, "PetQuery not completed")
             }
         }
+
+        if (user.username == listCaregivers.first.username.toString()) enableButtons();
     }
 
-    fun viewPetProfile(view: View) {
+    private fun enableButtons() {
+        val deleteButton:TextView = findViewById(R.id.buttonDelete)
+        deleteButton.visibility = View.VISIBLE;
+        val addCaregivers:TextView = findViewById(R.id.buttonAddCaregivers)
+        addCaregivers.visibility = View.VISIBLE;
+    }
+
+    fun deletePet(view: View) {
+        val petId = myPet.objectId         //Coger id de mascota que quiero borrar
+        val query = ParseQuery.getQuery<ParseObject>("Pet")
+        query.getInBackground(
+            petId
+        ) { objectPet, e ->
+            if (e == null) {
+                // object will be your game score
+                objectPet.deleteInBackground {
+                    val intent = Intent(this, MenuActivity::class.java).apply {
+                    }
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                }
+            } else {
+                Log.d(TAG, "Pet not deleted")
+            }
+        }
+    }
+
+    fun volver(view: View) {
         val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_out_left, R.anim.slide_out_right)
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
-    fun save(view: View) {
-        pett.put("chip", Integer.valueOf(editTextChip.text.toString()))
-        pett.put("birthday", date)
-        pett.save()
-        viewPetProfile(view)
+    fun edit(view: View) {
+        myPet.put("chip", Integer.valueOf(editTextChip.text.toString()))
+        myPet.put("birthday", date)
+        myPet.save()
+        volver(view)
     }
 }
