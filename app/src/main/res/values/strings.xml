@@ -59,4 +59,5 @@
     <string name="profileCreatedCorrectly">Profile created correctly</string>
     <string name="petCaregivers"> Caregivers</string>
     <string name="owner">Owner</string>
+    <string name="instructionstoeditprofiledescriprtion">Edit any of the following fields and save changes to update your profile information</string>
 </resources>

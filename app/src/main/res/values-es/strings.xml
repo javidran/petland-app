@@ -57,4 +57,5 @@
     <string name="profileCreatedCorrectly">Perfil creado correctamente</string>
     <string name="petCaregivers"> Cuidadores</string>
     <string name="owner">Propietario</string>
+    <string name="instructionstoeditprofiledescriprtion">Edita cualquiera de los siguientes campos y guarda los cambios para actualizar la información del perfil</string>
 </resources>
