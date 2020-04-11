@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".user_profile.UserProfileActivity"></activity>
+        <activity android:name=".ImageActivity"></activity>
+        <activity android:name=".user_profile.UserProfileActivity" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/SplashTheme">
@@ -29,7 +30,11 @@
         <activity android:name=".user_profile.ChangePasswordActivity" />
         <activity android:name=".pet_creation.GetFirstPetActivity" />
         <activity android:name=".pet_creation.AddPetActivity" />
-        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".MenuActivity" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

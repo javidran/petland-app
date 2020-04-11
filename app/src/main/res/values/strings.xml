@@ -27,7 +27,7 @@
     <string name="welcomeDescription">The best pet app created by pet lovers</string>
     <string name="editProfile">Edit profile</string>
     <string name="logout">Log out</string>
-    <string name="createPet">Create pet</string>
+    <string name="createPet">Add pet</string>
     <string name="petList">My pets</string>
     <string name="signIn">Sign in</string>
     <string name="signUp">Sign up</string>
@@ -50,4 +50,7 @@
     <string name="createNewPet">Register my pet</string>
     <string name="cancel">Cancel</string>
     <string name="profileCreatedCorrectly">Profile created correctly</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

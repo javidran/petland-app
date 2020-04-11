@@ -26,7 +26,7 @@
     <string name="welcomeDescription">La millor aplicació per mascotes creada per amants de les mascotes</string>
     <string name="editProfile">Editar perfil</string>
     <string name="logout">Tanca sessió</string>
-    <string name="createPet">Crear mascota</string>
+    <string name="createPet">Afegir mascota</string>
     <string name="petList">Les meves mascotes</string>
     <string name="writePetName">Escriu el nom de la teva mascota</string>
     <string name="signIn">Inicia sessió</string>

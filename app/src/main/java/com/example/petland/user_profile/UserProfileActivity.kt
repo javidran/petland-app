@@ -1,12 +1,13 @@
 package com.example.petland.user_profile
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.petland.pet_creation.AddPetActivity
+import com.example.petland.ImageActivity
 import com.example.petland.R
+import com.example.petland.pet_creation.AddPetActivity
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import java.text.SimpleDateFormat
@@ -28,6 +29,7 @@ class UserProfileActivity : AppCompatActivity() {
 
         editProfileButton.setOnClickListener { editProfile() }
         addPetButton.setOnClickListener { addPet() }
+        profileImage.setOnClickListener { seeImage() }
     }
 
     override fun onResume() {
@@ -43,6 +45,11 @@ class UserProfileActivity : AppCompatActivity() {
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
+    }
+
+    private fun seeImage() {
+        val intent = Intent(this, ImageActivity::class.java).apply {}
+        startActivity(intent)
     }
 
     private fun addPet() {
