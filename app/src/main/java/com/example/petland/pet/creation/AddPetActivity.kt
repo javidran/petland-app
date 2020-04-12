@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.TestingActivity
 import com.parse.ParseObject
@@ -67,8 +68,7 @@ class AddPetActivity : AppCompatActivity() {
         textPetName.text.clear()
         chipNumber.text.clear()
 
-        val intent = Intent(this, TestingActivity::class.java).apply {
-        }
+        val intent = Intent(this, HomeActivity::class.java).apply {}
         startActivity(intent)
         overridePendingTransition(
             R.anim.slide_in_left,
