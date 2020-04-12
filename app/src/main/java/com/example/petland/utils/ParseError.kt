@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 
 class ParseError {
 
-     fun writeParseError(a: Activity, e:com.parse.ParseException) {
+    fun writeParseError(a: Activity, e: com.parse.ParseException) {
         val builder = AlertDialog.Builder(a)
         builder.setTitle(e.message)
         e.printStackTrace()

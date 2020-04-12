@@ -8,8 +8,8 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.petland.TestingActivity
 import com.example.petland.R
+import com.example.petland.TestingActivity
 import com.parse.ParseObject
 import com.parse.ParseUser
 import java.text.SimpleDateFormat
@@ -47,14 +47,15 @@ class AddPetActivity : AppCompatActivity() {
         }
 
     }
-    fun createPet (view: View) {
+
+    fun createPet(view: View) {
         val currentUser = ParseUser.getCurrentUser()
         val textPetName = findViewById<EditText>(R.id.editTextPetname)
         val chipNumber = findViewById<EditText>(R.id.editTextChip)
 
         val pet = ParseObject("Pet")
         pet.put("name", textPetName.text.toString())
-        pet.put("birthday",date)
+        pet.put("birthday", date)
         pet.put("chip", Integer.valueOf(chipNumber.text.toString()))
         pet.put("owner", currentUser)
         val relation = pet.getRelation<ParseUser>("caregivers")

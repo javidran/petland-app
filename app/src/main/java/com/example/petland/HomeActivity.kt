@@ -20,12 +20,11 @@ import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
 
 
-class HomeActivity :  AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var toolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
-    private val TAG = "Petland Dashboard"
-    lateinit var toolbar: Toolbar
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navView: NavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -43,8 +42,9 @@ class HomeActivity :  AppCompatActivity(), NavigationView.OnNavigationItemSelect
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.options_menu,menu)
+        menuInflater.inflate(R.menu.options_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -90,18 +90,20 @@ class HomeActivity :  AppCompatActivity(), NavigationView.OnNavigationItemSelect
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-        override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-            R.id.action_add -> {
-                Toast.makeText(this,"add action",Toast.LENGTH_LONG).show()
-                true
-            }
 
-            else -> {
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                super.onOptionsItemSelected(item)
-            }
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_add -> {
+            Toast.makeText(this, "add action", Toast.LENGTH_LONG).show()
+            true
         }
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }
+
     fun homeantiguo(view: View) {
         val intent = Intent(this, TestingActivity::class.java).apply {
         }
@@ -109,5 +111,9 @@ class HomeActivity :  AppCompatActivity(), NavigationView.OnNavigationItemSelect
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
+
+    companion object {
+        private const val TAG = "Petland Dashboard"
     }
+}
 

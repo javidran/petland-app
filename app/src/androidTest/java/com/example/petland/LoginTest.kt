@@ -14,8 +14,8 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class LoginTest {
-    val testUser = "test"
-    val testPassword = "test"
+    private val testUser = "test"
+    private val testPassword = "test"
 
     @get:Rule
     val activityRule = ActivityTestRule(BootActivity::class.java)

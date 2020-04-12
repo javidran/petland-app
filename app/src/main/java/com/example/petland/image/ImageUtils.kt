@@ -6,11 +6,9 @@ import android.widget.ImageView
 import com.parse.ParseFile
 import com.parse.ParseObject
 
-private const val TAG = "Petland ImageUtils"
-
 class ImageUtils {
 
-    fun retrieveImage(profile : ParseObject, imageView: ImageView) {
+    fun retrieveImage(profile: ParseObject, imageView: ImageView) {
         val imageFile = profile.get("image") as ParseFile?
 
         imageFile?.getDataInBackground { data, e ->
@@ -21,5 +19,9 @@ class ImageUtils {
                 Log.d(TAG, "Object doesn't have image associated to its instance.")
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "Petland ImageUtils"
     }
 }

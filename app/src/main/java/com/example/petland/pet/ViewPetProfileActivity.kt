@@ -1,11 +1,11 @@
 package com.example.petland.pet
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -16,11 +16,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ViewPetProfileActivity : AppCompatActivity() {
-
-    private lateinit var pett:ParseObject
-    private val TAG = "Petland EditPetProfile"
+    private lateinit var pett: ParseObject
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pet_profile)
@@ -44,7 +42,7 @@ class ViewPetProfileActivity : AppCompatActivity() {
         list.text = ""
         listCaregivers.findInBackground { result, e ->
             if (e == null) {
-                for(el in result) {
+                for (el in result) {
                     list.text = (list.text as String).plus("- ".plus(el.username).plus("\n"))
                 }
             } else {
@@ -57,12 +55,16 @@ class ViewPetProfileActivity : AppCompatActivity() {
 
         val intent = Intent(this, EditPetProfileActivity::class.java).apply {
         }
-        intent.putExtra("petId", "qOdVjE8aCi");
-        startActivity(intent);
+        intent.putExtra("petId", "qOdVjE8aCi")
+        startActivity(intent)
         overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
+    }
+
+    companion object {
+        private const val TAG = "Petland EditPetProfile"
     }
 
 }

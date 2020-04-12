@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_changepassword.*
 
 
 class ChangePasswordActivity : AppCompatActivity() {
-    private val TAG = "Petland ChangePassword"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,20 +28,17 @@ class ChangePasswordActivity : AppCompatActivity() {
         if (user != null) {
             if (TextUtils.isEmpty(editTextConfirmPassword.text)) {
                 editTextConfirmPassword.error = getString(R.string.passwordNeeded)
-            } else if (editTextPassword.text.toString() != editTextConfirmPassword.text
-                    .toString()
-            ) {
+            } else if (editTextPassword.text.toString() != editTextConfirmPassword.text.toString()) {
                 Toast.makeText(
-                        this@ChangePasswordActivity,
-                        getString(R.string.passwordsDontMatch),
-                        Toast.LENGTH_LONG
-                    )
+                    this@ChangePasswordActivity,
+                    getString(R.string.passwordsDontMatch),
+                    Toast.LENGTH_LONG
+                )
                     .show()
             } else {
                 user.setPassword(editTextPassword.text.toString())
                 user.save()
-                val intent = Intent(this, EditProfileActivity::class.java).apply {
-                }
+                val intent = Intent(this, EditProfileActivity::class.java).apply {}
                 startActivity(intent)
                 overridePendingTransition(
                     R.anim.slide_in_left,
@@ -58,5 +54,9 @@ class ChangePasswordActivity : AppCompatActivity() {
             Log.d(TAG, getString(R.string.userNotLogged))
         }
 
+    }
+
+    companion object {
+        private const val TAG = "Petland ChangePassword"
     }
 }

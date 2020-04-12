@@ -7,14 +7,13 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
-import com.example.petland.utils.ParseError
 import com.example.petland.R
+import com.example.petland.utils.ParseError
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
 
 
 class SignInActivity : AppCompatActivity() {
-    private val TAG = "Petland SignIn"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +30,11 @@ class SignInActivity : AppCompatActivity() {
         )
     }
 
-    fun progress (start:Boolean){
+    fun progress(start: Boolean) {
         if (start) {
             buttonContinuar.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
-        }
-        else {
+        } else {
             buttonContinuar.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
         }
@@ -66,8 +64,7 @@ class SignInActivity : AppCompatActivity() {
                             R.anim.slide_out_left
                         )
                         finish()
-                    }
-                    else {
+                    } else {
                         progress(false)
                         Log.d(TAG, "User does not exist.")
                         val error = ParseError()
@@ -76,5 +73,9 @@ class SignInActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "Petland SignIn"
     }
 }

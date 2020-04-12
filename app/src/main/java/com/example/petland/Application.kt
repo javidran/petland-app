@@ -12,10 +12,11 @@ class Application : Application() {
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "Initializing Parse Server")
-        Parse.initialize(Parse.Configuration.Builder(this)
-            .applicationId(appId)
-            .server(parseUrl)
-            .build()
+        Parse.initialize(
+            Parse.Configuration.Builder(this)
+                .applicationId(appId)
+                .server(parseUrl)
+                .build()
         )
         Log.d(TAG, "Parse Server Initialized")
     }
