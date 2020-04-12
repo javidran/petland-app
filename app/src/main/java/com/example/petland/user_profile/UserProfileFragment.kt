@@ -17,7 +17,6 @@ import com.example.petland.pet.creation.AddPetActivity
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
-import kotlinx.android.synthetic.main.fragment_user_profile.view.profileImage
 import java.text.SimpleDateFormat
 import java.util.*
 
