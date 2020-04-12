@@ -1,4 +1,4 @@
-package com.example.petland
+package com.example.petland.pet
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import com.example.petland.R
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseRelation
@@ -85,7 +86,10 @@ class EditPetProfileActivity : AppCompatActivity() {
         val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_out_left, R.anim.slide_out_right)
+        overridePendingTransition(
+            R.anim.slide_out_left,
+            R.anim.slide_out_right
+        )
     }
 
     fun save(view: View) {

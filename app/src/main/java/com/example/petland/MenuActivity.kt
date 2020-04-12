@@ -9,7 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.petland.pet_creation.GetFirstPetActivity
+import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.user_profile.EditProfileActivity
 import com.example.petland.user_profile.UserProfileActivity
 import com.parse.ParseObject

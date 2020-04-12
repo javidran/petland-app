@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
 import com.example.petland.R
-import com.example.petland.pet_creation.AddPetActivity
-import com.example.petland.pet_creation.Pets
+import com.example.petland.pet.creation.AddPetActivity
+import com.example.petland.pet.Pets
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import java.text.SimpleDateFormat
@@ -18,8 +18,8 @@ import java.util.*
 class UserProfileActivity : AppCompatActivity() {
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
 
-    lateinit var layoutManager : LinearLayoutManager
-    lateinit var adapter : PetAdapter
+    private lateinit var layoutManager : LinearLayoutManager
+    private lateinit var adapter : PetAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,7 @@ class UserProfileActivity : AppCompatActivity() {
 
     private fun seeImage() {
         val intent = Intent(this, ImageActivity::class.java).apply {}
-        var user = ParseUser.getCurrentUser()
+        val user = ParseUser.getCurrentUser()
         intent.putExtra("object" , user)
         startActivity(intent)
     }

@@ -1,4 +1,4 @@
-package com.example.petland
+package com.example.petland.pet
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import com.example.petland.R
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseRelation
@@ -58,7 +59,10 @@ class ViewPetProfileActivity : AppCompatActivity() {
         }
         intent.putExtra("petId", "qOdVjE8aCi");
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
 }
