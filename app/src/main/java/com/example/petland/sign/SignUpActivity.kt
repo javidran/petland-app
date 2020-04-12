@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.MenuActivity
 import com.example.petland.ParseError
 import com.example.petland.R
+import com.example.petland.pet.creation.GetFirstPetActivity
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signup.*
 import java.text.SimpleDateFormat
@@ -105,7 +106,7 @@ class SignUpActivity : AppCompatActivity() {
                 user.put("name", editTextName.text.toString())
                 user.put("birthday", date)
 
-                val intent = Intent(this, MenuActivity::class.java).apply {}
+                val intent = Intent(this, GetFirstPetActivity::class.java).apply {}
 
                 user.signUpInBackground { e ->
                     if (e == null) {

@@ -1,5 +1,6 @@
 package com.example.petland.user_profile
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.MenuActivity
 import com.example.petland.R
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_editprofile.*
@@ -67,9 +69,6 @@ class EditProfileActivity : AppCompatActivity(){
             Log.d(TAG, getString(R.string.userNotLogged))
         }
     }
-    fun volver(view: View) {
-        finish()
-    }
     fun changepassword(view: View) {
         val intent = Intent(this, ChangePasswordActivity::class.java).apply {}
         startActivity(intent)
@@ -77,6 +76,46 @@ class EditProfileActivity : AppCompatActivity(){
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
+    }
+
+    fun savechanges (view: View){
+        confirmationDialog(view)
+    }
+
+    fun cancel(view: View) {
+        cancelationDialog()
+    }
+
+    override fun onBackPressed() {
+        cancelationDialog()
+    }
+
+    fun cancelationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.cancelAlertTitle))
+        builder.setMessage(getString(R.string.cancelAlertMessage))
+        builder.setCancelable(true)
+        builder.setPositiveButton(getString(R.string.ok))
+        { dialog, which ->
+            finish();
+        }
+        builder.setNegativeButton(getString(R.string.cancel))
+        { dialog, which ->}
+        builder.show()
+    }
+
+    fun confirmationDialog(view: View) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.confirmationAlertTitle))
+        builder.setMessage(getString(R.string.confirmationAlertMessage))
+        builder.setCancelable(false)
+        builder.setPositiveButton(getString(R.string.ok))
+        { dialog, which ->
+            edit(view);
+        }
+        builder.setNegativeButton(getString(R.string.cancel))
+        { dialog, which ->}
+        builder.show()
     }
 
 

@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.HomePrincipalActivity
 import com.example.petland.MenuActivity
 import com.example.petland.ParseError
 import com.example.petland.R
