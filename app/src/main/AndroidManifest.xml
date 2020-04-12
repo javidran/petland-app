@@ -15,7 +15,7 @@
 
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity android:name=".image.ImageActivity" />
-        <activity android:name=".user_profile.UserProfileActivity" />
+        <activity android:name=".user_profile.UserProfileFragment" />
         <activity android:name=".pet.ViewPetProfileActivity" />
         <activity
             android:name=".MainActivity"

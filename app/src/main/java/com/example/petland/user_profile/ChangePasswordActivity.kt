@@ -20,14 +20,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_changepassword)
     }
     fun returnHome(view: View) {
-        val intent = Intent(this,
-            EditProfileActivity::class.java).apply {
-        }
-        startActivity(intent)
-        overridePendingTransition(
-            R.anim.slide_in_left,
-            R.anim.slide_out_right
-        )
+        finish()
     }
 
     fun changePassword(view: View) {

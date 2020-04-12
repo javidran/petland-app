@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.user_profile.EditProfileActivity
-import com.example.petland.user_profile.UserProfileActivity
+import com.example.petland.user_profile.UserProfileFragment
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
@@ -90,7 +90,7 @@ class MenuActivity : AppCompatActivity(){
     }
 
     fun accessProfile(view: View) {
-        val intent = Intent(this, UserProfileActivity::class.java).apply {
+        val intent = Intent(this, UserProfileFragment::class.java).apply {
         }
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

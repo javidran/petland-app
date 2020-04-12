@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
+import com.example.petland.user_profile.UserProfileFragment
 import com.google.android.material.navigation.NavigationView
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home_principal.*
@@ -67,10 +68,10 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
                 transaction.commit()
             }
             R.id.nav_perfil -> {
-              /*  frameLayout.removeAllViews()
+                frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.frameLayout, EditProfileFragment.newInstance())
-                transaction.commit()*/
+                transaction.replace(R.id.frameLayout, UserProfileFragment.newInstance())
+                transaction.commit()
             }
             R.id.nav_logout -> {
                 val currentUser = ParseUser.getCurrentUser()
