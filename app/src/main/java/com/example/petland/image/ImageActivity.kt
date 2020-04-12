@@ -24,9 +24,10 @@ class ImageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
-//        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         editImage.setOnClickListener { pickImage() }
+        resetImage.setOnClickListener { useDefault() }
+        back.setOnClickListener { finish() }
 
         val intentData = intent.getParcelableExtra<ParseObject>("object")
         if (intentData != null) {
@@ -35,6 +36,11 @@ class ImageActivity : AppCompatActivity() {
             finish()
         }
         imageUtils.retrieveImage(parseObject, imageView)
+    }
+
+    private fun useDefault() {
+        imageUtils.resetToDefaultImage(parseObject)
+        imageView.setImageDrawable(getDrawable(R.drawable.animal_paw))
     }
 
     private fun pickImage() {

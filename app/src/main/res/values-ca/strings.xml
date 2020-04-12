@@ -63,4 +63,6 @@
     <string name="ok">D\'accord</string>
     <string name="confirmationAlertTitle">Està segur que vol desar els canvis?</string>
     <string name="confirmationAlertMessage">Els canvis es guardaran i es modificarà el perfil</string>
+    <string name="edit_image">Seleccionar imatge</string>
+    <string name="reset_image">Utilitzar imatge predeterminada</string>
 </resources>

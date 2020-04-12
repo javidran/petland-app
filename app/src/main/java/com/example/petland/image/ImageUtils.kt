@@ -6,19 +6,37 @@ import android.widget.ImageView
 import com.parse.ParseFile
 import com.parse.ParseObject
 
-class ImageUtils {
+class ImageUtils() {
 
     fun retrieveImage(profile: ParseObject, imageView: ImageView) {
+        retrieveImage(profile, imageView, object : ResetImageCallback {
+            override fun resetImage() {}
+        })
+    }
+
+    fun retrieveImage(profile: ParseObject, imageView: ImageView, callback: ResetImageCallback) {
         val imageFile = profile.get("image") as ParseFile?
 
-        imageFile?.getDataInBackground { data, e ->
-            if (e == null) {
-                val bitmapImage = BitmapFactory.decodeByteArray(data, 0, data.size)
-                imageView.setImageBitmap(bitmapImage)
-            } else {
-                Log.d(TAG, "Object doesn't have image associated to its instance.")
+        if(imageFile != null) {
+            imageFile.getDataInBackground { data, e ->
+                if (e == null) {
+                    val bitmapImage = BitmapFactory.decodeByteArray(data, 0, data.size)
+                    imageView.setImageBitmap(bitmapImage)
+                } else {
+                    Log.d(TAG, "Object doesn't have image associated to its instance.")
+                    callback.resetImage()
+                }
             }
+        } else {
+            callback.resetImage()
         }
+
+
+    }
+
+    fun resetToDefaultImage(profile: ParseObject) {
+        profile.remove("image")
+        profile.saveInBackground()
     }
 
     companion object {

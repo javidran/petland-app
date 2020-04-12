@@ -15,38 +15,50 @@
         android:layout_marginEnd="8dp"
         android:adjustViewBounds="false"
         android:scaleType="centerCrop"
-        android:src="@drawable/splash_screen"
         app:civ_border_width="0dp"
         app:civ_shadow_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/animal_paw" />
 
     <Button
         android:id="@+id/editImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/button_without_corners"
         android:backgroundTint="#00C4CC"
-        android:text="edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/resetImage"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:padding="8dp"
+        android:text="@string/edit_image"
+        app:layout_constraintBottom_toTopOf="@+id/resetImage"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/resetImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/button_without_corners"
         android:backgroundTint="#00C4CC"
-        android:text="reset"
-        app:layout_constraintBottom_toBottomOf="@+id/editImage"
+        android:padding="8dp"
+        android:text="@string/reset_image"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editImage" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_without_corners"
+        android:backgroundTint="#00C4CC"
+        android:text="@string/goBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,18 +11,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.R
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
+import com.example.petland.image.ResetImageCallback
 import com.example.petland.pet.Pets
 import com.example.petland.pet.creation.AddPetActivity
 import com.parse.ParseUser
+import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
+import kotlinx.android.synthetic.main.fragment_user_profile.view.profileImage
 import java.text.SimpleDateFormat
 import java.util.*
 
-class UserProfileFragment : Fragment() {
+class UserProfileFragment : Fragment(), ResetImageCallback {
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
 
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: PetAdapter
+    private lateinit var rootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,19 +38,22 @@ class UserProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_user_profile, container, false)
+        rootView = inflater.inflate(R.layout.fragment_user_profile, container, false)
 
-        view.editProfileButton.setOnClickListener { editProfile() }
-        view.addPetButton.setOnClickListener { addPet() }
-        view.profileImage.setOnClickListener { seeImage() }
+        rootView.editProfileButton.setOnClickListener { editProfile() }
+        rootView.addPetButton.setOnClickListener { addPet() }
+        rootView.profileImage.setOnClickListener { seeImage() }
 
-        view.recyclerView.isNestedScrollingEnabled = false
-        view.recyclerView.layoutManager = layoutManager
+        rootView.recyclerView.isNestedScrollingEnabled = false
+        rootView.recyclerView.layoutManager = layoutManager
 
-        setUserInfo(view)
-        updatePets(view)
+        return rootView
+    }
 
-        return view
+    override fun onResume() {
+        super.onResume()
+        setUserInfo()
+        updatePets()
     }
 
     private fun editProfile() {
@@ -68,32 +75,36 @@ class UserProfileFragment : Fragment() {
         activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
-    private fun setUserInfo(view: View) {
+    private fun setUserInfo() {
         val user = ParseUser.getCurrentUser()
 
-        val usernameText: TextView = view.findViewById(R.id.usernameText)
+        val usernameText: TextView = rootView.findViewById(R.id.usernameText)
         usernameText.text = user.username
 
-        val birthDayText: TextView = view.findViewById(R.id.birthdayText)
+        val birthDayText: TextView = rootView.findViewById(R.id.birthdayText)
         birthDayText.text = sdf.format(user.get("birthday"))
 
-        val nameText: TextView = view.findViewById(R.id.nameText)
+        val nameText: TextView = rootView.findViewById(R.id.nameText)
         nameText.text = user.get("name").toString()
 
-        val emailText: TextView = view.findViewById(R.id.emailText)
+        val emailText: TextView = rootView.findViewById(R.id.emailText)
         emailText.text = user.email
 
         val imageUtils = ImageUtils()
-        imageUtils.retrieveImage(user, view.profileImage)
+        imageUtils.retrieveImage(user, rootView.profileImage, this)
     }
 
-    private fun updatePets(view: View) {
+    private fun updatePets() {
         val pets = Pets()
         val petlist = pets.getPets()
         if (petlist != null) {
             adapter = PetAdapter(petlist.toList())
-            view.recyclerView.adapter = adapter
+            rootView.recyclerView.adapter = adapter
         }
+    }
+
+    override fun resetImage() {
+        profileImage.setImageDrawable(context?.getDrawable(R.drawable.animal_paw))
     }
 
     companion object {
