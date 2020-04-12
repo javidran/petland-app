@@ -67,4 +67,5 @@
     <string name="confirmationAlertMessage">The changes will be saved and the profile will be modified</string>
     <string name="edit_image">Choose image</string>
     <string name="reset_image">Use default image</string>
+    <string name="crop_error">Could not bet cropped correctly, please try again</string>
 </resources>

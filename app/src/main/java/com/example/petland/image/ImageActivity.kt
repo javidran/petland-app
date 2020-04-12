@@ -78,7 +78,7 @@ class ImageActivity : AppCompatActivity() {
                 Log.d(TAG, "Image not cropped")
                 val toast = Toast.makeText(
                     this,
-                    "Could not bet cropped correctly, please try again",
+                    getString(R.string.crop_error),
                     Toast.LENGTH_SHORT
                 )
                 toast.show()
