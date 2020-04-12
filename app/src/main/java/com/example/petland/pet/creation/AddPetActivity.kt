@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.petland.MenuActivity
+import com.example.petland.TestingActivity
 import com.example.petland.R
 import com.parse.ParseObject
 import com.parse.ParseUser
@@ -66,7 +66,7 @@ class AddPetActivity : AppCompatActivity() {
         textPetName.text.clear()
         chipNumber.text.clear()
 
-        val intent = Intent(this, MenuActivity::class.java).apply {
+        val intent = Intent(this, TestingActivity::class.java).apply {
         }
         startActivity(intent)
         overridePendingTransition(

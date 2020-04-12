@@ -14,7 +14,7 @@ import java.util.*
 
 private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
 
-class PetAdapter(private val pets: List<ParseObject>) : RecyclerView.Adapter<PetAdapter.PetHolder>(){
+class PetAdapter(private val pets: List<ParseObject>) : RecyclerView.Adapter<PetAdapter.PetHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): PetHolder {
         return PetHolder(LayoutInflater.from(p0.context).inflate(R.layout.user_profile_pet_element, p0, false))

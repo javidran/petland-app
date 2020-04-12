@@ -13,13 +13,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
+import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.UserProfileFragment
 import com.google.android.material.navigation.NavigationView
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.content_home_principal.*
+import kotlinx.android.synthetic.main.content_home.*
 
 
-class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeActivity :  AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val TAG = "Petland Dashboard"
     lateinit var toolbar: Toolbar
@@ -27,7 +28,7 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
     lateinit var navView: NavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home_principal)
+        setContentView(R.layout.activity_home)
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -62,10 +63,7 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
 
             }
             R.id.nav_eventos -> {
-                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                frameLayout.removeAllViews()
-                transaction.replace(R.id.frameLayout, BlankFragment.newInstance("hola", "que tal"))
-                transaction.commit()
+
             }
             R.id.nav_perfil -> {
                 frameLayout.removeAllViews()
@@ -81,7 +79,7 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
                     Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
                     val intent = Intent(
                         this,
-                        MainActivity::class.java
+                        BootActivity::class.java
                     ).apply { //Para pasar de esta vista, de nuevo al SignIn
                     }
                     startActivity(intent)
@@ -105,7 +103,7 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
             }
         }
     fun homeantiguo(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
+        val intent = Intent(this, TestingActivity::class.java).apply {
         }
 
         startActivity(intent)

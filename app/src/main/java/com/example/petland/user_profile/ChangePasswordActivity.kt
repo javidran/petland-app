@@ -19,6 +19,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_changepassword)
     }
+
     fun returnHome(view: View) {
         finish()
     }

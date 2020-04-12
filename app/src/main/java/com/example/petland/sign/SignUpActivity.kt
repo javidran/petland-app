@@ -9,8 +9,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.petland.MenuActivity
-import com.example.petland.ParseError
+import com.example.petland.utils.ParseError
 import com.example.petland.R
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.parse.ParseUser

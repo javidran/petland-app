@@ -1,4 +1,4 @@
-package com.example.petland
+package com.example.petland.utils
 
 import android.app.Activity
 import android.widget.Toast

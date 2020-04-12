@@ -6,9 +6,8 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.example.petland.HomePrincipalActivity
-import com.example.petland.MenuActivity
-import com.example.petland.ParseError
+import com.example.petland.HomeActivity
+import com.example.petland.utils.ParseError
 import com.example.petland.R
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
@@ -44,7 +43,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     fun login(view: View) {
-        val intent = Intent(this, HomePrincipalActivity::class.java).apply {
+        val intent = Intent(this, HomeActivity::class.java).apply {
         }
         when {
             TextUtils.isEmpty(editTextUsername.text) -> {

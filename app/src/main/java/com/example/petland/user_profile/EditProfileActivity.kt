@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.petland.MenuActivity
 import com.example.petland.R
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_editprofile.*
