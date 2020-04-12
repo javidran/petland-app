@@ -16,6 +16,7 @@ import com.parse.ParseObject
 import com.parse.ParseUser
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_image.*
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 
@@ -25,7 +26,7 @@ private const val PICK_IMAGE = 1
 private const val TAG = "Petland ImageView"
 
 class ImageActivity : AppCompatActivity() {
-    private var profile: ParseObject? = null
+    private lateinit var profile: ParseObject
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,12 +81,11 @@ class ImageActivity : AppCompatActivity() {
             }
             else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
                 Log.d(TAG, "Image cropped")
-                val resultUri = UCrop.getOutput(data)
-                if(resultUri != null) {
-//                    saveImage(resultUri)
-//                    val imageBitmap =
-//                        MediaStore.Images.Media.getBitmap(this.contentResolver, resultUri)
-                    imageView.setImageURI(resultUri)
+                val uri = UCrop.getOutput(data)
+                if(uri != null) {
+                    val imageBitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+                    saveImage(imageBitmap)
+                    imageView.setImageBitmap(imageBitmap)
                 }
             }
             else if (resultCode == UCrop.RESULT_ERROR) {
@@ -97,36 +97,41 @@ class ImageActivity : AppCompatActivity() {
     }
 
     private fun getImage() {
-        if(profile != null) {
-            var imageFile = profile!!.get("image") as ParseFile?
+        var imageFile = profile.get("image") as ParseFile?
 
-            imageFile?.getDataInBackground { data, e ->
-                if (e == null) {
-                    //                    MediaStore.Images.Media.getBitmap(this.contentResolver, data)
-                    imageView.setImageBitmap(getImage(data))
-                } else {
-                    // something went wrong
-                }
+        imageFile?.getDataInBackground { data, e ->
+            if (e == null) {
+                //                    MediaStore.Images.Media.getBitmap(this.contentResolver, data)
+                imageView.setImageBitmap(getBitmapFromByteArray(data))
+            } else {
+                // something went wrong
             }
         }
     }
 
-    private fun saveImage(uri :Uri) {
-        if(profile != null) {
-            var inputData = readBytes(this, uri)
+    private fun saveImage(imageBitmap :Bitmap) {
+        val byteArrayOutputStream = ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        val bytes = byteArrayOutputStream.toByteArray()
 
-            val file = ParseFile("profileImage.png", inputData)
-            file.save()
-            profile!!.put("image", file)
-            profile!!.save()
-        }
+        Log.d(TAG, "Image converted to ByteArray")
+
+        val file = ParseFile("profileImage.png", bytes)
+        file.save()
+
+        Log.d(TAG, "Saving image to server")
+
+        profile.put("image", file)
+        profile.save()
+
+        Log.d(TAG, "Assigning image to user/pet")
     }
 
     @Throws(IOException::class)
     private fun readBytes(context: Context, uri: Uri): ByteArray? =
         context.contentResolver.openInputStream(uri)?.buffered()?.use { it.readBytes() }
 
-    fun getImage(image: ByteArray): Bitmap? {
+    private fun getBitmapFromByteArray(image: ByteArray): Bitmap? {
         return BitmapFactory.decodeByteArray(image, 0, image.size)
     }
 }
