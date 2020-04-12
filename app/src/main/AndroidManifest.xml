@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".ImageActivity"></activity>
+        <activity android:name=".image.ImageActivity" />
         <activity android:name=".user_profile.UserProfileActivity" />
         <activity
             android:name=".MainActivity"
@@ -24,8 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".sign_in.SignUpActivity" />
-        <activity android:name=".sign_in.SignInActivity" />
+        <activity android:name=".sign.SignUpActivity" />
+        <activity android:name=".sign.SignInActivity" />
         <activity android:name=".user_profile.EditProfileActivity" />
         <activity android:name=".user_profile.ChangePasswordActivity" />
         <activity android:name=".pet_creation.GetFirstPetActivity" />

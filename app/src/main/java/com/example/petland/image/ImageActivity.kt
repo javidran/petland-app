@@ -1,9 +1,7 @@
-package com.example.petland
+package com.example.petland.image
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -11,36 +9,35 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.petland.R
 import com.parse.ParseFile
 import com.parse.ParseObject
-import com.parse.ParseUser
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_image.*
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.IOException
 
-
-private const val PROFILE = "profile"
 private const val PICK_IMAGE = 1
 private const val TAG = "Petland ImageView"
 
 class ImageActivity : AppCompatActivity() {
-    private lateinit var profile: ParseObject
+    private lateinit var parseObject: ParseObject
+    private val imageUtils = ImageUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
+//        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         editImage.setOnClickListener { pickImage() }
 
-//        savedInstanceState?.let {
-//            profile = it.getParcelable(PROFILE)
-//        }
-
-        profile = ParseUser.getCurrentUser()
-
-        getImage()
+        val intentData = intent.getParcelableExtra<ParseObject>("object")
+        if(intentData != null) {
+            parseObject = intentData
+        } else {
+            finish()
+        }
+        imageUtils.retrieveImage(parseObject, imageView)
     }
 
     private fun pickImage() {
@@ -56,7 +53,9 @@ class ImageActivity : AppCompatActivity() {
         val chooserIntent = Intent.createChooser(getIntent, "Select Image")
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
 
-        startActivityForResult(chooserIntent, PICK_IMAGE)
+        startActivityForResult(chooserIntent,
+            PICK_IMAGE
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -64,20 +63,8 @@ class ImageActivity : AppCompatActivity() {
         if(data != null) {
             if (requestCode == PICK_IMAGE) {
                 Log.d(TAG, "Image chosen")
-
                 val uri = data.data
-                if (uri != null) {
-                    val options = UCrop.Options()
-                    options.setCircleDimmedLayer(true)
-                    options.setActiveControlsWidgetColor(ContextCompat.getColor(this, R.color.md_blue_500))
-                    options.setToolbarWidgetColor(ContextCompat.getColor(this, R.color.md_blue_500))
-
-                    UCrop.of(uri, Uri.fromFile(File(cacheDir, "croppedImage.png")))
-                        .withAspectRatio(1F, 1F)
-                        .withMaxResultSize(300, 300)
-                        .withOptions(options)
-                        .start(this)
-                }
+                if (uri != null) startCrop(uri)
             }
             else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
                 Log.d(TAG, "Image cropped")
@@ -96,17 +83,21 @@ class ImageActivity : AppCompatActivity() {
         }
     }
 
-    private fun getImage() {
-        var imageFile = profile.get("image") as ParseFile?
+    private fun startCrop(uri: Uri) {
+        val options = UCrop.Options()
+        options.setCircleDimmedLayer(true)
+        options.setActiveControlsWidgetColor(ContextCompat.getColor(this,
+            R.color.md_blue_500
+        ))
+        options.setToolbarWidgetColor(ContextCompat.getColor(this,
+            R.color.md_blue_500
+        ))
 
-        imageFile?.getDataInBackground { data, e ->
-            if (e == null) {
-                //                    MediaStore.Images.Media.getBitmap(this.contentResolver, data)
-                imageView.setImageBitmap(getBitmapFromByteArray(data))
-            } else {
-                // something went wrong
-            }
-        }
+        UCrop.of(uri, Uri.fromFile(File(cacheDir, "croppedImage.png")))
+            .withAspectRatio(1F, 1F)
+            .withMaxResultSize(400, 400)
+            .withOptions(options)
+            .start(this)
     }
 
     private fun saveImage(imageBitmap :Bitmap) {
@@ -121,17 +112,9 @@ class ImageActivity : AppCompatActivity() {
 
         Log.d(TAG, "Saving image to server")
 
-        profile.put("image", file)
-        profile.save()
+        parseObject.put("image", file)
+        parseObject.save()
 
         Log.d(TAG, "Assigning image to user/pet")
-    }
-
-    @Throws(IOException::class)
-    private fun readBytes(context: Context, uri: Uri): ByteArray? =
-        context.contentResolver.openInputStream(uri)?.buffered()?.use { it.readBytes() }
-
-    private fun getBitmapFromByteArray(image: ByteArray): Bitmap? {
-        return BitmapFactory.decodeByteArray(image, 0, image.size)
     }
 }

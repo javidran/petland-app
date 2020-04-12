@@ -1,4 +1,4 @@
-package com.example.petland.sign_in
+package com.example.petland.sign
 
 import android.content.Intent
 import android.os.Bundle

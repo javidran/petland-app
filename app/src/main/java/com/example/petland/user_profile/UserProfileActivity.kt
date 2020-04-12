@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.petland.ImageActivity
+import com.example.petland.image.ImageActivity
+import com.example.petland.image.ImageUtils
 import com.example.petland.R
 import com.example.petland.pet_creation.AddPetActivity
+import com.example.petland.pet_creation.Pets
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import java.text.SimpleDateFormat
@@ -49,6 +51,8 @@ class UserProfileActivity : AppCompatActivity() {
 
     private fun seeImage() {
         val intent = Intent(this, ImageActivity::class.java).apply {}
+        var user = ParseUser.getCurrentUser()
+        intent.putExtra("object" , user)
         startActivity(intent)
     }
 
@@ -72,6 +76,9 @@ class UserProfileActivity : AppCompatActivity() {
 
         val emailText : TextView = findViewById(R.id.emailText)
         emailText.text = user.email
+
+        val imageUtils = ImageUtils()
+        imageUtils.retrieveImage(user, profileImage)
     }
 
     private fun updatePets() {

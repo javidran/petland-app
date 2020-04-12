@@ -1,4 +1,4 @@
-package com.example.petland.sign_in
+package com.example.petland.sign
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -105,8 +105,7 @@ class SignUpActivity : AppCompatActivity() {
                 user.put("name", editTextName.text.toString())
                 user.put("birthday", date)
 
-                val intent = Intent(this, MenuActivity::class.java).apply {
-                }
+                val intent = Intent(this, MenuActivity::class.java).apply {}
 
                 user.signUpInBackground { e ->
                     if (e == null) {
