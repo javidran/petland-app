@@ -121,7 +121,7 @@
             android:background="@drawable/button_without_corners"
             android:backgroundTint="#00C4CC"
             android:cropToPadding="false"
-            android:onClick="edit"
+            android:onClick="savechanges"
             android:text="@string/saveChanges"
             android:textSize="16dp"
             android:textAllCaps="false"
@@ -140,13 +140,12 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/button_with_borders_translucent"
             android:cropToPadding="false"
-            android:onClick="volver"
+            android:onClick="cancel"
             android:text="@string/goBack"
             android:textAllCaps="false"
             android:textColor="@color/md_white_1000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
             app:layout_constraintTop_toBottomOf="@+id/buttonGuardarCambios" />
 
         <Button

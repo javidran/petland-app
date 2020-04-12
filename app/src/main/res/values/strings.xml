@@ -61,4 +61,9 @@
     <string name="petCaregivers"> Caregivers</string>
     <string name="owner">Owner</string>
     <string name="instructionstoeditprofiledescriprtion">Edit any of the following fields and save changes to update your profile information</string>
+    <string name="cancelAlertTitle">Are you sure you want to cancel the unsaved changes?</string>
+    <string name="cancelAlertMessage">Any unsaved changes wil be lost</string>
+    <string name="ok">Ok</string>
+    <string name="confirmationAlertTitle">Are you sure you want to save the changes?</string>
+    <string name="confirmationAlertMessage">The changes will be saved and the profile will be modified</string>
 </resources>
