@@ -27,7 +27,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="108dp"
-        android:background="@drawable/button_with_borders"
+        android:background="@drawable/button_with_borders_translucent"
         android:text="@string/takeCareOfExistingPet"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
