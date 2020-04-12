@@ -21,7 +21,7 @@ class GetFirstPetActivity: AppCompatActivity() {
 
 
     fun acceptInvitation(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
+        val intent = Intent(this, HomePrincipalActivity::class.java).apply {
         }
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
