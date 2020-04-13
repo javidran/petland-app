@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.parse.ParseCloud
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
@@ -35,24 +34,21 @@ class MenuActivity : AppCompatActivity(){
         }
     }
 
-    fun deleteUser() {
-        val currentUser = ParseUser.getCurrentUser()
-        val params =
-            HashMap<String, String?>()
-        params["userId"] = currentUser.objectId
-        ParseCloud.callFunctionInBackground<Float>(
-            "deleteUserWithId",
-            params
-        ) { _, e ->
-            if (e == null) { // success
-                Log.d(TAG, "User correctly deleted!")
+    private fun deleteUser() {
+        val user = ParseUser.getCurrentUser()
+        user.deleteInBackground { e ->
+            if (e == null) {
+                Log.d(TAG,"User correctly deleted!") //Mensaje en logcat
+                ParseUser.logOut()
+                Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
+                }
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+            } else {
+                Log.d(TAG,"An error occurred!") //Mensaje en logcat
             }
         }
-        Toast.makeText(this, "Usuario eliminado", Toast.LENGTH_SHORT).show()//falta hacer texto multiidioma!
-        val intent = Intent(this, MainActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
-        }
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
 
