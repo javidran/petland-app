@@ -36,6 +36,23 @@ class MenuActivity : AppCompatActivity(){
 
     private fun deleteUser() {
         val user = ParseUser.getCurrentUser()
+        val query = ParseQuery.getQuery<ParseObject>("Pet")
+        query.whereEqualTo("owner", user)
+        query.findInBackground { petsList, e ->
+            if (e == null) {
+                for (pet in petsList) {
+                    pet.deleteInBackground { e ->
+                        if (e == null) {
+                            Log.d(TAG,"Pet correctly deleted!") //Mensaje en logcat
+                        } else {
+                            Log.d(TAG,"An error occurred while deleting a pet!") //Mensaje en logcat
+                        }
+                    }
+                }
+            } else {
+                Log.d(TAG, "An error happened while retrieving user pets.")
+            }
+        }
         user.deleteInBackground { e ->
             if (e == null) {
                 Log.d(TAG,"User correctly deleted!") //Mensaje en logcat
