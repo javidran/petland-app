@@ -1,12 +1,13 @@
-package com.example.petland
+package com.example.petland.pet
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.R
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseRelation
@@ -69,14 +70,13 @@ class EditPetProfileActivity : AppCompatActivity() {
             dialog.show()
         }
 
-
         editTextChip.setText(myPet.get("chip").toString())
 
         val list = findViewById<TextView>(R.id.petCaregiversList)
         list.text = ""
         listCaregivers.findInBackground { result, e ->
             if (e == null) {
-                for(el in result) {
+                for (el in result) {
                     list.text = (list.text as String).plus("- ".plus(el.username).plus("\n"))
                     if (el.objectId == myPet.get("owner").toString()) textViewOwner.text = el.username
                 }
@@ -126,6 +126,17 @@ class EditPetProfileActivity : AppCompatActivity() {
         myPet.put("chip", Integer.valueOf(editTextChip.text.toString()))
         myPet.put("birthday", date)
         myPet.save()
+        volver(view)
+        overridePendingTransition(
+            R.anim.slide_out_left,
+            R.anim.slide_out_right
+        )
+    }
+
+    fun save(view: View) {
+        pet.put("chip", Integer.valueOf(editTextChip.text.toString()))
+        pet.put("birthday", date)
+        pet.save()
         volver(view)
     }
 }

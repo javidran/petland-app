@@ -1,11 +1,12 @@
-package com.example.petland
+package com.example.petland.pet
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.R
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseRelation
@@ -21,8 +22,9 @@ class ViewPetProfileActivity : AppCompatActivity() {
 
     private lateinit var myPet:ParseObject
     private val TAG = "Petland EditPetProfile"
+
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pet_profile)
@@ -45,7 +47,7 @@ class ViewPetProfileActivity : AppCompatActivity() {
         list.text = ""
         listCaregivers.findInBackground { result, e ->
             if (e == null) {
-                for(el in result) {
+                for (el in result) {
                     list.text = (list.text as String).plus("- ".plus(el.username).plus("\n"))
                     if (el.objectId == myPet.get("owner").toString()) textViewOwner.text = el.username
                 }
@@ -69,6 +71,11 @@ class ViewPetProfileActivity : AppCompatActivity() {
         intent.putExtra("petId", myPet.objectId);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
+
+    companion object {
+        private const val TAG = "Petland EditPetProfile"
+
     }
 
 }
