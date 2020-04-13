@@ -59,4 +59,9 @@
     <string name="owner">Propietario</string>
     <string name="instructionstoeditprofiledescriprtion">Edita cualquiera de los siguientes campos y guarda los cambios para actualizar la información del perfil</string>
     <string name="delete">BORRAR</string>
+    <string name="cancelAlertTitle">¿Está seguro que quiere cancelar los cambios no guardados?</string>
+    <string name="cancelAlertMessage">Cualquier modificación que no haya guardado se perderá</string>
+    <string name="ok">De acuerdo</string>
+    <string name="confirmationAlertTitle">¿Está seguro que quiere guardar los cambios?</string>
+    <string name="confirmationAlertMessage">Los cambios se guardarán y se modificará el perfil</string>
 </resources>

@@ -59,4 +59,9 @@
     <string name="owner">Propietari</string>
     <string name="instructionstoeditprofiledescriprtion">Edita qualsevol dels següents camps i guarda els canvis per actualitzar el teu perfil</string>
     <string name="delete">ESBORRAR</string>
+    <string name="cancelAlertTitle">Està segur que vol cancel·lar els canvis no desats?</string>
+    <string name="cancelAlertMessage">Qualssevol canvis que no s\'hagin desat es perdran</string>
+    <string name="ok">D\'accord</string>
+    <string name="confirmationAlertTitle">Està segur que vol desar els canvis?</string>
+    <string name="confirmationAlertMessage">Els canvis es guardaran i es modificarà el perfil</string>
 </resources>

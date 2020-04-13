@@ -99,7 +99,7 @@ class SignUpActivity : AppCompatActivity() {
                 user.put("name", editTextName.text.toString())
                 user.put("birthday", date)
 
-                val intent = Intent(this, MenuActivity::class.java).apply {
+                val intent = Intent(this, GetFirstPetActivity::class.java).apply {
                 }
 
                 user.signUpInBackground { e ->
