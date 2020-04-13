@@ -12,6 +12,9 @@ import com.parse.ParseQuery
 import com.parse.ParseRelation
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_edit_pet_profile.*
+import kotlinx.android.synthetic.main.activity_edit_pet_profile.textViewName
+import kotlinx.android.synthetic.main.activity_edit_pet_profile.textViewOwner
+import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,7 +42,6 @@ class EditPetProfileActivity : AppCompatActivity() {
         val listCaregivers = caregivers.query
 
         textViewName.text = myPet.get("name").toString()
-        textViewOwner.text = listCaregivers.first.username
 
         val textViewBirthday: TextView = findViewById(R.id.editTextBirth)
         val cal = Calendar.getInstance()
@@ -76,6 +78,7 @@ class EditPetProfileActivity : AppCompatActivity() {
             if (e == null) {
                 for(el in result) {
                     list.text = (list.text as String).plus("- ".plus(el.username).plus("\n"))
+                    if (el.objectId == myPet.get("owner").toString()) textViewOwner.text = el.username
                 }
             } else {
                 Log.d(TAG, "PetQuery not completed")
