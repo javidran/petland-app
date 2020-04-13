@@ -13,20 +13,21 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
+import com.example.petland.sign.BootActivity
+import com.example.petland.user_profile.UserProfileFragment
 import com.google.android.material.navigation.NavigationView
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.content_home_principal.*
+import kotlinx.android.synthetic.main.content_home.*
 
 
-class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var toolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
-    private val TAG = "Petland Dashboard"
-    lateinit var toolbar: Toolbar
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navView: NavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home_principal)
+        setContentView(R.layout.activity_home)
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -41,8 +42,9 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.options_menu,menu)
+        menuInflater.inflate(R.menu.options_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -61,16 +63,13 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
 
             }
             R.id.nav_eventos -> {
-                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                frameLayout.removeAllViews()
-                transaction.replace(R.id.frameLayout, BlankFragment.newInstance("hola", "que tal"))
-                transaction.commit()
+
             }
             R.id.nav_perfil -> {
-              /*  frameLayout.removeAllViews()
+                frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.frameLayout, EditProfileFragment.newInstance())
-                transaction.commit()*/
+                transaction.replace(R.id.frameLayout, UserProfileFragment.newInstance())
+                transaction.commit()
             }
             R.id.nav_logout -> {
                 val currentUser = ParseUser.getCurrentUser()
@@ -80,7 +79,7 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
                     Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
                     val intent = Intent(
                         this,
-                        MainActivity::class.java
+                        BootActivity::class.java
                     ).apply { //Para pasar de esta vista, de nuevo al SignIn
                     }
                     startActivity(intent)
@@ -91,24 +90,30 @@ class HomePrincipalActivity :  AppCompatActivity(), NavigationView.OnNavigationI
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-        override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-            R.id.action_add -> {
-                Toast.makeText(this,"add action",Toast.LENGTH_LONG).show()
-                true
-            }
 
-            else -> {
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                super.onOptionsItemSelected(item)
-            }
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_add -> {
+            Toast.makeText(this, "add action", Toast.LENGTH_LONG).show()
+            true
         }
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }
+
     fun homeantiguo(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
+        val intent = Intent(this, TestingActivity::class.java).apply {
         }
 
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
+
+    companion object {
+        private const val TAG = "Petland Dashboard"
     }
+}
 

@@ -26,8 +26,8 @@
     <string name="welcomeDescription">La mejor aplicación para mascotas creada por amantes de las mascotas</string>
     <string name="editProfile">Editar perfil</string>
     <string name="logout">Cerrar sesión</string>
-    <string name="createPet">Crear mascota</string>
-    <string name="petList">Lista de mascotas</string>
+    <string name="createPet">Añadir mascota</string>
+    <string name="petList">Mis mascotas</string>
     <string name="writePetName">Escribe el nombre de tu mascota</string>
     <string name="signIn">Iniciar sesión</string>
     <string name="signUp">Registar usuario</string>
@@ -63,4 +63,6 @@
     <string name="ok">De acuerdo</string>
     <string name="confirmationAlertTitle">¿Está seguro que quiere guardar los cambios?</string>
     <string name="confirmationAlertMessage">Los cambios se guardarán y se modificará el perfil</string>
+    <string name="edit_image">Seleccionar imagen</string>
+    <string name="reset_image">Utilizar imagen predeterminada</string>
 </resources>
