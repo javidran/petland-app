@@ -15,8 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/half_circle">
+            android:layout_height="wrap_content">
 
 
             <Button
@@ -25,7 +24,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_marginTop="64dp"
-                android:background="@drawable/button_with_borders"
+                android:background="@drawable/button_without_corners"
                 android:backgroundTint="#FFFFFF"
                 android:drawablePadding="20sp"
                 android:onClick="signIn"

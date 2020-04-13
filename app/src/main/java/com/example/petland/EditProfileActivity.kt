@@ -1,5 +1,6 @@
 package com.example.petland
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +13,7 @@ import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_editprofile.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class EditProfileActivity : AppCompatActivity(){
     private val TAG = "Petland EditProfile"
@@ -57,20 +59,20 @@ class EditProfileActivity : AppCompatActivity(){
             user.username = editTextUsername.text.toString()
             user.email = editTextEmail.text.toString()
             user.put("name", editTextName.text.toString())
-              user.put("birthday", date)
+            user.put("birthday", date)
             user.save()
             Log.d(TAG, getString(R.string.profileEditedCorrectly))
             Toast.makeText(this@EditProfileActivity, getString(R.string.profileEditedCorrectly), Toast.LENGTH_LONG).show()
+            volver()
         } else {
-           Log.d(TAG, getString(R.string.userNotLogged))
+            Log.d(TAG, getString(R.string.userNotLogged))
         }
     }
-    fun volver(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
-        }
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
+    fun savechanges (view: View){
+        confirmationDialog(view)
     }
+
     fun changepassword(view: View) {
         val intent = Intent(this, ChangePasswordActivity::class.java).apply {
         }
@@ -78,6 +80,46 @@ class EditProfileActivity : AppCompatActivity(){
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
+    fun cancel(view: View) {
+        cancelationDialog()
+    }
 
+    override fun onBackPressed() {
+        cancelationDialog()
+    }
 
+    fun cancelationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.cancelAlertTitle))
+        builder.setMessage(getString(R.string.cancelAlertMessage))
+        builder.setCancelable(true)
+        builder.setPositiveButton(getString(R.string.ok))
+        { dialog, which ->
+            volver();
+        }
+        builder.setNegativeButton(getString(R.string.cancel))
+        { dialog, which ->}
+        builder.show()
+    }
+
+    fun volver() {
+        val intent = Intent(this, MenuActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
+    fun confirmationDialog(view: View) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.confirmationAlertTitle))
+        builder.setMessage(getString(R.string.confirmationAlertMessage))
+        builder.setCancelable(false)
+        builder.setPositiveButton(getString(R.string.ok))
+        { dialog, which ->
+            edit(view);
+        }
+        builder.setNegativeButton(getString(R.string.cancel))
+        { dialog, which ->}
+        builder.show()
+    }
 }

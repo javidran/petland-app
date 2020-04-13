@@ -34,6 +34,15 @@
     <string name="continueNext">Continue</string>
     <string name="createAccount">Create account</string>
     <string name="writePetName">Write your pet\'s name</string>
+    <string name="accountSettings">Account settings</string>
+    <string name="myProfile">My Profile</string>
+    <string name="myPet">My Pet</string>
+    <string name="walk">Walks</string>
+    <string name="map">Map</string>
+    <string name="health">Health</string>
+    <string name="events">Events</string>
+    <string name="add">Add</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="createFirstPet">Add my first pet</string>
     <string name="takeCareOfExistingPet">Take care of a pet</string>
     <string name="timeToMakeAPetDescriprtion">It\'s time to add a pet to Petland</string>
@@ -48,4 +57,12 @@
     <string name="createNewPet">Register my pet</string>
     <string name="cancel">Cancel</string>
     <string name="profileCreatedCorrectly">Profile created correctly</string>
+    <string name="petCaregivers"> Caregivers</string>
+    <string name="owner">Owner</string>
+    <string name="instructionstoeditprofiledescriprtion">Edit any of the following fields and save changes to update your profile information</string>
+    <string name="cancelAlertTitle">Are you sure you want to cancel the unsaved changes?</string>
+    <string name="cancelAlertMessage">Any unsaved changes wil be lost</string>
+    <string name="ok">Ok</string>
+    <string name="confirmationAlertTitle">Are you sure you want to save the changes?</string>
+    <string name="confirmationAlertMessage">The changes will be saved and the profile will be modified</string>
 </resources>

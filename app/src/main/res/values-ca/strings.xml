@@ -33,6 +33,14 @@
     <string name="signUp">Registrar usuari</string>
     <string name="continueNext">Continua</string>
     <string name="createAccount">Crea compte</string>
+    <string name="accountSettings">Configuració de compte</string>
+    <string name="myProfile">Perfil</string>
+    <string name="myPet">La Meva Mascota</string>
+    <string name="walk">Passejos</string>
+    <string name="map">Mapa</string>
+    <string name="health">Salut</string>
+    <string name="events">Events</string>
+    <string name="add">Afegir</string>
     <string name="createFirstPet">Afegir la meva primera mascota</string>
     <string name="takeCareOfExistingPet">Cuidar una mascota</string>
     <string name="timeToMakeAPetDescriprtion">Es el moment d\'afegir una mascota a Petland</string>
@@ -47,4 +55,12 @@
     <string name="createNewPet">Registrar la meva mascota</string>
     <string name="cancel">Cancelar</string>
     <string name="profileCreatedCorrectly">Perfil creat correctament</string>
+    <string name="petCaregivers"> Cuidadors</string>
+    <string name="owner">Propietari</string>
+    <string name="instructionstoeditprofiledescriprtion">Edita qualsevol dels següents camps i guarda els canvis per actualitzar el teu perfil</string>
+    <string name="cancelAlertTitle">Està segur que vol cancel·lar els canvis no desats?</string>
+    <string name="cancelAlertMessage">Qualssevol canvis que no s\'hagin desat es perdran</string>
+    <string name="ok">D\'accord</string>
+    <string name="confirmationAlertTitle">Està segur que vol desar els canvis?</string>
+    <string name="confirmationAlertMessage">Els canvis es guardaran i es modificarà el perfil</string>
 </resources>
