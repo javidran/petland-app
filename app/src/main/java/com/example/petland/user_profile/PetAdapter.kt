@@ -1,26 +1,23 @@
 package com.example.petland.user_profile
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
-import com.example.petland.pet.ViewPetProfileActivity
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.user_profile_pet_element.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PetAdapter(private val pets: List<ParseObject>, private val context: Context) :
+class PetAdapter(private val pets: List<ParseObject>, private val viewPetCallback: ViewPetCallback) :
     RecyclerView.Adapter<PetAdapter.PetHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): PetHolder {
         return PetHolder(
-            LayoutInflater.from(p0.context).inflate(R.layout.user_profile_pet_element, p0, false), context
+            LayoutInflater.from(p0.context).inflate(R.layout.user_profile_pet_element, p0, false),
+            viewPetCallback
         )
     }
 
@@ -32,10 +29,10 @@ class PetAdapter(private val pets: List<ParseObject>, private val context: Conte
         holder.bindPetInfo(pets[position])
     }
 
-    class PetHolder(v: View, context: Context) : RecyclerView.ViewHolder(v), View.OnClickListener {
-
+    class PetHolder(v: View, viewPetCallback: ViewPetCallback) : RecyclerView.ViewHolder(v), View.OnClickListener {
         var view: View = v
-        var cont: Context = context
+        val vpCallback: ViewPetCallback = viewPetCallback
+
         private lateinit var pet: ParseObject
 
         init {
@@ -54,11 +51,7 @@ class PetAdapter(private val pets: List<ParseObject>, private val context: Conte
         }
 
         override fun onClick(v: View?) {
-            val intent = Intent(cont, ViewPetProfileActivity::class.java).apply {
-            }
-            intent.putExtra("petId", this.pet);
-            startActivity(intent);
-            //cont.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            vpCallback.startViewPetActivity(pet)
         }
 
     }
