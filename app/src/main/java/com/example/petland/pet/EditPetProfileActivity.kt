@@ -1,12 +1,13 @@
-package com.example.petland
+package com.example.petland.pet
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.R
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseRelation
@@ -16,8 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EditPetProfileActivity : AppCompatActivity() {
-
-    private lateinit var pett:ParseObject
+    private lateinit var pet: ParseObject
     private val TAG = "Petland EditPetProfile"
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
@@ -29,20 +29,20 @@ class EditPetProfileActivity : AppCompatActivity() {
     }
 
     private fun setData() {
-        val petId = intent.extras?.getString("petId");
+        val petId = intent.extras?.getString("petId")
         val pets = ParseQuery.getQuery<ParseObject>("Pet")
         pets.whereEqualTo("objectId", petId)
-        pett = pets.first
-        val caregivers: ParseRelation<ParseUser> = pett.getRelation<ParseUser>("caregivers")
+        pet = pets.first
+        val caregivers: ParseRelation<ParseUser> = pet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
 
-        textViewName.text = pett.get("name").toString()
+        textViewName.text = pet.get("name").toString()
         textViewOwner.text = listCaregivers.first.username
 
         val textViewBirthday: TextView = findViewById(R.id.editTextBirth)
         val cal = Calendar.getInstance()
-        val dateb = sdf.format(pett.get("birthday"))
-        date = pett.get("birthday") as Date
+        val dateb = sdf.format(pet.get("birthday"))
+        date = pet.get("birthday") as Date
         editTextBirth.setText(dateb.toString())
 
         val dateSetListener =
@@ -66,13 +66,13 @@ class EditPetProfileActivity : AppCompatActivity() {
         }
 
 
-        editTextChip.setText(pett.get("chip").toString())
+        editTextChip.setText(pet.get("chip").toString())
 
         val list = findViewById<TextView>(R.id.petCaregiversList)
         list.text = ""
         listCaregivers.findInBackground { result, e ->
             if (e == null) {
-                for(el in result) {
+                for (el in result) {
                     list.text = (list.text as String).plus("- ".plus(el.username).plus("\n"))
                 }
             } else {
@@ -85,13 +85,16 @@ class EditPetProfileActivity : AppCompatActivity() {
         val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_out_left, R.anim.slide_out_right)
+        overridePendingTransition(
+            R.anim.slide_out_left,
+            R.anim.slide_out_right
+        )
     }
 
     fun save(view: View) {
-        pett.put("chip", Integer.valueOf(editTextChip.text.toString()))
-        pett.put("birthday", date)
-        pett.save()
+        pet.put("chip", Integer.valueOf(editTextChip.text.toString()))
+        pet.put("birthday", date)
+        pet.save()
         viewPetProfile(view)
     }
 }

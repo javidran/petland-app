@@ -1,16 +1,18 @@
-package com.example.petland
+package com.example.petland.pet.creation
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.HomeActivity
+import com.example.petland.R
+import com.example.petland.TestingActivity
 import com.parse.ParseObject
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.activity_editprofile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,14 +48,15 @@ class AddPetActivity : AppCompatActivity() {
         }
 
     }
-    fun createPet (view: View) {
+
+    fun createPet(view: View) {
         val currentUser = ParseUser.getCurrentUser()
         val textPetName = findViewById<EditText>(R.id.editTextPetname)
         val chipNumber = findViewById<EditText>(R.id.editTextChip)
 
         val pet = ParseObject("Pet")
         pet.put("name", textPetName.text.toString())
-        pet.put("birthday",date)
+        pet.put("birthday", date)
         pet.put("chip", Integer.valueOf(chipNumber.text.toString()))
         pet.put("owner", currentUser)
         val relation = pet.getRelation<ParseUser>("caregivers")
@@ -65,18 +68,17 @@ class AddPetActivity : AppCompatActivity() {
         textPetName.text.clear()
         chipNumber.text.clear()
 
-        val intent = Intent(this, MenuActivity::class.java).apply {
-        }
+        val intent = Intent(this, HomeActivity::class.java).apply {}
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        overridePendingTransition(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
     }
 
 
     fun volver(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
-        }
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        finish()
     }
 
 }
