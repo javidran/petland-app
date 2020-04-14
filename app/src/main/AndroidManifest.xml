@@ -16,7 +16,6 @@
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity android:name=".image.ImageActivity" />
         <activity android:name=".user_profile.UserProfileFragment" />
-        <activity android:name=".pet.ViewPetProfileActivity" />
         <activity
             android:name=".sign.BootActivity"
             android:theme="@style/SplashTheme">
@@ -34,6 +33,8 @@
         <activity android:name=".user_profile.ChangePasswordActivity" />
         <activity android:name="com.example.petland.pet.creation.GetFirstPetActivity" />
         <activity android:name="com.example.petland.pet.creation.AddPetActivity" />
+        <activity android:name=".pet.ViewPetProfileActivity" />
+        <activity android:name=".pet.EditPetProfileActivity"/>
         <activity android:name=".TestingActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

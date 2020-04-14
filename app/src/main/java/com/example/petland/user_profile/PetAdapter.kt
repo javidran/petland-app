@@ -1,23 +1,26 @@
 package com.example.petland.user_profile
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
+import com.example.petland.pet.ViewPetProfileActivity
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.user_profile_pet_element.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PetAdapter(private val pets: List<ParseObject>) :
+class PetAdapter(private val pets: List<ParseObject>, private val context: Context) :
     RecyclerView.Adapter<PetAdapter.PetHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): PetHolder {
         return PetHolder(
-            LayoutInflater.from(p0.context).inflate(R.layout.user_profile_pet_element, p0, false)
+            LayoutInflater.from(p0.context).inflate(R.layout.user_profile_pet_element, p0, false), context
         )
     }
 
@@ -29,9 +32,10 @@ class PetAdapter(private val pets: List<ParseObject>) :
         holder.bindPetInfo(pets[position])
     }
 
-    class PetHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
+    class PetHolder(v: View, context: Context) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
         var view: View = v
+        var cont: Context = context
         private lateinit var pet: ParseObject
 
         init {
@@ -50,7 +54,11 @@ class PetAdapter(private val pets: List<ParseObject>) :
         }
 
         override fun onClick(v: View?) {
-            Toast.makeText(view.context, "Funcionalidad no disponible", Toast.LENGTH_SHORT).show()
+            val intent = Intent(cont, ViewPetProfileActivity::class.java).apply {
+            }
+            intent.putExtra("petId", this.pet);
+            startActivity(intent);
+            //cont.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
     }

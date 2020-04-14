@@ -6,6 +6,24 @@
     android:layout_height="match_parent" >
 
 
+    <TextView
+        android:id="@+id/textViewRace"
+        android:layout_width="181dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="@string/race"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName3"
+        app:layout_constraintVertical_bias="0.0" />
+
     <Button
         android:id="@+id/buttonEditProfile"
         android:layout_width="143dp"
@@ -122,23 +140,23 @@
         </LinearLayout>
     </ScrollView>
 
-        <TextView
-            android:id="@+id/textViewName2"
-            android:layout_width="181dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="50dp"
-            android:gravity="center_horizontal"
-            android:padding="10dp"
-            android:text="@string/name"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4"
-            app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/textViewName2"
+        android:layout_width="181dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="@string/name"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textViewName3"
@@ -173,33 +191,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRace"
         app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="181dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="50dp"
-            android:gravity="center_horizontal"
-            android:padding="10dp"
-            android:text="name"
-            android:textColor="@color/md_black_1000"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.662"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4"
-            app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="181dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="400dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="name"
+        android:textColor="@color/md_black_1000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textViewOwner"
         android:layout_width="181dp"
         android:layout_height="58dp"
-        android:layout_marginStart="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="400dp"
@@ -210,9 +227,27 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.615"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewName"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewOwner2"
+        android:layout_width="181dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="race"
+        android:textColor="@color/md_black_1000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewOwner"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -222,7 +257,6 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="400dp"
         android:gravity="center_horizontal"
         android:padding="10dp"
         android:text="chip"
@@ -230,9 +264,9 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.61"
+        app:layout_constraintHorizontal_bias="0.607"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewOwner"
+        app:layout_constraintTop_toBottomOf="@+id/textViewOwner2"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -270,4 +304,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
