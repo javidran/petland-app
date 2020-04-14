@@ -176,20 +176,16 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewName12"
             app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/imageView4"
-            tools:srcCompat="@tools:sample/avatars"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="150dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/profileImage1"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="16dp"
+            app:civ_border_width="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:srcCompat="@drawable/animal_paw" />
 
         <EditText
             android:id="@+id/editTextBirth"

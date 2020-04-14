@@ -9,6 +9,9 @@ import android.view.View
 import android.widget.TextView
 import com.example.petland.HomeActivity
 import com.example.petland.R
+import com.example.petland.image.ImageActivity
+import com.example.petland.image.ImageUtils
+import com.example.petland.image.ResetImageCallback
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseRelation
@@ -20,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EditPetProfileActivity : AppCompatActivity() {
+class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
     private lateinit var myPet:ParseObject
     private val TAG = "Petland EditPetProfile"
@@ -31,21 +34,16 @@ class EditPetProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pet_profile)
         setData()
+        profileImage1.setOnClickListener { seeImage() }
     }
 
     private fun setData() {
         val user = ParseUser.getCurrentUser()
-        val petId = intent.extras?.getString("petId");
-        val pets = ParseQuery.getQuery<ParseObject>("Pet")
-
-        pets.whereEqualTo("objectId", petId)
-        myPet = pets.first
+        myPet = intent.extras?.get("petId") as ParseObject
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
 
         textViewName.text = myPet.get("name").toString()
-        textViewOwner.text = listCaregivers.first.get("username").toString()
-
 
         val textViewBirthday: TextView = findViewById(R.id.editTextBirth)
         val cal = Calendar.getInstance()
@@ -82,12 +80,16 @@ class EditPetProfileActivity : AppCompatActivity() {
             if (e == null) {
                 for(el in result) {
                     list.text = (list.text as String).plus("- ".plus(el.username).plus("\n"))
+                    if (el.objectId == myPet.get("owner").toString()) textViewOwner.text = el.username
                 }
             } else {
                 Log.d(TAG, "PetQuery not completed")
             }
         }
         if (textViewOwner.text == user.username) enableButtons()
+
+        val imageUtils = ImageUtils()
+        imageUtils.retrieveImage(myPet, profileImage1, this)
     }
 
     private fun enableButtons() {
@@ -130,4 +132,15 @@ class EditPetProfileActivity : AppCompatActivity() {
         myPet.save()
         volver(view)
     }
+
+    private fun seeImage() {
+        val intent = Intent(this, ImageActivity::class.java).apply {}
+        intent.putExtra("object", myPet)
+        startActivity(intent)
+    }
+
+    override fun resetImage() {
+        profileImage1.setImageDrawable(this?.getDrawable(R.drawable.animal_paw))
+    }
+
 }
