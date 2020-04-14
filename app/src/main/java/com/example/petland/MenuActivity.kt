@@ -9,6 +9,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.pet.creation.GetFirstPetActivity
+import com.example.petland.sign.BootActivity
+import com.example.petland.user_profile.EditProfileActivity
 import com.parse.ParseCloud
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -34,28 +37,24 @@ class MenuActivity : AppCompatActivity(){
             deleteUser()
         }
     }
+    fun deleteUserConfirmation() {
 
+    }
     private fun deleteUser() {
         val user = ParseUser.getCurrentUser()
         val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.whereEqualTo("owner", user)
+        query.whereEqualTo("owner", user) //Query para obtener todas las mascotas propiedad del user a eliminar, para eliminarlas tambien
         query.findInBackground { petsList, e ->
             if (e == null) {
                 for (pet in petsList) {
-                    pet.deleteInBackground { e ->
-                        if (e == null) {
-                            Log.d(TAG,"Pet correctly deleted!") //Mensaje en logcat
-                        } else {
-                            Log.d(TAG,"An error occurred while deleting a pet!") //Mensaje en logcat
-                        }
-                    }
+                    deletePet(pet)
                 }
                 user.deleteInBackground { e ->
                     if (e == null) {
                         Log.d(TAG,"User correctly deleted!") //Mensaje en logcat
                         ParseUser.logOut()
                         Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
+                        val intent = Intent(this, BootActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
                         }
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -67,7 +66,15 @@ class MenuActivity : AppCompatActivity(){
                 Log.d(TAG, "An error happened while retrieving user pets.")
             }
         }
-
+    }
+    private fun deletePet(pet: ParseObject) {
+        pet.deleteInBackground { e ->
+            if (e == null) {
+                Log.d(TAG, "Pet correctly deleted!") //Mensaje en logcat
+            } else {
+                Log.d(TAG, "An error occurred while deleting a pet!") //Mensaje en logcat
+            }
+        }
     }
 
 
@@ -78,7 +85,7 @@ class MenuActivity : AppCompatActivity(){
             Log.d(TAG,getString(R.string.loggedOut)) //Mensaje en logcat
             ParseUser.logOut()
             Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
+            val intent = Intent(this, BootActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
             }
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)

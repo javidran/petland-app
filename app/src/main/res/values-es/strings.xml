@@ -65,4 +65,6 @@
     <string name="confirmationAlertMessage">Los cambios se guardarán y se modificará el perfil</string>
     <string name="edit_image">Seleccionar imagen</string>
     <string name="reset_image">Utilizar imagen predeterminada</string>
+    <string name="delete_account_message">Estás seguro de borrar tu cuenta?</string>
+    <string name="delete_account">Borrar Cuenta</string>
 </resources>

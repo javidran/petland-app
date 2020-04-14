@@ -10,6 +10,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
+import com.example.petland.sign.BootActivity
+import com.parse.ParseObject
+import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_editprofile.*
 import java.text.SimpleDateFormat
@@ -80,6 +83,59 @@ class EditProfileActivity : AppCompatActivity() {
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
+    }
+    fun deleteUserConfirmation(view: View) {
+        val builder = AlertDialog.Builder(this@EditProfileActivity)
+        builder.setTitle(getString(R.string.delete_account))
+        builder.setMessage(getString(R.string.delete_account_message))
+
+        builder.setPositiveButton((getString(R.string.ok))){dialog, which ->
+            Toast.makeText(applicationContext,"Cuenta borrada correctamente",Toast.LENGTH_SHORT).show()
+           deleteUser()
+        }
+        builder.setNeutralButton(getString(R.string.cancel)){_,_ ->
+        }
+        val dialog: AlertDialog = builder.create()
+
+        dialog.show()
+    }
+
+
+    private fun deleteUser() {
+        val user = ParseUser.getCurrentUser()
+        val query = ParseQuery.getQuery<ParseObject>("Pet")
+        query.whereEqualTo("owner", user) //Query para obtener todas las mascotas propiedad del user a eliminar, para eliminarlas tambien
+        query.findInBackground { petsList, e ->
+            if (e == null) {
+                for (pet in petsList) {
+                    deletePet(pet)
+                }
+                user.deleteInBackground { e ->
+                    if (e == null) {
+                        Log.d(TAG,"User correctly deleted!") //Mensaje en logcat
+                        ParseUser.logOut()
+                       // Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, BootActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
+                        }
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    } else {
+                        Log.d(TAG,"An error occurred!") //Mensaje en logcat
+                    }
+                }
+            } else {
+                Log.d(TAG, "An error happened while retrieving user pets.")
+            }
+        }
+    }
+    private fun deletePet(pet: ParseObject) {
+        pet.deleteInBackground { e ->
+            if (e == null) {
+                Log.d(TAG, "Pet correctly deleted!") //Mensaje en logcat
+            } else {
+                Log.d(TAG, "An error occurred while deleting a pet!") //Mensaje en logcat
+            }
+        }
     }
 
     fun savechanges(view: View) {
