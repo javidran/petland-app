@@ -1,11 +1,13 @@
-package com.example.petland
+package com.example.petland.pet.creation
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.HomeActivity
+import com.example.petland.R
 
-class GetFirstPetActivity: AppCompatActivity() {
+class GetFirstPetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
@@ -16,15 +18,21 @@ class GetFirstPetActivity: AppCompatActivity() {
         val intent = Intent(this, AddPetActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
 
     fun acceptInvitation(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
+        val intent = Intent(this, HomeActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
 }

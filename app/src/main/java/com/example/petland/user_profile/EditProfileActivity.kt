@@ -1,5 +1,6 @@
-package com.example.petland
+package com.example.petland.user_profile
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -8,15 +9,15 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.R
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_editprofile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EditProfileActivity : AppCompatActivity(){
-    private val TAG = "Petland EditProfile"
+class EditProfileActivity : AppCompatActivity() {
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
-    lateinit var date: Date
+    private lateinit var date: Date
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +27,9 @@ class EditProfileActivity : AppCompatActivity(){
         val user = ParseUser.getCurrentUser()
         editTextUsername.setText(user.get("username").toString())
         editTextEmail.setText(user.get("email").toString())
-        val dateb = sdf.format(user.get("birthday"))
+        val formattedDate = sdf.format(user.get("birthday"))
         date = user.get("birthday") as Date
-        editTextBirthday.setText(dateb.toString())
+        editTextBirthday.setText(formattedDate.toString())
         editTextName.setText(user.get("name").toString())
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
@@ -51,8 +52,9 @@ class EditProfileActivity : AppCompatActivity(){
         }
 
     }
-    fun edit (view: View) {
-        val user= ParseUser.getCurrentUser()
+
+    private fun edit(view: View) {
+        val user = ParseUser.getCurrentUser()
         if (user != null) {
             user.username = editTextUsername.text.toString()
             user.email = editTextEmail.text.toString()
@@ -60,24 +62,69 @@ class EditProfileActivity : AppCompatActivity(){
             user.put("birthday", date)
             user.save()
             Log.d(TAG, getString(R.string.profileEditedCorrectly))
-            Toast.makeText(this@EditProfileActivity, getString(R.string.profileEditedCorrectly), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this@EditProfileActivity,
+                getString(R.string.profileEditedCorrectly),
+                Toast.LENGTH_LONG
+            ).show()
+            finish()
         } else {
             Log.d(TAG, getString(R.string.userNotLogged))
         }
     }
-    fun volver(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
-        }
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-    }
+
     fun changepassword(view: View) {
-        val intent = Intent(this, ChangePasswordActivity::class.java).apply {
-        }
+        val intent = Intent(this, ChangePasswordActivity::class.java).apply {}
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
+    fun savechanges(view: View) {
+        confirmationDialog(view)
+    }
+
+    fun cancel(view: View) {
+        cancelationDialog()
+    }
+
+    override fun onBackPressed() {
+        cancelationDialog()
+    }
+
+    private fun cancelationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.cancelAlertTitle))
+        builder.setMessage(getString(R.string.cancelAlertMessage))
+        builder.setCancelable(true)
+        builder.setPositiveButton(getString(R.string.ok))
+        { dialog, which ->
+            finish()
+        }
+        builder.setNegativeButton(getString(R.string.cancel))
+        { dialog, which -> }
+        builder.show()
+    }
+
+    private fun confirmationDialog(view: View) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.confirmationAlertTitle))
+        builder.setMessage(getString(R.string.confirmationAlertMessage))
+        builder.setCancelable(false)
+        builder.setPositiveButton(getString(R.string.ok))
+        { dialog, which ->
+            edit(view)
+        }
+        builder.setNegativeButton(getString(R.string.cancel))
+        { dialog, which -> }
+        builder.show()
+    }
+
+    companion object {
+        private const val TAG = "Petland EditProfile"
+    }
 
 
 }
