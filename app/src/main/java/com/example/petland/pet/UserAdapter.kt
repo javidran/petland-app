@@ -37,9 +37,10 @@ class UserAdapter(
         private lateinit var user: ParseUser
 
         fun bindPetInfo(user: ParseUser) {
+            val u = ParseUser.getCurrentUser()
             this.user = user
-            view.name.text = user.get("username") as String
-            if (this.owner) {
+            view.name.text = user.username
+            if (this.owner && u.username != user.username) {
                 view.deleteCaregButton.visibility = View.VISIBLE
                 view.changeOwnerButton.visibility = View.VISIBLE
             }
