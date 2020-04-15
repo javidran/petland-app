@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.image.ImageActivity
@@ -17,9 +19,7 @@ import com.parse.ParseQuery
 import com.parse.ParseRelation
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_edit_pet_profile.*
-import kotlinx.android.synthetic.main.activity_edit_pet_profile.textViewName
-import kotlinx.android.synthetic.main.activity_edit_pet_profile.textViewOwner
-import kotlinx.android.synthetic.main.activity_view_pet_profile.*
+import kotlinx.android.synthetic.main.user_profile_pet_element.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,11 +30,15 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pet_profile)
         setData()
-        profileImage1.setOnClickListener { seeImage() }
+        profileImageView1.setOnClickListener { seeImage() }
     }
 
     private fun setData() {
@@ -43,13 +47,15 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
 
-        textViewName.text = myPet.get("name").toString()
+        usernameText1.text = myPet.get("name").toString()
+        ownerText1.text = listCaregivers.first.get("username").toString()
 
-        val textViewBirthday: TextView = findViewById(R.id.editTextBirth)
+
+        val textViewBirthday: TextView = findViewById(R.id.birthText1)
         val cal = Calendar.getInstance()
         val dateb = sdf.format(myPet.get("birthday"))
         date = myPet.get("birthday") as Date
-        editTextBirth.setText(dateb.toString())
+        birthText1.setText(dateb.toString())
 
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
@@ -72,31 +78,32 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         }
 
 
-        editTextChip.setText(myPet.get("chip").toString())
+        chipText1.setText(myPet.get("chip").toString())
 
-        val list = findViewById<TextView>(R.id.petCaregiversList)
-        list.text = ""
-        listCaregivers.findInBackground { result, e ->
-            if (e == null) {
-                for(el in result) {
-                    list.text = (list.text as String).plus("- ".plus(el.username).plus("\n"))
-                    if (el.objectId == myPet.get("owner").toString()) textViewOwner.text = el.username
+        if (ownerText1.text == user.username) {
+            val deleteButton:TextView = findViewById(R.id.deleteButton)
+            deleteButton.visibility = View.VISIBLE
+            recyclerView1.visibility = View.VISIBLE
+            if (listCaregivers != null) {
+                viewManager = LinearLayoutManager(this)
+                viewAdapter = UserAdapter(listCaregivers.find(), true)
+                recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
+                    // use this setting to improve performance if you know that changes
+                    // in content do not change the layout size of the RecyclerView
+                    setHasFixedSize(true)
+
+                    // use a linear layout manager
+                    layoutManager = viewManager
+
+                    // specify an viewAdapter (see also next example)
+                    adapter = viewAdapter
+
                 }
-            } else {
-                Log.d(TAG, "PetQuery not completed")
             }
         }
-        if (textViewOwner.text == user.username) enableButtons()
 
         val imageUtils = ImageUtils()
-        imageUtils.retrieveImage(myPet, profileImage1, this)
-    }
-
-    private fun enableButtons() {
-        val deleteButton:TextView = findViewById(R.id.buttonDelete)
-        deleteButton.visibility = View.VISIBLE;
-        val addCaregivers:TextView = findViewById(R.id.buttonAddCaregivers)
-        addCaregivers.visibility = View.VISIBLE;
+        imageUtils.retrieveImage(myPet, profileImageView1, this)
     }
 
     fun deletePet(view: View) {
@@ -119,15 +126,24 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         }
     }
 
+    fun deleteCare(view:View) {
+        ownerText1.text = "pppp"
+    }
+
+    fun changeOwner(view:View) {
+        ownerText1.text = "pppp"
+    }
+
     fun volver(view: View) {
         val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
         }
+        intent.putExtra("petId", myPet)
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
     fun edit(view: View) {
-        myPet.put("chip", Integer.valueOf(editTextChip.text.toString()))
+        myPet.put("chip", Integer.valueOf(chipText1.text.toString()))
         myPet.put("birthday", date)
         myPet.save()
         volver(view)
@@ -140,7 +156,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     }
 
     override fun resetImage() {
-        profileImage1.setImageDrawable(this?.getDrawable(R.drawable.animal_paw))
+        profileImageView1.setImageDrawable(this?.getDrawable(R.drawable.animal_paw))
     }
 
 }
