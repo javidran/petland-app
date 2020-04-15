@@ -1,32 +1,43 @@
 package com.example.petland.pet.creation
 
+import AnimalSpecies
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
-import com.example.petland.TestingActivity
+import com.parse.Parse
 import com.parse.ParseObject
+import com.parse.ParseQuery
 import com.parse.ParseUser
+import kotlinx.android.synthetic.main.activity_add_pet.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class AddPetActivity : AppCompatActivity() {
     private val TAG = "Petland AddPet"
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
+    private val listRace: MutableList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_pet)
         val textViewBirthday: TextView = findViewById(R.id.editTextBirthday)
         val cal = Calendar.getInstance()
-
+        //register class
+        ParseObject.registerSubclass(AnimalSpecies::class.java)
+        Parse.initialize(Parse.Configuration.Builder(this)
+            .applicationId("")
+            .clientKey("")
+            .server("")
+            .build()
+        )
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
@@ -46,8 +57,85 @@ class AddPetActivity : AppCompatActivity() {
             dialog.datePicker.maxDate = Date().time
             dialog.show()
         }
+        addElementsToSpinnerSpecies()
+        addElementsToSpinnerRace()
 
     }
+
+    private fun addElementsToSpinnerRace() {
+
+        val dataAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, listRace
+        )
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerRace.adapter = dataAdapter
+        spinnerRace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                parent?.getItemAtPosition(position)
+             //   spinnerRace.setSelection(position).toString()
+                Log.d("Spinner", position.toString())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+    }
+    fun addElementsToSpinnerSpecies() {
+        val list: MutableList<String> = ArrayList()
+        //llamada a valores de DB
+        val query = ParseQuery.getQuery(AnimalSpecies::class.java)
+        query.findInBackground { objects, e ->
+            if (e == null) {
+                for (species in objects) {
+                    list.add(species.getDisplayName())
+                    Log.d("DEBUG", species.getDisplayName())
+                }
+            } else {
+                Log.d("error", "Error")
+            }
+        }
+        val spinner: Spinner = findViewById(R.id.spinnerSpecies)
+        val dataAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, list
+        )
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = dataAdapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                parent?.getItemAtPosition(position)
+                    Log.d("Spinner", position.toString())
+               selectedSpecie(parent?.getItemAtPosition(position) as String)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+    }
+
+    private fun selectedSpecie(selection: String) {
+        val query = ParseQuery.getQuery(AnimalSpecies::class.java)
+        query.whereEqualTo("nameSpecie", selection);
+        query.findInBackground { objects, e ->
+            if (e == null) {
+                for (species in objects) {
+                    listRace.add(species.getDisplayName())
+                    Log.d("DEBUG", species.getDisplayName())
+                }
+            } else {
+                Log.d("score", "Error: " + e!!.message)
+            }
+        }
+    }
+
 
     fun createPet(view: View) {
         val currentUser = ParseUser.getCurrentUser()
