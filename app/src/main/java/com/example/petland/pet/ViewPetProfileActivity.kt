@@ -11,10 +11,7 @@ import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
-import com.parse.ParseObject
-import com.parse.ParseRelation
-import com.parse.ParseUser
-import com.parse.PointerEncoder
+import com.parse.*
 import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,12 +42,17 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     private fun setData() {
         myPet = intent.extras?.get("petId") as ParseObject
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
-        val powner = myPet.get("owner") as PointerEncoder
+        val listUsers = ParseQuery<ParseUser>("_User")
+        val powner = myPet.get("owner") as ParseObject
+        listUsers.whereEqualTo("objectId", powner.objectId)
+
         val listCaregivers = caregivers.query
         val dateb = sdf.format(myPet.get("birthday"))
 
         usernameText.text = myPet.get("name").toString()
-        ownerText.text = listCaregivers.first.get("username").toString()
+
+        ownerText.text = listUsers.first.username
+
         raceText.text = "ejemplo1"
         chipText.text = myPet.get("chip").toString()
         birthText.text = dateb.toString()

@@ -263,8 +263,13 @@
             android:backgroundTint="@color/md_blue_A100"
             android:onClick="addCargs"
             android:text="+"
-            tools:layout_editor_absoluteX="356dp"
-            tools:layout_editor_absoluteY="487dp" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/buttonEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toEndOf="@+id/recyclerView1"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

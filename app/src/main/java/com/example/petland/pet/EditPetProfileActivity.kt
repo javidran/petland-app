@@ -14,6 +14,7 @@ import com.example.petland.R
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
+import com.example.petland.user_profile.UserProfileFragment
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseRelation
@@ -47,7 +48,11 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
 
-        usernameText1.text = myPet.get("name").toString()
+        val listUsers = ParseQuery<ParseUser>("_User")
+        val powner = myPet.get("owner") as ParseObject
+        listUsers.whereEqualTo("objectId", powner.objectId)
+
+        usernameText1.text = myPet.getString("name")
         ownerText1.text = listCaregivers.first.get("username").toString()
 
 
@@ -80,10 +85,13 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
         chipText1.setText(myPet.get("chip").toString())
 
-        if (ownerText1.text == user.username) {
+        if (ownerText1.text == user.username) {     // enable buttons
             val deleteButton:TextView = findViewById(R.id.deleteButton)
             deleteButton.visibility = View.VISIBLE
-            recyclerView1.visibility = View.VISIBLE
+            val addCarg:TextView = findViewById(R.id.addCarg)
+            addCarg.visibility = View.VISIBLE
+            val viewCargs:RecyclerView = findViewById(R.id.recyclerView1)
+            viewCargs.visibility = View.VISIBLE
             if (listCaregivers != null) {
                 viewManager = LinearLayoutManager(this)
                 viewAdapter = UserAdapter(listCaregivers.find(), true)
@@ -107,23 +115,19 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     }
 
     fun deletePet(view: View) {
-        val petId = myPet.objectId         //Coger id de mascota que quiero borrar
-        val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.getInBackground(
-            petId
-        ) { objectPet, e ->
+        myPet.deleteInBackground { e ->
             if (e == null) {
-                // object will be your game score
-                objectPet.deleteInBackground {
-                    val intent = Intent(this, HomeActivity::class.java).apply {
-                    }
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                }
+                Log.d(TAG, "Pet correctly deleted!") //Mensaje en logcat
             } else {
-                Log.d(TAG, "Pet not deleted")
+                Log.d(TAG, "An error occurred while deleting a pet!") //Mensaje en logcat
             }
         }
+
+        val intent = Intent(this, HomeActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
     }
 
     fun deleteCare(view:View) {
