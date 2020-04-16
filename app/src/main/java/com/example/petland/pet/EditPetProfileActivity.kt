@@ -15,10 +15,7 @@ import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
 import com.example.petland.user_profile.UserProfileFragment
-import com.parse.ParseObject
-import com.parse.ParseQuery
-import com.parse.ParseRelation
-import com.parse.ParseUser
+import com.parse.*
 import kotlinx.android.synthetic.main.activity_edit_pet_profile.*
 import kotlinx.android.synthetic.main.user_profile_pet_element.view.*
 import java.text.SimpleDateFormat
@@ -38,13 +35,26 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pet_profile)
-        setData()
         profileImageView1.setOnClickListener { seeImage() }
+        myPet = intent.extras?.get("petId") as ParseObject
+        setData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setData()
+        verImagen()
+    }
+
+    private fun verImagen () {
+        val imageUtils1 = ImageUtils()
+        imageUtils1.retrieveImage(myPet, profileImageView1, this)
     }
 
     private fun setData() {
+
         val user = ParseUser.getCurrentUser()
-        myPet = intent.extras?.get("petId") as ParseObject
+        myPet.fetch<ParseObject>()
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
 
@@ -109,10 +119,9 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
                 }
             }
         }
-
-        val imageUtils = ImageUtils()
-        imageUtils.retrieveImage(myPet, profileImageView1, this)
+        verImagen()
     }
+
 
     fun deletePet(view: View) {
         myPet.deleteInBackground { e ->
