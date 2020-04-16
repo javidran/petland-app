@@ -65,6 +65,7 @@ class AddPetActivity : AppCompatActivity() {
     fun createPet(view: View) {
         val textPetName = findViewById<EditText>(R.id.editTextPetname)
         val chipNumber = findViewById<EditText>(R.id.editTextChip)
+        val textViewBirthday: TextView = findViewById(R.id.editTextBirthday)
         when {
             TextUtils.isEmpty(textPetName.text) -> {
                 textPetName.error = getString(R.string.petNameNeeded)
@@ -74,7 +75,7 @@ class AddPetActivity : AppCompatActivity() {
 
                 val pet = ParseObject("Pet")
                 pet.put("name", textPetName.text.toString())
-                pet.put("birthday", date)
+                if(!TextUtils.isEmpty(textViewBirthday.text)) pet.put("birthday", date)
                 if(!TextUtils.isEmpty(chipNumber.text)) pet.put("chip", Integer.valueOf(chipNumber.text.toString()))
                 pet.put("owner", currentUser)
                 putImage(pet)
