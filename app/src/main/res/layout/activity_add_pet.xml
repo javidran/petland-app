@@ -14,7 +14,7 @@
             android:id="@+id/instructionsToCreateAPet"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="86dp"
+            android:layout_marginTop="36dp"
             android:gravity="center"
             android:text="@string/instructionstocreateapetdescriprtion"
             android:textColor="@color/md_grey_700"
@@ -24,26 +24,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/profileImage"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="16dp"
+            app:civ_border_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instructionsToCreateAPet"
+            app:srcCompat="@drawable/animal_paw" />
+
         <TextView
             android:id="@+id/temporalAquiVaLaFoto"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:gravity="center"
             android:text="@string/temporalAquiVaLaFoto"
             android:textColor="@color/md_grey_700"
-            android:textSize="14sp"
+            android:textSize="13dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instructionsToCreateAPet" />
+            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
         <EditText
             android:id="@+id/editTextPetname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/edittext_without_corners"
             android:elevation="10sp"
@@ -54,7 +66,7 @@
             android:textColor="@color/md_grey_400"
             android:textColorHint="#BBC1CE"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/temporalAquiVaLaFoto" />
 
