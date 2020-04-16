@@ -63,7 +63,6 @@ class AddPetActivity : AppCompatActivity() {
 
 
     fun createPet(view: View) {
-        val textViewBirthday: TextView = findViewById(R.id.editTextBirthday)
         val textPetName = findViewById<EditText>(R.id.editTextPetname)
         val chipNumber = findViewById<EditText>(R.id.editTextChip)
         when {
@@ -76,7 +75,7 @@ class AddPetActivity : AppCompatActivity() {
                 val pet = ParseObject("Pet")
                 pet.put("name", textPetName.text.toString())
                 pet.put("birthday", date)
-                pet.put("chip", Integer.valueOf(chipNumber.text.toString()))
+                if(!TextUtils.isEmpty(chipNumber.text)) pet.put("chip", Integer.valueOf(chipNumber.text.toString()))
                 pet.put("owner", currentUser)
                 putImage(pet)
                 val relation = pet.getRelation<ParseUser>("caregivers")
@@ -85,11 +84,9 @@ class AddPetActivity : AppCompatActivity() {
 
                 Log.d(TAG, "Profile created correctly")
 
-                textPetName.text.clear()
-                chipNumber.text.clear()
-
                 val intent = Intent(this, HomeActivity::class.java).apply {}
                 startActivity(intent)
+                finish()
                 overridePendingTransition(
                     R.anim.slide_in_left,
                     R.anim.slide_out_right
