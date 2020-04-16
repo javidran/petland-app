@@ -92,50 +92,14 @@ class AddPetActivity : AppCompatActivity() {
     fun addElementsToSpinnerSpecies() {
         //llamada a valores de DB
         val query = ParseQuery.getQuery(AnimalSpecies::class.java)
-        query.findInBackground { objects, e ->
-            if (e == null) {
-                for (species in objects) {
-                    list.add(species.getDisplayName().toString())
-                    Log.d("DEBUG", species.getDisplayName())
-                }
-            } else {
-                Log.d("error", "Error")
+        val objects = query.find()
+        if(objects != null) {
+            for (species in objects) {
+                list.add(species.getDisplayName())
+                Log.d("DEBUG", species.getDisplayName())
             }
         }
 
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_spinner_item, list
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        var SpinnerValue:Spinner=findViewById(R.id.spinnerSpecies)
-
-        SpinnerValue.adapter = adapter
-        SpinnerValue.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>, view: View,
-                position: Int, id: Long
-            ) {
-                val item = adapterView.getItemAtPosition(position)
-                if (item != null) {
-                    Toast.makeText(
-                        this@AddPetActivity, item.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                Toast.makeText(
-                    this@AddPetActivity, "Selected",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            override fun onNothingSelected(adapterView: AdapterView<*>?) {
-                // TODO Auto-generated method stub
-            }
-        }
-    }
-      /*  val array = arrayOfNulls<String>(list.size)
-        list.toArray(array)
         val spinner: Spinner = findViewById(R.id.spinnerSpecies)
         val dataAdapter = ArrayAdapter(
             this,
@@ -143,6 +107,12 @@ class AddPetActivity : AppCompatActivity() {
         )
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = dataAdapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                parent?.getItemAtPosition(position)
+                Log.d("Spinner", position.toString())
+               selectedSpecie(parent?.getItemAtPosition(position) as String)
+            }
 
         spinner.onItemSelectedListener = this*/
 
