@@ -163,14 +163,15 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView1"
-            android:layout_width="366dp"
-            android:layout_height="174dp"
+            android:layout_width="340dp"
+            android:layout_height="193dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/buttonVolver2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintHorizontal_bias="0.225"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
+            app:layout_constraintVertical_bias="0.0"
             tools:itemCount="2"
             tools:listitem="@layout/pet_profile_user_element">
 
@@ -253,6 +254,17 @@
             app:layout_constraintStart_toEndOf="@+id/profileImageView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/addCarg"
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:background="@drawable/button_without_corners"
+            android:backgroundTint="@color/md_blue_A100"
+            android:onClick="addCargs"
+            android:text="+"
+            tools:layout_editor_absoluteX="356dp"
+            tools:layout_editor_absoluteY="487dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

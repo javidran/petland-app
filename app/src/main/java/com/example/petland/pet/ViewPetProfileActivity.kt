@@ -3,6 +3,7 @@ package com.example.petland.pet
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,9 +12,9 @@ import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
 import com.parse.ParseObject
-import com.parse.ParseQuery
 import com.parse.ParseRelation
 import com.parse.ParseUser
+import com.parse.PointerEncoder
 import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,6 +45,7 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     private fun setData() {
         myPet = intent.extras?.get("petId") as ParseObject
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
+        val powner = myPet.get("owner") as PointerEncoder
         val listCaregivers = caregivers.query
         val dateb = sdf.format(myPet.get("birthday"))
 

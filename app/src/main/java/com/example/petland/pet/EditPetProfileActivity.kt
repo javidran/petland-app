@@ -134,6 +134,10 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         ownerText1.text = "pppp"
     }
 
+    fun addCargs(view:View) {
+        ownerText1.text = "pppp"
+    }
+
     fun volver(view: View) {
         val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
         }
