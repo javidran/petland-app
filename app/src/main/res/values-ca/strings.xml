@@ -47,7 +47,7 @@
     <string name="timeToMakeAPetSubtitle">Ara pots afegir la teva propia mascota o ser convidat a cuidar-ne una que ja estigui registrada a Petland</string>
     <string name="test">test</string>
     <string name="instructionstocreateapetdescriprtion">Ompli el següent formulari amb la informació bàsica de la seva mascota</string>
-    <string name="temporalAquiVaLaFoto">En el circulo superior se podrá añadir la foto</string>
+    <string name="temporalAquiVaLaFoto">Pot afegir una foto ara o pot fer-ho més tard des de el perfil de la mascota</string>
     <string name="tapToAddPhoto">taptoAddPhoto</string>
     <string name="petName">Nom de la teva mascota</string>
     <string name="petsbirthday">Aniversari de la teva mascota</string>
@@ -67,4 +67,7 @@
     <string name="edit_image">Seleccionar imatge</string>
     <string name="reset_image">Utilitzar imatge predeterminada</string>
     <string name="race">Raça</string>
+    <string name="chipNumber">Un numero de chip és necessari</string>
+    <string name="petNameNeeded">La mascota ha de tenir nom</string>
+    <string name="instructionsToChangePasswordDescription">Escriu i confirma la teva nova contrasenya per aquests compte</string>
 </resources>

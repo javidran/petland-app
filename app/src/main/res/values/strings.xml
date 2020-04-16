@@ -49,7 +49,7 @@
     <string name="timeToMakeAPetSubtitle">You can add a pet you own or get invited to take care of a pet that\'s already registered in Petland</string>
     <string name="test">test</string>
     <string name="instructionstocreateapetdescriprtion">Fill the next form with the basic information about your pet</string>
-    <string name="temporalAquiVaLaFoto">En el circulo superior se podrá añadir la foto</string>
+    <string name="temporalAquiVaLaFoto">You can add a photo of your pet now or do it later from the pet profile</string>
     <string name="tapToAddPhoto">taptoAddPhoto</string>
     <string name="petName">Pet\'s name</string>
     <string name="petsbirthday">Pet\'s birthday</string>
@@ -70,4 +70,7 @@
     <string name="reset_image">Use default image</string>
     <string name="crop_error">Could not bet cropped correctly, please try again</string>
     <string name="race">Race</string>
+    <string name="petNameNeeded">The pet must have a name</string>
+    <string name="chipNumber">The pet must have a chip number</string>
+    <string name="instructionsToChangePasswordDescription">Type and confirm your new password for this account</string>
 </resources>
