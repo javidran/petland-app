@@ -142,7 +142,7 @@
 
         <Spinner
             android:id="@+id/spinnerSpecies"
-            android:layout_width="409dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -151,7 +151,7 @@
 
         <Spinner
             android:id="@+id/spinnerRace"
-            android:layout_width="409dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="29dp"
             app:layout_constraintEnd_toEndOf="parent"

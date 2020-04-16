@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
@@ -24,6 +25,7 @@ class AddPetActivity : AppCompatActivity() {
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
     private val listRace: MutableList<String> = ArrayList()
+    private val list = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,19 +90,52 @@ class AddPetActivity : AppCompatActivity() {
         }
     }
     fun addElementsToSpinnerSpecies() {
-        val list: MutableList<String> = ArrayList()
         //llamada a valores de DB
         val query = ParseQuery.getQuery(AnimalSpecies::class.java)
         query.findInBackground { objects, e ->
             if (e == null) {
                 for (species in objects) {
-                    list.add(species.getDisplayName())
+                    list.add(species.getDisplayName().toString())
                     Log.d("DEBUG", species.getDisplayName())
                 }
             } else {
                 Log.d("error", "Error")
             }
         }
+
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_item, list
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        var SpinnerValue:Spinner=findViewById(R.id.spinnerSpecies)
+
+        SpinnerValue.adapter = adapter
+        SpinnerValue.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>, view: View,
+                position: Int, id: Long
+            ) {
+                val item = adapterView.getItemAtPosition(position)
+                if (item != null) {
+                    Toast.makeText(
+                        this@AddPetActivity, item.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                Toast.makeText(
+                    this@AddPetActivity, "Selected",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                // TODO Auto-generated method stub
+            }
+        }
+    }
+      /*  val array = arrayOfNulls<String>(list.size)
+        list.toArray(array)
         val spinner: Spinner = findViewById(R.id.spinnerSpecies)
         val dataAdapter = ArrayAdapter(
             this,
@@ -108,19 +143,22 @@ class AddPetActivity : AppCompatActivity() {
         )
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = dataAdapter
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                parent?.getItemAtPosition(position)
-                    Log.d("Spinner", position.toString())
-               selectedSpecie(parent?.getItemAtPosition(position) as String)
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
+        spinner.onItemSelectedListener = this*/
 
-            }
-        }
+
+    /*override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+        Log.d("selecteditem", pos.toString())
+        selectedSpecie(list.get(pos))
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        val text: String = parent.getItemAtPosition(pos).toString()
+        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
+    }*/
     private fun selectedSpecie(selection: String) {
         val query = ParseQuery.getQuery(AnimalSpecies::class.java)
         query.whereEqualTo("nameSpecie", selection);
