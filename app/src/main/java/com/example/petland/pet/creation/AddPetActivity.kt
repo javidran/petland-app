@@ -91,16 +91,14 @@ class AddPetActivity : AppCompatActivity() {
         val list: MutableList<String> = ArrayList()
         //llamada a valores de DB
         val query = ParseQuery.getQuery(AnimalSpecies::class.java)
-        query.findInBackground { objects, e ->
-            if (e == null) {
-                for (species in objects) {
-                    list.add(species.getDisplayName())
-                    Log.d("DEBUG", species.getDisplayName())
-                }
-            } else {
-                Log.d("error", "Error")
+        val objects = query.find()
+        if(objects != null) {
+            for (species in objects) {
+                list.add(species.getDisplayName())
+                Log.d("DEBUG", species.getDisplayName())
             }
         }
+
         val spinner: Spinner = findViewById(R.id.spinnerSpecies)
         val dataAdapter = ArrayAdapter(
             this,
@@ -111,7 +109,7 @@ class AddPetActivity : AppCompatActivity() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 parent?.getItemAtPosition(position)
-                    Log.d("Spinner", position.toString())
+                Log.d("Spinner", position.toString())
                selectedSpecie(parent?.getItemAtPosition(position) as String)
             }
 
