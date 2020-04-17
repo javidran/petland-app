@@ -111,6 +111,7 @@ class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
     override fun startViewPetActivity(pet: ParseObject) {
         val intent = Intent(context, ViewPetProfileActivity::class.java).apply {}
         intent.putExtra("petId", pet)
+        intent.putExtra("eliminat", false)
         startActivity(intent);
     }
 

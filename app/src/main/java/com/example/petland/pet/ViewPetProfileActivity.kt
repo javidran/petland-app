@@ -31,7 +31,8 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pet_profile)
-        setData()
+        if (intent.extras?.get("eliminat") as Boolean) finish()
+        else setData()
     }
 
     override fun onResume() {
@@ -78,9 +79,7 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     }
 
     fun volver(view: View) {
-        val intent = Intent(this, HomeActivity::class.java).apply {
-        }
-        startActivity(intent)
+        finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
@@ -90,6 +89,7 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         }
         intent.putExtra("petId", myPet);
         startActivity(intent);
+        finish()
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 

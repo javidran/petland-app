@@ -131,31 +131,34 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
                 Log.d(TAG, "An error occurred while deleting a pet!") //Mensaje en logcat
             }
         }
-
-        val intent = Intent(this, HomeActivity::class.java).apply {
+        val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
         }
+        intent.putExtra("eliminat", true)
         startActivity(intent)
+        finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 
     }
 
     fun deleteCare(view:View) {
-        ownerText1.text = "pppp"
+        // Codi per eliminar un cuidador aqui
     }
 
     fun changeOwner(view:View) {
-        ownerText1.text = "pppp"
+        // Codi per canviar d'amo aqui
     }
 
     fun addCargs(view:View) {
-        ownerText1.text = "pppp"
+        // Codi per afegir un cuidador aqui
     }
 
     fun volver(view: View) {
         val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
         }
         intent.putExtra("petId", myPet)
+        intent.putExtra("eliminat", false)
         startActivity(intent)
+        finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
