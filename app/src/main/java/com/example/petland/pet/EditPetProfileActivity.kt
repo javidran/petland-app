@@ -1,5 +1,6 @@
 package com.example.petland.pet
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -122,8 +123,12 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         verImagen()
     }
 
+    fun wantToDeletePet(view: View) {
+        deletionDialog(view)
+    }
 
     fun deletePet(view: View) {
+        //
         myPet.deleteInBackground { e ->
             if (e == null) {
                 Log.d(TAG, "Pet correctly deleted!") //Mensaje en logcat
@@ -177,6 +182,19 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
     override fun resetImage() {
         profileImageView1.setImageDrawable(this?.getDrawable(R.drawable.animal_paw))
+    }
+
+    private fun deletionDialog(view: View) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.deletionAlertTitle))
+        builder.setCancelable(false)
+        builder.setPositiveButton(getString(R.string.delete))
+        { dialog, which ->
+            deletePet(view)
+        }
+        builder.setNegativeButton(getString(R.string.cancel))
+        { dialog, which -> }
+        builder.show()
     }
 
 }
