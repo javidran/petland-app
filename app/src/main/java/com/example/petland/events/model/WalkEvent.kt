@@ -4,17 +4,17 @@ import com.parse.ParseClassName
 import com.parse.ParseObject
 import java.lang.NullPointerException
 
-@ParseClassName("HygieneEvent")
-class HygieneEvent : ParseObject() {
-    //type
+@ParseClassName("WalkEvent")
+class WalkEvent : ParseObject() {
 
-    fun getType() : HygieneType {
-        val req = getString("type") ?: throw NullPointerException()
-        return HygieneType.valueOf(req)
+    //A Walk instance needs to be assigned yet
+
+
+    fun saveEvent() {
+        if( true ) {
+            save()
+        } else {
+            throw NullPointerException("Algun valor obligatorio de los datos sobre la comida es nulo")
+        }
     }
-
-    fun setType(type: HygieneType) {
-        put("type", type.name)
-    }
-
 }

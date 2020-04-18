@@ -1,4 +1,4 @@
-package com.example.petland.events.model
+package com.example.petland.events.enums
 
 enum class HygieneType {
     BATH, NAILS, HAIRCUT, DEWORM

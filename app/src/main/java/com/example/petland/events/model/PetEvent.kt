@@ -1,18 +1,11 @@
-package com.example.petland.events
+package com.example.petland.events.model
 
 import android.util.Log
-import com.example.petland.R
-import com.parse.ParseClassName
 import com.parse.ParseObject
 import java.lang.NullPointerException
 import java.util.*
 
 open class PetEvent : ParseObject() {
-    private var callback : PutMoreDataCallback? = null
-        get() = field
-        set(value) {
-            field = value
-        }
 
     fun getPet() : ParseObject {
         return getParseObject("pet") ?: throw NullPointerException()
@@ -94,7 +87,7 @@ open class PetEvent : ParseObject() {
 
                 nextEvent.setRecurrent(getRecurrency())
                 if (hasRecurrencyEndDate()) nextEvent.setRecurrencyEndDate(getRecurrencyEndDate())
-                callback?.putChildData(nextEvent)
+                nextEvent.setData(getData())
 
                 nextEvent.saveEvent()
             }
