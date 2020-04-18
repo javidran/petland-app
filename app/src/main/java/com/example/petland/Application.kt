@@ -2,7 +2,9 @@ package com.example.petland
 
 import android.app.Application
 import android.util.Log
-import com.example.petland.events.PetCareDataEntity
+import com.example.petland.events.model.MedicineEvent
+import com.example.petland.events.model.PetEvent
+import com.example.petland.events.model.VaccineEvent
 import com.parse.Parse
 import com.parse.ParseObject
 
@@ -15,7 +17,9 @@ class Application : Application() {
         super.onCreate()
         Log.d(TAG, "Initializing Parse Server")
 
-        ParseObject.registerSubclass(PetCareDataEntity::class.java)
+        ParseObject.registerSubclass(PetEvent::class.java)
+        ParseObject.registerSubclass(VaccineEvent::class.java)
+        ParseObject.registerSubclass(MedicineEvent::class.java)
         Parse.initialize(
             Parse.Configuration.Builder(this)
                 .applicationId(appId)

@@ -68,12 +68,14 @@
     <string name="confirmationAlertMessage">The changes will be saved and the profile will be modified</string>
     <string name="edit_image">Choose image</string>
     <string name="reset_image">Use default image</string>
-    <string name="crop_error">Could not bet cropped correctly, please try again</string>
+    <string name="crop_error">Could not bet cropped correctly, please try again.</string>
     <string name="race">Race</string>
     <string name="petNameNeeded">The pet must have a name</string>
     <string name="chipNumber">The pet must have a chip number</string>
     <string name="instructionsToChangePasswordDescription">Type and confirm your new password for this account</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vaccine">Vaccine</string>
+    <string name="unknown_id">Unknown Value</string>
+    <string name="medicine">Medicine</string>
 </resources>

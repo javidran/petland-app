@@ -70,4 +70,7 @@
     <string name="chipNumber">Un numero de chip és necessari</string>
     <string name="petNameNeeded">La mascota ha de tenir nom</string>
     <string name="instructionsToChangePasswordDescription">Escriu i confirma la teva nova contrasenya per aquests compte</string>
+    <string name="unknown_id">Valor desconegut</string>
+    <string name="vaccine">Vacuna</string>
+    <string name="crop_error">No s\'ha pogut retallar correctamente, sius play provi de nou.</string>
 </resources>

@@ -13,7 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
-import com.example.petland.events.EventsFragment
+import com.example.petland.events.ui.EventsFragment
 import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.UserProfileFragment
 import com.google.android.material.navigation.NavigationView

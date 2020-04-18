@@ -1,13 +1,13 @@
 package com.example.petland.events
 
 import android.util.Log
+import com.example.petland.R
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import java.lang.NullPointerException
 import java.util.*
 
-@ParseClassName("PetCareData")
-class PetCareDataEntity : ParseObject() {
+open class PetEvent : ParseObject() {
     private var callback : PutMoreDataCallback? = null
         get() = field
         set(value) {
@@ -31,7 +31,7 @@ class PetCareDataEntity : ParseObject() {
     }
 
     fun isRecurrent() : Boolean {
-        return getInt("recurrency") != null
+        return getInt("recurrency") != 0
     }
 
     fun setRecurrent(recurrency: Int) {
@@ -65,39 +65,50 @@ class PetCareDataEntity : ParseObject() {
     }
 
     fun isDone() : Boolean {
-        return isDataAvailable("doneDate")
+        return getDate("doneDate") != null
     }
 
     fun getDoneDate() : Date {
         return getDate("doneDate") ?: throw NullPointerException()
     }
 
-    fun markAsDone(date: Date) {
-        if(!isRecurrentlyFinished()) {
-            val nextEvent = PetCareDataEntity()
-
-            nextEvent.setPet(getPet())
-
-            val c = Calendar.getInstance()
-            c.time = getDate()
-            c.add(Calendar.DATE, getRecurrency())
-            nextEvent.setDate(c.time)
-
-            nextEvent.setRecurrent(getRecurrency())
-            if(hasRecurrencyEndDate()) nextEvent.setRecurrencyEndDate(getRecurrencyEndDate())
-            callback?.putChildData(nextEvent)
-
-            nextEvent.saveEvent()
-        }
-
-        put("doneDate", date)
-        save()
+    fun setData(dataEvent: ParseObject) {
+        put("data", dataEvent)
     }
 
-    fun saveEvent() : Boolean{
-        if(getParseObject("pet")!=null && getDate("date") != null) {
+    fun getData() : ParseObject {
+        return getParseObject("data") ?: throw NullPointerException()
+    }
+
+    fun markAsDone(date: Date) {
+        if(!isDone()) {
+            if (!isRecurrentlyFinished()) {
+                val nextEvent = PetEvent()
+
+                nextEvent.setPet(getPet())
+
+                val c = Calendar.getInstance()
+                c.time = getDate()
+                c.add(Calendar.DATE, getRecurrency())
+                nextEvent.setDate(c.time)
+
+                nextEvent.setRecurrent(getRecurrency())
+                if (hasRecurrencyEndDate()) nextEvent.setRecurrencyEndDate(getRecurrencyEndDate())
+                callback?.putChildData(nextEvent)
+
+                nextEvent.saveEvent()
+            }
+
+            put("doneDate", date)
             save()
-            return true
-        } else return false
+        }
+    }
+
+    fun saveEvent() {
+        if(getParseObject("pet") != null && getDate("date") != null && getParseObject("data") != null) {
+            save()
+        } else {
+            throw NullPointerException("Algun valor obligatorio del evento es nulo")
+        }
     }
 }
