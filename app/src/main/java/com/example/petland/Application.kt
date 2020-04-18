@@ -2,13 +2,20 @@ package com.example.petland
 
 import android.app.Application
 import android.util.Log
+import com.example.petland.events.PetCareDataEntity
 import com.parse.Parse
+import com.parse.ParseObject
+
+
+
 
 class Application : Application() {
 
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "Initializing Parse Server")
+
+        ParseObject.registerSubclass(PetCareDataEntity::class.java)
         Parse.initialize(
             Parse.Configuration.Builder(this)
                 .applicationId(appId)
