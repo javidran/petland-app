@@ -2,12 +2,12 @@
 import com.parse.ParseClassName
 import com.parse.ParseObject
 
-@ParseClassName("AnimalSpecies")
+@ParseClassName("Race")
 class Race: ParseObject() {
-    fun getDisplayName(): String {
+    fun getName(): String {
         return getString("name").toString()
     }
-    fun setDisplayName(value: String) {
+    fun setName(value: String) {
         put("name", value)
     }
 }

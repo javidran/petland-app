@@ -1,13 +1,13 @@
 package com.example.petland.pet.creation
 
 import AnimalSpecies
+import Race
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
@@ -24,8 +24,7 @@ class AddPetActivity : AppCompatActivity() {
     private val TAG = "Petland AddPet"
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
-    private val listRace: MutableList<String> = ArrayList()
-    private val list = ArrayList<String>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +33,13 @@ class AddPetActivity : AppCompatActivity() {
         val cal = Calendar.getInstance()
         //register class
         ParseObject.registerSubclass(AnimalSpecies::class.java)
+        Parse.initialize(Parse.Configuration.Builder(this)
+            .applicationId("")
+            .clientKey("")
+            .server("")
+            .build()
+        )
+        ParseObject.registerSubclass(Race::class.java)
         Parse.initialize(Parse.Configuration.Builder(this)
             .applicationId("")
             .clientKey("")
@@ -60,40 +66,16 @@ class AddPetActivity : AppCompatActivity() {
             dialog.show()
         }
         addElementsToSpinnerSpecies()
-        addElementsToSpinnerRace()
+
 
     }
 
-    private fun addElementsToSpinnerRace() {
-
-        val dataAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item, listRace
-        )
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerRace.adapter = dataAdapter
-        spinnerRace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                parent?.getItemAtPosition(position)
-             //   spinnerRace.setSelection(position).toString()
-                Log.d("Spinner", position.toString())
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-
-            }
-        }
-    }
     fun addElementsToSpinnerSpecies() {
         //llamada a valores de DB
+        val list = ArrayList<String>()
         val query = ParseQuery.getQuery(AnimalSpecies::class.java)
         val objects = query.find()
-        if(objects != null) {
+        if (objects != null) {
             for (species in objects) {
                 list.add(species.getDisplayName())
                 Log.d("DEBUG", species.getDisplayName())
@@ -108,38 +90,57 @@ class AddPetActivity : AppCompatActivity() {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = dataAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 parent?.getItemAtPosition(position)
-                Log.d("Spinner", position.toString())
-               selectedSpecie(parent?.getItemAtPosition(position) as String)
+                Log.d("Spinner", parent?.getItemAtPosition(position).toString())
+                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                val results: ParseObject = query.find().first()
+                addElementsToSpinnerRace(results)
             }
 
-        spinner.onItemSelectedListener = this*/
-
-
-    /*override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-        Log.d("selecteditem", pos.toString())
-        selectedSpecie(list.get(pos))
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-        val text: String = parent.getItemAtPosition(pos).toString()
-        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>) {
-        // Another interface callback
-    }*/
-    private fun selectedSpecie(selection: String) {
-        val query = ParseQuery.getQuery(AnimalSpecies::class.java)
-        query.whereEqualTo("nameSpecie", selection);
-        query.findInBackground { objects, e ->
-            if (e == null) {
-                for (species in objects) {
-                    listRace.add(species.getDisplayName())
-                    Log.d("DEBUG", species.getDisplayName())
-                }
-            } else {
-                Log.d("score", "Error: " + e!!.message)
+
+
+    private fun addElementsToSpinnerRace(animalSpecies: ParseObject) {
+        val listRace: ArrayList<String> = ArrayList()
+        val query = ParseQuery.getQuery(Race::class.java)
+       // val razas = query.find()
+       query.whereEqualTo("nameSpecie",  animalSpecies )
+        val objects = query.find()
+        if (objects != null) {
+            for (species in objects) {
+                listRace.add(species.getName())
+            }
+        }
+
+        val dataAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, listRace
+        )
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerRace.adapter = dataAdapter
+        spinnerRace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                Log.d("Spinner", position.toString())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
             }
         }
     }
