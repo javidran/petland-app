@@ -13,14 +13,16 @@ import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
 import com.example.petland.pet.Pets
+import com.example.petland.pet.ViewPetProfileActivity
 import com.example.petland.pet.creation.AddPetActivity
+import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class UserProfileFragment : Fragment(), ResetImageCallback {
+class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
 
     private lateinit var layoutManager: LinearLayoutManager
@@ -97,13 +99,20 @@ class UserProfileFragment : Fragment(), ResetImageCallback {
         val pets = Pets()
         val petlist = pets.getPets()
         if (petlist != null) {
-            adapter = PetAdapter(petlist.toList())
+            adapter = PetAdapter(petlist.toList(), this)
             rootView.recyclerView.adapter = adapter
         }
     }
 
     override fun resetImage() {
         profileImage.setImageDrawable(context?.getDrawable(R.drawable.animal_paw))
+    }
+
+    override fun startViewPetActivity(pet: ParseObject) {
+        val intent = Intent(context, ViewPetProfileActivity::class.java).apply {}
+        intent.putExtra("petId", pet)
+        intent.putExtra("eliminat", false)
+        startActivity(intent);
     }
 
     companion object {

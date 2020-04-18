@@ -60,6 +60,7 @@
     <string name="petCaregivers"> Caregivers</string>
     <string name="owner">Owner</string>
     <string name="instructionstoeditprofiledescriprtion">Edit any of the following fields and save changes to update your profile information</string>
+    <string name="delete">DELETE</string>
     <string name="cancelAlertTitle">Are you sure you want to cancel the unsaved changes?</string>
     <string name="cancelAlertMessage">Any unsaved changes wil be lost</string>
     <string name="ok">Ok</string>
@@ -68,6 +69,7 @@
     <string name="edit_image">Choose image</string>
     <string name="reset_image">Use default image</string>
     <string name="crop_error">Could not bet cropped correctly, please try again</string>
+    <string name="race">Race</string>
     <string name="petNameNeeded">The pet must have a name</string>
     <string name="chipNumber">The pet must have a chip number</string>
     <string name="instructionsToChangePasswordDescription">Type and confirm your new password for this account</string>

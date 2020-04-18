@@ -58,6 +58,7 @@
     <string name="petCaregivers"> Cuidadores</string>
     <string name="owner">Propietario</string>
     <string name="instructionstoeditprofiledescriprtion">Edita cualquiera de los siguientes campos y guarda los cambios para actualizar la información del perfil</string>
+    <string name="delete">BORRAR</string>
     <string name="cancelAlertTitle">¿Está seguro que quiere cancelar los cambios no guardados?</string>
     <string name="cancelAlertMessage">Cualquier modificación que no haya guardado se perderá</string>
     <string name="ok">De acuerdo</string>
@@ -65,6 +66,7 @@
     <string name="confirmationAlertMessage">Los cambios se guardarán y se modificará el perfil</string>
     <string name="edit_image">Seleccionar imagen</string>
     <string name="reset_image">Utilizar imagen predeterminada</string>
+    <string name="race">Raza</string>
     <string name="chipNumber">Es necesario un numero de chip</string>
     <string name="petNameNeeded">La mascota ha de tener nombre</string>
     <string name="instructionsToChangePasswordDescription">Escriba y confirme su nueva contraseña para esta cuenta</string>
