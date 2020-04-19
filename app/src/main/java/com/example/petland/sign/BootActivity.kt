@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
+import com.example.petland.pet.creation.GetFirstPetActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -17,8 +18,9 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.activity_editprofile.*
+import java.io.File
 import java.lang.Thread.sleep
+import java.net.URL
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -37,7 +39,7 @@ class BootActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_boot)
 
-        signInButton = findViewById(R.id.button2)
+        signInButton = findViewById(R.id.google_sign_in_button)
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
         // Configure sign-in to request the user's ID, email address, and basic
@@ -86,10 +88,21 @@ class BootActivity : AppCompatActivity() {
             val user = ParseUser.getCurrentUser()
             if (user != null) {
                 if (user.isNew) {
-                    //editar perfil y añadir datos de usuario de google nuevo
+                    user.email = account?.email
+                    user.username = account?.email?.replace("@gmail.com", "")
+                    account?.displayName?.let { user.put("name", it) }
+                    /*val image = URL(account?.photoUrl.toString()).file.toByteArray()
+                    val file: File = File("usrPic_"+ Calendar.getInstance().time.toString())
+                    file.writeBytes(image)
+                    user.put("image", file)*/
+                    user.put("birthday", Calendar.getInstance().time)
+                    user.save()
+                    startActivity(Intent(this@BootActivity, GetFirstPetActivity::class.java))
                 }
-                // Signed in successfully, show authenticated UI.
-                startActivity(Intent(this@BootActivity, HomeActivity::class.java))
+                else {
+                    // Signed in successfully, show authenticated UI.
+                    startActivity(Intent(this@BootActivity, HomeActivity::class.java))
+                }
             }
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
 // Please refer to the GoogleSignInStatusCodes class reference for more information.
