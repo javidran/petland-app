@@ -17,6 +17,10 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.parse.ParseUser
+import kotlinx.android.synthetic.main.activity_editprofile.*
+import java.lang.Thread.sleep
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class BootActivity : AppCompatActivity() {
@@ -43,6 +47,7 @@ class BootActivity : AppCompatActivity() {
         val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("236588416684-p9rnb4cf36gckvo11bklu2ohg11drst0.apps.googleusercontent.com")
             .requestEmail()
+            .requestProfile()
             .build()
 
         // Build a GoogleSignInClient with the options specified by gso.
@@ -77,8 +82,15 @@ class BootActivity : AppCompatActivity() {
             authData["id"] = id
 
             ParseUser.logInWithInBackground("google", authData)
-            // Signed in successfully, show authenticated UI.
-            startActivity(Intent(this@BootActivity, HomeActivity::class.java))
+            sleep(1000)
+            val user = ParseUser.getCurrentUser()
+            if (user != null) {
+                if (user.isNew) {
+                    //editar perfil y añadir datos de usuario de google nuevo
+                }
+                // Signed in successfully, show authenticated UI.
+                startActivity(Intent(this@BootActivity, HomeActivity::class.java))
+            }
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
 // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.statusCode)
