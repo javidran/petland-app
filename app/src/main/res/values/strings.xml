@@ -73,4 +73,6 @@
     <string name="petNameNeeded">The pet must have a name</string>
     <string name="chipNumber">The pet must have a chip number</string>
     <string name="instructionsToChangePasswordDescription">Type and confirm your new password for this account</string>
+    <string name="deletionAlertTitle">Are you sure you want to delete this pet?</string>
+    <string name="deletionAlertMessage">The deletion of a pet includes the deletion of all its infromation</string>
 </resources>
