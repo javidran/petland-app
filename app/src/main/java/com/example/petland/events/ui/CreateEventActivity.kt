@@ -6,20 +6,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
+import androidx.fragment.app.FragmentTransaction
 import com.example.petland.R
-import com.example.petland.events.model.PetEvent
+import com.example.petland.events.enums.EventType
+import com.example.petland.events.model.*
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.activity_create_event.*
 import java.lang.NullPointerException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateEventActivity : AppCompatActivity() {
+class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     lateinit var myPet: ParseObject
     lateinit var event: PetEvent
-    var data : ParseObject? = null
+    lateinit var data : ParseObject
 
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     private val stf = SimpleDateFormat("HH:mm", Locale.US)
@@ -39,6 +40,16 @@ class CreateEventActivity : AppCompatActivity() {
         setHourChooser(dateHour)
         setHourChooser(untilDateHour)
         setCheckBoxes()
+
+        val spinner: Spinner = findViewById(R.id.typeSpinner)
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, getEventTypeNames()
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.onItemSelectedListener = this
+
     }
 
     fun goBack() {
@@ -66,7 +77,6 @@ class CreateEventActivity : AppCompatActivity() {
             )
             dialog.show()
         }
-
 
     }
 
@@ -136,15 +146,67 @@ class CreateEventActivity : AppCompatActivity() {
 
             //TODO: Conseguir data
         }
-
-
-
     }
 
 
+    private fun getEventTypeNames() : Array<String?> {
+        val array = arrayOfNulls<String>(EventType.values().size)
+        EventType.values().forEachIndexed { it, el ->
+            when (el) {
+                EventType.VACCINE -> array[it] = getString(R.string.vaccine)
+                EventType.FOOD -> array[it] = getString(R.string.food)
+                EventType.HYGIENE -> array[it] = getString(R.string.hygiene)
+                EventType.MEASUREMENT -> array[it] = getString(R.string.measurement)
+                EventType.MEDICINE -> array[it] = getString(R.string.medicine)
+                EventType.WALK -> array[it] = getString(R.string.walk)
+            }
+        }
+        return array
+    }
 
+    override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+        when (parent.getItemAtPosition(pos).toString()) {
+            getString(R.string.vaccine) -> {
+                data = VaccineEvent()
+                typeLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.typeLayout, CreateVaccineEventFragment.newInstance(data as VaccineEvent))
+                transaction.commit()
+            }
+            getString(R.string.food) -> {
+                data = FoodEvent()
+                typeLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+            }
+            getString(R.string.hygiene) -> {
+                data = HygieneEvent()
+                typeLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
+            }
+            getString(R.string.measurement) -> {
+                data = MeasurementEvent()
+                typeLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
+            }
+            getString(R.string.medicine) -> {
+                data = MedicineEvent()
+                typeLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
+            }
+            getString(R.string.walk) -> {
+                data = WalkEvent()
+                typeLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+
+            }
+
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+    }
 
 }

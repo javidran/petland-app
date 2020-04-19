@@ -78,5 +78,8 @@
     <string name="vaccine">Vaccine</string>
     <string name="unknown_id">Unknown Value</string>
     <string name="medicine">Medicine</string>
+    <string name="food">Food</string>
+    <string name="hygiene">Hygiene</string>
+    <string name="measurement">Measurement</string>
 
 </resources>
