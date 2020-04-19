@@ -42,7 +42,6 @@ class GetFirstPetActivity : AppCompatActivity() {
     fun logOut(view: View){
         val currentUser = ParseUser.getCurrentUser()
         if (currentUser != null) {
-            //Log.d(HomeActivity.TAG, getString(R.string.loggedOut)) //Mensaje en logcat
             ParseUser.logOut()
             Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
             val intent = Intent(

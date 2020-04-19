@@ -79,9 +79,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         else birthText1.setText("")
 
 
-        //val dateb = sdf.format(myPet.get("birthday"))
-        //date = myPet.get("birthday") as Date
-        //birthText1.setText(dateb.toString())
+
 
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
@@ -109,7 +107,6 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
             chipText1.setText(chipText.toString())
         }
         else chipText1.setText("")
-        //chipText1.setText(myPet.get("chip").toString())
 
         if (ownerText1.text == user.username) {     // enable buttons
             val deleteButton:TextView = findViewById(R.id.deleteButton)
@@ -185,8 +182,6 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     fun edit(view: View) {
         if(!TextUtils.isEmpty(birthText1.text)) myPet.put("birthday", date)
         if(!TextUtils.isEmpty(chipText1.text)) myPet.put("chip", Integer.valueOf(chipText1.text.toString()))
-        //myPet.put("chip", Integer.valueOf(chipText1.text.toString()))
-        //myPet.put("birthday", date)
         myPet.save()
         volver(view)
     }

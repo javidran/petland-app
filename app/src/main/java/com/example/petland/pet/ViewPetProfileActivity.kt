@@ -52,13 +52,11 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         ownerText.text = listUsers.first.username
 
         raceText.text = "ejemplo1"
-        //chipText.text = myPet.get("chip").toString()
         var chipText1 = myPet.get("chip")
         if(chipText1!=null) {
             chipText.setText(chipText1.toString())
         }
         else chipText.setText("")
-        //chipText1.setText(myPet.get("chip").toString())
 
 
         val dateb = myPet.get("birthday")
