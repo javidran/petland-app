@@ -15,6 +15,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.UserProfileFragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.android.material.navigation.NavigationView
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
@@ -24,6 +29,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +47,20 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        val gso =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build()
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -72,19 +92,24 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.commit()
             }
             R.id.nav_logout -> {
-                val currentUser = ParseUser.getCurrentUser()
-                if (currentUser != null) {
-                    Log.d(TAG, getString(R.string.loggedOut)) //Mensaje en logcat
-                    ParseUser.logOut()
-                    Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
-                    val intent = Intent(
-                        this,
-                        BootActivity::class.java
-                    ).apply { //Para pasar de esta vista, de nuevo al SignIn
+                mGoogleSignInClient.signOut()
+                    .addOnCompleteListener(this) {
+                        val currentUser = ParseUser.getCurrentUser()
+                        if (currentUser != null) {
+                            Log.d(TAG, getString(R.string.loggedOut)) //Mensaje en logcat
+                            ParseUser.logOut()
+                            Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
+                            val intent = Intent(
+                                this,
+                                BootActivity::class.java
+                            ).apply { //Para pasar de esta vista, de nuevo al SignIn
+                            }
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        }
+                        startActivity(Intent(this@HomeActivity, BootActivity::class.java))
+                        finish()
                     }
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                }
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.parse.ParseUser
 
 
 class BootActivity : AppCompatActivity() {
@@ -33,6 +34,8 @@ class BootActivity : AppCompatActivity() {
         setContentView(R.layout.activity_boot)
 
         signInButton = findViewById(R.id.button2)
+        signInButton.setSize(SignInButton.SIZE_STANDARD);
+
         // Configure sign-in to request the user's ID, email address, and basic
 // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         // Configure sign-in to request the user's ID, email address, and basic
@@ -66,8 +69,14 @@ class BootActivity : AppCompatActivity() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            val account =
-                completedTask.getResult(ApiException::class.java)
+            val account = completedTask.getResult(ApiException::class.java)
+            val id = account?.id
+            val idToken = account?.idToken
+            val authData = HashMap<String, String?>()
+            authData["id_token"] = idToken
+            authData["id"] = id
+
+            ParseUser.logInWithInBackground("google", authData)
             // Signed in successfully, show authenticated UI.
             startActivity(Intent(this@BootActivity, HomeActivity::class.java))
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
