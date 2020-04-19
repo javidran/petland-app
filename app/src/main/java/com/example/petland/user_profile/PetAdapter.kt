@@ -3,7 +3,6 @@ package com.example.petland.user_profile
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
@@ -12,12 +11,13 @@ import kotlinx.android.synthetic.main.user_profile_pet_element.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PetAdapter(private val pets: List<ParseObject>) :
+class PetAdapter(private val pets: List<ParseObject>, private val viewPetCallback: ViewPetCallback) :
     RecyclerView.Adapter<PetAdapter.PetHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): PetHolder {
         return PetHolder(
-            LayoutInflater.from(p0.context).inflate(R.layout.user_profile_pet_element, p0, false)
+            LayoutInflater.from(p0.context).inflate(R.layout.user_profile_pet_element, p0, false),
+            viewPetCallback
         )
     }
 
@@ -29,9 +29,10 @@ class PetAdapter(private val pets: List<ParseObject>) :
         holder.bindPetInfo(pets[position])
     }
 
-    class PetHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
-
+    class PetHolder(v: View, viewPetCallback: ViewPetCallback) : RecyclerView.ViewHolder(v), View.OnClickListener {
         var view: View = v
+        val vpCallback: ViewPetCallback = viewPetCallback
+
         private lateinit var pet: ParseObject
 
         init {
@@ -42,15 +43,23 @@ class PetAdapter(private val pets: List<ParseObject>) :
             this.pet = pet
             view.name.text = pet.get("name") as String
             view.race.text = "Labrador (raza prueba)"
-            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-            view.birthday.text = sdf.format(pet.get("birthday"))
+            val birth = pet.get("birthday")
+            if(birth!=null){
+                view.birthday.visibility = View.VISIBLE
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+                view.birthday.text = sdf.format(birth)
+            }
+            else {
+                view.birthday.visibility = View.GONE
+            }
+
 
             val imageUtils = ImageUtils()
             imageUtils.retrieveImage(pet, view.petImage)
         }
 
         override fun onClick(v: View?) {
-            Toast.makeText(view.context, "Funcionalidad no disponible", Toast.LENGTH_SHORT).show()
+            vpCallback.startViewPetActivity(pet)
         }
 
     }
