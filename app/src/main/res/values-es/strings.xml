@@ -66,6 +66,7 @@
     <string name="confirmationAlertMessage">Los cambios se guardarán y se modificará el perfil</string>
     <string name="edit_image">Seleccionar imagen</string>
     <string name="reset_image">Utilizar imagen predeterminada</string>
+    <string name="racetype">Raza multiple</string>
     <string name="race">Raza</string>
     <string name="chipNumber">Es necesario un numero de chip</string>
     <string name="petNameNeeded">La mascota ha de tener nombre</string>
