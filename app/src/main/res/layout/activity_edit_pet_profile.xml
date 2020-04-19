@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/md_grey_50">
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/profileImageView1"
@@ -49,7 +50,8 @@
                     android:paddingStart="20dp"
                     android:text="@string/owner"
                     android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/md_grey_600"/>
 
                 <TextView
                     android:id="@+id/dosPuntos2"
@@ -58,6 +60,7 @@
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     tools:ignore="RtlSymmetry" />
 
                 <TextView
@@ -67,6 +70,7 @@
                     android:paddingStart="20dp"
                     android:text="Javi"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     tools:ignore="HardcodedText" />
             </TableRow>
 
@@ -79,6 +83,7 @@
                     android:paddingStart="20dp"
                     android:text="@string/race"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     android:textStyle="bold" />
 
                 <TextView
@@ -88,6 +93,7 @@
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     tools:ignore="RtlSymmetry" />
 
                 <EditText
@@ -97,6 +103,7 @@
                     android:paddingStart="20dp"
                     android:text="Paco"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     tools:ignore="HardcodedText" />
             </TableRow>
 
@@ -109,6 +116,7 @@
                     android:paddingStart="20dp"
                     android:text="@string/chip"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     android:textStyle="bold" />
 
                 <TextView
@@ -118,6 +126,7 @@
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     tools:ignore="RtlSymmetry" />
 
                 <EditText
@@ -127,6 +136,7 @@
                     android:paddingStart="20dp"
                     android:text="1515"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     tools:ignore="HardcodedText" />
             </TableRow>
 
@@ -139,6 +149,7 @@
                     android:paddingStart="20dp"
                     android:text="@string/birthday"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     android:textStyle="bold" />
 
                 <TextView
@@ -148,6 +159,7 @@
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     tools:ignore="RtlSymmetry" />
 
                 <EditText
@@ -157,6 +169,7 @@
                     android:paddingStart="20dp"
                     android:text="13/08/2020"
                     android:textSize="25dp"
+                    android:textColor="@color/md_grey_600"
                     tools:ignore="HardcodedText" />
             </TableRow>
         </TableLayout>
@@ -231,6 +244,7 @@
             android:paddingStart="20dp"
             android:text="Lucas"
             android:textSize="30dp"
+            android:textColor="@color/md_grey_600"
             app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -246,7 +260,7 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/button_without_corners"
             android:backgroundTint="@color/md_red_A700"
-            android:onClick="deletePet"
+            android:onClick="wantToDeletePet"
             android:text="@string/delete"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/usernameText1"

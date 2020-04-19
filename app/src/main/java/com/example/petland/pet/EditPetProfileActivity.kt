@@ -1,9 +1,11 @@
 package com.example.petland.pet
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -68,9 +70,16 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
         val textViewBirthday: TextView = findViewById(R.id.birthText1)
         val cal = Calendar.getInstance()
-        val dateb = sdf.format(myPet.get("birthday"))
-        date = myPet.get("birthday") as Date
-        birthText1.setText(dateb.toString())
+        var birth = myPet.get("birthday")
+        if(birth!=null) {
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+            birth = sdf.format(birth)
+            birthText1.setText(birth.toString())
+        }
+        else birthText1.setText("")
+
+
+
 
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
@@ -93,7 +102,11 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         }
 
 
-        chipText1.setText(myPet.get("chip").toString())
+        var chipText = myPet.get("chip")
+        if(chipText!=null) {
+            chipText1.setText(chipText.toString())
+        }
+        else chipText1.setText("")
 
         if (ownerText1.text == user.username) {     // enable buttons
             val deleteButton:TextView = findViewById(R.id.deleteButton)
@@ -122,8 +135,12 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         verImagen()
     }
 
+    fun wantToDeletePet(view: View) {
+        deletionDialog(view)
+    }
 
     fun deletePet(view: View) {
+        //
         myPet.deleteInBackground { e ->
             if (e == null) {
                 Log.d(TAG, "Pet correctly deleted!") //Mensaje en logcat
@@ -163,8 +180,8 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     }
 
     fun edit(view: View) {
-        myPet.put("chip", Integer.valueOf(chipText1.text.toString()))
-        myPet.put("birthday", date)
+        if(!TextUtils.isEmpty(birthText1.text)) myPet.put("birthday", date)
+        if(!TextUtils.isEmpty(chipText1.text)) myPet.put("chip", Integer.valueOf(chipText1.text.toString()))
         myPet.save()
         volver(view)
     }
@@ -177,6 +194,19 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
     override fun resetImage() {
         profileImageView1.setImageDrawable(this?.getDrawable(R.drawable.animal_paw))
+    }
+
+    private fun deletionDialog(view: View) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.deletionAlertTitle))
+        builder.setCancelable(false)
+        builder.setPositiveButton(getString(R.string.delete))
+        { dialog, which ->
+            deletePet(view)
+        }
+        builder.setNegativeButton(getString(R.string.cancel))
+        { dialog, which -> }
+        builder.show()
     }
 
 }

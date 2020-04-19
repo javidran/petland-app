@@ -73,4 +73,5 @@
     <string name="unknown_id">Valor desconegut</string>
     <string name="vaccine">Vacuna</string>
     <string name="crop_error">No s\'ha pogut retallar correctamente, sius play provi de nou.</string>
+    <string name="deletionAlertTitle">Està segur que vol esborrar aquesta mascota?</string>
 </resources>

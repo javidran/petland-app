@@ -70,6 +70,7 @@
     <string name="chipNumber">Es necesario un numero de chip</string>
     <string name="petNameNeeded">La mascota ha de tener nombre</string>
     <string name="instructionsToChangePasswordDescription">Escriba y confirme su nueva contraseña para esta cuenta</string>
+    <string name="deletionAlertTitle">¿Está seguro que desea borrar esta mascota?</string>
     <string name="unknown_id">Valor desconocido</string>
     <string name="vaccine">Vacuna</string>
     <string name="crop_error">No se ha podido recortar correctamente, por favor probar de nuevo.</string>

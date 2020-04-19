@@ -43,8 +43,16 @@ class PetAdapter(private val pets: List<ParseObject>, private val viewPetCallbac
             this.pet = pet
             view.name.text = pet.get("name") as String
             view.race.text = "Labrador (raza prueba)"
-            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-            view.birthday.text = sdf.format(pet.get("birthday"))
+            val birth = pet.get("birthday")
+            if(birth!=null){
+                view.birthday.visibility = View.VISIBLE
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+                view.birthday.text = sdf.format(birth)
+            }
+            else {
+                view.birthday.visibility = View.GONE
+            }
+
 
             val imageUtils = ImageUtils()
             imageUtils.retrieveImage(pet, view.petImage)
