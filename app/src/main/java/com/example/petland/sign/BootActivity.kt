@@ -17,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.parse.ParseException
 import com.parse.ParseUser
 import java.io.File
 import java.lang.Thread.sleep
@@ -92,8 +93,12 @@ class BootActivity : AppCompatActivity() {
                     user.username = account?.email?.replace("@gmail.com", "") //el username será el de Google
                     account?.displayName?.let { user.put("name", it) }
                     user.put("birthday", Calendar.getInstance().time)
-                    user.save()
-                    startActivity(Intent(this@BootActivity, GetFirstPetActivity::class.java))
+                    try {
+                        user.save()
+                        startActivity(Intent(this@BootActivity, GetFirstPetActivity::class.java))
+                    } catch (e: ParseException) {
+                        e.printStackTrace()
+                    }
                 }
                 else {
                     // Signed in successfully, show authenticated UI.
