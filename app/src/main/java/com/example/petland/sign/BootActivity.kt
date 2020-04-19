@@ -85,8 +85,7 @@ class BootActivity : AppCompatActivity() {
             authData["id_token"] = idToken
             authData["id"] = id
 
-            ParseUser.logInWithInBackground("google", authData)
-            sleep(1000)
+            ParseUser.logInWithInBackground("google", authData).waitForCompletion()
             val user = ParseUser.getCurrentUser()
             if (user != null) {
                 if (user.isNew) {
