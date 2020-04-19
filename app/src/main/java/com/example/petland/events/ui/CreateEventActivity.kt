@@ -20,7 +20,7 @@ import java.util.*
 class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     lateinit var myPet: ParseObject
     lateinit var event: PetEvent
-    lateinit var data : ParseObject
+    lateinit var callback: SaveDataCallback
 
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     private val stf = SimpleDateFormat("HH:mm", Locale.US)
@@ -32,6 +32,7 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
         myPet = intent.extras?.get("petId") as ParseObject
         event = PetEvent()
+        event.setPet(myPet)
 
         returnButton.setOnClickListener { goBack() }
         saveButton.setOnClickListener { onSaveButtonClicked() }
@@ -131,9 +132,9 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                     if (recurrencyUntilCheckbox.isChecked) {
                         if (untilDateDay.text.isEmpty()) untilDateDay.error = "Date needed"
                         else {
-                            val date: Date = resultdf.parse(untilDateDay.text as String + untilDateHour.text as String)
+                            val dateEnd: Date = resultdf.parse(untilDateDay.text as String + untilDateHour.text as String)
                                     ?: throw NullPointerException("Date is wrong")
-                            event.setRecurrencyEndDate(date)
+                            event.setRecurrencyEndDate(dateEnd)
                         }
                     } else {
                         event.removeRecurrencyEndDate()
@@ -143,8 +144,15 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             } else {
                 event.removeRecurrency()
             }
-
-            //TODO: Conseguir data
+            val date: Date = resultdf.parse(dateDay.text as String + dateHour.text as String)
+                ?: throw NullPointerException("Date is wrong")
+            event.setDate(date)
+            val data = callback.checkAndSaveData()
+            if(data != null) {
+                event.setData(data)
+                event.saveEvent()
+                finish()
+            }
         }
     }
 
@@ -167,37 +175,38 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
         when (parent.getItemAtPosition(pos).toString()) {
             getString(R.string.vaccine) -> {
-                data = VaccineEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.typeLayout, CreateVaccineEventFragment.newInstance(data as VaccineEvent))
+                val fragment = CreateVaccineEventFragment.newInstance()
+                callback = fragment
+                transaction.replace(R.id.typeLayout, fragment)
                 transaction.commit()
             }
             getString(R.string.food) -> {
-                data = FoodEvent()
+//                data = FoodEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
             }
             getString(R.string.hygiene) -> {
-                data = HygieneEvent()
+//                data = HygieneEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
             }
             getString(R.string.measurement) -> {
-                data = MeasurementEvent()
+//                data = MeasurementEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
             }
             getString(R.string.medicine) -> {
-                data = MedicineEvent()
+//                data = MedicineEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
             }
             getString(R.string.walk) -> {
-                data = WalkEvent()
+//                data = WalkEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
