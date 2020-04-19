@@ -19,6 +19,7 @@ import java.util.*
 class CreateEventActivity : AppCompatActivity() {
     lateinit var myPet: ParseObject
     lateinit var event: PetEvent
+    var data : ParseObject? = null
 
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     private val stf = SimpleDateFormat("HH:mm", Locale.US)
@@ -65,6 +66,8 @@ class CreateEventActivity : AppCompatActivity() {
             )
             dialog.show()
         }
+
+
     }
 
     private fun setHourChooser(textView : TextView) {
@@ -118,9 +121,8 @@ class CreateEventActivity : AppCompatActivity() {
                     if (recurrencyUntilCheckbox.isChecked) {
                         if (untilDateDay.text.isEmpty()) untilDateDay.error = "Date needed"
                         else {
-                            val date: Date =
-                                (resultdf.parse(untilDateDay.text as String + untilDateHour.text as String)
-                                    ?: NullPointerException("Date is wrong")) as Date
+                            val date: Date = resultdf.parse(untilDateDay.text as String + untilDateHour.text as String)
+                                    ?: throw NullPointerException("Date is wrong")
                             event.setRecurrencyEndDate(date)
                         }
                     } else {
@@ -132,8 +134,11 @@ class CreateEventActivity : AppCompatActivity() {
                 event.removeRecurrency()
             }
 
-            //TODO : Conseguir data
+            //TODO: Conseguir data
         }
+
+
+
     }
 
 
