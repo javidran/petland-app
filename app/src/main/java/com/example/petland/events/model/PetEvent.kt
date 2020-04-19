@@ -1,10 +1,12 @@
 package com.example.petland.events.model
 
 import android.util.Log
+import com.parse.ParseClassName
 import com.parse.ParseObject
 import java.lang.NullPointerException
 import java.util.*
 
+@ParseClassName("PetEvent")
 open class PetEvent : ParseObject() {
 
     fun getPet() : ParseObject {
@@ -35,6 +37,12 @@ open class PetEvent : ParseObject() {
         return getInt("recurrency")
     }
 
+    fun removeRecurrency() {
+        remove("recurrency")
+        removeRecurrencyEndDate()
+    }
+
+
     fun hasRecurrencyEndDate() : Boolean {
         return getDate("recurrencyUntil") != null
     }
@@ -45,6 +53,10 @@ open class PetEvent : ParseObject() {
 
     fun getRecurrencyEndDate() : Date {
         return getDate("recurrencyUntil") ?: throw NullPointerException()
+    }
+
+    fun removeRecurrencyEndDate() {
+        remove("recurrencyUntil")
     }
 
     fun isRecurrentlyFinished() : Boolean {

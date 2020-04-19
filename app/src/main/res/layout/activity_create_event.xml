@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".events.ui.CreateEventActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.444">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/returnButton"
+                android:layout_width="90dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_with_borders_translucent"
+                android:text="@string/goBack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dateDay"
+                android:layout_width="wrap_content"
+                android:layout_height="45sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/edittext_without_corners"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="Fecha del evento"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/dateHour"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/returnButton" />
+
+            <TextView
+                android:id="@+id/dateHour"
+                android:layout_width="100dp"
+                android:layout_height="45sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/edittext_without_corners"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:focusable="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="Hora"
+                android:text="08:00"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dateDay"
+                app:layout_constraintTop_toTopOf="@+id/dateDay" />
+
+            <CheckBox
+                android:id="@+id/recurrencyCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Es un evento recurrente"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dateDay" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recurrencyLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recurrencyCheckbox">
+
+                <TextView
+                    android:id="@+id/infoRec1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Repetir cada"
+                    app:layout_constraintEnd_toStartOf="@+id/recurrencyNumber"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/recurrencyNumber"
+                    android:layout_width="60dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/edittext_without_corners"
+                    android:ems="10"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:inputType="number"
+                    app:layout_constraintBottom_toBottomOf="@+id/infoRec1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/infoRec1" />
+
+                <TextView
+                    android:id="@+id/infoRec2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="dias"
+                    app:layout_constraintBottom_toBottomOf="@+id/recurrencyNumber"
+                    app:layout_constraintStart_toEndOf="@+id/recurrencyNumber"
+                    app:layout_constraintTop_toTopOf="@+id/recurrencyNumber" />
+
+                <TextView
+                    android:id="@+id/untilDateDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/edittext_without_corners"
+                    android:clickable="true"
+                    android:ems="10"
+                    android:focusable="true"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:hint="Fecha de finalización"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/untilDateHour"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recurrencyUntilCheckbox" />
+
+                <CheckBox
+                    android:id="@+id/recurrencyUntilCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Hasta una fecha en concreto"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recurrencyNumber" />
+
+                <TextView
+                    android:id="@+id/untilDateHour"
+                    android:layout_width="100dp"
+                    android:layout_height="45sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/edittext_without_corners"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:ems="10"
+                    android:focusable="true"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:hint="Hora"
+                    android:text="08:00"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/untilDateDay"
+                    app:layout_constraintTop_toTopOf="@+id/untilDateDay" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/typeSpinner"
+                android:layout_width="379dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recurrencyLayout" />
+
+            <FrameLayout
+                android:id="@+id/typeLayout"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/typeSpinner">
+
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_without_corners"
+        android:backgroundTint="#00C4CC"
+        android:text="Crear evento"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

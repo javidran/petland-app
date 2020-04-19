@@ -1,5 +1,6 @@
 package com.example.petland.events.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ class EventsFragment : Fragment() {
 
         view.button2.setOnClickListener { doThings() }
         view.button3.setOnClickListener { markAsDone() }
+        view.button4.setOnClickListener { createEvent() }
 
 
         return view
@@ -58,6 +60,15 @@ class EventsFragment : Fragment() {
         val event : PetEvent = (query.find()[0] ?: NullPointerException()) as PetEvent
 
         event.markAsDone(Calendar.getInstance().time)
+    }
+
+    fun createEvent() {
+        val petclass = Pets()
+        val pet :ParseObject = (petclass.getPets()?.get(0) ?: NullPointerException()) as ParseObject
+        //TODO: Make pet changeable
+        val intent = Intent(context, CreateEventActivity::class.java).apply {}
+        intent.putExtra("petId", pet)
+        startActivity(intent)
     }
 
     companion object {
