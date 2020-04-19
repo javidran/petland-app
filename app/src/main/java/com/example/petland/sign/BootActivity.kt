@@ -89,12 +89,8 @@ class BootActivity : AppCompatActivity() {
             if (user != null) {
                 if (user.isNew) {
                     user.email = account?.email
-                    user.username = account?.email?.replace("@gmail.com", "")
+                    user.username = account?.email?.replace("@gmail.com", "") //el username será el de Google
                     account?.displayName?.let { user.put("name", it) }
-                    /*val image = URL(account?.photoUrl.toString()).file.toByteArray()
-                    val file: File = File("usrPic_"+ Calendar.getInstance().time.toString())
-                    file.writeBytes(image)
-                    user.put("image", file)*/
                     user.put("birthday", Calendar.getInstance().time)
                     user.save()
                     startActivity(Intent(this@BootActivity, GetFirstPetActivity::class.java))
