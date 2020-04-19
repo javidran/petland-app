@@ -3,11 +3,9 @@ package com.example.petland.pet
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
@@ -48,15 +46,28 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         listUsers.whereEqualTo("objectId", powner.objectId)
 
         val listCaregivers = caregivers.query
-        val dateb = sdf.format(myPet.get("birthday"))
 
         usernameText.text = myPet.get("name").toString()
 
         ownerText.text = listUsers.first.username
 
         raceText.text = "ejemplo1"
-        chipText.text = myPet.get("chip").toString()
-        birthText.text = dateb.toString()
+        var chipText1 = myPet.get("chip")
+        if(chipText1!=null) {
+            chipText.setText(chipText1.toString())
+        }
+        else chipText.setText("")
+
+
+        val dateb = myPet.get("birthday")
+        if(dateb!=null) {
+            birthText.visibility = View.VISIBLE
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+            birthText.text = sdf.format(dateb)
+        }
+        else {
+            birthText.visibility = View.GONE
+        }
 
         if (listCaregivers != null) {
             viewManager = LinearLayoutManager(this)

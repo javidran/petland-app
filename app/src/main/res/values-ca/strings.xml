@@ -70,4 +70,5 @@
     <string name="chipNumber">Un numero de chip és necessari</string>
     <string name="petNameNeeded">La mascota ha de tenir nom</string>
     <string name="instructionsToChangePasswordDescription">Escriu i confirma la teva nova contrasenya per aquests compte</string>
+    <string name="deletionAlertTitle">Està segur que vol esborrar aquesta mascota?</string>
 </resources>
