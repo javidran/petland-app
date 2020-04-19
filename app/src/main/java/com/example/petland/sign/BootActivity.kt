@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.pet.creation.GetFirstPetActivity
+import com.example.petland.utils.ParseError
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -97,7 +98,8 @@ class BootActivity : AppCompatActivity() {
                         user.save()
                         startActivity(Intent(this@BootActivity, GetFirstPetActivity::class.java))
                     } catch (e: ParseException) {
-                        e.printStackTrace()
+                        val error = ParseError()
+                        error.writeParseError(this, e)
                     }
                 }
                 else {
