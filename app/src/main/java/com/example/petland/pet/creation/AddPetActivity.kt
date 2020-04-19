@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.parse.Parse
@@ -16,6 +18,7 @@ import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_add_pet.*
+import kotlinx.android.synthetic.main.user_profile_pet_element.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,6 +27,11 @@ class AddPetActivity : AppCompatActivity() {
     private val TAG = "Petland AddPet"
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
+    lateinit var raceobj: ParseObject
+    lateinit var raceobjopt: ParseObject
+    lateinit var animalspeciesobj: ParseObject
+     lateinit var check: CheckBox
+    var checkedRace: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +89,6 @@ class AddPetActivity : AppCompatActivity() {
                 Log.d("DEBUG", species.getDisplayName())
             }
         }
-
         val spinner: Spinner = findViewById(R.id.spinnerSpecies)
         val dataAdapter = ArrayAdapter(
             this,
@@ -99,8 +106,8 @@ class AddPetActivity : AppCompatActivity() {
                 parent?.getItemAtPosition(position)
                 Log.d("Spinner", parent?.getItemAtPosition(position).toString())
                 query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
-                val results: ParseObject = query.find().first()
-                addElementsToSpinnerRace(results)
+                 animalspeciesobj = query.find().first()
+                addElementsToSpinnerRace(animalspeciesobj)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -137,6 +144,31 @@ class AddPetActivity : AppCompatActivity() {
                 id: Long
             ) {
                 Log.d("Spinner", position.toString())
+                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                raceobj = query.find().first()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
+        val dataAdapteropt = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, listRace
+        )
+        dataAdapteropt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerRaceopt.adapter = dataAdapteropt
+        spinnerRaceopt.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                Log.d("Spinner", position.toString())
+                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                raceobjopt = query.find().first()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -158,6 +190,11 @@ class AddPetActivity : AppCompatActivity() {
         pet.put("owner", currentUser)
         val relation = pet.getRelation<ParseUser>("caregivers")
         relation.add(currentUser)
+        pet.put("nameSpecie", animalspeciesobj)
+        pet.put("nameRace", raceobjopt)
+        if(checkedRace) {
+            pet.put("nameRaceopt", raceobjopt)
+        }
         pet.save()
 
         Log.d(TAG, "Profile created correctly")
@@ -178,4 +215,24 @@ class AddPetActivity : AppCompatActivity() {
         finish()
     }
 
+
+
+    fun checkVisibility(view: View) {
+        if (view is CheckBox) {
+             checkedRace = view.isChecked
+
+            when (view.id) {
+                R.id.checkBox -> {
+                    if (checkedRace) {
+                        spinnerRaceopt.visibility = View.VISIBLE
+                    } else {
+                        spinnerRaceopt.visibility = View.INVISIBLE
+                    }
+                }
+
+            }
+        }
+    }
 }
+
+
