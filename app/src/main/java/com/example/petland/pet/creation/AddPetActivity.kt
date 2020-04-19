@@ -1,5 +1,4 @@
 package com.example.petland.pet.creation
-
 import AnimalSpecies
 import Race
 import android.app.DatePickerDialog
@@ -16,8 +15,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
-import androidx.core.view.isInvisible
 import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.parse.Parse
@@ -27,8 +24,6 @@ import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_add_pet.*
-import kotlinx.android.synthetic.main.user_profile_pet_element.*
-import kotlinx.android.synthetic.main.activity_signup.*
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -87,7 +82,7 @@ class AddPetActivity : AppCompatActivity() {
             dialog.show()
         }
         addElementsToSpinnerSpecies()
-
+        profileImage.setOnClickListener { chooseImage() }
 
     }
 
@@ -134,7 +129,6 @@ class AddPetActivity : AppCompatActivity() {
     private fun addElementsToSpinnerRace(animalSpecies: ParseObject) {
         val listRace: ArrayList<String> = ArrayList()
         val query = ParseQuery.getQuery(Race::class.java)
-       // val razas = query.find()
        query.whereEqualTo("nameSpecie",  animalSpecies )
         val objects = query.find()
         if (objects != null) {
@@ -191,11 +185,6 @@ class AddPetActivity : AppCompatActivity() {
     }
 
 
-        profileImage.setOnClickListener { chooseImage() }
-    }
-
-
-
     fun createPet(view: View) {
         val textPetName = findViewById<EditText>(R.id.editTextPetname)
         val chipNumber = findViewById<EditText>(R.id.editTextChip)
@@ -209,53 +198,46 @@ class AddPetActivity : AppCompatActivity() {
 
                 val pet = ParseObject("Pet")
                 pet.put("name", textPetName.text.toString())
-                if(!TextUtils.isEmpty(textViewBirthday.text)) pet.put("birthday", date)
-                if(!TextUtils.isEmpty(chipNumber.text)) pet.put("chip", Integer.valueOf(chipNumber.text.toString()))
+                if (!TextUtils.isEmpty(textViewBirthday.text)) pet.put("birthday", date)
+                if (!TextUtils.isEmpty(chipNumber.text)) pet.put(
+                    "chip",
+                    Integer.valueOf(chipNumber.text.toString())
+                )
                 pet.put("owner", currentUser)
                 putImage(pet)
-                val relation = pet.getRelation<ParseUser>("caregivers")
-                relation.add(currentUser)
-                pet.save()
+                pet.put("nameSpecie", animalspeciesobj)
+                Log.d("debugrazas", (raceobj.objectId))
+                Log.d("debugrazas", (raceobjopt.objectId))
+                if (checkedRace && raceobj.objectId == raceobjopt.objectId) {
+                        Log.d("debugrazas", "razas iguales")
+                        Toast.makeText(
+                            this@AddPetActivity,
+                            "Razas iguales",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
 
-                Log.d(TAG, "Profile created correctly")
+                else {
+                    if (checkedRace) pet.put("nameRaceopt", raceobjopt)
+                    pet.put("nameRace", raceobj)
+                    val relation = pet.getRelation<ParseUser>("caregivers")
+                    relation.add(currentUser)
+                    pet.save()
 
-                val intent = Intent(this, HomeActivity::class.java).apply {}
-                startActivity(intent)
-                finish()
-                overridePendingTransition(
-                    R.anim.slide_in_left,
-                    R.anim.slide_out_right
-                )
+                    Log.d(TAG, "Profile created correctly")
+
+                    val intent = Intent(this, HomeActivity::class.java).apply {}
+                    startActivity(intent)
+                    finish()
+                    overridePendingTransition(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                }
             }
         }
 
     }
-
-        val pet = ParseObject("Pet")
-        pet.put("name", textPetName.text.toString())
-        pet.put("birthday", date)
-        pet.put("chip", Integer.valueOf(chipNumber.text.toString()))
-        pet.put("owner", currentUser)
-        val relation = pet.getRelation<ParseUser>("caregivers")
-        relation.add(currentUser)
-        pet.put("nameSpecie", animalspeciesobj)
-        pet.put("nameRace", raceobjopt)
-        if(checkedRace) {
-            pet.put("nameRaceopt", raceobjopt)
-        }
-        pet.save()
-
-        Log.d(TAG, "Profile created correctly")
-
-        textPetName.text.clear()
-        chipNumber.text.clear()
-
-        val intent = Intent(this, HomeActivity::class.java).apply {}
-        startActivity(intent)
-        overridePendingTransition(
-            R.anim.slide_in_left,
-            R.anim.slide_out_right
-        )
     private fun putImage(pet: ParseObject) {
         if(image != null) {
             val byteArrayOutputStream = ByteArrayOutputStream()
