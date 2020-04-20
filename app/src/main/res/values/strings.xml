@@ -81,5 +81,13 @@
     <string name="food">Food</string>
     <string name="hygiene">Hygiene</string>
     <string name="measurement">Measurement</string>
+    <string name="food_feed">Feed</string>
+    <string name="food_meat">Meat</string>
+    <string name="food_tooth_bars">Tooth bars</string>
+    <string name="food_water">Water</string>
+    <string name="hygiene_bath">Bath</string>
+    <string name="hygiene_deworm">Deworm</string>
+    <string name="hygiene_haircut">Haircut</string>
+    <string name="hygiene_nails">Nails</string>
 
 </resources>

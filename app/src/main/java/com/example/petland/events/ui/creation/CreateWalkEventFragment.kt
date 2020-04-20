@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.petland.R
-import com.example.petland.events.model.VaccineEvent
+import com.example.petland.events.model.WalkEvent
 import com.parse.ParseObject
-import kotlinx.android.synthetic.main.fragment_create_vaccine_event.view.*
 
-class CreateVaccineEventFragment : Fragment(),
+class CreateWalkEventFragment : Fragment(),
     SaveDataCallback {
-    private var dataEvent = VaccineEvent()
+    private var dataEvent = WalkEvent()
     private lateinit var rootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,16 +22,11 @@ class CreateVaccineEventFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.fragment_create_vaccine_event, container, false)
+        rootView = inflater.inflate(R.layout.fragment_create_walk_event, container, false)
         return rootView
     }
 
     override fun checkAndSaveData(): ParseObject? {
-        if(rootView.editVaccineName.text.isEmpty()) {
-            rootView.editVaccineName.error = "Date needed"
-            return null
-        }
-        dataEvent.setName(rootView.editVaccineName.text.toString())
         dataEvent.saveEvent()
         return dataEvent
     }
@@ -43,8 +37,7 @@ class CreateVaccineEventFragment : Fragment(),
 
         @JvmStatic
         fun newInstance() =
-            CreateVaccineEventFragment().apply {
-            }
+            CreateWalkEventFragment().apply {}
     }
 
 

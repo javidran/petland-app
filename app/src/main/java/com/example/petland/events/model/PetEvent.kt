@@ -3,7 +3,7 @@ package com.example.petland.events.model
 import android.util.Log
 import com.parse.ParseClassName
 import com.parse.ParseObject
-import java.lang.NullPointerException
+import com.parse.ParseQuery
 import java.util.*
 
 @ParseClassName("PetEvent")
@@ -78,11 +78,16 @@ open class PetEvent : ParseObject() {
     }
 
     fun setData(dataEvent: ParseObject) {
-        put("data", dataEvent)
+        put("data", dataEvent.objectId)
+        put("data_type", dataEvent.className)
     }
 
     fun getData() : ParseObject {
-        return getParseObject("data") ?: throw NullPointerException()
+        val objId = getString("data") ?: throw NullPointerException()
+        val className = getString("data_type") ?: throw NullPointerException()
+        val query = ParseQuery.getQuery<ParseObject>(className)
+        query.whereEqualTo("objectId", objId)
+        return query.find().first()
     }
 
     fun markAsDone(date: Date) {
@@ -110,7 +115,7 @@ open class PetEvent : ParseObject() {
     }
 
     fun saveEvent() {
-        if(getParseObject("pet") != null && getDate("date") != null && getParseObject("data") != null) {
+        if(getParseObject("pet") != null && getDate("date") != null && getString("data") != null) {
             save()
         } else {
             throw NullPointerException("Algun valor obligatorio del evento es nulo")

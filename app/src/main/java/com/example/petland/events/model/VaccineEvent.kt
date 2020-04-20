@@ -1,9 +1,7 @@
 package com.example.petland.events.model
 
-import com.example.petland.R
 import com.parse.ParseClassName
 import com.parse.ParseObject
-import java.lang.NullPointerException
 
 @ParseClassName("VaccineEvent")
 class VaccineEvent : ParseObject() {

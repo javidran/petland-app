@@ -12,7 +12,7 @@
         android:elevation="6sp">
 
         <EditText
-            android:id="@+id/editWeight"
+            android:id="@+id/editMeasurementWeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -25,13 +25,14 @@
             android:inputType="numberDecimal"
             android:padding="8sp"
             android:textSize="18sp"
+            android:elevation="6sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editHeight" />
+            app:layout_constraintTop_toBottomOf="@+id/editMeasurementHeight" />
 
         <EditText
-            android:id="@+id/editHeight"
+            android:id="@+id/editMeasurementHeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

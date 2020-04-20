@@ -1,18 +1,15 @@
 package com.example.petland.image
 
 import android.content.Intent
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.petland.R
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_image.*
-import java.io.File
 
 class ImageOnCreationActivity : AppCompatActivity() {
     private var default = true

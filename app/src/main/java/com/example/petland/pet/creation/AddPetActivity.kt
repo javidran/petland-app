@@ -19,7 +19,6 @@ import com.example.petland.image.ImageOnCreationActivity
 import com.parse.ParseFile
 import com.parse.ParseObject
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.activity_signup.*
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*

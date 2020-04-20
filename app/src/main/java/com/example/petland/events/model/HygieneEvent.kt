@@ -3,7 +3,6 @@ package com.example.petland.events.model
 import com.example.petland.events.enums.HygieneType
 import com.parse.ParseClassName
 import com.parse.ParseObject
-import java.lang.NullPointerException
 
 @ParseClassName("HygieneEvent")
 class HygieneEvent : ParseObject() {

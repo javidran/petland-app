@@ -2,17 +2,20 @@ package com.example.petland.events.ui.creation
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
-import com.example.petland.events.model.*
+import com.example.petland.events.model.PetEvent
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.activity_create_event.*
-import java.lang.NullPointerException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -172,46 +175,37 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+        typeLayout.removeAllViews()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        lateinit var fragment: Fragment
         when (parent.getItemAtPosition(pos).toString()) {
             getString(R.string.vaccine) -> {
-                typeLayout.removeAllViews()
-                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                val fragment =
-                    CreateVaccineEventFragment.newInstance()
+                fragment = CreateVaccineEventFragment.newInstance()
                 callback = fragment
-                transaction.replace(R.id.typeLayout, fragment)
-                transaction.commit()
             }
             getString(R.string.food) -> {
-                typeLayout.removeAllViews()
-                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                fragment = CreateFoodEventFragment.newInstance()
+                callback = fragment
             }
             getString(R.string.hygiene) -> {
-                typeLayout.removeAllViews()
-                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-
+                fragment = CreateHygieneEventFragment.newInstance()
+                callback = fragment
             }
             getString(R.string.measurement) -> {
-                typeLayout.removeAllViews()
-                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                val fragment =
-                    CreateMeasurementEventFragment.newInstance()
+                fragment = CreateMeasurementEventFragment.newInstance()
                 callback = fragment
-                transaction.replace(R.id.typeLayout, fragment)
-                transaction.commit()
             }
             getString(R.string.medicine) -> {
-                typeLayout.removeAllViews()
-                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-
+                fragment = CreateMedicineEventFragment.newInstance()
+                callback = fragment
             }
             getString(R.string.walk) -> {
-                typeLayout.removeAllViews()
-                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-
+                fragment = CreateWalkEventFragment.newInstance()
+                callback = fragment
             }
-
         }
+        transaction.replace(R.id.typeLayout, fragment)
+        transaction.commit()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
