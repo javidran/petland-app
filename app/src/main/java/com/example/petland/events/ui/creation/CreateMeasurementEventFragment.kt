@@ -1,19 +1,18 @@
-package com.example.petland.events.ui
+package com.example.petland.events.ui.creation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
 
 import com.example.petland.R
 import com.example.petland.events.model.VaccineEvent
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_create_vaccine_event.view.*
-import java.lang.NullPointerException
 
-class CreateVaccineEventFragment : Fragment(), SaveDataCallback {
+class CreateMeasurementEventFragment : Fragment(),
+    SaveDataCallback {
     private var dataEvent = VaccineEvent()
     private lateinit var rootView: View
 
@@ -25,7 +24,7 @@ class CreateVaccineEventFragment : Fragment(), SaveDataCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_create_vaccine_event, container, false)
+        val view = inflater.inflate(R.layout.fragment_create_measurement_event, container, false)
 
         rootView = view
 
@@ -48,7 +47,8 @@ class CreateVaccineEventFragment : Fragment(), SaveDataCallback {
 
         @JvmStatic
         fun newInstance() =
-            CreateVaccineEventFragment().apply {
+            CreateMeasurementEventFragment()
+                .apply {
             }
     }
 

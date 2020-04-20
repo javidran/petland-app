@@ -1,10 +1,9 @@
-package com.example.petland.events.ui
+package com.example.petland.events.ui.creation
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.fragment.app.FragmentTransaction
@@ -177,7 +176,8 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             getString(R.string.vaccine) -> {
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                val fragment = CreateVaccineEventFragment.newInstance()
+                val fragment =
+                    CreateVaccineEventFragment.newInstance()
                 callback = fragment
                 transaction.replace(R.id.typeLayout, fragment)
                 transaction.commit()

@@ -7,24 +7,24 @@ import java.lang.NullPointerException
 @ParseClassName("MeasurementEvent")
 class MeasurementEvent : ParseObject() {
 
-    fun getWeight() : Int {
-        return getInt("weight")
+    fun getWeight() : Double {
+        return getDouble("weight")
     }
 
-    fun setWeight(weight: Int) {
+    fun setWeight(weight: Double) {
         put("weight", weight)
     }
 
-    fun getHeight() : Int {
-        return getInt("height")
+    fun getHeight() : Double {
+        return getDouble("height")
     }
 
-    fun setHeight(height: Int) {
+    fun setHeight(height: Double) {
         put("height", height)
     }
 
     fun saveEvent() {
-        if(getInt("weight") != 0 && getInt("height") != 0) {
+        if(getDouble("weight") != 0.0 && getDouble("height") != 0.0) {
             save()
         } else {
             throw NullPointerException("Algun valor obligatorio de los datos sobre la comida es nulo")

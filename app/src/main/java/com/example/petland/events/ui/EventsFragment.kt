@@ -10,6 +10,7 @@ import android.view.ViewGroup
 
 import com.example.petland.R
 import com.example.petland.events.model.PetEvent
+import com.example.petland.events.ui.creation.CreateEventActivity
 import com.example.petland.pet.Pets
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -30,7 +31,7 @@ class EventsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_events, container, false)
 
         view.button4.setOnClickListener { createEvent() }
-        
+
         return view
     }
 

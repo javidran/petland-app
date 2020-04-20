@@ -1,4 +1,4 @@
-package com.example.petland.events.ui
+package com.example.petland.events.ui.creation
 
 import com.parse.ParseObject
 
