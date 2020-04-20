@@ -142,7 +142,4 @@ class BootActivity : AppCompatActivity() {
         )
     }
 
-    override fun onBackPressed() {
-    }
-
 }

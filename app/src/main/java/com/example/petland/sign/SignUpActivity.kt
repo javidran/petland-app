@@ -57,6 +57,7 @@ class SignUpActivity : AppCompatActivity() {
             R.anim.slide_in_left,
             R.anim.slide_out_right
         )
+        finish()
     }
 
     private fun progress(start: Boolean) {
@@ -129,13 +130,4 @@ class SignUpActivity : AppCompatActivity() {
         private const val TAG = "Petland SignUp"
     }
 
-    override fun onBackPressed() {
-        val intent = Intent(this, BootActivity::class.java).apply {
-        }
-        startActivity(intent)
-        overridePendingTransition(
-            R.anim.slide_in_left,
-            R.anim.slide_out_right
-        )
-    }
 }
