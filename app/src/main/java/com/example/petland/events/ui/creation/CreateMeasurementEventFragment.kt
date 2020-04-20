@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.petland.R
-import com.example.petland.events.model.VaccineEvent
+import com.example.petland.events.model.MeasurementEvent
 import com.parse.ParseObject
+import kotlinx.android.synthetic.main.fragment_create_measurement_event.view.*
 import kotlinx.android.synthetic.main.fragment_create_vaccine_event.view.*
+import kotlinx.android.synthetic.main.fragment_create_vaccine_event.view.editHeight
 
 class CreateMeasurementEventFragment : Fragment(),
     SaveDataCallback {
-    private var dataEvent = VaccineEvent()
+    private var dataEvent = MeasurementEvent()
     private lateinit var rootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,13 +34,23 @@ class CreateMeasurementEventFragment : Fragment(),
     }
 
     override fun checkAndSaveData(): ParseObject? {
-        if(rootView.name.text.isEmpty()) {
-            rootView.name.error = "Date needed"
+        if(rootView.editHeight.text.isEmpty()) {
+            rootView.editHeight.error = "Hight needed"
             return null
         }
-        dataEvent.setName(rootView.name.text.toString())
-        dataEvent.saveEvent()
-        return dataEvent
+        else {
+            if(rootView.editWeight.text.isEmpty()) {
+                rootView.editWeight.error = "Weight needed"
+                return null
+            }
+            else {
+                dataEvent.setHeight(rootView.editHeight.text.toString().toDouble())
+                dataEvent.setWeight(rootView.editWeight.text.toString().toDouble())
+
+                dataEvent.saveEvent()
+                return dataEvent
+            }
+        }
     }
 
     companion object {
@@ -47,9 +59,7 @@ class CreateMeasurementEventFragment : Fragment(),
 
         @JvmStatic
         fun newInstance() =
-            CreateMeasurementEventFragment()
-                .apply {
-            }
+            CreateMeasurementEventFragment().apply {}
     }
 
 

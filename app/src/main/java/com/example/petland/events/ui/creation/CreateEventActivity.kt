@@ -183,30 +183,29 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                 transaction.commit()
             }
             getString(R.string.food) -> {
-//                data = FoodEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
             }
             getString(R.string.hygiene) -> {
-//                data = HygieneEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
             }
             getString(R.string.measurement) -> {
-//                data = MeasurementEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-
+                val fragment =
+                    CreateMeasurementEventFragment.newInstance()
+                callback = fragment
+                transaction.replace(R.id.typeLayout, fragment)
+                transaction.commit()
             }
             getString(R.string.medicine) -> {
-//                data = MedicineEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
             }
             getString(R.string.walk) -> {
-//                data = WalkEvent()
                 typeLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
