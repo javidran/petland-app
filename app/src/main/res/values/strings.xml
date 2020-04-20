@@ -89,5 +89,19 @@
     <string name="hygiene_deworm">Deworm</string>
     <string name="hygiene_haircut">Haircut</string>
     <string name="hygiene_nails">Nails</string>
+    <string name="event_date">Event date</string>
+    <string name="default_event_time" translatable="false">08:00</string>
+    <string name="event_food_dosage">Dosage</string>
+    <string name="event_extra_info">Additional information</string>
+    <string name="event_type">Type:</string>
+    <string name="event_measurement_weight">Weight</string>
+    <string name="event_measurement_height">Height</string>
+    <string name="event_medicine_dosage">Dosage</string>
+    <string name="recurrent_event_check">It\'s a recurrent event</string>
+    <string name="repeat_every">Repeat every</string>
+    <string name="days">days</string>
+    <string name="event_end_date">Finalization date</string>
+    <string name="event_until_date">Until an specific date</string>
+    <string name="create_event">Create event</string>
 
 </resources>
