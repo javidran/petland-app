@@ -41,7 +41,7 @@ class FoodEvent : ParseObject() {
         if(getString("type") != null && getInt("amount") != 0) {
             save()
         } else {
-            throw NullPointerException("Algun valor obligatorio de los datos sobre la comida es nulo")
+            throw NullPointerException("Some mandatory parameter of Foodevent is null")
         }
     }
 }

@@ -126,13 +126,13 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
     }
 
     private fun onSaveButtonClicked() {
-        if(dateDay.text.isEmpty()) dateDay.error = "Date needed"
+        if(dateDay.text.isEmpty()) dateDay.error = getString(R.string.date_needed)
         else {
             if (recurrencyCheckbox.isChecked) {
-                if (recurrencyNumber.text.isEmpty()) recurrencyNumber.error = "Date needed"
+                if (recurrencyNumber.text.isEmpty()) recurrencyNumber.error = getString(R.string.content_mandatory)
                 else {
                     if (recurrencyUntilCheckbox.isChecked) {
-                        if (untilDateDay.text.isEmpty()) untilDateDay.error = "Date needed"
+                        if (untilDateDay.text.isEmpty()) untilDateDay.error = getString(R.string.date_needed)
                         else {
                             val dateEnd: Date = resultdf.parse(untilDateDay.text as String + untilDateHour.text as String)
                                     ?: throw NullPointerException("Date is wrong")

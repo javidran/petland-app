@@ -29,12 +29,12 @@ class CreateMedicineEventFragment : Fragment(),
 
     override fun checkAndSaveData(): ParseObject? {
         if(rootView.editMedicineName.text.isEmpty()) {
-            rootView.editMedicineName.error = "Date needed"
+            rootView.editMedicineName.error = getString(R.string.date_needed)
             return null
         }
         else {
             if(rootView.editMedicineDosage.text.isEmpty()) {
-                rootView.editMedicineDosage.error = "Dosage needed"
+                rootView.editMedicineDosage.error = getString(R.string.content_mandatory)
                 return null
             }
             else{

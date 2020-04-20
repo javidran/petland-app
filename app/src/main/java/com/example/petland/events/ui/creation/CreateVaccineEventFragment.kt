@@ -29,7 +29,7 @@ class CreateVaccineEventFragment : Fragment(),
 
     override fun checkAndSaveData(): ParseObject? {
         if(rootView.editVaccineName.text.isEmpty()) {
-            rootView.editVaccineName.error = "Date needed"
+            rootView.editVaccineName.error = getString(R.string.date_needed)
             return null
         }
         dataEvent.setName(rootView.editVaccineName.text.toString())

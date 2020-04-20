@@ -29,12 +29,12 @@ class CreateMeasurementEventFragment : Fragment(),
 
     override fun checkAndSaveData(): ParseObject? {
         if(rootView.editMeasurementHeight.text.isEmpty()) {
-            rootView.editMeasurementHeight.error = "Hight needed"
+            rootView.editMeasurementHeight.error = getString(R.string.content_mandatory)
             return null
         }
         else {
             if(rootView.editMeasurementWeight.text.isEmpty()) {
-                rootView.editMeasurementWeight.error = "Weight needed"
+                rootView.editMeasurementWeight.error = getString(R.string.content_mandatory)
                 return null
             }
             else {

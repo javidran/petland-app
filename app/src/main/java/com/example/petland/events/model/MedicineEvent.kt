@@ -38,7 +38,7 @@ class MedicineEvent : ParseObject() {
         if(getString("name") != null && getInt("dosage") != 0) {
             save()
         } else {
-            throw NullPointerException("Algun valor obligatorio de los datos sobre la comida es nulo")
+            throw NullPointerException("Some mandatory parameter of MedicineEvent is null")
         }
     }
 

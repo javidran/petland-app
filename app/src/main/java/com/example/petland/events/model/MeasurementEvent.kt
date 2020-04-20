@@ -26,7 +26,7 @@ class MeasurementEvent : ParseObject() {
         if(getDouble("weight") != 0.0 && getDouble("height") != 0.0) {
             save()
         } else {
-            throw NullPointerException("Algun valor obligatorio de los datos sobre la comida es nulo")
+            throw NullPointerException("Some mandatory parameter of MeasurementEvent is null")
         }
     }
 }

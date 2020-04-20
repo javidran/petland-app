@@ -62,7 +62,6 @@ open class PetEvent : ParseObject() {
     fun isRecurrentlyFinished() : Boolean {
         if(isRecurrent()) {
             if (!hasRecurrencyEndDate() || getRecurrencyEndDate() > Calendar.getInstance().time) {
-                Log.d("Pet Care Data", "This event is still recurrent")
                 return false
             }
         }
@@ -118,7 +117,7 @@ open class PetEvent : ParseObject() {
         if(getParseObject("pet") != null && getDate("date") != null && getString("data") != null) {
             save()
         } else {
-            throw NullPointerException("Algun valor obligatorio del evento es nulo")
+            throw NullPointerException("Some mandatory parameter of PetEvent is null")
         }
     }
 }

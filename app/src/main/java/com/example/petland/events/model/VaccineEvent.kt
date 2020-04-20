@@ -18,7 +18,7 @@ class VaccineEvent : ParseObject() {
         if(getString("name") != null) {
             save()
         } else {
-            throw NullPointerException("Algun valor obligatorio de los datos sobre la comida es nulo")
+            throw NullPointerException("Some mandatory parameter of VaccineEvent is null")
         }
     }
 }

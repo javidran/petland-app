@@ -43,7 +43,7 @@ class CreateFoodEventFragment : Fragment(), SaveDataCallback {
 
     override fun checkAndSaveData(): ParseObject? {
         if(rootView.editFoodAmount.text.isEmpty()) {
-            rootView.editFoodAmount.error = "Date needed"
+            rootView.editFoodAmount.error = getString(R.string.date_needed)
             return null
         }
         else {

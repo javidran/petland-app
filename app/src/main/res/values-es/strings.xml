@@ -100,4 +100,7 @@
     <string name="event_measurement_weight">Peso</string>
     <string name="event_measurement_height">Altura</string>
     <string name="event_medicine_dosage">Dosis</string>
+    <string name="deletionAlertMessage">La elimincación de una mascota implica la eliminación de toda su información</string>
+    <string name="date_needed">Fecha necesaria</string>
+    <string name="content_mandatory">Contenido necesario</string>
 </resources>

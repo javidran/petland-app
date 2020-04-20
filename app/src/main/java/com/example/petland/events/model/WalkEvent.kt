@@ -13,7 +13,7 @@ class WalkEvent : ParseObject() {
         if( true ) {
             save()
         } else {
-            throw NullPointerException("Algun valor obligatorio de los datos sobre la comida es nulo")
+            throw NullPointerException("Some mandatory parameter of WalkEvent is null")
         }
     }
 }

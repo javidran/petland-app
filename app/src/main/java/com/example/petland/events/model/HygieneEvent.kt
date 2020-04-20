@@ -20,7 +20,7 @@ class HygieneEvent : ParseObject() {
         if(getString("type") != null) {
             save()
         } else {
-            throw NullPointerException("Algun valor obligatorio de los datos sobre la comida es nulo")
+            throw NullPointerException("Some mandatory parameter of HygieneEvent is null")
         }
     }
 
