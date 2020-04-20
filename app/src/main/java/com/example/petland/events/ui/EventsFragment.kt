@@ -29,11 +29,8 @@ class EventsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_events, container, false)
 
-        view.button2.setOnClickListener { doThings() }
-        view.button3.setOnClickListener { markAsDone() }
         view.button4.setOnClickListener { createEvent() }
-
-
+        
         return view
     }
 
