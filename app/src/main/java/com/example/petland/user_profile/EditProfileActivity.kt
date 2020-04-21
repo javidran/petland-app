@@ -122,7 +122,6 @@ class EditProfileActivity : AppCompatActivity() {
                     if (e == null) {
                         Log.d(TAG,"User correctly deleted!") //Mensaje en logcat
                         ParseUser.logOut()
-                       // Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, BootActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
                         }
                         startActivity(intent)
