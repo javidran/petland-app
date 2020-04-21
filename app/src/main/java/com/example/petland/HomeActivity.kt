@@ -1,5 +1,6 @@
 package com.example.petland
 
+import Race
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.navigation.NavigationView
+import com.parse.Parse
+import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
 
@@ -47,7 +50,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
-
+        ParseObject.registerSubclass(Race::class.java)
+        Parse.initialize(
+            Parse.Configuration.Builder(this)
+            .applicationId("")
+            .clientKey("")
+            .server("")
+            .build()
+        )
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         // Configure sign-in to request the user's ID, email address, and basic

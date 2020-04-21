@@ -1,8 +1,10 @@
 package com.example.petland.pet
 
+import Race
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +41,13 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     }
 
     private fun setData() {
+        ParseObject.registerSubclass(Race::class.java)
+        Parse.initialize(Parse.Configuration.Builder(this)
+            .applicationId("")
+            .clientKey("")
+            .server("")
+            .build()
+        )
         myPet = intent.extras?.get("petId") as ParseObject
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
@@ -47,13 +56,14 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val listUsers = ParseQuery.getQuery<ParseUser>("_User")
         val powner = myPet.get("owner") as ParseObject
         listUsers.whereEqualTo("objectId", powner.objectId)
-
-
         usernameText.text = myPet.get("name").toString()
-
         ownerText.text = listUsers.first.username
 
-        raceText.text = "ejemplo1"
+        val objectrace= myPet.get("nameRace") as ParseObject
+        val query = ParseQuery.getQuery(Race::class.java)
+        query.whereEqualTo("objectId", objectrace.objectId)
+        val typerace = query.find().first()
+        raceText.text = typerace.getName()
         var chipText1 = myPet.get("chip")
         if(chipText1!=null) {
             chipText.setText(chipText1.toString())
