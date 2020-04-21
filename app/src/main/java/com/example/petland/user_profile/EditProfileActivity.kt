@@ -13,6 +13,9 @@ import com.example.petland.R
 import com.example.petland.sign.BootActivity
 import com.parse.ParseObject
 import com.parse.ParseQuery
+import com.example.petland.pet.creation.GetFirstPetActivity
+import com.example.petland.utils.ParseError
+import com.parse.ParseException
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_editprofile.*
 import java.text.SimpleDateFormat
@@ -63,14 +66,19 @@ class EditProfileActivity : AppCompatActivity() {
             user.email = editTextEmail.text.toString()
             user.put("name", editTextName.text.toString())
             user.put("birthday", date)
-            user.save()
-            Log.d(TAG, getString(R.string.profileEditedCorrectly))
-            Toast.makeText(
-                this@EditProfileActivity,
-                getString(R.string.profileEditedCorrectly),
-                Toast.LENGTH_LONG
-            ).show()
-            finish()
+            try {
+                user.save()
+                Log.d(TAG, getString(R.string.profileEditedCorrectly))
+                Toast.makeText(
+                    this@EditProfileActivity,
+                    getString(R.string.profileEditedCorrectly),
+                    Toast.LENGTH_LONG
+                ).show()
+                finish()
+            } catch (e: ParseException) {
+                val error = ParseError()
+                error.writeParseError(this, e)
+            }
         } else {
             Log.d(TAG, getString(R.string.userNotLogged))
         }

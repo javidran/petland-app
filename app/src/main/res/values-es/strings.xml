@@ -47,7 +47,7 @@
     <string name="timeToMakeAPetSubtitle">Ahora puedes añadir tu mascota o ser invitado a cuidar una que ya esté registrada en Petland</string>
     <string name="test">test</string>
     <string name="instructionstocreateapetdescriprtion">Complete el siguiente formulario con la información básica de su mascota</string>
-    <string name="temporalAquiVaLaFoto">En el circulo superior se podrá añadir la foto</string>
+    <string name="temporalAquiVaLaFoto">Puede añadir una foto ahora o hacerlo más tarde desde el perfil de la mascota</string>
     <string name="tapToAddPhoto">taptoAddPhoto</string>
     <string name="petName">Nombre de tu mascota</string>
     <string name="petsbirthday">Cumpleaños de tu mascota</string>
@@ -58,6 +58,7 @@
     <string name="petCaregivers"> Cuidadores</string>
     <string name="owner">Propietario</string>
     <string name="instructionstoeditprofiledescriprtion">Edita cualquiera de los siguientes campos y guarda los cambios para actualizar la información del perfil</string>
+    <string name="delete">BORRAR</string>
     <string name="cancelAlertTitle">¿Está seguro que quiere cancelar los cambios no guardados?</string>
     <string name="cancelAlertMessage">Cualquier modificación que no haya guardado se perderá</string>
     <string name="ok">De acuerdo</string>
@@ -67,4 +68,10 @@
     <string name="reset_image">Utilizar imagen predeterminada</string>
     <string name="delete_account_message">Estás seguro de borrar tu cuenta?</string>
     <string name="delete_account">Borrar Cuenta</string>
+    <string name="racetype">Raza multiple</string>
+    <string name="race">Raza</string>
+    <string name="chipNumber">Es necesario un numero de chip</string>
+    <string name="petNameNeeded">La mascota ha de tener nombre</string>
+    <string name="instructionsToChangePasswordDescription">Escriba y confirme su nueva contraseña para esta cuenta</string>
+    <string name="deletionAlertTitle">¿Está seguro que desea borrar esta mascota?</string>
 </resources>

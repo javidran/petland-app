@@ -1,7 +1,7 @@
 package com.example.petland.image
 
 import android.content.Intent
-import android.graphics.Bitmap
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -10,16 +10,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.petland.R
-import com.parse.ParseFile
-import com.parse.ParseObject
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_image.*
-import java.io.ByteArrayOutputStream
 import java.io.File
 
-class ImageActivity : AppCompatActivity() {
-    private lateinit var parseObject: ParseObject
-    private val imageUtils = ImageUtils()
+class ImageOnCreationActivity : AppCompatActivity() {
+    private var default = true
+    private lateinit var imageUri : Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,19 +24,11 @@ class ImageActivity : AppCompatActivity() {
 
         editImage.setOnClickListener { pickImage() }
         resetImage.setOnClickListener { useDefault() }
-        back.setOnClickListener { finish() }
-
-        val intentData = intent.getParcelableExtra<ParseObject>("object")
-        if (intentData != null) {
-            parseObject = intentData
-        } else {
-            finish()
-        }
-        imageUtils.retrieveImage(parseObject, imageView)
+        back.setOnClickListener { returnInfo() }
     }
 
     private fun useDefault() {
-        imageUtils.resetToDefaultImage(parseObject)
+        default = true
         imageView.setImageDrawable(getDrawable(R.drawable.animal_paw))
     }
 
@@ -62,9 +51,10 @@ class ImageActivity : AppCompatActivity() {
                 Log.d(TAG, "Image cropped")
                 val uri = UCrop.getOutput(data)
                 if (uri != null) {
-                    val imageBitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
-                    saveImage(imageBitmap)
-                    imageView.setImageBitmap(imageBitmap)
+                    default = false
+                    imageUri = uri
+                    val image = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+                    imageView.setImageBitmap(image)
                 }
             } else if (resultCode == UCrop.RESULT_ERROR) {
                 Log.d(TAG, "Image not cropped")
@@ -78,26 +68,20 @@ class ImageActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveImage(imageBitmap: Bitmap) {
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-        val bytes = byteArrayOutputStream.toByteArray()
-
-        Log.d(TAG, "Image converted to ByteArray")
-
-        val file = ParseFile("profileImage.png", bytes)
-        file.save()
-
-        Log.d(TAG, "Saving image to server")
-
-        parseObject.put("image", file)
-        parseObject.save()
-
-        Log.d(TAG, "Assigning image to user/pet")
+    private fun returnInfo() {
+        val intent = Intent()
+        if(default) {
+            setResult(USE_DEFAULT, intent)
+        } else {
+            intent.putExtra("image", imageUri)
+            setResult(RESULT_OK, intent)
+        }
+        finish()
     }
 
     companion object {
-        private const val PICK_IMAGE = 1
         private const val TAG = "Petland ImageView"
+        const val PICK_IMAGE = 1
+        const val USE_DEFAULT = 100
     }
 }

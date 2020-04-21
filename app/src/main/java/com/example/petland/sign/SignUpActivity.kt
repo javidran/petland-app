@@ -57,6 +57,7 @@ class SignUpActivity : AppCompatActivity() {
             R.anim.slide_in_left,
             R.anim.slide_out_right
         )
+        finish()
     }
 
     private fun progress(start: Boolean) {
@@ -128,4 +129,5 @@ class SignUpActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "Petland SignUp"
     }
+
 }
