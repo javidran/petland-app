@@ -74,4 +74,6 @@
     <string name="petNameNeeded">La mascota ha de tener nombre</string>
     <string name="instructionsToChangePasswordDescription">Escriba y confirme su nueva contraseña para esta cuenta</string>
     <string name="deletionAlertTitle">¿Está seguro que desea borrar esta mascota?</string>
+    <string name="errorconnect">Error de conexión</string>
+    <string name="noconnection">No hay conexión con el servidor</string>
 </resources>

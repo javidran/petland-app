@@ -12,4 +12,21 @@ class Pets {
         query.whereEqualTo("caregivers", ParseUser.getCurrentUser())
         return query.find()
     }
+    companion object PetsUser {
+        private lateinit var selectedPet : ParseObject
+
+        fun getPetsUser(): MutableList<ParseObject>? {
+            val query = ParseQuery.getQuery<ParseObject>("Pet")
+            query.whereEqualTo("caregivers", ParseUser.getCurrentUser())
+            return query.find()
+        }
+        fun setSelectedPet(pet: ParseObject) {
+           selectedPet = pet
+        }
+
+        fun getSelectedPet(): ParseObject {
+            return selectedPet
+        }
+    }
+
 }
