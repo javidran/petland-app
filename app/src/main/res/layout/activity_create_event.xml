@@ -40,16 +40,16 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/edittext_without_corners"
                 android:clickable="true"
+                android:elevation="6sp"
                 android:ems="10"
                 android:focusable="true"
-                android:elevation="6sp"
                 android:gravity="center_horizontal|center_vertical"
                 android:hint="@string/event_date"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/dateHour"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/returnButton" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerPet" />
 
             <TextView
                 android:id="@+id/dateHour"
@@ -75,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:buttonTint="@color/colorPrimary"
                 android:text="@string/recurrent_event_check"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -151,6 +152,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@string/event_until_date"
+                    android:buttonTint="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recurrencyNumber" />
@@ -179,6 +181,7 @@
                 android:id="@+id/typeSpinner"
                 android:layout_width="379dp"
                 android:layout_height="51dp"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recurrencyLayout" />
@@ -192,6 +195,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/typeSpinner">
 
             </FrameLayout>
+
+            <Spinner
+                android:id="@+id/spinnerPet"
+                android:layout_width="0dp"
+                android:layout_height="45sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/returnButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

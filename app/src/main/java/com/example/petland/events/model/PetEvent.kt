@@ -112,6 +112,11 @@ open class PetEvent : ParseObject() {
         }
     }
 
+    fun deleteEvent() {
+        getData().deleteInBackground()
+        this.deleteInBackground()
+    }
+
     fun saveEvent() {
         if(getParseObject("pet") != null && getDate("date") != null && getString("data") != null) {
             save()

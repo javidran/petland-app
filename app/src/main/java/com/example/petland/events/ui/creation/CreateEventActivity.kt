@@ -21,9 +21,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    lateinit var myPet: ParseObject
+    lateinit var selectedPet: ParseObject
+    lateinit var petList: MutableList<ParseObject>
     lateinit var event: PetEvent
     lateinit var callback: SaveDataCallback
+
+    lateinit var spinnerEventType: Spinner
+    lateinit var spinnerPet: Spinner
 
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     private val stf = SimpleDateFormat("HH:mm", Locale.US)
@@ -33,9 +37,7 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_event)
 
-        myPet = Pets.getSelectedPet()
         event = PetEvent()
-        event.setPet(myPet)
 
         returnButton.setOnClickListener { goBack() }
         saveButton.setOnClickListener { onSaveButtonClicked() }
@@ -45,15 +47,33 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         setHourChooser(untilDateHour)
         setCheckBoxes()
 
-        val spinner: Spinner = findViewById(R.id.typeSpinner)
+        spinnerEventType = findViewById(R.id.typeSpinner)
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item, getEventTypeNames()
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = this
+        spinnerEventType.adapter = adapter
+        spinnerEventType.onItemSelectedListener = this
 
+        petList = Pets.getPetsFromCurrentUser()
+        selectedPet = Pets.getSelectedPet()
+
+        spinnerPet = findViewById(R.id.spinnerPet)
+        val adapterPet = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, Pets.getNamesFromPetList(petList)
+        )
+        adapterPet.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerPet.adapter = adapterPet
+
+        spinnerPet.onItemSelectedListener = this
+
+        petList.forEachIndexed { index, parseObject ->
+            if(parseObject.objectId == selectedPet.objectId) {
+                spinnerPet.setSelection(index)
+            }
+        }
     }
 
     fun goBack() {
@@ -153,6 +173,7 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             val data = callback.checkAndSaveData()
             if(data != null) {
                 event.setData(data)
+                event.setPet(selectedPet)
                 event.saveEvent()
                 finish()
             }
@@ -176,37 +197,46 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-        typeLayout.removeAllViews()
-        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        lateinit var fragment: Fragment
-        when (parent.getItemAtPosition(pos).toString()) {
-            getString(R.string.vaccine) -> {
-                fragment = CreateVaccineEventFragment.newInstance()
-                callback = fragment
+        when(parent) {
+            spinnerEventType -> {
+                typeLayout.removeAllViews()
+                val transaction
+                        : FragmentTransaction = supportFragmentManager.beginTransaction()
+                lateinit var fragment
+                        : Fragment
+                when (parent.getItemAtPosition(pos).toString()) {
+                    getString(R.string.vaccine) -> {
+                        fragment = CreateVaccineEventFragment.newInstance()
+                        callback = fragment
+                    }
+                    getString(R.string.food) -> {
+                        fragment = CreateFoodEventFragment.newInstance()
+                        callback = fragment
+                    }
+                    getString(R.string.hygiene) -> {
+                        fragment = CreateHygieneEventFragment.newInstance()
+                        callback = fragment
+                    }
+                    getString(R.string.measurement) -> {
+                        fragment = CreateMeasurementEventFragment.newInstance()
+                        callback = fragment
+                    }
+                    getString(R.string.medicine) -> {
+                        fragment = CreateMedicineEventFragment.newInstance()
+                        callback = fragment
+                    }
+                    getString(R.string.walk) -> {
+                        fragment = CreateWalkEventFragment.newInstance()
+                        callback = fragment
+                    }
+                }
+                transaction.replace(R.id.typeLayout, fragment)
+                transaction.commit()
             }
-            getString(R.string.food) -> {
-                fragment = CreateFoodEventFragment.newInstance()
-                callback = fragment
-            }
-            getString(R.string.hygiene) -> {
-                fragment = CreateHygieneEventFragment.newInstance()
-                callback = fragment
-            }
-            getString(R.string.measurement) -> {
-                fragment = CreateMeasurementEventFragment.newInstance()
-                callback = fragment
-            }
-            getString(R.string.medicine) -> {
-                fragment = CreateMedicineEventFragment.newInstance()
-                callback = fragment
-            }
-            getString(R.string.walk) -> {
-                fragment = CreateWalkEventFragment.newInstance()
-                callback = fragment
+            spinnerPet -> {
+                selectedPet = petList[pos]
             }
         }
-        transaction.replace(R.id.typeLayout, fragment)
-        transaction.commit()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
