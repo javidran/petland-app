@@ -51,7 +51,7 @@
     <string name="tapToAddPhoto">taptoAddPhoto</string>
     <string name="petName">Nombre de tu mascota</string>
     <string name="petsbirthday">Cumpleaños de tu mascota</string>
-    <string name="chip">Número de chip</string>
+    <string name="chip">Chip</string>
     <string name="createNewPet">Registrar my mascota</string>
     <string name="cancel">Cancelar</string>
     <string name="profileCreatedCorrectly">Perfil creado correctamente</string>
@@ -66,12 +66,16 @@
     <string name="confirmationAlertMessage">Los cambios se guardarán y se modificará el perfil</string>
     <string name="edit_image">Seleccionar imagen</string>
     <string name="reset_image">Utilizar imagen predeterminada</string>
+    <string name="delete_account_message">Estás seguro de borrar tu cuenta?</string>
+    <string name="delete_account">Borrar Cuenta</string>
     <string name="racetype">Raza multiple</string>
     <string name="race">Raza</string>
     <string name="chipNumber">Es necesario un numero de chip</string>
     <string name="petNameNeeded">La mascota ha de tener nombre</string>
     <string name="instructionsToChangePasswordDescription">Escriba y confirme su nueva contraseña para esta cuenta</string>
     <string name="deletionAlertTitle">¿Está seguro que desea borrar esta mascota?</string>
+    <string name="errorconnect">Error de conexión</string>
+    <string name="noconnection">No hay conexión con el servidor</string>
     <string name="unknown_id">Valor desconocido</string>
     <string name="vaccine">Vacuna</string>
     <string name="crop_error">No se ha podido recortar correctamente, por favor probar de nuevo.</string>

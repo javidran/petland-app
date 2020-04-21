@@ -51,7 +51,7 @@
     <string name="tapToAddPhoto">taptoAddPhoto</string>
     <string name="petName">Nom de la teva mascota</string>
     <string name="petsbirthday">Aniversari de la teva mascota</string>
-    <string name="chip">Número de xip</string>
+    <string name="chip">Xip</string>
     <string name="createNewPet">Registrar la meva mascota</string>
     <string name="cancel">Cancelar</string>
     <string name="profileCreatedCorrectly">Perfil creat correctament</string>
@@ -66,6 +66,8 @@
     <string name="confirmationAlertMessage">Els canvis es guardaran i es modificarà el perfil</string>
     <string name="edit_image">Seleccionar imatge</string>
     <string name="reset_image">Utilitzar imatge predeterminada</string>
+    <string name="delete_account_message">Estàs segur de voler borrar el compte?</string>
+    <string name="delete_account">Borrar compte</string>
     <string name="racetype">Raça múltiple</string>
     <string name="race">Raça</string>
     <string name="chipNumber">Un numero de chip és necessari</string>
@@ -75,6 +77,8 @@
     <string name="vaccine">Vacuna</string>
     <string name="crop_error">No s\'ha pogut retallar correctamente, sius play provi de nou.</string>
     <string name="deletionAlertTitle">Està segur que vol esborrar aquesta mascota?</string>
+    <string name="errorconnect">Error de connexió</string>
+    <string name="noconnection">No hi ha connexió amb el servidor</string>
     <string name="recurrent_event_check">És un event recurrent</string>
     <string name="repeat_every">Repetir cada</string>
     <string name="days">dies</string>

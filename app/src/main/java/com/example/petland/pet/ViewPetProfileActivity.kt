@@ -44,11 +44,13 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     private fun setData() {
         myPet = intent.extras?.get("petId") as ParseObject
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
-        val listUsers = ParseQuery<ParseUser>("_User")
+        val listCaregivers = caregivers.query
+        val list = listCaregivers.find()
+
+        val listUsers = ParseQuery.getQuery<ParseUser>("_User")
         val powner = myPet.get("owner") as ParseObject
         listUsers.whereEqualTo("objectId", powner.objectId)
 
-        val listCaregivers = caregivers.query
 
         usernameText.text = myPet.get("name").toString()
 
@@ -74,7 +76,7 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
         if (listCaregivers != null) {
             viewManager = LinearLayoutManager(this)
-            viewAdapter = UserAdapter(listCaregivers.find(), false)
+            viewAdapter = UserAdapter(list.toList(), false)
             recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView

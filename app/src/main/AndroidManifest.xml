@@ -12,9 +12,9 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".events.ui.creation.CreateEventActivity" />
+        <activity android:name=".pet.SearchCaregiversActivity"></activity>
         <activity android:name=".image.ImageActivity" />
         <activity android:name=".image.ImageOnCreationActivity" />
         <activity android:name=".user_profile.UserProfileFragment" />
