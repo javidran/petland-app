@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".pet.SearchCaregiversActivity"></activity>
+        <activity android:name=".user_profile.ViewInvitationsActivity"></activity>
+        <activity android:name=".pet.SearchCaregiversActivity" />
         <activity android:name=".image.ImageActivity" />
         <activity android:name=".image.ImageOnCreationActivity" />
         <activity android:name=".user_profile.UserProfileFragment" />
@@ -41,7 +42,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

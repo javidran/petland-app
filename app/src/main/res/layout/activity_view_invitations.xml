@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user_profile.ViewInvitationsActivity">
+
+    <TextView
+        android:id="@+id/instructionsInvitations"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:text="@string/instructionsInvitationsdescription"
+        android:textColor="@color/md_grey_700"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    
+
+
+    <Button
+        android:id="@+id/buttonVolver"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="667dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_with_borders_translucent"
+        android:cropToPadding="false"
+        android:onClick="goBack"
+        android:text="@string/goBack"
+        android:textAllCaps="false"
+        android:textColor="@color/md_white_1000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

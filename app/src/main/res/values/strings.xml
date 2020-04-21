@@ -80,4 +80,5 @@
     <string name="deletionAlertMessage">The deletion of a pet includes the deletion of all its infromation</string>
     <string name="errorconnect">Connection error</string>
     <string name="noconnection">There\'s no connection with the server</string>
+    <string name="instructionsInvitationsdescription">If you have received an invitations to take care of a pet you can accept it or deny it</string>
 </resources>
