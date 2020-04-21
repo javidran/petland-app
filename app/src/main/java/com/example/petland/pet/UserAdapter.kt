@@ -47,7 +47,11 @@ class UserAdapter(
             if (this.owner && u.username != user.username) {
                 view.deleteCaregButton.visibility = View.VISIBLE
                 view.changeOwnerButton.visibility = View.VISIBLE
-                view.deleteCaregButton.setOnClickListener { TODO("not implemented") }
+                view.deleteCaregButton.setOnClickListener {
+                    val relation = pet.getRelation<ParseUser>("caregivers")
+                    relation.remove(this.user)
+                    pet.saveInBackground()
+                }
                 view.changeOwnerButton.setOnClickListener { TODO("not implemented") }
             }
             val imageUtils = ImageUtils()
