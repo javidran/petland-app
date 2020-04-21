@@ -121,6 +121,7 @@ class SignUpActivity : AppCompatActivity() {
                         Log.d(TAG, "User could not be created")
                     }
                 }
+                finish()
                 progress(false)
             }
         }
