@@ -108,12 +108,13 @@ class SignUpActivity : AppCompatActivity() {
                 user.put("name", editTextName.text.toString())
                 user.put("birthday", date)
 
-                val intent = Intent(this, GetFirstPetActivity::class.java).apply {}
+
 
                 user.signUpInBackground { e ->
                     if (e == null) {
                         Log.d(TAG, "User created correctly")
-                        startActivity(intent)
+                        startActivity(Intent(this, GetFirstPetActivity::class.java).apply {})
+                        finish()
                     } else {
                         e.printStackTrace()
                         val error = ParseError()
@@ -121,7 +122,6 @@ class SignUpActivity : AppCompatActivity() {
                         Log.d(TAG, "User could not be created")
                     }
                 }
-                finish()
                 progress(false)
             }
         }
