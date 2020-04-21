@@ -97,6 +97,7 @@ class BootActivity : AppCompatActivity() {
                         user.save()
                         startActivity(Intent(this@BootActivity, GetFirstPetActivity::class.java))
                     } catch (e: ParseException) {
+                        user.deleteInBackground()
                         val error = ParseError()
                         error.writeParseError(this, e)
                     }
