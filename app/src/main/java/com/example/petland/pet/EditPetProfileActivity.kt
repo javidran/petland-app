@@ -11,15 +11,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
-import com.example.petland.user_profile.UserProfileFragment
 import com.parse.*
 import kotlinx.android.synthetic.main.activity_edit_pet_profile.*
-import kotlinx.android.synthetic.main.user_profile_pet_element.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,8 +56,9 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         myPet.fetch<ParseObject>()
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
+        val list = listCaregivers.find()
 
-        val listUsers = ParseQuery<ParseUser>("_User")
+        val listUsers = ParseQuery.getQuery<ParseUser>("_User")
         val powner = myPet.get("owner") as ParseObject
         listUsers.whereEqualTo("objectId", powner.objectId)
 
@@ -115,9 +113,9 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
             addCarg.visibility = View.VISIBLE
             val viewCargs:RecyclerView = findViewById(R.id.recyclerView1)
             viewCargs.visibility = View.VISIBLE
-            if (listCaregivers != null) {
+            if (list != null) {
                 viewManager = LinearLayoutManager(this)
-                viewAdapter = UserAdapter(listCaregivers.find(), true)
+                viewAdapter = UserAdapter(list.toList(), true)
                 recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
                     // use this setting to improve performance if you know that changes
                     // in content do not change the layout size of the RecyclerView
@@ -166,7 +164,11 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     }
 
     fun addCargs(view:View) {
-        // Codi per afegir un cuidador aqui
+        val intent = Intent(this, SearchCaregivers::class.java).apply {
+        }
+        intent.putExtra("pet", myPet)
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
     fun volver(view: View) {

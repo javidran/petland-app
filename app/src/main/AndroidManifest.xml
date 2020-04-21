@@ -12,8 +12,8 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".pet.SearchCaregivers"></activity>
         <activity android:name=".image.ImageActivity" />
         <activity android:name=".image.ImageOnCreationActivity" />
         <activity android:name=".user_profile.UserProfileFragment" />
@@ -25,25 +25,23 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity android:name=".sign.SignUpActivity" />
         <activity android:name=".sign.SignInActivity" />
         <activity android:name=".user_profile.EditProfileActivity" />
         <activity android:name=".user_profile.ChangePasswordActivity" />
-        <activity android:name="com.example.petland.pet.creation.GetFirstPetActivity" />
-        <activity android:name="com.example.petland.pet.creation.AddPetActivity" />
+        <activity android:name=".pet.creation.GetFirstPetActivity" />
+        <activity android:name=".pet.creation.AddPetActivity" />
         <activity android:name=".pet.ViewPetProfileActivity" />
-        <activity android:name=".pet.EditPetProfileActivity"/>
+        <activity android:name=".pet.EditPetProfileActivity" />
         <activity android:name=".TestingActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
