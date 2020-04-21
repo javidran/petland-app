@@ -115,7 +115,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
             viewCargs.visibility = View.VISIBLE
             if (list != null) {
                 viewManager = LinearLayoutManager(this)
-                viewAdapter = UserAdapter(list.toList(), true)
+                viewAdapter = UserAdapter(list.toList(), true, myPet)
                 recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
                     // use this setting to improve performance if you know that changes
                     // in content do not change the layout size of the RecyclerView
