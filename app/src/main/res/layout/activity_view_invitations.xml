@@ -42,7 +42,7 @@
             android:id="@+id/buttonVolver"
             android:layout_width="83dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="667dp"
+            android:layout_marginTop="47dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/button_with_borders_translucent"
             android:cropToPadding="false"
@@ -53,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
             app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

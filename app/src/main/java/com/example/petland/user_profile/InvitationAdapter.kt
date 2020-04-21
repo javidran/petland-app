@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
+import com.parse.ParseQuery
+import com.parse.ParseUser
 import kotlinx.android.synthetic.main.user_invitation_element.view.*
 
 class InvitationAdapter(private val invitations: List<ParseObject>) :
@@ -32,13 +34,21 @@ class InvitationAdapter(private val invitations: List<ParseObject>) :
         private lateinit var invitation: ParseObject
 
         fun bindInvitationInfo(invitation: ParseObject){
+            var pet = invitation.get("petO") as ParseObject
+            var creator = invitation.get("creator") as ParseObject
             this.invitation = invitation
-            view.name.text = "Nombre del pet"//invitation.get("name") as String
-            view.ownerName.text = "Nombre del owner"
 
+            var listUsers = ParseQuery.getQuery<ParseObject>("_User")
+            listUsers.whereEqualTo("objectId", creator.objectId)
+            var listPets = ParseQuery.getQuery<ParseObject>("Pet")
+            listPets.whereEqualTo("objectId", pet.objectId)
+
+
+
+            view.ownerName.text = listUsers.first.get("name") as String
+            view.name.text = listPets.first.get("name") as String
             val imageUtils = ImageUtils()
-            imageUtils.retrieveImage(invitation, view.petImageInvitation)
-
+            imageUtils.retrieveImage(listPets.first, view.petImageInvitation)
         }
     }
 
