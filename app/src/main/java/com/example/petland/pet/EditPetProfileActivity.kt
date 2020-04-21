@@ -164,7 +164,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     }
 
     fun addCargs(view:View) {
-        val intent = Intent(this, SearchCaregivers::class.java).apply {
+        val intent = Intent(this, SearchCaregiversActivity::class.java).apply {
         }
         intent.putExtra("pet", myPet)
         startActivity(intent)

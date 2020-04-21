@@ -2,7 +2,6 @@ package com.example.petland.pet
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
@@ -11,7 +10,7 @@ import com.parse.ParseQuery
 import com.parse.ParseRelation
 import com.parse.ParseUser
 
-class SearchCaregivers : AppCompatActivity() {
+class SearchCaregiversActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -36,7 +35,7 @@ class SearchCaregivers : AppCompatActivity() {
 
         if (list != null) {
             viewManager = LinearLayoutManager(this)
-            viewAdapter = CaregiversAdapter(list.toList())
+            viewAdapter = CaregiversAdapter(list.toList(), myPet)
             recyclerView = findViewById<RecyclerView>(R.id.recyclerView2).apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
