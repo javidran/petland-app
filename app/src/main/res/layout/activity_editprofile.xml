@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -116,28 +117,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/button_without_corners"
             android:backgroundTint="#00C4CC"
             android:cropToPadding="false"
             android:onClick="savechanges"
             android:text="@string/saveChanges"
-            android:textSize="16dp"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonCambiarpassword"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonBorrarUser" />
 
         <Button
             android:id="@+id/buttonVolver"
             android:layout_width="83dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_with_borders_translucent"
             android:cropToPadding="false"
             android:onClick="cancel"
@@ -165,6 +164,23 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextBirthday"
-            app:layout_constraintVertical_bias="0.046" />
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/buttonBorrarUser"
+            android:layout_width="206dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:adjustViewBounds="true"
+
+            android:background="@drawable/button_with_borders_translucent"
+            android:onClick="deleteUserConfirmation"
+            android:text="Borrar Cuenta"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonCambiarpassword" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
