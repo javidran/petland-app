@@ -51,7 +51,7 @@
     <string name="tapToAddPhoto">taptoAddPhoto</string>
     <string name="petName">Nom de la teva mascota</string>
     <string name="petsbirthday">Aniversari de la teva mascota</string>
-    <string name="chip">Número de xip</string>
+    <string name="chip">Xip</string>
     <string name="createNewPet">Registrar la meva mascota</string>
     <string name="cancel">Cancelar</string>
     <string name="profileCreatedCorrectly">Perfil creat correctament</string>

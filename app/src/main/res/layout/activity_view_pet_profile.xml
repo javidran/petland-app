@@ -176,8 +176,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="366dp"
-            android:layout_height="174dp"
+            android:layout_width="369dp"
+            android:layout_height="130dp"
             app:layout_constraintBottom_toTopOf="@+id/buttonVolver2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.488"

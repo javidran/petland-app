@@ -53,7 +53,7 @@
     <string name="tapToAddPhoto">taptoAddPhoto</string>
     <string name="petName">Pet\'s name</string>
     <string name="petsbirthday">Pet\'s birthday</string>
-    <string name="chip">Chip number</string>
+    <string name="chip">Chip</string>
     <string name="createNewPet">Register my pet</string>
     <string name="cancel">Cancel</string>
     <string name="profileCreatedCorrectly">Profile created correctly</string>
