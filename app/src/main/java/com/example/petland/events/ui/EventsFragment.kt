@@ -34,12 +34,13 @@ class EventsFragment : Fragment() {
     }
 
     fun doThings() {
-        val petclass = Pets()
-        val pet :ParseObject = (petclass.getPets()?.get(0) ?: NullPointerException()) as ParseObject
+        val pet :ParseObject = (Pets.getPetsFromCurrentUser()?.get(0) ?: NullPointerException()) as ParseObject
 
         var event = PetEvent()
 
         event.setPet(pet)
+
+        Pets.getPetsFromCurrentUser()
         event.setDate(Calendar.getInstance().time)
         event.setRecurrent(2)
 
@@ -48,8 +49,7 @@ class EventsFragment : Fragment() {
     }
 
     fun markAsDone() {
-        val petclass = Pets()
-        val pet :ParseObject = (petclass.getPets()?.get(0) ?: NullPointerException()) as ParseObject
+        val pet :ParseObject = (Pets.getPetsFromCurrentUser()?.get(0) ?: NullPointerException()) as ParseObject
 
         val query = ParseQuery.getQuery(PetEvent::class.java)
         query.whereEqualTo("pet", pet)
@@ -59,11 +59,7 @@ class EventsFragment : Fragment() {
     }
 
     fun createEvent() {
-        val petclass = Pets()
-        val pet :ParseObject = (petclass.getPets()?.get(0) ?: NullPointerException()) as ParseObject
-        //TODO: Make pet changeable
         val intent = Intent(context, CreateEventActivity::class.java).apply {}
-        intent.putExtra("petId", pet)
         startActivity(intent)
     }
 

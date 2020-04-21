@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.model.PetEvent
+import com.example.petland.pet.Pets
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.activity_create_event.*
 import java.text.SimpleDateFormat
@@ -32,7 +33,7 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_event)
 
-        myPet = intent.extras?.get("petId") as ParseObject
+        myPet = Pets.getSelectedPet()
         event = PetEvent()
         event.setPet(myPet)
 

@@ -1,6 +1,5 @@
 package com.example.petland.events.model
 
-import android.util.Log
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery

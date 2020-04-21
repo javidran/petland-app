@@ -15,7 +15,10 @@ import com.example.petland.R
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
-import com.parse.*
+import com.parse.ParseObject
+import com.parse.ParseQuery
+import com.parse.ParseRelation
+import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_edit_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*

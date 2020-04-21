@@ -20,9 +20,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.parse.ParseException
 import com.parse.ParseUser
-import java.io.File
-import java.lang.Thread.sleep
-import java.net.URL
 import java.util.*
 import kotlin.collections.HashMap
 
