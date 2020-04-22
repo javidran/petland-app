@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.sign.BootActivity
+import com.example.petland.user_profile.ViewInvitationsActivity
 import com.parse.ParseUser
 
 class GetFirstPetActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class GetFirstPetActivity : AppCompatActivity() {
 
 
     fun acceptInvitation(view: View) {
-        val intent = Intent(this, HomeActivity::class.java).apply {
+        val intent = Intent(this, ViewInvitationsActivity::class.java).apply {
         }
         startActivity(intent)
         overridePendingTransition(

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.pet.ViewPetProfileActivity
 import com.example.petland.sign.BootActivity
+import com.example.petland.user_profile.ViewInvitationsActivity
 import com.parse.ParseUser
 
 
@@ -37,6 +38,14 @@ class TestingActivity : AppCompatActivity() {
 
     fun goToPetProfile(view: View) {
         val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        finish()
+    }
+
+    fun goToViewInvitations(view: View) {
+        val intent = Intent(this, ViewInvitationsActivity::class.java).apply {
         }
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
