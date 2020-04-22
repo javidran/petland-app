@@ -44,8 +44,6 @@ class InvitationAdapter(private val invitations: List<ParseObject>) :
             val listPets = ParseQuery.getQuery<ParseObject>("Pet")
             listPets.whereEqualTo("objectId", pet.objectId)
             view.buttonAccept.setOnClickListener {
-                this.invitation.put("answer", true)
-                this.invitation.saveInBackground()
                 val relation = pet.getRelation<ParseUser>("caregivers")
                 relation.add(user)
                 user.save()
