@@ -56,12 +56,4 @@ class ViewInvitationsActivity : AppCompatActivity() {
         finish()
     }
 
-    fun addPet(view: View) {
-        //Aceptar invitacion y añadir mascota
-    }
-
-    fun denyInvitation(view: View){
-        //Denegar invitacion
-    }
-
 }

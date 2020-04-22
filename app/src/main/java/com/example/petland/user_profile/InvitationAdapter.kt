@@ -42,7 +42,8 @@ class InvitationAdapter(private val invitations: List<ParseObject>) :
             listUsers.whereEqualTo("objectId", creator.objectId)
             var listPets = ParseQuery.getQuery<ParseObject>("Pet")
             listPets.whereEqualTo("objectId", pet.objectId)
-
+            view.buttonAccept.setOnClickListener { TODO("not implemented") }
+            view.buttonDeny.setOnClickListener { TODO("not implemented") }
 
 
             view.ownerName.text = listUsers.first.get("name") as String
