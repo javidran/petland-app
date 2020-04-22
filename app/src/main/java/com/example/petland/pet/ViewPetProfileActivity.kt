@@ -3,7 +3,6 @@ package com.example.petland.pet
 import Race
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,8 +63,6 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val query = ParseQuery.getQuery(Race::class.java)
         query.whereEqualTo("objectId", objectrace.objectId)
         val typerace = query.find().first()
-        Locale.getDefault().displayLanguage
-        Log.d("language",Locale.getDefault().displayLanguage )
         if(Locale.getDefault().displayLanguage  == "català") {
             raceText.text = typerace.getNameCat()
         }

@@ -51,7 +51,14 @@ class PetAdapter(private val pets: List<ParseObject>, private val viewPetCallbac
             val query = ParseQuery.getQuery<ParseObject>("Race")
             query.whereEqualTo("objectId", namerace.objectId)
             val result =  query.find().first();
-            view.race.text = result.get("name").toString()
+
+            if(Locale.getDefault().displayLanguage  == "català") {
+                view.race.text = result.get("name_ca").toString()
+            }
+            else if (Locale.getDefault().displayLanguage == "español") {
+                view.race.text = result.get("name").toString()
+            }
+            else view.race.text = result.get("name_en").toString()
 
             val birth = pet.get("birthday")
             if(birth!=null){
