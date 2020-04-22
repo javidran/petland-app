@@ -42,6 +42,7 @@
                     android:gravity="end"
                     android:padding="3dip"
                     android:text="@string/username"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -56,6 +57,7 @@
                     android:id="@+id/usernameText"
                     android:gravity="start"
                     android:padding="3dip"
+                    android:textSize="16sp"
                     android:text="XXXPacoMasterXXX"
                     tools:ignore="HardcodedText" />
             </TableRow>
@@ -66,6 +68,7 @@
                     android:id="@+id/birthdayHint"
                     android:gravity="end"
                     android:padding="3dip"
+                    android:textSize="16sp"
                     android:text="@string/birthday"
                     android:textStyle="bold" />
 
@@ -81,6 +84,7 @@
                     android:id="@+id/birthdayText"
                     android:gravity="start"
                     android:padding="3dip"
+                    android:textSize="16sp"
                     android:text="13/03/2020"
                     tools:ignore="HardcodedText" />
             </TableRow>
@@ -91,6 +95,7 @@
                     android:id="@+id/nameHint"
                     android:gravity="end"
                     android:padding="3dip"
+                    android:textSize="16sp"
                     android:text="@string/name"
                     android:textStyle="bold" />
 
@@ -106,6 +111,7 @@
                     android:id="@+id/nameText"
                     android:gravity="start"
                     android:padding="3dip"
+                    android:textSize="16sp"
                     android:text="Paco"
                     tools:ignore="HardcodedText" />
             </TableRow>
@@ -117,6 +123,7 @@
                     android:gravity="end"
                     android:padding="3dip"
                     android:text="@string/email"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -131,6 +138,7 @@
                     android:id="@+id/emailText"
                     android:gravity="start"
                     android:padding="3dip"
+                    android:textSize="16sp"
                     android:text="paquetemetes@gmail.com"
                     tools:ignore="HardcodedText" />
             </TableRow>
@@ -159,7 +167,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/petList"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/dosPuntos5"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
 import com.example.petland.sign.BootActivity
 import com.example.petland.utils.ParseError
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.parse.ParseException
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -119,12 +121,16 @@ class EditProfileActivity : AppCompatActivity() {
                 }
                 user.deleteInBackground { e ->
                     if (e == null) {
+                        val gso =
+                            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                .requestEmail()
+                                .build()
+                        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
                         Log.d(TAG,"User correctly deleted!") //Mensaje en logcat
-                        ParseUser.logOut()
-                        val intent = Intent(this, BootActivity::class.java).apply { //Para pasar de esta vista, de nuevo al SignIn
-                        }
-                        startActivity(intent)
+                        startActivity(Intent(this@EditProfileActivity, BootActivity::class.java))
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        finish()
+                        mGoogleSignInClient.signOut()
                     } else {
                         Log.d(TAG,"An error occurred!") //Mensaje en logcat
                     }

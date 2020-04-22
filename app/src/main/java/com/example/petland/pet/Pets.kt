@@ -3,7 +3,6 @@ package com.example.petland.pet
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
-import java.lang.NullPointerException
 
 
 class Pets {
@@ -23,8 +22,10 @@ class Pets {
             val query = ParseQuery.getQuery<ParseObject>("Pet")
             query.whereEqualTo("caregivers", ParseUser.getCurrentUser())
             val result = query.find()
-            selectedPet = result[0]
-            return query.find().isNotEmpty()
+            if(result.isNotEmpty()) {
+                selectedPet = result[0]
+            }
+            return result.isNotEmpty()
         }
 
         fun setSelectedPet(pet: ParseObject) {
