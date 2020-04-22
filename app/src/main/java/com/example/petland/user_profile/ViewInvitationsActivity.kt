@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_view_invitations.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.recyclerView
 
-class ViewInvitationsActivity : AppCompatActivity() {
+class ViewInvitationsActivity : AppCompatActivity(), ViewInvitationsCallback {
 
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: InvitationAdapter
@@ -36,13 +36,13 @@ class ViewInvitationsActivity : AppCompatActivity() {
         super.onResume()
         updateInvitations()
     }
-    fun updateInvitations(){
+    override fun updateInvitations(){
         val currentUser = ParseUser.getCurrentUser()
         val query = ParseQuery.getQuery<ParseObject>("Invitation")
         query.whereEqualTo("receiver", currentUser)
         invitationsList = query.find()
         if (invitationsList != null) {
-            adapter = InvitationAdapter(invitationsList.toList())
+            adapter = InvitationAdapter(invitationsList.toList(),this )
             recyclerView.adapter = adapter
         }
 

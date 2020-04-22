@@ -11,12 +11,12 @@ import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.user_invitation_element.view.*
 
-class InvitationAdapter(private val invitations: List<ParseObject>) :
+class InvitationAdapter(private val invitations: List<ParseObject>, private val viewInvitationsCallback: ViewInvitationsCallback) :
     RecyclerView.Adapter<InvitationAdapter.InvitationHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): InvitationHolder {
         return InvitationHolder(
-            LayoutInflater.from(p0.context).inflate(R.layout.user_invitation_element, p0, false)
-
+            LayoutInflater.from(p0.context).inflate(R.layout.user_invitation_element, p0, false) ,
+            viewInvitationsCallback
         )
     }
 
@@ -28,8 +28,9 @@ class InvitationAdapter(private val invitations: List<ParseObject>) :
         holder.bindInvitationInfo(invitations[position])
     }
 
-    class InvitationHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class InvitationHolder(v: View, viewInvitationsCallback: ViewInvitationsCallback) : RecyclerView.ViewHolder(v) {
         var view: View = v
+        val listCallback: ViewInvitationsCallback = viewInvitationsCallback
 
         private lateinit var invitation: ParseObject
 
@@ -48,8 +49,12 @@ class InvitationAdapter(private val invitations: List<ParseObject>) :
                 relation.add(user)
                 pet.saveInBackground()
                 this.invitation.deleteInBackground()
+                listCallback.updateInvitations()
             }
-            view.buttonDeny.setOnClickListener { this.invitation.deleteInBackground() }
+            view.buttonDeny.setOnClickListener {
+                this.invitation.deleteInBackground()
+                listCallback.updateInvitations()
+            }
 
 
             view.ownerName.text = listUsers.first.get("name") as String
