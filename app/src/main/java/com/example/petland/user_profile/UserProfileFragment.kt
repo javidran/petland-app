@@ -51,6 +51,7 @@ class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
         return rootView
     }
 
+
     override fun onResume() {
         super.onResume()
         setUserInfo()

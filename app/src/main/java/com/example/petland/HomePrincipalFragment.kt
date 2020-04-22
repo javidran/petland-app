@@ -10,19 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
+import com.example.petland.pet.Pets.Companion.getSelectedPet
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomePrincipalFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomePrincipalFragment : Fragment() {
 
     private lateinit var layoutManager: LinearLayoutManager
@@ -40,32 +31,32 @@ class HomePrincipalFragment : Fragment() {
     ): View? {
 
        rootView = inflater.inflate(R.layout.fragment_home_principal, container, false)
-      //  rootView.profileImage.setOnClickListener { seeImage() }
+        rootView.profileImage.setOnClickListener { seeImage() }
 
         rootView.recyclerView.layoutManager = layoutManager
         return rootView
     }
+
     override fun onResume() {
         super.onResume()
         setPetInfo()
 
     }
     private fun setPetInfo() {
-        val user = ParseUser.getCurrentUser()
+       val pet = getSelectedPet()
 
         val petNameText: TextView = rootView.findViewById(R.id.petName)
-        petNameText.text = "hola"
+        petNameText.text = pet.get("name").toString()
 
         val birthDayText: TextView = rootView.findViewById(R.id.birthday)
-        birthDayText.text = "hola"
+        birthDayText.text = pet.get("birthday").toString()
 
-      //  val imageUtils = ImageUtils()
-       // imageUtils.retrieveImage(user, rootView.profileImage, this)
+
     }
     private fun seeImage() {
         val intent = Intent(context, ImageActivity::class.java).apply {}
-        val user = ParseUser.getCurrentUser()
-        intent.putExtra("object", user)
+        val pet = getSelectedPet()
+        intent.putExtra("object", pet)
         startActivity(intent)
     }
 
