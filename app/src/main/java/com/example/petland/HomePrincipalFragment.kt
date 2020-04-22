@@ -1,10 +1,17 @@
 package com.example.petland
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.petland.image.ImageActivity
+import com.example.petland.image.ImageUtils
+import com.parse.ParseUser
+import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,43 +24,55 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HomePrincipalFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var rootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        layoutManager = LinearLayoutManager(context)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_principal, container, false)
+
+       rootView = inflater.inflate(R.layout.fragment_home_principal, container, false)
+      //  rootView.profileImage.setOnClickListener { seeImage() }
+
+        rootView.recyclerView.layoutManager = layoutManager
+        return rootView
+    }
+    override fun onResume() {
+        super.onResume()
+        setPetInfo()
+
+    }
+    private fun setPetInfo() {
+        val user = ParseUser.getCurrentUser()
+
+        val petNameText: TextView = rootView.findViewById(R.id.petName)
+        petNameText.text = "hola"
+
+        val birthDayText: TextView = rootView.findViewById(R.id.birthday)
+        birthDayText.text = "hola"
+
+      //  val imageUtils = ImageUtils()
+       // imageUtils.retrieveImage(user, rootView.profileImage, this)
+    }
+    private fun seeImage() {
+        val intent = Intent(context, ImageActivity::class.java).apply {}
+        val user = ParseUser.getCurrentUser()
+        intent.putExtra("object", user)
+        startActivity(intent)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomePrincipalFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomePrincipalFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() =
+           HomePrincipalFragment().apply {}
     }
 }

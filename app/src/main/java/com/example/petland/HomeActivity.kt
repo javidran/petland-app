@@ -1,11 +1,14 @@
 package com.example.petland
 
+import AnimalSpecies
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,20 +17,24 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.ui.EventsFragment
+import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.UserProfileFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
-import com.parse.ParseUser
+import com.parse.*
 import kotlinx.android.synthetic.main.content_home.*
+import java.util.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
     private lateinit var mGoogleSignInClient: GoogleSignInClient
+    lateinit var spinner: Spinner
+    lateinit var listPets: Array<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +52,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
-
+        //default fragment
+        /*frameLayout.removeAllViews()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frameLayout, HomePrincipalFragment.newInstance())
+        transaction.commit()*/
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         // Configure sign-in to request the user's ID, email address, and basic
@@ -58,14 +69,73 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Build a GoogleSignInClient with the options specified by gso.
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        ParseObject.registerSubclass(AnimalSpecies::class.java)
+        Parse.initialize(
+            Parse.Configuration.Builder(this)
+            .applicationId("")
+            .clientKey("")
+            .server("")
+            .build()
+        )
+
+        createSpinnerPet()
+
+    }
+
+    private fun createSpinnerPet() {
+        val currentUser = ParseUser.getCurrentUser()
+        val query = ParseQuery.getQuery<ParseObject>("Pet")
+        query.whereEqualTo("owner",currentUser)
+        val objectpet = query.find()
+        listPets = getNamesFromPetList(objectpet)
+
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
+        val item = menu!!.findItem(R.id.spinner)
+        var spinner = item.actionView as Spinner
+        val dataAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, listPets
+        )
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = dataAdapter
+
         return super.onCreateOptionsMenu(menu)
     }
+   /* fun createSpinnerPets() {
+        val list = ArrayList<String>()
+        val query = ParseQuery.getQuery(AnimalSpecies::class.java)
+        val objects = query.find()
+        if (objects != null) {
+            for (species in objects) {
+                list.add(species.getDisplayName())
+            }
+        }
+        val spinner: Spinner = findViewById(R.id.menuPet)
+        val dataAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, list
+        )
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = dataAdapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
 
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Another interface callback
+            }
+        }
+    }*/
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_mascota -> {
@@ -118,7 +188,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_add -> {
+        R.id.spinner -> {
+
             Toast.makeText(this, "add action", Toast.LENGTH_LONG).show()
             true
         }
