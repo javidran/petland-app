@@ -11,10 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
-import com.parse.ParseObject
-import com.parse.ParseQuery
-import com.parse.ParseRelation
-import com.parse.ParseUser
+import com.parse.*
 import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,7 +42,8 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
     private fun setData() {
         ParseObject.registerSubclass(Race::class.java)
-        Parse.initialize(Parse.Configuration.Builder(this)
+        Parse.initialize(
+            Parse.Configuration.Builder(this)
             .applicationId("")
             .clientKey("")
             .server("")
@@ -66,12 +64,20 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val query = ParseQuery.getQuery(Race::class.java)
         query.whereEqualTo("objectId", objectrace.objectId)
         val typerace = query.find().first()
-        raceText.text = typerace.getName()
+        Locale.getDefault().displayLanguage
+        Log.d("language",Locale.getDefault().displayLanguage )
+        if(Locale.getDefault().displayLanguage  == "català") {
+            raceText.text = typerace.getNameCat()
+        }
+        else if (Locale.getDefault().displayLanguage == "español") {
+            raceText.text = typerace.getNameEsp()
+        }
+        else raceText.text = typerace.getNameEn()
         var chipText1 = myPet.get("chip")
         if(chipText1!=null) {
-            chipText.setText(chipText1.toString())
+            chipText.text = chipText1.toString()
         }
-        else chipText.setText("")
+        else chipText.text = ""
 
 
         val dateb = myPet.get("birthday")
@@ -113,14 +119,14 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
         val intent = Intent(this, EditPetProfileActivity::class.java).apply {
         }
-        intent.putExtra("petId", myPet);
-        startActivity(intent);
+        intent.putExtra("petId", myPet)
+        startActivity(intent)
         finish()
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     override fun resetImage() {
-        profileImageView.setImageDrawable(this?.getDrawable(R.drawable.animal_paw))
+        profileImageView.setImageDrawable(this.getDrawable(R.drawable.animal_paw))
     }
 
 }

@@ -28,8 +28,8 @@ class AddPetActivity : AppCompatActivity() {
     lateinit var raceobj: ParseObject
     lateinit var raceobjopt: ParseObject
     lateinit var animalspeciesobj: ParseObject
-     lateinit var check: CheckBox
-    var checkedRace: Boolean = false
+    lateinit var check: CheckBox
+    private var checkedRace: Boolean = false
 
     lateinit var profileImage : ImageView
     var image : Bitmap? = null
@@ -86,8 +86,7 @@ class AddPetActivity : AppCompatActivity() {
         val objects = query.find()
         if (objects != null) {
             for (species in objects) {
-                list.add(species.getDisplayName())
-                Log.d("DEBUG", species.getDisplayName())
+                list.add(species.getDisplayNameEsp())
             }
         }
         val spinner: Spinner = findViewById(R.id.spinnerSpecies)
@@ -126,7 +125,7 @@ class AddPetActivity : AppCompatActivity() {
         val objects = query.find()
         if (objects != null) {
             for (species in objects) {
-                listRace.add(species.getName())
+                listRace.add(species.getNameEsp())
             }
         }
 
@@ -199,10 +198,7 @@ class AddPetActivity : AppCompatActivity() {
                 pet.put("owner", currentUser)
                 putImage(pet)
                 pet.put("nameSpecie", animalspeciesobj)
-                Log.d("debugrazas", (raceobj.objectId))
-                Log.d("debugrazas", (raceobjopt.objectId))
                 if (checkedRace && raceobj.objectId == raceobjopt.objectId) {
-                        Log.d("debugrazas", "razas iguales")
                         Toast.makeText(
                             this@AddPetActivity,
                             "Razas iguales",

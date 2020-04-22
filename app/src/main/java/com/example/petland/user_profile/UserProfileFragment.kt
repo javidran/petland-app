@@ -1,6 +1,5 @@
 package com.example.petland.user_profile
 
-import Race
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import com.example.petland.image.ResetImageCallback
 import com.example.petland.pet.Pets
 import com.example.petland.pet.ViewPetProfileActivity
 import com.example.petland.pet.creation.AddPetActivity
-import com.parse.Parse
 import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_user_profile.*
@@ -33,16 +31,6 @@ class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ParseObject.registerSubclass(Race::class.java)
-        Parse.initialize(
-            activity?.let {
-                Parse.Configuration.Builder(it)
-                    .applicationId("")
-                    .clientKey("")
-                    .server("")
-                    .build()
-            }
-        )
         layoutManager = LinearLayoutManager(context)
     }
 
