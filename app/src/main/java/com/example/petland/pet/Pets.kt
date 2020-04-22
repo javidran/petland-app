@@ -23,10 +23,10 @@ class Pets {
             val query = ParseQuery.getQuery<ParseObject>("Pet")
             query.whereEqualTo("caregivers", ParseUser.getCurrentUser())
             val result = query.find()
-            if(!result.isEmpty()) {
+            if(result.isNotEmpty()) {
                 selectedPet = result[0]
             }
-            return query.find().isNotEmpty()
+            return result.isNotEmpty()
         }
 
         fun setSelectedPet(pet: ParseObject) {
