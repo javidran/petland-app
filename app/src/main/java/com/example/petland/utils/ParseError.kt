@@ -14,14 +14,11 @@ class ParseError {
             builder.setTitle((R.string.errorconnect))
             builder.setMessage((R.string.noconnection))
             builder.setNeutralButton("OK") { dialogInterface, which ->
-                Toast.makeText(a, "", Toast.LENGTH_LONG).show()
             }
         } else {
             builder.setTitle(e.message)
             builder.setMessage(e.message.toString())
             builder.setNeutralButton("OK") { dialogInterface, which ->
-                Toast.makeText(a, "", Toast.LENGTH_LONG).show()
-
             }
         }
 
