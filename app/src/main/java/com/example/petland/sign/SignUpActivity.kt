@@ -116,7 +116,6 @@ class SignUpActivity : AppCompatActivity() {
                         startActivity(Intent(this, GetFirstPetActivity::class.java).apply {})
                         finish()
                     } else {
-                        e.printStackTrace()
                         val error = ParseError()
                         error.writeParseError(this, e)
                         Log.d(TAG, "User could not be created")
