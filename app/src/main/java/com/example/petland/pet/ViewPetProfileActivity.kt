@@ -76,7 +76,7 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
         if (listCaregivers != null) {
             viewManager = LinearLayoutManager(this)
-            viewAdapter = UserAdapter(list.toList(), false)
+            viewAdapter = UserAdapter(list.toList(), false, myPet)
             recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
