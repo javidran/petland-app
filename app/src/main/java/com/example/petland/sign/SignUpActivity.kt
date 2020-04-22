@@ -57,6 +57,7 @@ class SignUpActivity : AppCompatActivity() {
             R.anim.slide_in_left,
             R.anim.slide_out_right
         )
+        finish()
     }
 
     private fun progress(start: Boolean) {
@@ -107,14 +108,14 @@ class SignUpActivity : AppCompatActivity() {
                 user.put("name", editTextName.text.toString())
                 user.put("birthday", date)
 
-                val intent = Intent(this, GetFirstPetActivity::class.java).apply {}
+
 
                 user.signUpInBackground { e ->
                     if (e == null) {
                         Log.d(TAG, "User created correctly")
-                        startActivity(intent)
+                        startActivity(Intent(this, GetFirstPetActivity::class.java).apply {})
+                        finish()
                     } else {
-                        e.printStackTrace()
                         val error = ParseError()
                         error.writeParseError(this, e)
                         Log.d(TAG, "User could not be created")
@@ -128,4 +129,5 @@ class SignUpActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "Petland SignUp"
     }
+
 }

@@ -38,6 +38,22 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/buttonLogOut"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_with_borders_translucent"
+        android:backgroundTint="#6A7532E7"
+        android:cropToPadding="false"
+        android:onClick="logOut"
+        android:text="@string/logout"
+        android:textAllCaps="false"
+        android:textColor="@color/md_white_1000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTakeCareOfPet" />
+
     <TextView
         android:id="@+id/welcomeTitle"
         android:layout_width="287dp"

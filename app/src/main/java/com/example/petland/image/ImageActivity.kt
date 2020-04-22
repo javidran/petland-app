@@ -2,20 +2,17 @@ package com.example.petland.image
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.petland.R
 import com.parse.ParseFile
 import com.parse.ParseObject
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_image.*
 import java.io.ByteArrayOutputStream
-import java.io.File
 
 class ImageActivity : AppCompatActivity() {
     private lateinit var parseObject: ParseObject
@@ -44,19 +41,8 @@ class ImageActivity : AppCompatActivity() {
     }
 
     private fun pickImage() {
-        val getIntent = Intent(Intent.ACTION_GET_CONTENT)
-        getIntent.type = "image/*"
-
-        val pickIntent = Intent(
-            Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        )
-        pickIntent.type = "image/*"
-
-        val chooserIntent = Intent.createChooser(getIntent, "Select Image")
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
-
-        startActivityForResult(chooserIntent, PICK_IMAGE)
+        val iUtils = ImageUtils()
+        startActivityForResult(iUtils.getImageChooserIntent(), PICK_IMAGE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -65,7 +51,10 @@ class ImageActivity : AppCompatActivity() {
             if (requestCode == PICK_IMAGE) {
                 Log.d(TAG, "Image chosen")
                 val uri = data.data
-                if (uri != null) startCrop(uri)
+                if (uri != null) {
+                    val iUtils = ImageUtils()
+                    iUtils.startCrop(uri, this)
+                }
             } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
                 Log.d(TAG, "Image cropped")
                 val uri = UCrop.getOutput(data)
@@ -84,29 +73,6 @@ class ImageActivity : AppCompatActivity() {
                 toast.show()
             }
         }
-    }
-
-    private fun startCrop(uri: Uri) {
-        val options = UCrop.Options()
-        options.setCircleDimmedLayer(true)
-        options.setActiveControlsWidgetColor(
-            ContextCompat.getColor(
-                this,
-                R.color.md_blue_500
-            )
-        )
-        options.setToolbarWidgetColor(
-            ContextCompat.getColor(
-                this,
-                R.color.md_blue_500
-            )
-        )
-
-        UCrop.of(uri, Uri.fromFile(File(cacheDir, "croppedImage.png")))
-            .withAspectRatio(1F, 1F)
-            .withMaxResultSize(400, 400)
-            .withOptions(options)
-            .start(this)
     }
 
     private fun saveImage(imageBitmap: Bitmap) {

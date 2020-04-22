@@ -10,6 +10,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
+import com.example.petland.sign.BootActivity
+import com.example.petland.utils.ParseError
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.parse.ParseException
+import com.parse.ParseObject
+import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_editprofile.*
 import java.text.SimpleDateFormat
@@ -60,14 +67,19 @@ class EditProfileActivity : AppCompatActivity() {
             user.email = editTextEmail.text.toString()
             user.put("name", editTextName.text.toString())
             user.put("birthday", date)
-            user.save()
-            Log.d(TAG, getString(R.string.profileEditedCorrectly))
-            Toast.makeText(
-                this@EditProfileActivity,
-                getString(R.string.profileEditedCorrectly),
-                Toast.LENGTH_LONG
-            ).show()
-            finish()
+            try {
+                user.save()
+                Log.d(TAG, getString(R.string.profileEditedCorrectly))
+                Toast.makeText(
+                    this@EditProfileActivity,
+                    getString(R.string.profileEditedCorrectly),
+                    Toast.LENGTH_LONG
+                ).show()
+                finish()
+            } catch (e: ParseException) {
+                val error = ParseError()
+                error.writeParseError(this, e)
+            }
         } else {
             Log.d(TAG, getString(R.string.userNotLogged))
         }
@@ -80,6 +92,62 @@ class EditProfileActivity : AppCompatActivity() {
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
+    }
+    fun deleteUserConfirmation(view: View) {
+        val builder = AlertDialog.Builder(this@EditProfileActivity)
+        builder.setTitle(getString(R.string.delete_account))
+        builder.setMessage(getString(R.string.delete_account_message))
+
+        builder.setPositiveButton((getString(R.string.ok))){dialog, which ->
+            Toast.makeText(applicationContext,"Cuenta borrada correctamente",Toast.LENGTH_SHORT).show()
+           deleteUser()
+        }
+        builder.setNeutralButton(getString(R.string.cancel)){_,_ ->
+        }
+        val dialog: AlertDialog = builder.create()
+
+        dialog.show()
+    }
+
+
+    private fun deleteUser() {
+        val user = ParseUser.getCurrentUser()
+        val query = ParseQuery.getQuery<ParseObject>("Pet")
+        query.whereEqualTo("owner", user) //Query para obtener todas las mascotas propiedad del user a eliminar, para eliminarlas tambien
+        query.findInBackground { petsList, e ->
+            if (e == null) {
+                for (pet in petsList) {
+                    deletePet(pet)
+                }
+                user.deleteInBackground { e ->
+                    if (e == null) {
+                        val gso =
+                            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                .requestEmail()
+                                .build()
+                        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+                        Log.d(TAG,"User correctly deleted!") //Mensaje en logcat
+                        startActivity(Intent(this@EditProfileActivity, BootActivity::class.java))
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        finish()
+                        mGoogleSignInClient.signOut()
+                    } else {
+                        Log.d(TAG,"An error occurred!") //Mensaje en logcat
+                    }
+                }
+            } else {
+                Log.d(TAG, "An error happened while retrieving user pets.")
+            }
+        }
+    }
+    private fun deletePet(pet: ParseObject) {
+        pet.deleteInBackground { e ->
+            if (e == null) {
+                Log.d(TAG, "Pet correctly deleted!") //Mensaje en logcat
+            } else {
+                Log.d(TAG, "An error occurred while deleting a pet!") //Mensaje en logcat
+            }
+        }
     }
 
     fun savechanges(view: View) {

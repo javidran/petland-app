@@ -8,6 +8,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
+import com.example.petland.pet.Pets
+import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.utils.ParseError
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
@@ -28,6 +30,7 @@ class SignInActivity : AppCompatActivity() {
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
+        finish()
     }
 
     fun progress(start: Boolean) {
@@ -41,8 +44,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     fun login(view: View) {
-        val intent = Intent(this, HomeActivity::class.java).apply {
-        }
+
         when {
             TextUtils.isEmpty(editTextUsername.text) -> {
                 editTextUsername.error = getString(R.string.usernameNeeded)
@@ -58,7 +60,16 @@ class SignInActivity : AppCompatActivity() {
                 ) { user, e ->
                     if (user != null) {
                         Log.d(TAG, "User logged in correctly.")
-                        startActivity(intent)
+                        if(Pets.userHasPets()){
+                            val intent = Intent(this, HomeActivity::class.java).apply {
+                            }
+                            startActivity(intent)
+                        }
+                        else{
+                            val intentNoPets = Intent(this, GetFirstPetActivity::class.java).apply {
+                            }
+                            startActivity(intentNoPets)
+                        }
                         overridePendingTransition(
                             R.anim.slide_in_right,
                             R.anim.slide_out_left
@@ -78,4 +89,5 @@ class SignInActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "Petland SignIn"
     }
+
 }
