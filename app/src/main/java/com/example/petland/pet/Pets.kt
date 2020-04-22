@@ -3,7 +3,6 @@ package com.example.petland.pet
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
-import java.lang.NullPointerException
 
 
 class Pets {
