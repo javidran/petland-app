@@ -34,16 +34,25 @@ class InvitationAdapter(private val invitations: List<ParseObject>) :
         private lateinit var invitation: ParseObject
 
         fun bindInvitationInfo(invitation: ParseObject){
-            var pet = invitation.get("petO") as ParseObject
-            var creator = invitation.get("creator") as ParseObject
+            val pet = invitation.get("petO") as ParseObject
+            val creator = invitation.get("creator") as ParseObject
             this.invitation = invitation
+            val user = ParseUser.getCurrentUser()
 
-            var listUsers = ParseQuery.getQuery<ParseObject>("_User")
+            val listUsers = ParseQuery.getQuery<ParseObject>("_User")
             listUsers.whereEqualTo("objectId", creator.objectId)
-            var listPets = ParseQuery.getQuery<ParseObject>("Pet")
+            val listPets = ParseQuery.getQuery<ParseObject>("Pet")
             listPets.whereEqualTo("objectId", pet.objectId)
-            view.buttonAccept.setOnClickListener { TODO("not implemented") }
-            view.buttonDeny.setOnClickListener { TODO("not implemented") }
+            view.buttonAccept.setOnClickListener {
+                this.invitation.put("answer", true)
+                this.invitation.saveInBackground()
+                val relation = pet.getRelation<ParseUser>("caregivers")
+                relation.add(user)
+                user.save()
+                pet.saveInBackground()
+                this.invitation.deleteInBackground()
+            }
+            view.buttonDeny.setOnClickListener { this.invitation.deleteInBackground() }
 
 
             view.ownerName.text = listUsers.first.get("name") as String
