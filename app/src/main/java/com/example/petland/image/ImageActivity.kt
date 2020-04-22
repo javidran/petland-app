@@ -2,20 +2,17 @@ package com.example.petland.image
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.petland.R
 import com.parse.ParseFile
 import com.parse.ParseObject
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_image.*
 import java.io.ByteArrayOutputStream
-import java.io.File
 
 class ImageActivity : AppCompatActivity() {
     private lateinit var parseObject: ParseObject

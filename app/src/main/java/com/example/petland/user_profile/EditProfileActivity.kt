@@ -11,13 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
 import com.example.petland.sign.BootActivity
-import com.parse.ParseObject
-import com.parse.ParseQuery
-import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.utils.ParseError
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.parse.ParseException
+import com.parse.ParseObject
+import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_editprofile.*
 import java.text.SimpleDateFormat

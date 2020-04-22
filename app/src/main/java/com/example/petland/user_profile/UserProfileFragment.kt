@@ -96,8 +96,7 @@ class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
     }
 
     private fun updatePets() {
-        val pets = Pets()
-        val petlist = pets.getPets()
+        val petlist = Pets.getPetsFromCurrentUser()?.toList()
         if (petlist != null) {
             adapter = PetAdapter(petlist.toList(), this)
             rootView.recyclerView.adapter = adapter
