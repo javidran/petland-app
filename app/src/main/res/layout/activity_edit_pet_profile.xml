@@ -29,7 +29,7 @@
         <TableLayout
             android:id="@+id/tableLayout3"
             android:layout_width="409dp"
-            android:layout_height="224dp"
+            android:layout_height="180dp"
             android:layout_marginTop="250dp"
             android:stretchColumns="0,2"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,9 +47,9 @@
                     android:id="@+id/birthdayHint"
                     android:layout_width="47dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="20dp"
+                    android:paddingStart="80dp"
                     android:text="@string/owner"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/md_grey_600"/>
 
@@ -59,7 +59,7 @@
                     android:padding="3dip"
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
                     tools:ignore="RtlSymmetry" />
 
@@ -69,7 +69,7 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text="Javi"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
                     tools:ignore="HardcodedText" />
             </TableRow>
@@ -80,9 +80,9 @@
                     android:id="@+id/nameHint"
                     android:layout_width="47dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="20dp"
+                    android:paddingStart="80dp"
                     android:text="@string/race"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
                     android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
                     android:padding="3dip"
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
                     tools:ignore="RtlSymmetry" />
 
@@ -102,7 +102,7 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text="Paco"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
                     tools:ignore="HardcodedText" />
             </TableRow>
@@ -113,9 +113,9 @@
                     android:id="@+id/emailHint"
                     android:layout_width="47dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="20dp"
+                    android:paddingStart="80dp"
                     android:text="@string/chip"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
                     android:textStyle="bold" />
 
@@ -125,7 +125,7 @@
                     android:padding="3dip"
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
                     tools:ignore="RtlSymmetry" />
 
@@ -135,8 +135,8 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text="1515"
-                    android:textSize="25dp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="HardcodedText" />
             </TableRow>
 
@@ -146,9 +146,9 @@
                     android:id="@+id/emailHint"
                     android:layout_width="47dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="20dp"
+                    android:paddingStart="80dp"
                     android:text="@string/birthday"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
                     android:textStyle="bold" />
 
@@ -158,7 +158,7 @@
                     android:padding="3dip"
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
                     tools:ignore="RtlSymmetry" />
 
@@ -168,7 +168,7 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text="13/08/2020"
-                    android:textSize="25dp"
+                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
                     tools:ignore="HardcodedText" />
             </TableRow>
@@ -182,10 +182,10 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/buttonVolver2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.225"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.79"
             tools:itemCount="2"
             tools:listitem="@layout/pet_profile_user_element">
 
@@ -195,10 +195,10 @@
             android:id="@+id/buttonVolver2"
             android:layout_width="113dp"
             android:layout_height="57dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="50dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/button_with_borders_translucent"
 
             android:cropToPadding="false"
@@ -219,7 +219,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="50dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/button_without_corners"
             android:backgroundTint="#00C4CC"
             android:cropToPadding="false"
@@ -240,18 +240,16 @@
             android:layout_width="410dp"
             android:layout_height="41dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:paddingStart="20dp"
             android:text="Lucas"
-            android:textSize="30dp"
             android:textColor="@color/md_grey_600"
+            android:textSize="22dp"
             app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileImageView"
-            app:layout_constraintVertical_bias="0.516"
+            app:layout_constraintVertical_bias="0.518"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -259,8 +257,7 @@
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/button_without_corners"
-            android:backgroundTint="@color/md_red_A700"
+            android:background="@drawable/button_deny_invitation"
             android:onClick="wantToDeletePet"
             android:text="@string/delete"
             android:visibility="gone"
