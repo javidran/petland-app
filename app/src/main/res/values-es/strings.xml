@@ -107,4 +107,6 @@
     <string name="deletionAlertMessage">La elimincación de una mascota implica la eliminación de toda su información</string>
     <string name="date_needed">Fecha necesaria</string>
     <string name="content_mandatory">Contenido necesario</string>
+    <string name="invitedBy">Invitación a cuidar la mascota de:</string>
+    <string name="instructionsInvitationsdescription">Estas son las invitaciones que has recibido, puedes aceptarlas o denegarlas</string>
 </resources>
