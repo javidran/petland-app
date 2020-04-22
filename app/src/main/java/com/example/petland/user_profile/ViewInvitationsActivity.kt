@@ -36,7 +36,7 @@ class ViewInvitationsActivity : AppCompatActivity() {
         super.onResume()
         updateInvitations()
     }
-    private fun updateInvitations(){
+    fun updateInvitations(){
         val currentUser = ParseUser.getCurrentUser()
         val query = ParseQuery.getQuery<ParseObject>("Invitation")
         query.whereEqualTo("receiver", currentUser)
