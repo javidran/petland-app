@@ -1,5 +1,6 @@
 package com.example.petland.user_profile
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
+import com.parse.ParseQuery
 import kotlinx.android.synthetic.main.user_profile_pet_element.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class PetAdapter(private val pets: List<ParseObject>, private val viewPetCallback: ViewPetCallback) :
     RecyclerView.Adapter<PetAdapter.PetHolder>() {
@@ -42,7 +45,14 @@ class PetAdapter(private val pets: List<ParseObject>, private val viewPetCallbac
         fun bindPetInfo(pet: ParseObject) {
             this.pet = pet
             view.editPetElementName.text = pet.get("name") as String
-            view.race.text = "Labrador (raza prueba)"
+
+             val namerace = pet.get("nameRace") as ParseObject
+
+            val query = ParseQuery.getQuery<ParseObject>("Race")
+            query.whereEqualTo("objectId", namerace.objectId)
+            val result =  query.find().first();
+            view.race.text = result.get("name").toString()
+
             val birth = pet.get("birthday")
             if(birth!=null){
                 view.birthday.visibility = View.VISIBLE
