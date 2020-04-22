@@ -8,6 +8,7 @@ import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
 import com.parse.ParseUser
+import kotlinx.android.synthetic.main.activity_edit_pet_profile.view.*
 import kotlinx.android.synthetic.main.pet_profile_user_element.view.*
 
 
@@ -50,6 +51,9 @@ class UserAdapter(
                     val relation = pet.getRelation<ParseUser>("caregivers")
                     relation.remove(this.user)
                     pet.saveInBackground()
+                    view.deleteCaregButton.visibility = View.GONE
+                    view.changeOwnerButton.visibility = View.GONE
+                    view.textView2.visibility = View.VISIBLE
                 }
                 view.changeOwnerButton.setOnClickListener { TODO("not implemented") }
             }

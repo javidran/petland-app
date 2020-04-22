@@ -44,6 +44,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
     override fun onResume() {
         super.onResume()
+        myPet.fetch<ParseObject>()
         setData()
         verImagen()
     }
@@ -156,14 +157,6 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 
-    }
-
-    fun deleteCare(view:View) {
-        // Codi per eliminar un cuidador aqui
-    }
-
-    fun changeOwner(view:View) {
-        // Codi per canviar d'amo aqui
     }
 
     fun addCargs(view:View) {
