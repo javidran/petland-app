@@ -41,7 +41,7 @@ class PetAdapter(private val pets: List<ParseObject>, private val viewPetCallbac
 
         fun bindPetInfo(pet: ParseObject) {
             this.pet = pet
-            view.name.text = pet.get("name") as String
+            view.editPetElementName.text = pet.get("name") as String
             view.race.text = "Labrador (raza prueba)"
             val birth = pet.get("birthday")
             if(birth!=null){
