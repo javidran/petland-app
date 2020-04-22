@@ -46,7 +46,6 @@ class InvitationAdapter(private val invitations: List<ParseObject>) :
             view.buttonAccept.setOnClickListener {
                 val relation = pet.getRelation<ParseUser>("caregivers")
                 relation.add(user)
-                user.save()
                 pet.saveInBackground()
                 this.invitation.deleteInBackground()
             }
