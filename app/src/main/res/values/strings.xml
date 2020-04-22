@@ -80,4 +80,35 @@
     <string name="deletionAlertMessage">The deletion of a pet includes the deletion of all its infromation</string>
     <string name="errorconnect">Connection error</string>
     <string name="noconnection">There\'s no connection with the server</string>
+    <string name="vaccine">Vaccine</string>
+    <string name="unknown_id">Unknown Value</string>
+    <string name="medicine">Medicine</string>
+    <string name="food">Food</string>
+    <string name="hygiene">Hygiene</string>
+    <string name="measurement">Measurement</string>
+    <string name="food_feed">Feed</string>
+    <string name="food_meat">Meat</string>
+    <string name="food_tooth_bars">Tooth bars</string>
+    <string name="food_water">Water</string>
+    <string name="hygiene_bath">Bath</string>
+    <string name="hygiene_deworm">Deworm</string>
+    <string name="hygiene_haircut">Haircut</string>
+    <string name="hygiene_nails">Nails</string>
+    <string name="event_date">Event date</string>
+    <string name="default_event_time" translatable="false">08:00</string>
+    <string name="event_food_dosage">Dosage</string>
+    <string name="event_extra_info">Additional information</string>
+    <string name="event_type">Type:</string>
+    <string name="event_measurement_weight">Weight</string>
+    <string name="event_measurement_height">Height</string>
+    <string name="event_medicine_dosage">Dosage</string>
+    <string name="recurrent_event_check">It\'s a recurrent event</string>
+    <string name="repeat_every">Repeat every</string>
+    <string name="days">days</string>
+    <string name="event_end_date">Finalization date</string>
+    <string name="event_until_date">Until an specific date</string>
+    <string name="create_event">Create event</string>
+    <string name="date_needed">Date needed</string>
+    <string name="content_mandatory">Mandatory content</string>
+
 </resources>

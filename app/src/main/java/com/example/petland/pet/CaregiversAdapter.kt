@@ -10,8 +10,7 @@ import com.example.petland.image.ImageUtils
 import com.parse.Parse.getApplicationContext
 import com.parse.ParseObject
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.pet_profile_user_element.view.*
-import kotlinx.android.synthetic.main.user_profile_pet_element.view.name
+import kotlinx.android.synthetic.main.user_profile_caregiver_element.view.*
 
 
 class CaregiversAdapter(

@@ -9,7 +9,6 @@ import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.pet_profile_user_element.view.*
-import kotlinx.android.synthetic.main.user_profile_pet_element.view.name
 
 
 class UserAdapter(
@@ -43,7 +42,7 @@ class UserAdapter(
         fun bindUserInfo(user: ParseUser) {
             val u = ParseUser.getCurrentUser()
             this.user = user
-            view.name.text = user.username
+            view.editPetName.text = user.username
             if (this.owner && u.username != user.username) {
                 view.deleteCaregButton.visibility = View.VISIBLE
                 view.changeOwnerButton.visibility = View.VISIBLE
