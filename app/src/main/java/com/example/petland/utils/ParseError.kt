@@ -12,18 +12,13 @@ class ParseError {
 
         if (e.message == "i/o failure") {
             builder.setTitle((R.string.errorconnect))
-            e.printStackTrace()
             builder.setMessage((R.string.noconnection))
             builder.setNeutralButton("OK") { dialogInterface, which ->
-                Toast.makeText(a, "", Toast.LENGTH_LONG).show()
             }
         } else {
             builder.setTitle(e.message)
-            e.printStackTrace()
-            builder.setMessage(e.toString())
+            builder.setMessage(e.message.toString())
             builder.setNeutralButton("OK") { dialogInterface, which ->
-                Toast.makeText(a, "", Toast.LENGTH_LONG).show()
-
             }
         }
 

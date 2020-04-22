@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".events.ui.creation.CreateEventActivity" />
         <activity android:name=".pet.SearchCaregiversActivity"></activity>
         <activity android:name=".image.ImageActivity" />
         <activity android:name=".image.ImageOnCreationActivity" />
@@ -41,7 +42,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
