@@ -10,13 +10,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
+import com.example.petland.image.ResetImageCallback
 import com.example.petland.pet.Pets.Companion.getSelectedPet
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomePrincipalFragment : Fragment() {
+class HomePrincipalFragment : Fragment(), ResetImageCallback {
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var rootView: View
@@ -53,9 +54,13 @@ class HomePrincipalFragment : Fragment() {
         val birthDayText: TextView = rootView.findViewById(R.id.birthday)
         birthDayText.text = sdf.format(pet.get("birthday"))
 
-
+        val imageUtils = ImageUtils()
+        imageUtils.retrieveImage(pet, rootView.profileImage, this)
     }
 
+    override fun resetImage() {
+        rootView.profileImage.setImageDrawable(context?.getDrawable(R.drawable.animal_paw))
+    }
 
     companion object {
 
