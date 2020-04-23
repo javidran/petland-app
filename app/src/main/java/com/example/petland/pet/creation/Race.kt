@@ -1,17 +1,22 @@
 
 import com.parse.ParseClassName
 import com.parse.ParseObject
+import java.util.*
 
 @ParseClassName("Race")
 class Race: ParseObject() {
-    fun getNameCat(): String {
-        return getString("name_ca").toString()
+    lateinit var result: String
+
+    fun getName(): String {
+        if(Locale.getDefault().displayLanguage  == "català") {
+        result = getString("name_ca").toString()
     }
-    fun getNameEsp(): String {
-        return getString("name").toString()
-    }
-    fun getNameEn(): String {
-        return getString("name_en").toString()
+        else if (Locale.getDefault().displayLanguage == "español") {
+            result = getString("name").toString()
+        }
+        else result = getString("name_en").toString()
+
+        return result
     }
     fun setName(value: String) {
         put("name", value)

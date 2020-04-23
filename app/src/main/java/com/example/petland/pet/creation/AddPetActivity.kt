@@ -71,7 +71,7 @@ class AddPetActivity : AppCompatActivity() {
         val objects = query.find()
         if (objects != null) {
             for (species in objects) {
-                list.add(species.getDisplayNameEsp())
+                list.add(species.getDisplayName())
             }
         }
         val spinner: Spinner = findViewById(R.id.spinnerSpecies)
@@ -88,9 +88,15 @@ class AddPetActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                parent?.getItemAtPosition(position)
-                Log.d("Spinner", parent?.getItemAtPosition(position).toString())
-                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                when (Locale.getDefault().displayLanguage) {
+                    "català" -> {
+                        query.whereEqualTo("name_ca", parent?.getItemAtPosition(position).toString())
+                    }
+                    "español" -> {
+                        query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                    }
+                    else -> query.whereEqualTo("name_en", parent?.getItemAtPosition(position).toString())
+                }
                  animalspeciesobj = query.find().first()
                 addElementsToSpinnerRace(animalspeciesobj)
             }
@@ -106,11 +112,11 @@ class AddPetActivity : AppCompatActivity() {
     private fun addElementsToSpinnerRace(animalSpecies: ParseObject) {
         val listRace: ArrayList<String> = ArrayList()
         val query = ParseQuery.getQuery(Race::class.java)
-       query.whereEqualTo("nameSpecie",  animalSpecies )
+       query.whereEqualTo("nameSpecie",  animalSpecies)
         val objects = query.find()
         if (objects != null) {
             for (species in objects) {
-                listRace.add(species.getNameEsp())
+                listRace.add(species.getName())
             }
         }
 
@@ -127,8 +133,15 @@ class AddPetActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                Log.d("Spinner", position.toString())
-                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                when (Locale.getDefault().displayLanguage) {
+                    "català" -> {
+                        query.whereEqualTo("name_ca", parent?.getItemAtPosition(position).toString())
+                    }
+                    "español" -> {
+                        query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                    }
+                    else -> query.whereEqualTo("name_en", parent?.getItemAtPosition(position).toString())
+                }
                 raceobj = query.find().first()
             }
 
@@ -150,8 +163,15 @@ class AddPetActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                Log.d("Spinner", position.toString())
-                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                when (Locale.getDefault().displayLanguage) {
+                    "català" -> {
+                        query.whereEqualTo("name_ca", parent?.getItemAtPosition(position).toString())
+                    }
+                    "español" -> {
+                        query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                    }
+                    else -> query.whereEqualTo("name_en", parent?.getItemAtPosition(position).toString())
+                }
                 raceobjopt = query.find().first()
             }
 

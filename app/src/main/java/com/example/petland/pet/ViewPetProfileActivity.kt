@@ -55,13 +55,9 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val query = ParseQuery.getQuery(Race::class.java)
         query.whereEqualTo("objectId", objectrace.objectId)
         val typerace = query.find().first()
-        if(Locale.getDefault().displayLanguage  == "català") {
-            raceText.text = typerace.getNameCat()
-        }
-        else if (Locale.getDefault().displayLanguage == "español") {
-            raceText.text = typerace.getNameEsp()
-        }
-        else raceText.text = typerace.getNameEn()
+
+        raceText.text = typerace.getName()
+
         var chipText1 = myPet.get("chip")
         if(chipText1!=null) {
             chipText.text = chipText1.toString()
