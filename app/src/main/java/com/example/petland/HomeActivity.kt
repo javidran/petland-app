@@ -55,11 +55,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
-
-
-        //default fragment
-
-
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         // Configure sign-in to request the user's ID, email address, and basic
@@ -74,7 +69,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         createSpinnerPet()
-
+        frameLayout.removeAllViews()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frameLayout, HomePrincipalFragment.newInstance())
+        transaction.commit()
     }
 
     private fun createSpinnerPet() {
@@ -107,6 +105,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                  query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
                 val selectedPet = query.find().first()
                 setSelectedPet(selectedPet)
+                frameLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.frameLayout, HomePrincipalFragment.newInstance())
+                transaction.commit()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -119,10 +121,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_mascota -> {
-                frameLayout.removeAllViews()
-                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.frameLayout, HomePrincipalFragment.newInstance())
-                transaction.commit()
+
             }
             R.id.nav_paseos -> {
 

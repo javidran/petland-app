@@ -13,15 +13,18 @@ import com.example.petland.image.ImageUtils
 import com.example.petland.pet.Pets.Companion.getSelectedPet
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomePrincipalFragment : Fragment() {
-
+    private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var rootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutManager = LinearLayoutManager(context)
+
     }
 
     override fun onCreateView(
@@ -31,15 +34,14 @@ class HomePrincipalFragment : Fragment() {
     ): View? {
 
        rootView = inflater.inflate(R.layout.fragment_home_principal, container, false)
-        rootView.profileImage.setOnClickListener { seeImage() }
 
-        rootView.recyclerView.layoutManager = layoutManager
         return rootView
     }
 
     override fun onResume() {
         super.onResume()
         setPetInfo()
+
 
     }
     private fun setPetInfo() {
@@ -49,16 +51,11 @@ class HomePrincipalFragment : Fragment() {
         petNameText.text = pet.get("name").toString()
 
         val birthDayText: TextView = rootView.findViewById(R.id.birthday)
-        birthDayText.text = pet.get("birthday").toString()
+        birthDayText.text = sdf.format(pet.get("birthday"))
 
 
     }
-    private fun seeImage() {
-        val intent = Intent(context, ImageActivity::class.java).apply {}
-        val pet = getSelectedPet()
-        intent.putExtra("object", pet)
-        startActivity(intent)
-    }
+
 
     companion object {
 
