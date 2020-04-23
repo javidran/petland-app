@@ -119,7 +119,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_mascota -> {
-
+                frameLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.frameLayout, HomePrincipalFragment.newInstance())
+                transaction.commit()
             }
             R.id.nav_paseos -> {
 
