@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".user_profile.ViewInvitationsActivity"></activity>
+        <activity android:name=".events.ui.ViewEventActivity"></activity>
+        <activity android:name=".user_profile.invitations.ViewInvitationsActivity" />
         <activity android:name=".pet.SearchCaregiversActivity" />
         <activity android:name=".events.ui.creation.CreateEventActivity" />
         <activity android:name=".image.ImageActivity" />

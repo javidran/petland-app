@@ -22,7 +22,7 @@ import java.util.*
 
 class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     lateinit var selectedPet: ParseObject
-    lateinit var petList: MutableList<ParseObject>
+    lateinit var petList: List<ParseObject>
     lateinit var event: PetEvent
     lateinit var callback: SaveDataCallback
 
@@ -94,7 +94,7 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
         textView.setOnClickListener {
             val dialog = DatePickerDialog(
-                this, dateSetListener,
+                this, R.style.TimePickerTheme, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)
@@ -116,7 +116,7 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
         textView.setOnClickListener {
             val dialog = TimePickerDialog(
-                this, timeSetListener,
+                this, R.style.TimePickerTheme, timeSetListener,
                 cal.get(Calendar.HOUR_OF_DAY),
                 cal.get(Calendar.MINUTE),
                 true

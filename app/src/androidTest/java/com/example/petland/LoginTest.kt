@@ -1,8 +1,12 @@
 package com.example.petland
 
+import android.view.Gravity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.DrawerActions
+import androidx.test.espresso.contrib.DrawerMatchers.isClosed
+import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -23,13 +27,13 @@ class LoginTest {
     @Test
     fun testUserCanLogin() {
         loginWithTestUser()
-        onView(withId(R.id.buttonLogOut)).check(matches(isDisplayed()))
+        onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
     }
 
     @Test
     fun testUserCanLogOut() {
         loginWithTestUser()
-        onView(withId(R.id.buttonLogOut)).perform(click())
+        chooseItemFromNavbar(R.id.nav_logout)
         onView(withId(R.id.welcomeTitle)).check(matches(isDisplayed()))
     }
 
@@ -39,6 +43,16 @@ class LoginTest {
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
         onView(withId(R.id.buttonContinuar)).perform(click())
         Thread.sleep(500)
+    }
+
+    private fun chooseItemFromNavbar(id: Int) {
+        onView(withId(R.id.drawer_layout))
+            .check(matches(isClosed(Gravity.LEFT)))
+            .perform(DrawerActions.open())
+
+        onView(withId(R.id.nav_view))
+            .perform(NavigationViewActions.navigateTo(id))
+
     }
 
 }

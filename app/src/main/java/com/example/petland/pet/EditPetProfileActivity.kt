@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -104,7 +103,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         }
 
 
-        var chipText = myPet.get("chip")
+        val chipText = myPet.get("chip")
         if(chipText!=null) {
             chipText1.setText(chipText.toString())
         }
@@ -142,21 +141,12 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     }
 
     fun deletePet(view: View) {
-        //
-        myPet.deleteInBackground { e ->
-            if (e == null) {
-                Log.d(TAG, "Pet correctly deleted!") //Mensaje en logcat
-            } else {
-                Log.d(TAG, "An error occurred while deleting a pet!") //Mensaje en logcat
-            }
-        }
-        val intent = Intent(this, ViewPetProfileActivity::class.java).apply {
-        }
+        Pets.deletePet(myPet)
+        val intent = Intent(this, ViewPetProfileActivity::class.java).apply {}
         intent.putExtra("eliminat", true)
         startActivity(intent)
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-
     }
 
     fun addCargs(view:View) {
@@ -196,7 +186,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
     private fun deletionDialog(view: View) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.deletionAlertTitle))
+        builder.setTitle(getString(R.string.pet_deletion_alert_title))
         builder.setCancelable(false)
         builder.setPositiveButton(getString(R.string.delete))
         { dialog, which ->

@@ -1,4 +1,4 @@
-package com.example.petland.user_profile
+package com.example.petland.user_profile.invitations
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +15,7 @@ class InvitationAdapter(private val invitations: List<ParseObject>, private val 
     RecyclerView.Adapter<InvitationAdapter.InvitationHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): InvitationHolder {
         return InvitationHolder(
-            LayoutInflater.from(p0.context).inflate(R.layout.user_invitation_element, p0, false) ,
+            LayoutInflater.from(p0.context).inflate(R.layout.user_invitation_element, p0, false),
             viewInvitationsCallback
         )
     }

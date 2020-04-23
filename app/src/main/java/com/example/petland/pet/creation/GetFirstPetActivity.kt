@@ -7,8 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
+import com.example.petland.pet.Pets
 import com.example.petland.sign.BootActivity
-import com.example.petland.user_profile.ViewInvitationsActivity
+import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.parse.ParseUser
 
 class GetFirstPetActivity : AppCompatActivity() {
@@ -16,6 +17,14 @@ class GetFirstPetActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_get_first_pet)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(Pets.userHasPets()){
+            val intent = Intent(this, HomeActivity::class.java).apply {}
+            startActivity(intent)
+        }
     }
 
     fun createFirstPet(view: View) {
