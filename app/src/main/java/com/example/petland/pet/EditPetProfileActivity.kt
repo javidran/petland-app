@@ -44,6 +44,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
     override fun onResume() {
         super.onResume()
+        myPet.fetch<ParseObject>()
         setData()
         verImagen()
     }
@@ -118,7 +119,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
             viewCargs.visibility = View.VISIBLE
             if (list != null) {
                 viewManager = LinearLayoutManager(this)
-                viewAdapter = UserAdapter(list.toList(), true)
+                viewAdapter = UserAdapter(list.toList(), true, myPet)
                 recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
                     // use this setting to improve performance if you know that changes
                     // in content do not change the layout size of the RecyclerView
@@ -156,14 +157,6 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 
-    }
-
-    fun deleteCare(view:View) {
-        // Codi per eliminar un cuidador aqui
-    }
-
-    fun changeOwner(view:View) {
-        // Codi per canviar d'amo aqui
     }
 
     fun addCargs(view:View) {
