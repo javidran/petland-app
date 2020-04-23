@@ -51,17 +51,16 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val powner = myPet.get("owner") as ParseObject
         listUsers.whereEqualTo("objectId", powner.objectId)
 
+        writeRace()
 
         usernameText.text = myPet.get("name").toString()
-
         ownerText.text = listUsers.first.username
 
-        raceText.text = "ejemplo1"
         var chipText1 = myPet.get("chip")
         if(chipText1!=null) {
-            chipText.setText(chipText1.toString())
+            chipText.text = chipText1.toString()
         }
-        else chipText.setText("")
+        else chipText.text = ""
 
 
         val dateb = myPet.get("birthday")
@@ -92,6 +91,34 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         }
         val imageUtils = ImageUtils()
         imageUtils.retrieveImage(myPet, profileImageView, this)
+    }
+
+    fun writeRace() {
+        val listRaces = ParseQuery.getQuery<ParseObject>("Race")
+
+        val pRacePrincipal = myPet.get("nameRace") as ParseObject
+        val racePrincipal = listRaces
+        racePrincipal.whereEqualTo("objectId", pRacePrincipal.objectId)
+
+        val idiom = Locale.getDefault().language
+
+        when (idiom) {
+            "es" -> raceText.text = racePrincipal.first.getString("name")
+            "ca" -> raceText.text = racePrincipal.first.getString("name_ca")
+            "en" -> raceText.text = racePrincipal.first.getString("name_en")
+        }
+
+        val pRaceSecundaria:ParseObject? = myPet.getParseObject("nameRaceopt")
+        if(pRaceSecundaria != null) {
+            val raceSecundaria = listRaces
+            raceSecundaria.whereEqualTo("objectId", pRaceSecundaria.objectId)
+            when (idiom) {
+                "es" -> raceTextSecond.text = racePrincipal.first.getString("name")
+                "ca" -> raceTextSecond.text = racePrincipal.first.getString("name_ca")
+                "en" -> raceTextSecond.text = racePrincipal.first.getString("name_en")
+            }
+        }
+
     }
 
     fun volver(view: View) {
