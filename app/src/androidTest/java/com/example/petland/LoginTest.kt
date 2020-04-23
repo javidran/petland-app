@@ -10,8 +10,11 @@ import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
 import com.example.petland.sign.BootActivity
+import com.robotium.solo.Solo
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,6 +26,14 @@ class LoginTest {
 
     @get:Rule
     val activityRule = ActivityTestRule(BootActivity::class.java)
+
+    private lateinit var solo: Solo
+
+    @Before
+    fun setUp() {
+        solo = Solo(getInstrumentation(), activityRule.activity)
+        solo.unlockScreen()
+    }
 
     @Test
     fun testUserCanLogin() {
