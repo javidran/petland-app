@@ -1,5 +1,7 @@
 package com.example.petland.pet
 
+import android.util.Log
+import com.example.petland.events.model.PetEvent
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
@@ -8,6 +10,7 @@ import com.parse.ParseUser
 class Pets {
 
     companion object {
+        private val TAG = "Petland Pets"
         private lateinit var selectedPet : ParseObject
 
         fun getPetsFromCurrentUser(): MutableList<ParseObject> {
@@ -45,6 +48,17 @@ class Pets {
             }
             val array = arrayOfNulls<String>(pets.size)
             return names.toArray(array)
+        }
+
+        fun deletePet(pet: ParseObject) {
+            PetEvent.getEventsFromPet(pet).forEach { e -> e.deleteEvent() }
+            pet.deleteInBackground { e ->
+                if (e == null) {
+                    Log.d(TAG, "Pet correctly deleted!")
+                } else {
+                    Log.d(TAG, "An error occurred while deleting a pet!")
+                }
+            }
         }
     }
 

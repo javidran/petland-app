@@ -4,20 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
-import com.example.petland.events.enums.FoodType
 import com.example.petland.events.model.PetEvent
 import kotlinx.android.synthetic.main.list_event_element.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EventAdapter(private val events: List<PetEvent>, private val context: Context): RecyclerView.Adapter<EventAdapter.EventHolder>() {
+class EventAdapter(private val events: List<PetEvent>, private val context: Context, private val callback: ViewEventCallback): RecyclerView.Adapter<EventAdapter.EventHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): EventHolder {
-        return EventHolder(LayoutInflater.from(p0.context).inflate(R.layout.list_event_element, p0, false))
+        return EventHolder(LayoutInflater.from(p0.context).inflate(R.layout.list_event_element, p0, false), callback)
     }
 
     override fun getItemCount(): Int {
@@ -29,7 +27,7 @@ class EventAdapter(private val events: List<PetEvent>, private val context: Cont
     }
 
 
-    class EventHolder(val v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
+    class EventHolder(private val v: View, private val callback: ViewEventCallback) : RecyclerView.ViewHolder(v), View.OnClickListener {
         private lateinit var event: PetEvent
 
         init {
@@ -69,7 +67,7 @@ class EventAdapter(private val events: List<PetEvent>, private val context: Cont
         }
 
         override fun onClick(v: View?) {
-            //TODO: Implement click in event
+            callback.startViewEventActivity(event)
         }
     }
 }

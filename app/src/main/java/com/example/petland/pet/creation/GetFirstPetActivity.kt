@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.sign.BootActivity
-import com.example.petland.user_profile.ViewInvitationsActivity
+import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.parse.ParseUser
 
 class GetFirstPetActivity : AppCompatActivity() {

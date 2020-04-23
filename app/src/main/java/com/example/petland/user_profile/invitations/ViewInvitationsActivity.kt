@@ -1,11 +1,9 @@
-package com.example.petland.user_profile
+package com.example.petland.user_profile.invitations
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.HomeActivity
 import com.example.petland.R
@@ -13,10 +11,9 @@ import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_view_invitations.*
-import kotlinx.android.synthetic.main.fragment_user_profile.view.*
-import kotlinx.android.synthetic.main.fragment_user_profile.view.recyclerView
 
-class ViewInvitationsActivity : AppCompatActivity(), ViewInvitationsCallback {
+class ViewInvitationsActivity : AppCompatActivity(),
+    ViewInvitationsCallback {
 
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: InvitationAdapter
@@ -42,7 +39,11 @@ class ViewInvitationsActivity : AppCompatActivity(), ViewInvitationsCallback {
         query.whereEqualTo("receiver", currentUser)
         invitationsList = query.find()
         if (invitationsList != null) {
-            adapter = InvitationAdapter(invitationsList.toList(),this )
+            adapter =
+                InvitationAdapter(
+                    invitationsList.toList(),
+                    this
+                )
             recyclerView.adapter = adapter
         }
 

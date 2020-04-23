@@ -5,7 +5,6 @@ import com.example.petland.pet.Pets
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
-import com.parse.ParseUser
 import java.util.*
 
 @ParseClassName("PetEvent")
@@ -146,6 +145,12 @@ open class PetEvent : ParseObject() {
         fun getEventsFromPet() : List<PetEvent> {
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo("pet", Pets.getSelectedPet())
+            return query.find().toList()
+        }
+
+        fun getEventsFromPet(pet: ParseObject) : List<PetEvent> {
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo("pet", pet)
             return query.find().toList()
         }
     }

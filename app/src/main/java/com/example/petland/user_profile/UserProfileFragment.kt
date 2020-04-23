@@ -15,6 +15,7 @@ import com.example.petland.image.ResetImageCallback
 import com.example.petland.pet.Pets
 import com.example.petland.pet.ViewPetProfileActivity
 import com.example.petland.pet.creation.AddPetActivity
+import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_user_profile.*
