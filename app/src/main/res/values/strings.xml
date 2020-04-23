@@ -110,5 +110,6 @@
     <string name="create_event">Create event</string>
     <string name="date_needed">Date needed</string>
     <string name="content_mandatory">Mandatory content</string>
+    <string name="samerace">Equal races</string>
 
 </resources>

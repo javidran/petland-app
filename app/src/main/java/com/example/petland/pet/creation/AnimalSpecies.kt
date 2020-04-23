@@ -1,25 +1,24 @@
-
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import java.util.*
 
 @ParseClassName("AnimalSpecies")
-class AnimalSpecies: ParseObject() {
+class AnimalSpecies : ParseObject() {
     lateinit var result: String
     fun getDisplayName(): String {
-            if(Locale.getDefault().displayLanguage  == "català") {
-                result = getString("name_ca").toString()
+        result = when (Locale.getDefault().displayLanguage) {
+            "català" -> {
+                getString("name_ca").toString()
             }
-            else if (Locale.getDefault().displayLanguage == "español") {
-                result = getString("name").toString()
+            "español" -> {
+                getString("name").toString()
             }
-            else result = getString("name_en").toString()
-
-            return result
+            else -> getString("name_en").toString()
         }
-    fun getNameEsp(): String {
-        return getString("name").toString()
+
+        return result
     }
+
     fun setDisplayName(value: String) {
         put("name", value)
     }

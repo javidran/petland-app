@@ -107,4 +107,5 @@
     <string name="deletionAlertMessage">La elimincación de una mascota implica la eliminación de toda su información</string>
     <string name="date_needed">Fecha necesaria</string>
     <string name="content_mandatory">Contenido necesario</string>
+    <string name="samerace">Razas iguales</string>
 </resources>
