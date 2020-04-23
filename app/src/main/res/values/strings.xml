@@ -113,4 +113,5 @@
 
     <string name="instructionsInvitationsdescription">You have received the following invitations, you can accept or deny them</string>
     <string name="invitedBy">Invited by the Owner:</string>
+    <string name="review_invites">Review invites</string>
 </resources>

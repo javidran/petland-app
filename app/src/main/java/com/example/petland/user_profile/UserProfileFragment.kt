@@ -43,6 +43,7 @@ class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
 
         rootView.editProfileButton.setOnClickListener { editProfile() }
         rootView.addPetButton.setOnClickListener { addPet() }
+        rootView.reviewInvitationsButton.setOnClickListener { reviewInvitations() }
         rootView.profileImage.setOnClickListener { seeImage() }
 
         rootView.recyclerView.isNestedScrollingEnabled = false
@@ -73,6 +74,12 @@ class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
 
     private fun addPet() {
         val intent = Intent(context, AddPetActivity::class.java).apply {}
+        startActivity(intent)
+        activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
+
+    fun reviewInvitations() {
+        val intent = Intent(context, ViewInvitationsActivity::class.java).apply {}
         startActivity(intent)
         activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
