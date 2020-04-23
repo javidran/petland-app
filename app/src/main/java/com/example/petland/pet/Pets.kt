@@ -13,12 +13,14 @@ class Pets {
         private val TAG = "Petland Pets"
         private lateinit var selectedPet : ParseObject
 
-        fun getPetsFromCurrentUser(): MutableList<ParseObject> {
+        fun getPetsFromCurrentUser(): List<ParseObject> {
             val query = ParseQuery.getQuery<ParseObject>("Pet")
             query.whereEqualTo("caregivers", ParseUser.getCurrentUser())
             val result = query.find()
-            selectedPet = result[0]
-            return result
+            if(result.isNotEmpty()) {
+                selectedPet = result[0]
+            }
+            return result.toList()
         }
 
         fun userHasPets(): Boolean {

@@ -22,7 +22,7 @@ import java.util.*
 
 class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     lateinit var selectedPet: ParseObject
-    lateinit var petList: MutableList<ParseObject>
+    lateinit var petList: List<ParseObject>
     lateinit var event: PetEvent
     lateinit var callback: SaveDataCallback
 
