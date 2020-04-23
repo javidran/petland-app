@@ -1,5 +1,7 @@
 package com.example.petland.events.model
 
+import com.example.petland.events.enums.EventType
+import com.example.petland.pet.Pets
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -88,11 +90,23 @@ open class PetEvent : ParseObject() {
         return query.find().first()
     }
 
+    fun getDataType() : EventType {
+        val type = getString("data_type") ?: throw NullPointerException()
+        when(type) {
+            "FoodEvent" -> return EventType.FOOD
+            "HygieneEvent" -> return EventType.HYGIENE
+            "MeasurementEvent" -> return EventType.MEASUREMENT
+            "MedicineEvent" -> return EventType.MEDICINE
+            "VaccineEvent" -> return EventType.VACCINE
+            "WalkEvent" -> return EventType.WALK
+        }
+        return EventType.FOOD
+    }
+
     fun markAsDone(date: Date) {
         if(!isDone()) {
             if (!isRecurrentlyFinished()) {
                 val nextEvent = PetEvent()
-
                 nextEvent.setPet(getPet())
 
                 val c = Calendar.getInstance()
@@ -119,9 +133,26 @@ open class PetEvent : ParseObject() {
 
     fun saveEvent() {
         if(getParseObject("pet") != null && getDate("date") != null && getString("data") != null) {
+            if(getDate() < Calendar.getInstance().time) markAsDone(getDate())
             save()
         } else {
             throw NullPointerException("Some mandatory parameter of PetEvent is null")
         }
     }
+
+    companion object {
+
+        fun getEventsFromPet() : List<PetEvent> {
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo("pet", Pets.getSelectedPet())
+            return query.find().toList()
+        }
+
+        fun getEventsFromPet(pet: ParseObject) : List<PetEvent> {
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo("pet", pet)
+            return query.find().toList()
+        }
+    }
 }
+

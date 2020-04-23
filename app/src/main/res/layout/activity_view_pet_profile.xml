@@ -28,16 +28,14 @@
 
         <TableLayout
             android:id="@+id/tableLayout3"
-            android:layout_width="411dp"
-            android:layout_height="161dp"
-            android:layout_marginTop="250dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:stretchColumns="0,2"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.44"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/usernameText">
 
             <TableRow />
 
@@ -49,8 +47,8 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="80dp"
                     android:text="@string/owner"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -59,8 +57,8 @@
                     android:padding="3dip"
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="RtlSymmetry" />
 
                 <TextView
@@ -69,8 +67,8 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text="Javi"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="HardcodedText" />
             </TableRow>
 
@@ -82,8 +80,8 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="80dp"
                     android:text="@string/race"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -92,8 +90,8 @@
                     android:padding="3dip"
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="RtlSymmetry" />
 
                 <TextView
@@ -102,8 +100,8 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text="Paco"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="HardcodedText" />
             </TableRow>
 
@@ -148,8 +146,8 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="80dp"
                     android:text="@string/chip"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -158,8 +156,8 @@
                     android:padding="3dip"
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="RtlSymmetry" />
 
                 <TextView
@@ -168,8 +166,8 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text="1515"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="HardcodedText" />
             </TableRow>
 
@@ -181,8 +179,8 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="80dp"
                     android:text="@string/birthday"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -191,8 +189,8 @@
                     android:padding="3dip"
                     android:paddingEnd="10dip"
                     android:text="@string/dosPuntos"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="RtlSymmetry" />
 
                 <TextView
@@ -201,16 +199,18 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text="13/08/2020"
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="HardcodedText" />
             </TableRow>
         </TableLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="369dp"
-            android:layout_height="130dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toTopOf="@+id/buttonVolver2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.488"
@@ -269,18 +269,15 @@
             android:id="@+id/usernameText"
             android:layout_width="410dp"
             android:layout_height="41dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="Lucas"
-            android:textSize="22sp"
             android:textColor="@color/md_grey_600"
-            app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileImageView"
-            app:layout_constraintVertical_bias="0.516"
             tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

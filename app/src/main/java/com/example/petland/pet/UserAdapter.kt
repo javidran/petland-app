@@ -8,7 +8,6 @@ import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.activity_edit_pet_profile.view.*
 import kotlinx.android.synthetic.main.pet_profile_user_element.view.*
 
 

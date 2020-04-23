@@ -61,8 +61,7 @@ class SignInActivity : AppCompatActivity() {
                     if (user != null) {
                         Log.d(TAG, "User logged in correctly.")
                         if(Pets.userHasPets()){
-                            val intent = Intent(this, HomeActivity::class.java).apply {
-                            }
+                            val intent = Intent(this, HomeActivity::class.java).apply {}
                             startActivity(intent)
                         }
                         else{

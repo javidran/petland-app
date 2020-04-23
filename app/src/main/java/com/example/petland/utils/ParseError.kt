@@ -1,7 +1,6 @@
 package com.example.petland.utils
 
 import android.app.Activity
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.petland.R
 
