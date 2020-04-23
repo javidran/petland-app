@@ -1,5 +1,7 @@
 package com.example.petland
 
+import AnimalSpecies
+import Race
 import android.app.Application
 import android.util.Log
 import com.example.petland.events.model.*
@@ -32,6 +34,9 @@ class Application : Application() {
         ParseObject.registerSubclass(PetEvent::class.java)
         ParseObject.registerSubclass(VaccineEvent::class.java)
         ParseObject.registerSubclass(WalkEvent::class.java)
+        ParseObject.registerSubclass(Race::class.java)
+        ParseObject.registerSubclass(AnimalSpecies::class.java)
+
     }
 
     companion object {

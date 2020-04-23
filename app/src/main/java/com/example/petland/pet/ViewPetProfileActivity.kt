@@ -40,14 +40,6 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     }
 
     private fun setData() {
-        ParseObject.registerSubclass(Race::class.java)
-        Parse.initialize(
-            Parse.Configuration.Builder(this)
-            .applicationId("")
-            .clientKey("")
-            .server("")
-            .build()
-        )
         myPet = intent.extras?.get("petId") as ParseObject
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query

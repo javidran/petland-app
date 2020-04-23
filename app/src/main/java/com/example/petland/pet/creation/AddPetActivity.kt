@@ -40,21 +40,6 @@ class AddPetActivity : AppCompatActivity() {
         val textViewBirthday: TextView = findViewById(R.id.editTextBirthday)
         profileImage = findViewById(R.id.profileImage)
         val cal = Calendar.getInstance()
-        //register class
-        ParseObject.registerSubclass(AnimalSpecies::class.java)
-        Parse.initialize(Parse.Configuration.Builder(this)
-            .applicationId("")
-            .clientKey("")
-            .server("")
-            .build()
-        )
-        ParseObject.registerSubclass(Race::class.java)
-        Parse.initialize(Parse.Configuration.Builder(this)
-            .applicationId("")
-            .clientKey("")
-            .server("")
-            .build()
-        )
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)

@@ -21,8 +21,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
-import com.parse.Parse
-import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
 
