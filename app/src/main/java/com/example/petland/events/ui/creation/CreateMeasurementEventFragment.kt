@@ -28,23 +28,15 @@ class CreateMeasurementEventFragment : Fragment(),
     }
 
     override fun checkAndSaveData(): ParseObject? {
-        if(rootView.editMeasurementHeight.text.isEmpty()) {
-            rootView.editMeasurementHeight.error = getString(R.string.content_mandatory)
-            return null
+        if(rootView.editMeasurementHeight.text.isNotEmpty()) {
+            dataEvent.setHeight(rootView.editMeasurementHeight.text.toString().toDouble())
         }
-        else {
-            if(rootView.editMeasurementWeight.text.isEmpty()) {
-                rootView.editMeasurementWeight.error = getString(R.string.content_mandatory)
-                return null
-            }
-            else {
-                dataEvent.setHeight(rootView.editMeasurementHeight.text.toString().toDouble())
-                dataEvent.setWeight(rootView.editMeasurementWeight.text.toString().toDouble())
+        if(rootView.editMeasurementWeight.text.isNotEmpty()) {
+            dataEvent.setWeight(rootView.editMeasurementWeight.text.toString().toDouble())
+        }
+        dataEvent.saveEvent()
+        return dataEvent
 
-                dataEvent.saveEvent()
-                return dataEvent
-            }
-        }
     }
 
     companion object {

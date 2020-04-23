@@ -9,6 +9,7 @@ import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.parse.Parse.getApplicationContext
 import com.parse.ParseObject
+import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.user_profile_caregiver_element.view.*
 
@@ -51,19 +52,36 @@ class CaregiversAdapter(
 
         override fun onClick(v: View?) {
             val cUser = ParseUser.getCurrentUser()
-            val invitation = ParseObject("Invitation")
 
-            invitation.put("creator", cUser )
-            invitation.put("receiver", this.user)
-            invitation.put("petO", pet)
-            invitation.saveInBackground()
+            val query = ParseQuery.getQuery<ParseObject>("Invitation")
+            query.whereEqualTo("creator", cUser )
+            query.whereEqualTo("receiver", this.user)
+            query.whereEqualTo("petO", pet)
+            query.findInBackground { invitationsList, e ->
+                if (e == null) {
+                    if (invitationsList.size > 0) {
+                        val toast2 = Toast.makeText(
+                            getApplicationContext(),
+                            "Invitación ya existe", Toast.LENGTH_SHORT
+                        )
+                        toast2.show()
 
-            val toast1 = Toast.makeText(
-                getApplicationContext(),
-                "Solicitud enviada", Toast.LENGTH_SHORT
-            )
+                    }
+                    else {
+                        val invitation = ParseObject("Invitation")
+                        invitation.put("creator", cUser)
+                        invitation.put("receiver", this.user)
+                        invitation.put("petO", pet)
+                        invitation.saveInBackground()
 
-            toast1.show()
+                        val toast1 = Toast.makeText(
+                            getApplicationContext(),
+                            "Solicitud enviada", Toast.LENGTH_SHORT
+                        )
+                        toast1.show()
+                    }
+                }
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ import java.util.*
 
 
 class SignUpActivity : AppCompatActivity() {
-    private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
+    private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     lateinit var date: Date
 
     override fun onCreate(savedInstanceState: Bundle?) {

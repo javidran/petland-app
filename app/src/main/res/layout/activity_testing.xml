@@ -39,4 +39,22 @@
         app:layout_constraintVertical_bias="0.055" />
 
 
+    <Button
+        android:id="@+id/buttonInvitationsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_without_corners"
+        android:backgroundTint="#00C4CC"
+        android:onClick="goToViewInvitations"
+        android:text="Invitations view"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonMakePet2"
+        app:layout_constraintVertical_bias="0.229" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

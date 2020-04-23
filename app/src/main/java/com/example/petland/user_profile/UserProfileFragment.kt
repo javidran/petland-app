@@ -15,6 +15,7 @@ import com.example.petland.image.ResetImageCallback
 import com.example.petland.pet.Pets
 import com.example.petland.pet.ViewPetProfileActivity
 import com.example.petland.pet.creation.AddPetActivity
+import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_user_profile.*
@@ -43,6 +44,7 @@ class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
 
         rootView.editProfileButton.setOnClickListener { editProfile() }
         rootView.addPetButton.setOnClickListener { addPet() }
+        rootView.reviewInvitationsButton.setOnClickListener { reviewInvitations() }
         rootView.profileImage.setOnClickListener { seeImage() }
 
         rootView.recyclerView.isNestedScrollingEnabled = false
@@ -76,6 +78,12 @@ class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
         activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
+    fun reviewInvitations() {
+        val intent = Intent(context, ViewInvitationsActivity::class.java).apply {}
+        startActivity(intent)
+        activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
+
     private fun setUserInfo() {
         val user = ParseUser.getCurrentUser()
 
@@ -96,11 +104,9 @@ class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
     }
 
     private fun updatePets() {
-        val petlist = Pets.getPetsFromCurrentUser()?.toList()
-        if (petlist != null) {
-            adapter = PetAdapter(petlist.toList(), this)
-            rootView.recyclerView.adapter = adapter
-        }
+        val petlist = Pets.getPetsFromCurrentUser()
+        adapter = PetAdapter(petlist, this)
+        rootView.recyclerView.adapter = adapter
     }
 
     override fun resetImage() {
