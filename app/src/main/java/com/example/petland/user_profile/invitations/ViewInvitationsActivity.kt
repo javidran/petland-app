@@ -46,15 +46,11 @@ class ViewInvitationsActivity : AppCompatActivity(),
                 )
             recyclerView.adapter = adapter
         }
-
     }
 
     fun goBack(view: View) {
-        val intent = Intent(this, HomeActivity::class.java).apply {
-        }
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
 }
