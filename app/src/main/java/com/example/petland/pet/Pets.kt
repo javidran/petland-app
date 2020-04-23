@@ -1,6 +1,7 @@
 package com.example.petland.pet
 
 import android.util.Log
+import com.example.petland.Application
 import com.example.petland.events.model.PetEvent
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -17,7 +18,10 @@ class Pets {
             val query = ParseQuery.getQuery<ParseObject>("Pet")
             query.whereEqualTo("caregivers", ParseUser.getCurrentUser())
             val result = query.find()
-            if(result.isNotEmpty()) {
+            if(result.isEmpty()) {
+                Application.startNoPetsActivity()
+            }
+            else if(result.isNotEmpty() && !this::selectedPet.isInitialized) {
                 selectedPet = result[0]
             }
             return result.toList()
@@ -27,7 +31,7 @@ class Pets {
             val query = ParseQuery.getQuery<ParseObject>("Pet")
             query.whereEqualTo("caregivers", ParseUser.getCurrentUser())
             val result = query.find()
-            if(result.isNotEmpty()) {
+            if(result.isNotEmpty() && !this::selectedPet.isInitialized) {
                 selectedPet = result[0]
             }
             return result.isNotEmpty()

@@ -1,8 +1,11 @@
 package com.example.petland
 
 import android.app.Application
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.example.petland.events.model.*
+import com.example.petland.pet.creation.GetFirstPetActivity
 import com.parse.Parse
 import com.parse.ParseObject
 
@@ -10,6 +13,7 @@ class Application : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         Log.d(TAG, "Initializing Parse Server")
 
         registerEvents()
@@ -38,6 +42,15 @@ class Application : Application() {
         private const val TAG = "Petland Application"
         private const val appId = "petland"
         private const val parseUrl = "http://petland.sytes.net:1337/parse"
-    }
 
+        private lateinit var instance: Application
+        fun getAppContext(): Context = instance.applicationContext
+
+        fun startNoPetsActivity() {
+            val context =  getAppContext()
+            val intent = Intent(context, GetFirstPetActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+    }
 }
