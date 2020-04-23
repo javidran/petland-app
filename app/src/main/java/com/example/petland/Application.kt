@@ -24,7 +24,7 @@ class Application : Application() {
     }
 
 
-    fun registerEvents() {
+    private fun registerEvents() {
         ParseObject.registerSubclass(FoodEvent::class.java)
         ParseObject.registerSubclass(HygieneEvent::class.java)
         ParseObject.registerSubclass(MeasurementEvent::class.java)

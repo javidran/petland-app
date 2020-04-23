@@ -33,23 +33,8 @@ class EventsFragment : Fragment() {
         return view
     }
 
-    fun doThings() {
-        val pet :ParseObject = (Pets.getPetsFromCurrentUser()?.get(0) ?: NullPointerException()) as ParseObject
-
-        var event = PetEvent()
-
-        event.setPet(pet)
-
-        Pets.getPetsFromCurrentUser()
-        event.setDate(Calendar.getInstance().time)
-        event.setRecurrent(2)
-
-        event.saveEvent()
-        Log.d("Petland Events", "Event saved")
-    }
-
     fun markAsDone() {
-        val pet :ParseObject = (Pets.getPetsFromCurrentUser()?.get(0) ?: NullPointerException()) as ParseObject
+        val pet :ParseObject = Pets.getPetsFromCurrentUser()[0]
 
         val query = ParseQuery.getQuery(PetEvent::class.java)
         query.whereEqualTo("pet", pet)
@@ -58,7 +43,7 @@ class EventsFragment : Fragment() {
         event.markAsDone(Calendar.getInstance().time)
     }
 
-    fun createEvent() {
+    private fun createEvent() {
         val intent = Intent(context, CreateEventActivity::class.java).apply {}
         startActivity(intent)
     }

@@ -6,12 +6,20 @@ import com.parse.ParseObject
 @ParseClassName("MeasurementEvent")
 class MeasurementEvent : ParseObject() {
 
+    fun hasWeight() : Boolean {
+        return getDouble("weight") != 0.0
+    }
+
     fun getWeight() : Double {
         return getDouble("weight")
     }
 
     fun setWeight(weight: Double) {
         put("weight", weight)
+    }
+
+    fun hasHeight() : Boolean {
+        return getDouble("height") != 0.0
     }
 
     fun getHeight() : Double {
@@ -23,10 +31,6 @@ class MeasurementEvent : ParseObject() {
     }
 
     fun saveEvent() {
-        if(getDouble("weight") != 0.0 && getDouble("height") != 0.0) {
-            save()
-        } else {
-            throw NullPointerException("Some mandatory parameter of MeasurementEvent is null")
-        }
+        save()
     }
 }

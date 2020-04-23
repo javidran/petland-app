@@ -92,7 +92,6 @@ open class PetEvent : ParseObject() {
         if(!isDone()) {
             if (!isRecurrentlyFinished()) {
                 val nextEvent = PetEvent()
-
                 nextEvent.setPet(getPet())
 
                 val c = Calendar.getInstance()
@@ -119,6 +118,7 @@ open class PetEvent : ParseObject() {
 
     fun saveEvent() {
         if(getParseObject("pet") != null && getDate("date") != null && getString("data") != null) {
+            if(getDate() < Calendar.getInstance().time) markAsDone(getDate())
             save()
         } else {
             throw NullPointerException("Some mandatory parameter of PetEvent is null")
