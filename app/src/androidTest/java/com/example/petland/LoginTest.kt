@@ -1,5 +1,6 @@
 package com.example.petland
 
+import android.content.Intent
 import android.view.Gravity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -19,6 +20,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+
 @RunWith(AndroidJUnit4::class)
 class LoginTest {
     private val testUser = "test"
@@ -33,6 +35,7 @@ class LoginTest {
     fun setUp() {
         solo = Solo(getInstrumentation(), activityRule.activity)
         solo.unlockScreen()
+        activityRule.activity.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
     }
 
     @Test
