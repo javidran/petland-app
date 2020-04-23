@@ -109,4 +109,5 @@
     <string name="content_mandatory">Contenido necesario</string>
     <string name="invitedBy">Invitación a cuidar la mascota de:</string>
     <string name="instructionsInvitationsdescription">Estas son las invitaciones que has recibido, puedes aceptarlas o denegarlas</string>
+    <string name="done">Completado</string>
 </resources>

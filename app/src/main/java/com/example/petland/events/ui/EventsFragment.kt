@@ -7,16 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.creation.CreateEventActivity
 import com.example.petland.pet.Pets
+import com.example.petland.user_profile.PetAdapter
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import kotlinx.android.synthetic.main.fragment_events.view.*
 import java.util.*
 
 class EventsFragment : Fragment() {
+    private lateinit var adapter: EventAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +32,11 @@ class EventsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_events, container, false)
 
-        view.button4.setOnClickListener { createEvent() }
+        view.floatingActionButton.setOnClickListener { createEvent() }
+
+        view.recyclerViewEvents.layoutManager = LinearLayoutManager(context)
+        adapter = EventAdapter(PetEvent.getEventsFromPet(), context!!)
+        view.recyclerViewEvents.adapter = adapter
 
         return view
     }
