@@ -196,7 +196,6 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
                 position: Int,
                 id: Long
             ) {
-                Log.d("Spinner", position.toString())
                 query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
                 raceObj = query.find().first()
             }
@@ -255,7 +254,6 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
                 position: Int,
                 id: Long
             ) {
-                Log.d("Spinner", position.toString())
                 query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
                 raceObjOpt = query.find().first()
             }
