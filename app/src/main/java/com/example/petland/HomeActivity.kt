@@ -17,6 +17,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.ui.EventsFragment
+import com.example.petland.pet.Pets
 import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.pet.Pets.Companion.setSelectedPet
 import com.example.petland.sign.BootActivity
@@ -76,10 +77,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun createSpinnerPet() {
-        val currentUser = ParseUser.getCurrentUser()
-        val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.whereEqualTo("owner",currentUser)
-        val objectpet = query.find()
+        val objectpet  = Pets.getPetsFromCurrentUser().toList()
         listPets = getNamesFromPetList(objectpet)
 
     }
