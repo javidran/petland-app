@@ -1,5 +1,6 @@
 package com.example.petland.pet
 
+import Race
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,10 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
-import com.parse.ParseObject
-import com.parse.ParseQuery
-import com.parse.ParseRelation
-import com.parse.ParseUser
+import com.parse.*
 import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,18 +48,21 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val listUsers = ParseQuery.getQuery<ParseUser>("_User")
         val powner = myPet.get("owner") as ParseObject
         listUsers.whereEqualTo("objectId", powner.objectId)
-
-
         usernameText.text = myPet.get("name").toString()
-
         ownerText.text = listUsers.first.username
 
-        raceText.text = "ejemplo1"
+        val objectrace= myPet.get("nameRace") as ParseObject
+        val query = ParseQuery.getQuery(Race::class.java)
+        query.whereEqualTo("objectId", objectrace.objectId)
+        val typerace = query.find().first()
+
+        raceText.text = typerace.getName()
+
         var chipText1 = myPet.get("chip")
         if(chipText1!=null) {
-            chipText.setText(chipText1.toString())
+            chipText.text = chipText1.toString()
         }
-        else chipText.setText("")
+        else chipText.text = ""
 
 
         val dateb = myPet.get("birthday")
@@ -103,14 +104,14 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
         val intent = Intent(this, EditPetProfileActivity::class.java).apply {
         }
-        intent.putExtra("petId", myPet);
-        startActivity(intent);
+        intent.putExtra("petId", myPet)
+        startActivity(intent)
         finish()
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     override fun resetImage() {
-        profileImageView.setImageDrawable(this?.getDrawable(R.drawable.animal_paw))
+        profileImageView.setImageDrawable(this.getDrawable(R.drawable.animal_paw))
     }
 
 }
