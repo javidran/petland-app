@@ -110,4 +110,5 @@
     <string name="invitedBy">Convidat a cuidar la mascota pel propietari:</string>
     <string name="instructionsInvitationsdescription">A continuació hi són les invitacions que has rebut per cuidar mascotes. Pots acceptar-les o denegar-les</string>
     <string name="done">Completat</string>
+    <string name="review_invites">Invitacions</string>
 </resources>
