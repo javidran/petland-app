@@ -15,6 +15,7 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
 import com.example.petland.sign.BootActivity
 import com.robotium.solo.Solo
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -41,6 +42,7 @@ class LoginTest {
     @Test
     fun testUserCanLogin() {
         loginWithTestUser()
+        Thread.sleep(10000)
         onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
     }
 
@@ -48,6 +50,7 @@ class LoginTest {
     fun testUserCanLogOut() {
         loginWithTestUser()
         chooseItemFromNavbar(R.id.nav_logout)
+        Thread.sleep(10000)
         onView(withId(R.id.welcomeTitle)).check(matches(isDisplayed()))
     }
 
@@ -56,7 +59,7 @@ class LoginTest {
         onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
         onView(withId(R.id.buttonContinuar)).perform(click())
-        Thread.sleep(500)
+        Thread.sleep(10000)
     }
 
     private fun chooseItemFromNavbar(id: Int) {
