@@ -28,12 +28,12 @@
 
         <TableLayout
             android:id="@+id/tableLayout3"
-            android:layout_width="409dp"
-            android:layout_height="180dp"
+            android:layout_width="366dp"
+            android:layout_height="220dp"
             android:layout_marginTop="250dp"
             android:stretchColumns="0,2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.44"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -43,9 +43,9 @@
 
                 <TextView
                     android:id="@+id/birthdayHint"
-                    android:layout_width="47dp"
+                    android:layout_width="10dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="80dp"
+                    android:paddingStart="30dp"
                     android:text="@string/owner"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"
@@ -63,7 +63,7 @@
 
                 <TextView
                     android:id="@+id/ownerText1"
-                    android:layout_width="47dp"
+                    android:layout_width="193dp"
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text="Javi"
@@ -78,7 +78,7 @@
                     android:id="@+id/nameHint"
                     android:layout_width="47dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="80dp"
+                    android:paddingStart="30dp"
                     android:text="@string/race"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"
@@ -94,15 +94,49 @@
                     android:textSize="18sp"
                     tools:ignore="RtlSymmetry" />
 
-                <EditText
-                    android:id="@+id/raceText1"
+                <Spinner
+                    android:id="@+id/spinnerRace1"
                     android:layout_width="40dp"
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
-                    android:text="Paco"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintTop_toBottomOf="@+id/ownerText1"
+                    tools:layout_editor_absoluteX="40dp" />
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/nameHint"
+                    android:layout_width="47dp"
+                    android:gravity="fill_horizontal"
+                    android:paddingStart="20dp"
+                    android:text=""
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dosPuntos3"
+                    android:gravity="start"
+                    android:padding="3dip"
+                    android:paddingEnd="10dip"
+                    android:text=""
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
+                    tools:ignore="RtlSymmetry" />
+
+                <Spinner
+                    android:id="@+id/spinnerRace2"
+                    android:layout_width="40dp"
+                    android:gravity="fill_horizontal"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/ownerText1"
+                    tools:layout_editor_absoluteX="40dp" />
             </TableRow>
 
             <TableRow>
@@ -111,7 +145,7 @@
                     android:id="@+id/emailHint"
                     android:layout_width="47dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="80dp"
+                    android:paddingStart="30dp"
                     android:text="@string/chip"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"
@@ -142,9 +176,9 @@
 
                 <TextView
                     android:id="@+id/emailHint"
-                    android:layout_width="47dp"
+                    android:layout_width="111dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="80dp"
+                    android:paddingStart="30dp"
                     android:text="@string/birthday"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"
@@ -283,6 +317,39 @@
             app:layout_constraintStart_toEndOf="@+id/recyclerView1"
             app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
             app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/buttonAddRace"
+            android:layout_width="25dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="316dp"
+            android:background="@drawable/button_without_corners"
+            android:backgroundTint="@color/md_blue_A100"
+            android:onClick="editRace"
+            android:text="+"
+            app:layout_constraintBottom_toTopOf="@+id/buttonEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintStart_toEndOf="@+id/tableLayout3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.006" />
+
+        <Button
+            android:id="@+id/buttonDelRace"
+            android:layout_width="25dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="316dp"
+            android:background="@drawable/button_without_corners"
+            android:backgroundTint="@color/md_red_A700"
+            android:onClick="editRace"
+            android:visibility="gone"
+            android:text="-"
+            app:layout_constraintBottom_toTopOf="@+id/buttonEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintStart_toEndOf="@+id/tableLayout3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.006" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

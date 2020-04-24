@@ -108,6 +108,39 @@
             <TableRow>
 
                 <TextView
+                    android:id="@+id/nameHint"
+                    android:layout_width="47dp"
+                    android:gravity="fill_horizontal"
+                    android:paddingStart="80dp"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:textColor="@color/md_grey_600"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dosPuntos3"
+                    android:gravity="start"
+                    android:padding="3dip"
+                    android:paddingEnd="10dip"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:textColor="@color/md_grey_600"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/raceTextSecond"
+                    android:layout_width="47dp"
+                    android:gravity="fill_horizontal"
+                    android:paddingStart="20dp"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:textColor="@color/md_grey_600"
+                    tools:ignore="HardcodedText" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
                     android:id="@+id/emailHint"
                     android:layout_width="47dp"
                     android:gravity="fill_horizontal"

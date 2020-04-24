@@ -48,15 +48,11 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val listUsers = ParseQuery.getQuery<ParseUser>("_User")
         val powner = myPet.get("owner") as ParseObject
         listUsers.whereEqualTo("objectId", powner.objectId)
+
+        writeRace()
+
         usernameText.text = myPet.get("name").toString()
         ownerText.text = listUsers.first.username
-
-        val objectrace= myPet.get("nameRace") as ParseObject
-        val query = ParseQuery.getQuery(Race::class.java)
-        query.whereEqualTo("objectId", objectrace.objectId)
-        val typerace = query.find().first()
-
-        raceText.text = typerace.getName()
 
         var chipText1 = myPet.get("chip")
         if(chipText1!=null) {
@@ -93,6 +89,24 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         }
         val imageUtils = ImageUtils()
         imageUtils.retrieveImage(myPet, profileImageView, this)
+    }
+
+    fun writeRace() {
+        val listRaces = ParseQuery.getQuery(Race::class.java)
+
+        val pRacePrincipal = myPet.get("nameRace") as ParseObject
+        val racePrincipal = listRaces
+        racePrincipal.whereEqualTo("objectId", pRacePrincipal.objectId)
+
+        raceText.text = racePrincipal.first.getName()
+
+        val pRaceSecundaria:ParseObject? = myPet.getParseObject("nameRaceopt")
+        if(pRaceSecundaria != null) {
+            val raceSecundaria = listRaces
+            raceSecundaria.whereEqualTo("objectId", pRaceSecundaria.objectId)
+            raceTextSecond.text = racePrincipal.first.getName()
+        }
+
     }
 
     fun volver(view: View) {
