@@ -6,7 +6,6 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -40,23 +39,6 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        ParseObject.registerSubclass(Race::class.java)
-        Parse.initialize(
-            Parse.Configuration.Builder(this)
-                .applicationId("")
-                .clientKey("")
-                .server("")
-                .build()
-        )
-
-        ParseObject.registerSubclass(AnimalSpecies::class.java)
-        Parse.initialize(Parse.Configuration.Builder(this)
-            .applicationId("")
-            .clientKey("")
-            .server("")
-            .build()
-        )
 
         setContentView(com.example.petland.R.layout.activity_edit_pet_profile)
         profileImageView1.setOnClickListener { seeImage() }
@@ -163,7 +145,11 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         verImagen()
         addElementsToSpinnerRace()
         addElementsToSpinnerRaceOpt()
-        if(myPet.getParseObject("nameRaceopt") != null) addRace1()
+        if(myPet.getParseObject("nameRaceopt") != null) {
+            buttonAddRace.visibility = View.GONE
+            buttonDelRace.visibility = View.VISIBLE
+            spinnerRace2.visibility = View.VISIBLE
+        }
     }
 
     private fun addElementsToSpinnerRace() {
@@ -196,7 +182,15 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
                 position: Int,
                 id: Long
             ) {
-                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                when (Locale.getDefault().displayLanguage) {
+                    "català" -> {
+                        query.whereEqualTo("name_ca", parent?.getItemAtPosition(position).toString())
+                    }
+                    "español" -> {
+                        query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                    }
+                    else -> query.whereEqualTo("name_en", parent?.getItemAtPosition(position).toString())
+                }
                 raceObj = query.find().first()
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -206,29 +200,25 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         spinnerRace1.setSelection(i)
     }
 
-    fun delRace(view: View) {
-        buttonAddRace.visibility = View.VISIBLE
-        buttonDelRace.visibility = View.GONE
-        spinnerRace2.visibility = View.GONE
-    }
-
-    fun addRace1() {
-        buttonAddRace.visibility = View.GONE
-        buttonDelRace.visibility = View.VISIBLE
-        spinnerRace2.visibility = View.VISIBLE
-    }
-
-    fun addRace(view: View) {
-        buttonAddRace.visibility = View.GONE
-        buttonDelRace.visibility = View.VISIBLE
-        spinnerRace2.visibility = View.VISIBLE
+    fun editRace(view: View) {
+        if (view.id == R.id.buttonAddRace) {
+            buttonAddRace.visibility = View.GONE
+            buttonDelRace.visibility = View.VISIBLE
+            spinnerRace2.visibility = View.VISIBLE
+        }
+        else {
+            buttonAddRace.visibility = View.VISIBLE
+            buttonDelRace.visibility = View.GONE
+            spinnerRace2.visibility = View.GONE
+        }
     }
 
     private fun addElementsToSpinnerRaceOpt() {
         val listRace: ArrayList<String> = ArrayList()
         val query = ParseQuery.getQuery(Race::class.java)
         query.whereEqualTo("nameSpecie",  myPet.get("nameSpecie"))
-        val myRace:ParseObject? = myPet.getParseObject("nameRaceopt")
+        val num: Int = query.count()
+        val myRace: ParseObject? = myPet.getParseObject("nameRaceopt")
         val objects = query.find()
         var i = 0
         if (objects != null) {
@@ -254,10 +244,17 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
                 position: Int,
                 id: Long
             ) {
-                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                when (Locale.getDefault().displayLanguage) {
+                    "català" -> {
+                        query.whereEqualTo("name_ca", parent?.getItemAtPosition(position).toString())
+                    }
+                    "español" -> {
+                        query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                    }
+                    else -> query.whereEqualTo("name_en", parent?.getItemAtPosition(position).toString())
+                }
                 raceObjOpt = query.find().first()
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {
 
             }
