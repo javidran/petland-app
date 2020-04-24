@@ -37,12 +37,13 @@ class LoginTest {
         solo = Solo(getInstrumentation(), activityRule.activity)
         solo.unlockScreen()
         activityRule.activity.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
+        getInstrumentation().getUiAutomation().executeShellCommand("adb shell input tap 50 262")
     }
 
     @Test
     fun testUserCanLogin() {
         loginWithTestUser()
-        Thread.sleep(60000)
+        Thread.sleep(20000)
         onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
     }
 
@@ -50,7 +51,7 @@ class LoginTest {
     fun testUserCanLogOut() {
         loginWithTestUser()
         chooseItemFromNavbar(R.id.nav_logout)
-        Thread.sleep(60000)
+        Thread.sleep(20000)
         onView(withId(R.id.welcomeTitle)).check(matches(isDisplayed()))
     }
 
@@ -59,7 +60,7 @@ class LoginTest {
         onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
         onView(withId(R.id.buttonContinuar)).perform(click())
-        Thread.sleep(60000)
+        Thread.sleep(20000)
     }
 
     private fun chooseItemFromNavbar(id: Int) {
