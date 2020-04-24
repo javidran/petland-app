@@ -23,7 +23,4 @@ class Race : ParseObject() {
     fun setName(value: String) {
         put("name", value)
     }
-    fun getObjId(): String? {
-        return objectId
-    }
 }

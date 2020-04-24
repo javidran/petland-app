@@ -163,7 +163,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
             var found = false
             for (species in objects) {
                 listRace.add(species.getName())
-                if(species.getObjId() == myRace.objectId) found = true
+                if(species.objectId == myRace.objectId) found = true
 
                 if(!found) ++i
             }
@@ -225,7 +225,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
             var found = false
             for (species in objects) {
                 listRace.add(species.getName())
-                if(myRace != null && species.getObjId() == myRace.objectId) found = true
+                if(myRace != null && species.objectId == myRace.objectId) found = true
 
                 if(myRace != null && !found) ++i
             }
