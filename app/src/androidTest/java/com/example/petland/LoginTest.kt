@@ -41,7 +41,7 @@ class LoginTest {
 
     @After
     fun tearUp() {
-        getInstrumentation().getUiAutomation().executeShellCommand("exec-out screencap -p > \$HOME/screen.png")
+        getInstrumentation().getUiAutomation().executeShellCommand("screencap -p | sed 's/\\r\$//' > \$HOME/screen.png")
     }
 
     @Test
