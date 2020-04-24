@@ -15,6 +15,7 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
 import com.example.petland.sign.BootActivity
 import com.robotium.solo.Solo
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -36,6 +37,11 @@ class LoginTest {
         solo = Solo(getInstrumentation(), activityRule.activity)
         solo.unlockScreen()
         activityRule.activity.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
+    }
+
+    @After
+    fun tearUp() {
+        getInstrumentation().getUiAutomation().executeShellCommand("exec-out screencap -p > \$HOME/screen.png")
     }
 
     @Test
