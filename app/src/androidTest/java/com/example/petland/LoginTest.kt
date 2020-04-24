@@ -37,7 +37,6 @@ class LoginTest {
         solo = Solo(getInstrumentation(), activityRule.activity)
         solo.unlockScreen()
         activityRule.activity.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
-        getInstrumentation().getUiAutomation().executeShellCommand("adb shell input tap 50 262")
     }
 
     @Test
