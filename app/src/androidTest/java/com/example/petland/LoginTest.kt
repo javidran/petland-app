@@ -39,14 +39,10 @@ class LoginTest {
         activityRule.activity.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
     }
 
-    @After
-    fun tearUp() {
-        getInstrumentation().getUiAutomation().executeShellCommand("exec-out screencap -p > \$HOME/screen.png")
-    }
-
     @Test
     fun testUserCanLogin() {
         loginWithTestUser()
+        Thread.sleep(10000)
         onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
     }
 
@@ -54,6 +50,7 @@ class LoginTest {
     fun testUserCanLogOut() {
         loginWithTestUser()
         chooseItemFromNavbar(R.id.nav_logout)
+        Thread.sleep(10000)
         onView(withId(R.id.welcomeTitle)).check(matches(isDisplayed()))
     }
 
@@ -62,7 +59,7 @@ class LoginTest {
         onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
         onView(withId(R.id.buttonContinuar)).perform(click())
-        Thread.sleep(500)
+        Thread.sleep(10000)
     }
 
     private fun chooseItemFromNavbar(id: Int) {
