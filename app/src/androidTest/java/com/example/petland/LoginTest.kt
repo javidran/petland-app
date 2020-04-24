@@ -42,7 +42,7 @@ class LoginTest {
     @Test
     fun testUserCanLogin() {
         loginWithTestUser()
-        Thread.sleep(10000)
+        Thread.sleep(60000)
         onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
     }
 
@@ -50,7 +50,7 @@ class LoginTest {
     fun testUserCanLogOut() {
         loginWithTestUser()
         chooseItemFromNavbar(R.id.nav_logout)
-        Thread.sleep(10000)
+        Thread.sleep(60000)
         onView(withId(R.id.welcomeTitle)).check(matches(isDisplayed()))
     }
 
@@ -59,7 +59,7 @@ class LoginTest {
         onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
         onView(withId(R.id.buttonContinuar)).perform(click())
-        Thread.sleep(10000)
+        Thread.sleep(60000)
     }
 
     private fun chooseItemFromNavbar(id: Int) {
