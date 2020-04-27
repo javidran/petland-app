@@ -28,8 +28,8 @@ class AddPetActivity : AppCompatActivity() {
     lateinit var raceobj: ParseObject
     lateinit var raceobjopt: ParseObject
     lateinit var animalspeciesobj: ParseObject
-     lateinit var check: CheckBox
-    var checkedRace: Boolean = false
+    lateinit var check: CheckBox
+    private var checkedRace: Boolean = false
 
     lateinit var profileImage : ImageView
     var image : Bitmap? = null
@@ -40,21 +40,6 @@ class AddPetActivity : AppCompatActivity() {
         val textViewBirthday: TextView = findViewById(R.id.editTextBirthday)
         profileImage = findViewById(R.id.profileImage)
         val cal = Calendar.getInstance()
-        //register class
-        ParseObject.registerSubclass(AnimalSpecies::class.java)
-        Parse.initialize(Parse.Configuration.Builder(this)
-            .applicationId("")
-            .clientKey("")
-            .server("")
-            .build()
-        )
-        ParseObject.registerSubclass(Race::class.java)
-        Parse.initialize(Parse.Configuration.Builder(this)
-            .applicationId("")
-            .clientKey("")
-            .server("")
-            .build()
-        )
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
@@ -80,14 +65,13 @@ class AddPetActivity : AppCompatActivity() {
     }
 
     fun addElementsToSpinnerSpecies() {
-        //llamada a valores de DB
+
         val list = ArrayList<String>()
         val query = ParseQuery.getQuery(AnimalSpecies::class.java)
         val objects = query.find()
         if (objects != null) {
             for (species in objects) {
                 list.add(species.getDisplayName())
-                Log.d("DEBUG", species.getDisplayName())
             }
         }
         val spinner: Spinner = findViewById(R.id.spinnerSpecies)
@@ -104,10 +88,22 @@ class AddPetActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                parent?.getItemAtPosition(position)
-                Log.d("Spinner", parent?.getItemAtPosition(position).toString())
-                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
-                 animalspeciesobj = query.find().first()
+                when (Locale.getDefault().displayLanguage) {
+                    "català" -> {
+                        query.whereEqualTo(
+                            "name_ca",
+                            parent?.getItemAtPosition(position).toString()
+                        )
+                    }
+                    "español" -> {
+                        query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                    }
+                    else -> query.whereEqualTo(
+                        "name_en",
+                        parent?.getItemAtPosition(position).toString()
+                    )
+                }
+                animalspeciesobj = query.find().first()
                 addElementsToSpinnerRace(animalspeciesobj)
             }
 
@@ -118,11 +114,10 @@ class AddPetActivity : AppCompatActivity() {
     }
 
 
-
     private fun addElementsToSpinnerRace(animalSpecies: ParseObject) {
         val listRace: ArrayList<String> = ArrayList()
         val query = ParseQuery.getQuery(Race::class.java)
-       query.whereEqualTo("nameSpecie",  animalSpecies )
+        query.whereEqualTo("nameSpecie", animalSpecies)
         val objects = query.find()
         if (objects != null) {
             for (species in objects) {
@@ -143,8 +138,21 @@ class AddPetActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                Log.d("Spinner", position.toString())
-                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                when (Locale.getDefault().displayLanguage) {
+                    "català" -> {
+                        query.whereEqualTo(
+                            "name_ca",
+                            parent?.getItemAtPosition(position).toString()
+                        )
+                    }
+                    "español" -> {
+                        query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                    }
+                    else -> query.whereEqualTo(
+                        "name_en",
+                        parent?.getItemAtPosition(position).toString()
+                    )
+                }
                 raceobj = query.find().first()
             }
 
@@ -166,13 +174,24 @@ class AddPetActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                Log.d("Spinner", position.toString())
-                query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                when (Locale.getDefault().displayLanguage) {
+                    "català" -> {
+                        query.whereEqualTo(
+                            "name_ca",
+                            parent?.getItemAtPosition(position).toString()
+                        )
+                    }
+                    "español" -> {
+                        query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
+                    }
+                    else -> query.whereEqualTo(
+                        "name_en",
+                        parent?.getItemAtPosition(position).toString()
+                    )
+                }
                 raceobjopt = query.find().first()
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {
-
             }
         }
     }
@@ -199,25 +218,18 @@ class AddPetActivity : AppCompatActivity() {
                 pet.put("owner", currentUser)
                 putImage(pet)
                 pet.put("nameSpecie", animalspeciesobj)
-                Log.d("debugrazas", (raceobj.objectId))
-                Log.d("debugrazas", (raceobjopt.objectId))
                 if (checkedRace && raceobj.objectId == raceobjopt.objectId) {
-                        Log.d("debugrazas", "razas iguales")
-                        Toast.makeText(
-                            this@AddPetActivity,
-                            "Razas iguales",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-
-                else {
+                    Toast.makeText(
+                        this@AddPetActivity,
+                        getString(R.string.samerace),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
                     if (checkedRace) pet.put("nameRaceopt", raceobjopt)
                     pet.put("nameRace", raceobj)
                     val relation = pet.getRelation<ParseUser>("caregivers")
                     relation.add(currentUser)
                     pet.save()
-
-                    Log.d(TAG, "Profile created correctly")
 
                     val intent = Intent(this, HomeActivity::class.java).apply {}
                     startActivity(intent)
@@ -229,8 +241,8 @@ class AddPetActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
+
     private fun putImage(pet: ParseObject) {
         if(image != null) {
             val byteArrayOutputStream = ByteArrayOutputStream()
@@ -255,11 +267,9 @@ class AddPetActivity : AppCompatActivity() {
     }
 
 
-
     fun checkVisibility(view: View) {
         if (view is CheckBox) {
-             checkedRace = view.isChecked
-
+            checkedRace = view.isChecked
             when (view.id) {
                 R.id.checkBox -> {
                     if (checkedRace) {
@@ -268,7 +278,6 @@ class AddPetActivity : AppCompatActivity() {
                         spinnerRaceopt.visibility = View.INVISIBLE
                     }
                 }
-
             }
         }
     }

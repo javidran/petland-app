@@ -76,8 +76,8 @@
     <string name="petNameNeeded">The pet must have a name</string>
     <string name="chipNumber">The pet must have a chip number</string>
     <string name="instructionsToChangePasswordDescription">Type and confirm your new password for this account</string>
-    <string name="deletionAlertTitle">Are you sure you want to delete this pet?</string>
-    <string name="deletionAlertMessage">The deletion of a pet includes the deletion of all its infromation</string>
+    <string name="pet_deletion_alert_title">Are you sure you want to delete this pet?</string>
+    <string name="pet_deletion_alert_message">The deletion of a pet includes the deletion of all its infromation</string>
     <string name="errorconnect">Connection error</string>
     <string name="noconnection">There\'s no connection with the server</string>
     <string name="vaccine">Vaccine</string>
@@ -110,8 +110,11 @@
     <string name="create_event">Create event</string>
     <string name="date_needed">Date needed</string>
     <string name="content_mandatory">Mandatory content</string>
+    <string name="samerace">Equal races</string>
 
     <string name="instructionsInvitationsdescription">You have received the following invitations, you can accept or deny them</string>
     <string name="invitedBy">Invited by the Owner:</string>
     <string name="review_invites">Review invites</string>
+    <string name="done">Completed</string>
+    <string name="event_deletion_alert_title">Are you sure you want to delete this event?</string>
 </resources>

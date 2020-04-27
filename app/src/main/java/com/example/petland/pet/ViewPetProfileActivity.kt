@@ -1,5 +1,6 @@
 package com.example.petland.pet
 
+import Race
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,10 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
 import com.example.petland.image.ResetImageCallback
-import com.parse.ParseObject
-import com.parse.ParseQuery
-import com.parse.ParseRelation
-import com.parse.ParseUser
+import com.parse.*
 import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,17 +49,16 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val powner = myPet.get("owner") as ParseObject
         listUsers.whereEqualTo("objectId", powner.objectId)
 
+        writeRace()
 
         usernameText.text = myPet.get("name").toString()
-
         ownerText.text = listUsers.first.username
 
-        raceText.text = "ejemplo1"
         var chipText1 = myPet.get("chip")
         if(chipText1!=null) {
-            chipText.setText(chipText1.toString())
+            chipText.text = chipText1.toString()
         }
-        else chipText.setText("")
+        else chipText.text = ""
 
 
         val dateb = myPet.get("birthday")
@@ -94,6 +91,24 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         imageUtils.retrieveImage(myPet, profileImageView, this)
     }
 
+    fun writeRace() {
+        val listRaces = ParseQuery.getQuery(Race::class.java)
+
+        val pRacePrincipal = myPet.get("nameRace") as ParseObject
+        val racePrincipal = listRaces
+        racePrincipal.whereEqualTo("objectId", pRacePrincipal.objectId)
+
+        raceText.text = racePrincipal.first.getName()
+
+        val pRaceSecundaria:ParseObject? = myPet.getParseObject("nameRaceopt")
+        if(pRaceSecundaria != null) {
+            val raceSecundaria = listRaces
+            raceSecundaria.whereEqualTo("objectId", pRaceSecundaria.objectId)
+            raceTextSecond.text = racePrincipal.first.getName()
+        }
+
+    }
+
     fun volver(view: View) {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -103,14 +118,14 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
         val intent = Intent(this, EditPetProfileActivity::class.java).apply {
         }
-        intent.putExtra("petId", myPet);
-        startActivity(intent);
+        intent.putExtra("petId", myPet)
+        startActivity(intent)
         finish()
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     override fun resetImage() {
-        profileImageView.setImageDrawable(this?.getDrawable(R.drawable.animal_paw))
+        profileImageView.setImageDrawable(this.getDrawable(R.drawable.animal_paw))
     }
 
 }

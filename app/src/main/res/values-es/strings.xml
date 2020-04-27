@@ -73,7 +73,7 @@
     <string name="chipNumber">Es necesario un numero de chip</string>
     <string name="petNameNeeded">La mascota ha de tener nombre</string>
     <string name="instructionsToChangePasswordDescription">Escriba y confirme su nueva contraseña para esta cuenta</string>
-    <string name="deletionAlertTitle">¿Está seguro que desea borrar esta mascota?</string>
+    <string name="pet_deletion_alert_title">¿Está seguro que desea borrar esta mascota?</string>
     <string name="errorconnect">Error de conexión</string>
     <string name="noconnection">No hay conexión con el servidor</string>
     <string name="unknown_id">Valor desconocido</string>
@@ -104,10 +104,12 @@
     <string name="event_measurement_weight">Peso</string>
     <string name="event_measurement_height">Altura</string>
     <string name="event_medicine_dosage">Dosis</string>
-    <string name="deletionAlertMessage">La elimincación de una mascota implica la eliminación de toda su información</string>
+    <string name="pet_deletion_alert_message">La elimincación de una mascota implica la eliminación de toda su información</string>
     <string name="date_needed">Fecha necesaria</string>
     <string name="content_mandatory">Contenido necesario</string>
+    <string name="samerace">Razas iguales</string>
     <string name="invitedBy">Invitación a cuidar la mascota de:</string>
     <string name="instructionsInvitationsdescription">Estas son las invitaciones que has recibido, puedes aceptarlas o denegarlas</string>
+    <string name="done">Completado</string>
     <string name="review_invites">Invitaciones</string>
 </resources>
