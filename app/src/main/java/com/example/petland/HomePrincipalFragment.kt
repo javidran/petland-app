@@ -42,8 +42,6 @@ class HomePrincipalFragment : Fragment(), ResetImageCallback {
     override fun onResume() {
         super.onResume()
         setPetInfo()
-
-
     }
     private fun setPetInfo() {
        val pet = getSelectedPet()
