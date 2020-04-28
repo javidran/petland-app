@@ -16,7 +16,6 @@ import java.io.ByteArrayOutputStream
 
 class ImageActivity : AppCompatActivity() {
     private lateinit var parseObject: ParseObject
-    private val imageUtils = ImageUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,17 +31,15 @@ class ImageActivity : AppCompatActivity() {
         } else {
             finish()
         }
-        imageUtils.retrieveImage(parseObject, imageView)
+        ImageUtils.retrieveImage(parseObject, imageView)
     }
 
     private fun useDefault() {
-        imageUtils.resetToDefaultImage(parseObject)
-        imageView.setImageDrawable(getDrawable(R.drawable.animal_paw))
+        ImageUtils.resetToDefaultImage(parseObject, imageView)
     }
 
     private fun pickImage() {
-        val iUtils = ImageUtils()
-        startActivityForResult(iUtils.getImageChooserIntent(), PICK_IMAGE)
+        startActivityForResult(ImageUtils.getImageChooserIntent(), PICK_IMAGE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -52,8 +49,7 @@ class ImageActivity : AppCompatActivity() {
                 Log.d(TAG, "Image chosen")
                 val uri = data.data
                 if (uri != null) {
-                    val iUtils = ImageUtils()
-                    iUtils.startCrop(uri, this)
+                    ImageUtils.startCrop(uri, this)
                 }
             } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
                 Log.d(TAG, "Image cropped")

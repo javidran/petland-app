@@ -59,8 +59,7 @@ class InvitationAdapter(private val invitations: List<ParseObject>, private val 
 
             view.ownerName.text = listUsers.first.get("name") as String
             view.name.text = listPets.first.get("name") as String
-            val imageUtils = ImageUtils()
-            imageUtils.retrieveImage(listPets.first, view.petImageInvitation)
+            ImageUtils.retrieveImage(listPets.first, view.petImageInvitation)
         }
     }
 
