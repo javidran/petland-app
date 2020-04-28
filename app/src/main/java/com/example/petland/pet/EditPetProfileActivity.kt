@@ -13,17 +13,19 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.petland.image.ImageActivity
 import com.example.petland.R
+import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
-import com.example.petland.image.ResetImageCallback
-import com.parse.*
+import com.parse.ParseObject
+import com.parse.ParseQuery
+import com.parse.ParseRelation
+import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_edit_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
+class EditPetProfileActivity : AppCompatActivity() {
 
     private lateinit var myPet:ParseObject
     private val TAG = "Petland EditPetProfile"
@@ -53,8 +55,7 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
     }
 
     private fun verImagen () {
-        val imageUtils1 = ImageUtils()
-        imageUtils1.retrieveImage(myPet, profileImageView1, this)
+        ImageUtils.retrieveImage(myPet, profileImageView1)
     }
 
     private fun setData() {
@@ -307,10 +308,6 @@ class EditPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         val intent = Intent(this, ImageActivity::class.java).apply {}
         intent.putExtra("object", myPet)
         startActivity(intent)
-    }
-
-    override fun resetImage() {
-        profileImageView1.setImageDrawable(this?.getDrawable(R.drawable.animal_paw))
     }
 
     private fun deletionDialog(view: View) {

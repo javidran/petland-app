@@ -1,6 +1,5 @@
 package com.example.petland.user_profile
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,8 +70,7 @@ class PetAdapter(private val pets: List<ParseObject>, private val viewPetCallbac
             }
 
 
-            val imageUtils = ImageUtils()
-            imageUtils.retrieveImage(pet, view.petImage)
+            ImageUtils.retrieveImage(pet, view.petImage)
         }
 
         override fun onClick(v: View?) {

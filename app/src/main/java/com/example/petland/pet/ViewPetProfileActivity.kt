@@ -9,13 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
-import com.example.petland.image.ResetImageCallback
-import com.parse.*
+import com.parse.ParseObject
+import com.parse.ParseQuery
+import com.parse.ParseRelation
+import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
+class ViewPetProfileActivity : AppCompatActivity() {
 
     private lateinit var myPet:ParseObject
     private val TAG = "Petland EditPetProfile"
@@ -87,8 +89,7 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
 
             }
         }
-        val imageUtils = ImageUtils()
-        imageUtils.retrieveImage(myPet, profileImageView, this)
+        ImageUtils.retrieveImage(myPet, profileImageView)
     }
 
     fun writeRace() {
@@ -122,10 +123,6 @@ class ViewPetProfileActivity : AppCompatActivity(), ResetImageCallback {
         startActivity(intent)
         finish()
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-    }
-
-    override fun resetImage() {
-        profileImageView.setImageDrawable(this.getDrawable(R.drawable.animal_paw))
     }
 
 }
