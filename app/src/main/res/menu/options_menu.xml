@@ -5,6 +5,6 @@
         android:id="@+id/spinner"
         android:title="Spinner"
         app:actionViewClass="android.widget.Spinner"
-        android:background="#ff00"
+        android:background="#FFFFFF"
         app:showAsAction="always" />
 </menu>

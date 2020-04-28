@@ -17,7 +17,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.ui.EventsFragment
-import com.example.petland.image.ImageUtils
 import com.example.petland.pet.Pets
 import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.pet.Pets.Companion.setSelectedPet
@@ -29,10 +28,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
 import com.parse.ParseObject
-import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
-import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -110,10 +107,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 position: Int,
                 id: Long
             ) {
-                val query = ParseQuery.getQuery<ParseObject>("Pet")
-                 query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
-                val selectedPet = query.find().first()
-                setSelectedPet(selectedPet)
+                setSelectedPet(parent?.getItemAtPosition(position) as ParseObject)
                 fragment.onResume()
             }
 

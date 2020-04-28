@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.spinner_selection_pet.view.*
 
 class CustomAdapter(
     var context: Context,
-    var objectpet: List<ParseObject>,
-    var petNames: Array<String>
+    private var objectpet: List<ParseObject>,
+    private var petNames: Array<String>
 ) :
     BaseAdapter() {
     var inflter: LayoutInflater = LayoutInflater.from(context)
@@ -23,8 +23,8 @@ class CustomAdapter(
         return objectpet.size
     }
 
-    override fun getItem(i: Int): Any? {
-        return null
+    override fun getItem(i: Int): ParseObject {
+        return objectpet[i]
     }
 
     override fun getItemId(i: Int): Long {
@@ -34,19 +34,16 @@ class CustomAdapter(
 
     override fun getView(
         i: Int,
-        view:  View,
+        view:  View?,
         viewGroup: ViewGroup
     ): View {
 
-         view = inflter.inflate(R.layout.spinner_selection_pet, null)
-        val names = view.editPetName
-        for (pet in objectpet) {
-            val imageUtils = ImageUtils()
-            imageUtils.retrieveImage(pet, view.userImage)
-            //icon.setImageResource(imageUtils)
-        }
+        val viewpet: View = inflter.inflate(R.layout.spinner_selection_pet, null)
+        val names = viewpet.editPetName
+
+        ImageUtils.retrieveImage(objectpet[i], viewpet.userImage)
         names.text = petNames[i]
-        return view
+        return viewpet
     }
 
 }
