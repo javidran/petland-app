@@ -90,15 +90,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         menuInflater.inflate(R.menu.options_menu, menu)
         val item = menu!!.findItem(R.id.spinner)
         var spinner = item.actionView as Spinner
-       /* val dataAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item, listPets
-        )*/
-
+ 
         val customAdapter =
             CustomAdapter(applicationContext, objectpet, listPets)
 
-       // dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = customAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
