@@ -46,8 +46,7 @@ class CaregiversAdapter(
         fun bindUserInfo(user: ParseUser) {
             this.user = user
             view.name.text = user.username
-            val imageUtils = ImageUtils()
-            imageUtils.retrieveImage(user, view.userImage)
+            ImageUtils.retrieveImage(user, view.userImage)
         }
 
         override fun onClick(v: View?) {

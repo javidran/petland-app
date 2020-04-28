@@ -56,8 +56,7 @@ class UserAdapter(
                 }
                 view.changeOwnerButton.setOnClickListener { TODO("not implemented") }
             }
-            val imageUtils = ImageUtils()
-            imageUtils.retrieveImage(user, view.userImage)
+            ImageUtils.retrieveImage(user, view.userImage)
         }
 
     }

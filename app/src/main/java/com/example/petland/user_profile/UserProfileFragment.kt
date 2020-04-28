@@ -11,19 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.R
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
-import com.example.petland.image.ResetImageCallback
 import com.example.petland.pet.Pets
 import com.example.petland.pet.ViewPetProfileActivity
 import com.example.petland.pet.creation.AddPetActivity
 import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.parse.ParseObject
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
+class UserProfileFragment : Fragment(), ViewPetCallback {
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
 
     private lateinit var layoutManager: LinearLayoutManager
@@ -99,18 +97,13 @@ class UserProfileFragment : Fragment(), ResetImageCallback, ViewPetCallback {
         val emailText: TextView = rootView.findViewById(R.id.emailText)
         emailText.text = user.email
 
-        val imageUtils = ImageUtils()
-        imageUtils.retrieveImage(user, rootView.profileImage, this)
+        ImageUtils.retrieveImage(user, rootView.profileImage)
     }
 
     private fun updatePets() {
         val petlist = Pets.getPetsFromCurrentUser()
         adapter = PetAdapter(petlist, this)
         rootView.recyclerView.adapter = adapter
-    }
-
-    override fun resetImage() {
-        profileImage.setImageDrawable(context?.getDrawable(R.drawable.animal_paw))
     }
 
     override fun startViewPetActivity(pet: ParseObject) {
