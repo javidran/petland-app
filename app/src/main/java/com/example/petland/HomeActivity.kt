@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -17,17 +16,22 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.ui.EventsFragment
+import com.example.petland.image.ImageUtils
 import com.example.petland.pet.Pets
 import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.pet.Pets.Companion.setSelectedPet
 import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.UserProfileFragment
+import com.example.petland.utils.CustomAdapter
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
-import com.parse.*
+import com.parse.ParseObject
+import com.parse.ParseQuery
+import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
+import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +41,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var spinner: Spinner
     lateinit var listPets: Array<String>
+    private lateinit var objectpet: List<ParseObject>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,8 +81,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun createSpinnerPet() {
-        val objectpet  = Pets.getPetsFromCurrentUser().toList()
-        listPets = getNamesFromPetList(objectpet)
+         objectpet  = Pets.getPetsFromCurrentUser()
+        listPets = getNamesFromPetList(objectpet.toList())
 
     }
 
@@ -85,12 +90,16 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         menuInflater.inflate(R.menu.options_menu, menu)
         val item = menu!!.findItem(R.id.spinner)
         var spinner = item.actionView as Spinner
-        val dataAdapter = ArrayAdapter(
+       /* val dataAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item, listPets
-        )
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = dataAdapter
+        )*/
+
+        val customAdapter =
+            CustomAdapter(applicationContext, objectpet, listPets)
+
+       // dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = customAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
