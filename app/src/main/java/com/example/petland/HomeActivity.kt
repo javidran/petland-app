@@ -21,6 +21,7 @@ import com.example.petland.pet.Pets
 import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.pet.Pets.Companion.setSelectedPet
 import com.example.petland.sign.BootActivity
+import com.example.petland.ubications.MapFragment
 import com.example.petland.user_profile.UserProfileFragment
 import com.example.petland.utils.CustomAdapter
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -126,7 +127,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_mapa -> {
-
+                frameLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                fragment = MapFragment.newInstance()
+                transaction.replace(R.id.frameLayout, fragment)
+                transaction.commit()
             }
             R.id.nav_salud -> {
 
