@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.ui.EventsFragment
 import com.example.petland.image.ImageUtils
@@ -42,6 +43,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var spinner: Spinner
     lateinit var listPets: Array<String>
     private lateinit var objectpet: List<ParseObject>
+    lateinit var fragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +78,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         createSpinnerPet()
         frameLayout.removeAllViews()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, HomePrincipalFragment.newInstance())
+        fragment = HomePrincipalFragment.newInstance()
+        transaction.replace(R.id.frameLayout, fragment)
         transaction.commit()
     }
 
@@ -111,10 +114,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                  query.whereEqualTo("name", parent?.getItemAtPosition(position).toString())
                 val selectedPet = query.find().first()
                 setSelectedPet(selectedPet)
-                frameLayout.removeAllViews()
-                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.frameLayout, HomePrincipalFragment.newInstance())
-                transaction.commit()
+                fragment.onResume()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -127,7 +127,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_mascota -> {
-
+                frameLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                fragment = HomePrincipalFragment.newInstance()
+                transaction.replace(R.id.frameLayout, fragment)
+                transaction.commit()
             }
             R.id.nav_paseos -> {
 
@@ -141,13 +145,15 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_eventos -> {
                 frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.frameLayout, EventsFragment.newInstance())
+                fragment = EventsFragment.newInstance()
+                transaction.replace(R.id.frameLayout, fragment)
                 transaction.commit()
             }
             R.id.nav_perfil -> {
                 frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.frameLayout, UserProfileFragment.newInstance())
+                fragment = UserProfileFragment.newInstance()
+                transaction.replace(R.id.frameLayout, fragment)
                 transaction.commit()
             }
             R.id.nav_logout -> {
