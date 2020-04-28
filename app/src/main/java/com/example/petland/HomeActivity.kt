@@ -6,28 +6,41 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.ui.EventsFragment
+import com.example.petland.pet.Pets
+import com.example.petland.pet.Pets.Companion.getNamesFromPetList
+import com.example.petland.pet.Pets.Companion.setSelectedPet
 import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.UserProfileFragment
+import com.example.petland.utils.CustomAdapter
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
+import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
+
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
     private lateinit var mGoogleSignInClient: GoogleSignInClient
+    lateinit var spinner: Spinner
+    lateinit var listPets: Array<String>
+    private lateinit var objectpet: List<ParseObject>
+    lateinit var fragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +51,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
+
 
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar, 0, 0
@@ -58,17 +72,55 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
+        createSpinnerPet()
+        frameLayout.removeAllViews()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        fragment = HomePrincipalFragment.newInstance()
+        transaction.replace(R.id.frameLayout, fragment)
+        transaction.commit()
+    }
+
+    private fun createSpinnerPet() {
+         objectpet  = Pets.getPetsFromCurrentUser()
+        listPets = getNamesFromPetList(objectpet.toList())
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
+        val item = menu!!.findItem(R.id.spinner)
+        var spinner = item.actionView as Spinner
+ 
+        val customAdapter =
+            CustomAdapter(applicationContext, objectpet, listPets)
+
+        spinner.adapter = customAdapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                setSelectedPet(parent?.getItemAtPosition(position) as ParseObject)
+                fragment.onResume()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_mascota -> {
-
+                frameLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                fragment = HomePrincipalFragment.newInstance()
+                transaction.replace(R.id.frameLayout, fragment)
+                transaction.commit()
             }
             R.id.nav_paseos -> {
 
@@ -82,13 +134,15 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_eventos -> {
                 frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.frameLayout, EventsFragment.newInstance())
+                fragment = EventsFragment.newInstance()
+                transaction.replace(R.id.frameLayout, fragment)
                 transaction.commit()
             }
             R.id.nav_perfil -> {
                 frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.frameLayout, UserProfileFragment.newInstance())
+                fragment = UserProfileFragment.newInstance()
+                transaction.replace(R.id.frameLayout, fragment)
                 transaction.commit()
             }
             R.id.nav_logout -> {
@@ -117,7 +171,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_add -> {
+        R.id.spinner -> {
+
             Toast.makeText(this, "add action", Toast.LENGTH_LONG).show()
             true
         }
