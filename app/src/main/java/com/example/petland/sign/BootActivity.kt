@@ -1,6 +1,7 @@
 package com.example.petland.sign
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -93,6 +94,7 @@ class BootActivity : AppCompatActivity() {
                     try {
                         user.save()
                         startActivity(Intent(this@BootActivity, GetFirstPetActivity::class.java))
+                        finish()
                     } catch (e: ParseException) {
                         user.deleteInBackground()
                         val error = ParseError()
@@ -127,6 +129,7 @@ class BootActivity : AppCompatActivity() {
         val intent = Intent(this, SignUpActivity::class.java).apply {
         }
         startActivity(intent)
+        finish()
         overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
@@ -137,10 +140,10 @@ class BootActivity : AppCompatActivity() {
         val intent = Intent(this, SignInActivity::class.java).apply {
         }
         startActivity(intent)
+        finish()
         overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
     }
-
 }
