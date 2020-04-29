@@ -102,12 +102,13 @@ class BootActivity : AppCompatActivity() {
                 else {
                     // Signed in successfully, show authenticated UI.
                     startActivity(Intent(this@BootActivity, HomeActivity::class.java))
+                    finish()
                 }
             }
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
 // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.statusCode)
-            Toast.makeText(this@BootActivity, "Failed", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@BootActivity, "Google Login failed", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -117,6 +118,7 @@ class BootActivity : AppCompatActivity() {
         val parseAccount = ParseUser.getCurrentUser()
         if (googleAccount != null || parseAccount != null) {
             startActivity(Intent(this@BootActivity, HomeActivity::class.java))
+            finish()
         }
         super.onStart()
     }
