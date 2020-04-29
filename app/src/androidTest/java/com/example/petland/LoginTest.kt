@@ -15,7 +15,6 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
 import com.example.petland.sign.BootActivity
 import com.robotium.solo.Solo
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
