@@ -113,8 +113,9 @@ class BootActivity : AppCompatActivity() {
 
     override fun onStart() { // Check for existing Google Sign In account, if the user is already signed in
 // the GoogleSignInAccount will be non-null.
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        if (account != null) {
+        val googleAccount = GoogleSignIn.getLastSignedInAccount(this)
+        val parseAccount = ParseUser.getCurrentUser()
+        if (googleAccount != null || parseAccount != null) {
             startActivity(Intent(this@BootActivity, HomeActivity::class.java))
         }
         super.onStart()
