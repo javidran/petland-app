@@ -23,6 +23,7 @@ class Application : Application() {
         Parse.initialize(
             Parse.Configuration.Builder(this)
                 .applicationId(appId)
+                .clientKey("clientPetland")
                 .server(parseUrl)
                 .build()
         )
