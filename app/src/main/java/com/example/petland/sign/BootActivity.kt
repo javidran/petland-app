@@ -1,6 +1,7 @@
 package com.example.petland.sign
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -94,6 +95,7 @@ class BootActivity : AppCompatActivity() {
                     try {
                         user.save()
                         startActivity(Intent(this@BootActivity, GetFirstPetActivity::class.java))
+                        finish()
                     } catch (e: ParseException) {
                         user.deleteInBackground()
                         val error = ParseError()
@@ -122,7 +124,7 @@ class BootActivity : AppCompatActivity() {
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
 // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.statusCode)
-            Toast.makeText(this@BootActivity, "Failed", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@BootActivity, "Google Login failed", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -130,20 +132,7 @@ class BootActivity : AppCompatActivity() {
 // the GoogleSignInAccount will be non-null.
         val account = GoogleSignIn.getLastSignedInAccount(this)
         if (account != null) {
-            if(Pets.userHasPets()){
-                val intent = Intent(this, HomeActivity::class.java).apply {}
-                startActivity(intent)
-            }
-            else{
-                val intentNoPets = Intent(this, GetFirstPetActivity::class.java).apply {
-                }
-                startActivity(intentNoPets)
-            }
-            overridePendingTransition(
-                R.anim.slide_in_right,
-                R.anim.slide_out_left
-            )
-            finish()
+            startActivity(Intent(this@BootActivity, HomeActivity::class.java))
         }
         super.onStart()
     }
@@ -152,6 +141,7 @@ class BootActivity : AppCompatActivity() {
         val intent = Intent(this, SignUpActivity::class.java).apply {
         }
         startActivity(intent)
+        finish()
         overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
@@ -162,10 +152,10 @@ class BootActivity : AppCompatActivity() {
         val intent = Intent(this, SignInActivity::class.java).apply {
         }
         startActivity(intent)
+        finish()
         overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
     }
-
 }
