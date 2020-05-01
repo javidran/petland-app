@@ -55,7 +55,7 @@ class SignInActivity : AppCompatActivity() {
                 progress(true)
                 ParseUser.logInInBackground(
                     editTextUsername.text.toString(),
-                    editTextPassword.text.toString()
+                    Hasher.hash(editTextPassword.text.toString())
                 ) { user, e ->
                     if (user != null) {
                         Log.d(TAG, "User logged in correctly.")

@@ -1,7 +1,6 @@
 package com.example.petland.sign
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
+import com.example.petland.pet.Pets
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.utils.ParseError
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -103,8 +103,22 @@ class BootActivity : AppCompatActivity() {
                 }
                 else {
                     // Signed in successfully, show authenticated UI.
-                    startActivity(Intent(this@BootActivity, HomeActivity::class.java))
+                    if(Pets.userHasPets()){
+                        val intent = Intent(this, HomeActivity::class.java).apply {}
+                        startActivity(intent)
+                        finish()
+                    }
+                    else{
+                        val intentNoPets = Intent(this, GetFirstPetActivity::class.java).apply {
+                        }
+                        startActivity(intentNoPets)
+                        finish()
+                    }
                     finish()
+                    overridePendingTransition(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                    )
                 }
             }
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.

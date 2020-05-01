@@ -48,17 +48,17 @@ class LoginTest {
     fun testUserCanLogOut() {
         loginWithTestUser()
         chooseItemFromNavbar(R.id.nav_logout)
-        Thread.sleep(2000)
+        Thread.sleep(20000)
         onView(withId(R.id.welcomeTitle)).check(matches(isDisplayed()))
     }
 
     private fun loginWithTestUser() {
         onView(withId(R.id.buttonSignIn)).perform(click())
-        Thread.sleep(2000)
+        Thread.sleep(4000)
         onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
-        Thread.sleep(2000)
+        Thread.sleep(4000)
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
-        Thread.sleep(2000)
+        Thread.sleep(4000)
         onView(withId(R.id.buttonContinuar)).perform(click())
         Thread.sleep(20000)
     }
