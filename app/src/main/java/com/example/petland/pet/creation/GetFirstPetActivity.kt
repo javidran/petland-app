@@ -77,17 +77,15 @@ class GetFirstPetActivity : AppCompatActivity() {
                     Log.d("Petland GetFirstPet", getString(R.string.loggedOut)) //Mensaje en logcat
                     ParseUser.logOut()
                     Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
-                    val intent = Intent(
-                        this,
-                        BootActivity::class.java
-                    ).apply { //Para pasar de esta vista, de nuevo al SignIn
-                    }
-                    startActivity(intent)
-                    finish()
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 }
-                startActivity(Intent(this@GetFirstPetActivity, BootActivity::class.java))
+                val intent = Intent(
+                    this,
+                    BootActivity::class.java
+                ).apply { //Para pasar de esta vista, de nuevo al SignIn
+                }
+                startActivity(intent)
                 finish()
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
             }
     }
 
