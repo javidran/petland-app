@@ -103,7 +103,8 @@ class SignUpActivity : AppCompatActivity() {
                 //User creation
                 val user = ParseUser()
                 user.username = editTextUsername.text.toString()
-                user.setPassword(editTextPassword.text.toString())
+                user.setPassword(Hasher.hash(editTextPassword.text.toString()))
+                Log.d(TAG, Hasher.hash(editTextPassword.text.toString()))
                 user.email = editTextEmail.text.toString()
                 user.put("name", editTextName.text.toString())
                 user.put("birthday", date)
@@ -131,3 +132,4 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 }
+
