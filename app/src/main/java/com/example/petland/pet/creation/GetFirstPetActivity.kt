@@ -42,6 +42,7 @@ class GetFirstPetActivity : AppCompatActivity() {
         if(Pets.userHasPets()){
             val intent = Intent(this, HomeActivity::class.java).apply {}
             startActivity(intent)
+            finish()
         }
     }
 
@@ -49,6 +50,7 @@ class GetFirstPetActivity : AppCompatActivity() {
         val intent = Intent(this, AddPetActivity::class.java).apply {
         }
         startActivity(intent)
+        finish()
         overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
@@ -60,6 +62,7 @@ class GetFirstPetActivity : AppCompatActivity() {
         val intent = Intent(this, ViewInvitationsActivity::class.java).apply {
         }
         startActivity(intent)
+        finish()
         overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
@@ -80,6 +83,7 @@ class GetFirstPetActivity : AppCompatActivity() {
                     ).apply { //Para pasar de esta vista, de nuevo al SignIn
                     }
                     startActivity(intent)
+                    finish()
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 }
                 startActivity(Intent(this@GetFirstPetActivity, BootActivity::class.java))

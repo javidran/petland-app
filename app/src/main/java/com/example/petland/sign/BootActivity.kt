@@ -1,7 +1,6 @@
 package com.example.petland.sign
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -107,18 +106,19 @@ class BootActivity : AppCompatActivity() {
                     if(Pets.userHasPets()){
                         val intent = Intent(this, HomeActivity::class.java).apply {}
                         startActivity(intent)
+                        finish()
                     }
                     else{
                         val intentNoPets = Intent(this, GetFirstPetActivity::class.java).apply {
                         }
                         startActivity(intentNoPets)
+                        finish()
                     }
+                    finish()
                     overridePendingTransition(
                         R.anim.slide_in_right,
                         R.anim.slide_out_left
                     )
-                    finish()
-
                 }
             }
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
@@ -130,9 +130,11 @@ class BootActivity : AppCompatActivity() {
 
     override fun onStart() { // Check for existing Google Sign In account, if the user is already signed in
 // the GoogleSignInAccount will be non-null.
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        if (account != null) {
+        val googleAccount = GoogleSignIn.getLastSignedInAccount(this)
+        val parseAccount = ParseUser.getCurrentUser()
+        if (googleAccount != null || parseAccount != null) {
             startActivity(Intent(this@BootActivity, HomeActivity::class.java))
+            finish()
         }
         super.onStart()
     }
