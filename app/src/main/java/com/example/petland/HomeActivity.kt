@@ -143,6 +143,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.replace(R.id.frameLayout, fragment)
                 transaction.commit()
             }
+            R.id.nav_testing -> {
+                frameLayout.removeAllViews()
+                val intent = Intent(this, TestingActivity::class.java).apply {
+                }
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
             R.id.nav_perfil -> {
                 frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
