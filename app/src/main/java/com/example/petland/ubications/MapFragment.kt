@@ -60,14 +60,6 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         map.isMyLocationEnabled = true
 
 // 2
-        fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
-            // Got last known location. In some rare situations this can be null.
-            // 3
-            lastLocation = location
-           val currentLatLng = LatLng(location.latitude, location.longitude)
-
-            map.animateCamera(newLatLngZoom(currentLatLng, 12f))
-        }
     }
 
 
