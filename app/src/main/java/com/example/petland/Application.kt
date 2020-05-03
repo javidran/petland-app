@@ -23,6 +23,7 @@ class Application : Application() {
         Parse.initialize(
             Parse.Configuration.Builder(this)
                 .applicationId(appId)
+                .clientKey(clientKey)
                 .server(parseUrl)
                 .build()
         )
@@ -46,6 +47,7 @@ class Application : Application() {
     companion object {
         private const val TAG = "Petland Application"
         private const val appId = "petland"
+        private const val clientKey = "clientPetland"
         private const val parseUrl = "http://petland.sytes.net:1337/parse"
 
         private lateinit var instance: Application

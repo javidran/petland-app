@@ -30,7 +30,6 @@ class SignInActivity : AppCompatActivity() {
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
-        finish()
     }
 
     fun progress(start: Boolean) {
@@ -56,24 +55,25 @@ class SignInActivity : AppCompatActivity() {
                 progress(true)
                 ParseUser.logInInBackground(
                     editTextUsername.text.toString(),
-                    editTextPassword.text.toString()
+                    Hasher.hash(editTextPassword.text.toString())
                 ) { user, e ->
                     if (user != null) {
                         Log.d(TAG, "User logged in correctly.")
                         if(Pets.userHasPets()){
                             val intent = Intent(this, HomeActivity::class.java).apply {}
                             startActivity(intent)
+                            finish()
                         }
                         else{
                             val intentNoPets = Intent(this, GetFirstPetActivity::class.java).apply {
                             }
                             startActivity(intentNoPets)
+                            finish()
                         }
                         overridePendingTransition(
                             R.anim.slide_in_right,
                             R.anim.slide_out_left
                         )
-                        finish()
                     } else {
                         progress(false)
                         Log.d(TAG, "User does not exist.")
