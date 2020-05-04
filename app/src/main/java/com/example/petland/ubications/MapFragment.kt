@@ -1,29 +1,23 @@
 package com.example.petland.ubications
 
-import android.app.Activity
-import android.app.PendingIntent.getActivity
-import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Nullable
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.petland.R
+import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationListener
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.Marker
 
 
 class MapFragment : Fragment(), OnMapReadyCallback,
@@ -46,6 +40,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         mapFragment.getMapAsync { mMap ->
             mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
         }
+
         return rootView
     }
     private fun setUpMap() {
@@ -56,12 +51,8 @@ class MapFragment : Fragment(), OnMapReadyCallback,
             return
         }
 
-        // 1
-        map.isMyLocationEnabled = true
 
-// 2
     }
-
 
 
     override fun onMapReady(p0: GoogleMap?) {
@@ -78,4 +69,5 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         fun newInstance() =
             MapFragment().apply {}
     }
+
 }
