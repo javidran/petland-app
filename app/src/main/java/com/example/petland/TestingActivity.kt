@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.mapas.MapsActivity
 import com.example.petland.pet.ViewPetProfileActivity
 import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.invitations.ViewInvitationsActivity
@@ -46,6 +47,13 @@ class TestingActivity : AppCompatActivity() {
 
     fun goToViewInvitations(view: View) {
         val intent = Intent(this, ViewInvitationsActivity::class.java).apply {
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
+
+    fun goToMapOfWalk(view: View) {
+        val intent = Intent(this, MapsActivity::class.java).apply {
         }
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

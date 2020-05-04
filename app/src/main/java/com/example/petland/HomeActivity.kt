@@ -90,7 +90,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
         val item = menu!!.findItem(R.id.spinner)
-        var spinner = item.actionView as Spinner
+        val spinner = item.actionView as Spinner
  
         val customAdapter =
             CustomAdapter(applicationContext, objectpet, listPets)
@@ -143,6 +143,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.replace(R.id.frameLayout, fragment)
                 transaction.commit()
             }
+            R.id.nav_testing -> {
+                frameLayout.removeAllViews()
+                val intent = Intent(this, TestingActivity::class.java).apply {
+                }
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
             R.id.nav_perfil -> {
                 frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -158,16 +165,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                             Log.d(TAG, getString(R.string.loggedOut)) //Mensaje en logcat
                             ParseUser.logOut()
                             Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
-                            val intent = Intent(
-                                this,
-                                BootActivity::class.java
-                            ).apply { //Para pasar de esta vista, de nuevo al SignIn
-                            }
-                            startActivity(intent)
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                         }
-                        startActivity(Intent(this@HomeActivity, BootActivity::class.java))
+                        startActivity(Intent(this@HomeActivity, BootActivity::class.java).apply {})
                         finish()
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                     }
             }
         }
@@ -194,6 +195,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         startActivity(intent)
+        finish()
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 

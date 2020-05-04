@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
+import com.example.petland.sign.Hasher
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_changepassword.*
 
@@ -40,7 +41,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                 )
                     .show()
             } else {
-                user.setPassword(editTextPassword.text.toString())
+                user.setPassword(Hasher.hash(editTextPassword.text.toString()))
                 user.save()
                 val intent = Intent(this, EditProfileActivity::class.java).apply {}
                 startActivity(intent)

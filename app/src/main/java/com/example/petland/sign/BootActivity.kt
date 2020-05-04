@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
+import com.example.petland.pet.Pets
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.utils.ParseError
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -93,6 +94,7 @@ class BootActivity : AppCompatActivity() {
                     try {
                         user.save()
                         startActivity(Intent(this@BootActivity, GetFirstPetActivity::class.java))
+                        finish()
                     } catch (e: ParseException) {
                         user.deleteInBackground()
                         val error = ParseError()
@@ -101,21 +103,38 @@ class BootActivity : AppCompatActivity() {
                 }
                 else {
                     // Signed in successfully, show authenticated UI.
-                    startActivity(Intent(this@BootActivity, HomeActivity::class.java))
+                    if(Pets.userHasPets()){
+                        val intent = Intent(this, HomeActivity::class.java).apply {}
+                        startActivity(intent)
+                        finish()
+                    }
+                    else{
+                        val intentNoPets = Intent(this, GetFirstPetActivity::class.java).apply {
+                        }
+                        startActivity(intentNoPets)
+                        finish()
+                    }
+                    finish()
+                    overridePendingTransition(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                    )
                 }
             }
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
 // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.statusCode)
-            Toast.makeText(this@BootActivity, "Failed", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@BootActivity, "Google Login failed", Toast.LENGTH_LONG).show()
         }
     }
 
     override fun onStart() { // Check for existing Google Sign In account, if the user is already signed in
 // the GoogleSignInAccount will be non-null.
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        if (account != null) {
+        val googleAccount = GoogleSignIn.getLastSignedInAccount(this)
+        val parseAccount = ParseUser.getCurrentUser()
+        if (googleAccount != null || parseAccount != null) {
             startActivity(Intent(this@BootActivity, HomeActivity::class.java))
+            finish()
         }
         super.onStart()
     }
@@ -124,6 +143,7 @@ class BootActivity : AppCompatActivity() {
         val intent = Intent(this, SignUpActivity::class.java).apply {
         }
         startActivity(intent)
+        finish()
         overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
@@ -134,10 +154,10 @@ class BootActivity : AppCompatActivity() {
         val intent = Intent(this, SignInActivity::class.java).apply {
         }
         startActivity(intent)
+        finish()
         overridePendingTransition(
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
     }
-
 }
