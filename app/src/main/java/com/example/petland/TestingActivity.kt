@@ -6,10 +6,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
+import com.example.petland.mapas.MapsFragment
 import com.example.petland.pet.ViewPetProfileActivity
 import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.parse.ParseUser
+import kotlinx.android.synthetic.main.content_home.*
 
 
 class TestingActivity : AppCompatActivity() {
@@ -50,7 +53,6 @@ class TestingActivity : AppCompatActivity() {
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
-
 
 
     companion object {

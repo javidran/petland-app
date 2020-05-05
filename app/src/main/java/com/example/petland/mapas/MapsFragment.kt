@@ -5,22 +5,28 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.petland.R
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.PolylineOptions
 
 
 class MapsFragment : Fragment(), OnMapReadyCallback,
@@ -32,11 +38,16 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
     private var locationUpdateState = false
+    private val mLocationCallback: LocationCallback? = null
+    private var geoPoints =  listOf<LatLng>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireContext())
     }
-
+    interface LocationCallback {
+        fun handleNewLocation(location: Location?)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -103,7 +114,18 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         map.uiSettings.isZoomControlsEnabled = true
         map.setOnMarkerClickListener(this)
         setUpMap()
+        //drawTestPolilyne();
     }
+    /*
+    fun drawTestPolilyne(){
+        val line = map.addPolyline(
+            PolylineOptions()
+                .add(LatLng(51.5, -0.1), LatLng(40.7, -74.0))
+                .width(5f)
+                .color(Color.RED)
+        )
+    }
+    */
 
     private fun createLocationRequest() {
         // 1
@@ -164,6 +186,24 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         if (!locationUpdateState) {
             startLocationUpdates()
         }
+    fun drawPolyline(){
+        map.clear()
+        val polyLine = PolylineOptions().width(5f).color(Color.BLUE)
+        for (z in geoPoints.indices) {
+            val point: LatLng = geoPoints.get(z)
+            polyLine.add(point)
+        }
+        map.addPolyline(polyLine)
+    }
+
+    fun onLocationChanged(location: Location?) {
+        mLocationCallback?.handleNewLocation(location)
+
+        val text: CharSequence = "New locationa added"
+        val duration = Toast.LENGTH_SHORT
+        val toast = Toast.makeText(context, text, duration)
+        toast.show()
+        drawPolyline()
     }
     override fun onMarkerClick(p0: Marker?) = false
 
