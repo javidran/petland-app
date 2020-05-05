@@ -32,9 +32,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".mapas.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
         <activity android:name=".events.ui.ViewEventActivity" />
         <activity android:name=".user_profile.invitations.ViewInvitationsActivity" />
         <activity android:name=".pet.SearchCaregiversActivity" />
