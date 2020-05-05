@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user_profile.UserProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/profileImage"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="16dp"
+            app:civ_border_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/animal_paw" />
+
+        <TableLayout
+            android:id="@+id/tableLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:stretchColumns="0,2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImage">
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/usernameHint"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:text="@string/username"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dosPuntos1"
+                    android:gravity="start"
+                    android:padding="3dip"
+                    android:paddingEnd="10dip"
+                    android:text="@string/dosPuntos"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/usernameText"
+                    android:gravity="start"
+                    android:padding="3dip"
+                    android:textSize="16sp"
+                    android:text="XXXPacoMasterXXX"
+                    tools:ignore="HardcodedText" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/birthdayHint"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textSize="16sp"
+                    android:text="@string/birthday"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dosPuntos2"
+                    android:gravity="start"
+                    android:padding="3dip"
+                    android:paddingEnd="10dip"
+                    android:text="@string/dosPuntos"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/birthdayText"
+                    android:gravity="start"
+                    android:padding="3dip"
+                    android:textSize="16sp"
+                    android:text="13/03/2020"
+                    tools:ignore="HardcodedText" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/nameHint"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textSize="16sp"
+                    android:text="@string/name"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dosPuntos3"
+                    android:gravity="start"
+                    android:padding="3dip"
+                    android:paddingEnd="10dip"
+                    android:text="@string/dosPuntos"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/nameText"
+                    android:gravity="start"
+                    android:padding="3dip"
+                    android:textSize="16sp"
+                    android:text="Paco"
+                    tools:ignore="HardcodedText" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/emailHint"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:text="@string/email"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dosPuntos4"
+                    android:gravity="start"
+                    android:padding="3dip"
+                    android:paddingEnd="10dip"
+                    android:text="@string/dosPuntos"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/emailText"
+                    android:gravity="start"
+                    android:padding="3dip"
+                    android:textSize="16sp"
+                    android:text="paquetemetes@gmail.com"
+                    tools:ignore="HardcodedText" />
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/editProfileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/transparent_button_with_borders"
+            android:shadowColor="#00FFFFFF"
+            android:text="@string/editProfile"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout3" />
+
+        <TextView
+            android:id="@+id/petList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/petList"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/dosPuntos5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
+
+        <TextView
+            android:id="@+id/dosPuntos5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/dosPuntos"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/petList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/petList" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/petList"
+            tools:itemCount="2"
+            tools:listitem="@layout/user_profile_pet_element">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/addPetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/transparent_button_with_borders"
+            android:shadowColor="#00FFFFFF"
+            android:text="@string/createPet"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.312"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/reviewInvitationsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/transparent_button_with_borders"
+            android:shadowColor="#00FFFFFF"
+            android:text="@string/review_invites"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.251"
+            app:layout_constraintStart_toEndOf="@+id/addPetButton"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

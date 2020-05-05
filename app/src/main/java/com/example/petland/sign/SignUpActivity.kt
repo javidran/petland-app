@@ -1,4 +1,4 @@
-package com.example.petland
+package com.example.petland.sign
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -9,6 +9,9 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.R
+import com.example.petland.pet.creation.GetFirstPetActivity
+import com.example.petland.utils.ParseError
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signup.*
 import java.text.SimpleDateFormat
@@ -16,8 +19,7 @@ import java.util.*
 
 
 class SignUpActivity : AppCompatActivity() {
-    private val TAG = "Petland SignUp"
-    private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
+    private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     lateinit var date: Date
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +38,7 @@ class SignUpActivity : AppCompatActivity() {
             }
 
         textViewBirthday.setOnClickListener {
-           val dialog = DatePickerDialog(
+            val dialog = DatePickerDialog(
                 this@SignUpActivity, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
@@ -51,15 +53,18 @@ class SignUpActivity : AppCompatActivity() {
         val intent = Intent(this, SignInActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        overridePendingTransition(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
+        finish()
     }
 
-    private fun progress (start:Boolean){
+    private fun progress(start: Boolean) {
         if (start) {
             buttonCrearCuenta.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
-        }
-        else {
+        } else {
             buttonCrearCuenta.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
         }
@@ -87,27 +92,31 @@ class SignUpActivity : AppCompatActivity() {
                 editTextConfirmPassword.error = getString(R.string.passwordNeeded)
             }
             editTextPassword.text.toString() != editTextConfirmPassword.text.toString() -> {
-                Toast.makeText(this@SignUpActivity, getString(R.string.passwordsDontMatch), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.passwordsDontMatch),
+                    Toast.LENGTH_LONG
+                ).show()
             }
             else -> {
                 progress(true)
                 //User creation
                 val user = ParseUser()
                 user.username = editTextUsername.text.toString()
-                user.setPassword(editTextPassword.text.toString())
+                user.setPassword(Hasher.hash(editTextPassword.text.toString()))
+                Log.d(TAG, Hasher.hash(editTextPassword.text.toString()))
                 user.email = editTextEmail.text.toString()
                 user.put("name", editTextName.text.toString())
                 user.put("birthday", date)
 
-                val intent = Intent(this, MenuActivity::class.java).apply {
-                }
+
 
                 user.signUpInBackground { e ->
                     if (e == null) {
                         Log.d(TAG, "User created correctly")
-                        startActivity(intent)
+                        startActivity(Intent(this, GetFirstPetActivity::class.java).apply {})
+                        finish()
                     } else {
-                        e.printStackTrace()
                         val error = ParseError()
                         error.writeParseError(this, e)
                         Log.d(TAG, "User could not be created")
@@ -117,4 +126,10 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
+    companion object {
+        private const val TAG = "Petland SignUp"
+    }
+
 }
+

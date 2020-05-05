@@ -1,4 +1,4 @@
-package com.example.petland
+package com.example.petland.sign
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,16 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.HomeActivity
+import com.example.petland.R
+import com.example.petland.pet.Pets
+import com.example.petland.pet.creation.GetFirstPetActivity
+import com.example.petland.utils.ParseError
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
 
 
 class SignInActivity : AppCompatActivity() {
-    private val TAG = "Petland SignIn"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,23 +26,24 @@ class SignInActivity : AppCompatActivity() {
         val intent = Intent(this, SignUpActivity::class.java).apply {
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
-    fun progress (start:Boolean){
+    fun progress(start: Boolean) {
         if (start) {
             buttonContinuar.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
-        }
-        else {
+        } else {
             buttonContinuar.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
         }
     }
 
     fun login(view: View) {
-        val intent = Intent(this, MenuActivity::class.java).apply {
-        }
+
         when {
             TextUtils.isEmpty(editTextUsername.text) -> {
                 editTextUsername.error = getString(R.string.usernameNeeded)
@@ -50,15 +55,26 @@ class SignInActivity : AppCompatActivity() {
                 progress(true)
                 ParseUser.logInInBackground(
                     editTextUsername.text.toString(),
-                    editTextPassword.text.toString()
+                    Hasher.hash(editTextPassword.text.toString())
                 ) { user, e ->
                     if (user != null) {
                         Log.d(TAG, "User logged in correctly.")
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                        finish()
-                    }
-                    else {
+                        if(Pets.userHasPets()){
+                            val intent = Intent(this, HomeActivity::class.java).apply {}
+                            startActivity(intent)
+                            finish()
+                        }
+                        else{
+                            val intentNoPets = Intent(this, GetFirstPetActivity::class.java).apply {
+                            }
+                            startActivity(intentNoPets)
+                            finish()
+                        }
+                        overridePendingTransition(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
+                        )
+                    } else {
                         progress(false)
                         Log.d(TAG, "User does not exist.")
                         val error = ParseError()
@@ -68,4 +84,9 @@ class SignInActivity : AppCompatActivity() {
             }
         }
     }
+
+    companion object {
+        private const val TAG = "Petland SignIn"
+    }
+
 }
