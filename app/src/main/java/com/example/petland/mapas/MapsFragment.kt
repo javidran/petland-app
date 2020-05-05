@@ -2,6 +2,7 @@ package com.example.petland.mapas
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -45,9 +46,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         super.onCreate(savedInstanceState)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireContext())
     }
-    interface LocationCallback {
-        fun handleNewLocation(location: Location?)
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -139,17 +138,15 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         val builder = LocationSettingsRequest.Builder()
             .addLocationRequest(locationRequest)
 
-        // 4
         val client = LocationServices.getSettingsClient(this.requireContext())
         val task = client.checkLocationSettings(builder.build())
 
-        // 5
         task.addOnSuccessListener {
             locationUpdateState = true
             startLocationUpdates()
         }
         task.addOnFailureListener { e ->
-            // 6
+
             if (e is ResolvableApiException) {
                 // Location settings are not satisfied, but this can be fixed
                 // by showing the user a dialog.
@@ -164,7 +161,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
             }
         }
     }
-    // 1
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -182,10 +179,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     }
 
      override fun onResume() {
-        super.onResume()
-        if (!locationUpdateState) {
-            startLocationUpdates()
-        }
+         super.onResume()
+         if (!locationUpdateState) {
+             startLocationUpdates()
+         }
+     }
     fun drawPolyline(){
         map.clear()
         val polyLine = PolylineOptions().width(5f).color(Color.BLUE)
@@ -196,7 +194,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         map.addPolyline(polyLine)
     }
 
-    fun onLocationChanged(location: Location?) {
+  /*  fun onLocationChanged(location: Location?) {
         mLocationCallback?.handleNewLocation(location)
 
         val text: CharSequence = "New locationa added"
@@ -204,7 +202,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         val toast = Toast.makeText(context, text, duration)
         toast.show()
         drawPolyline()
-    }
+    }*/
     override fun onMarkerClick(p0: Marker?) = false
 
     companion object {
