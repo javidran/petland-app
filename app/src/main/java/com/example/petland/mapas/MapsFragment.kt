@@ -2,7 +2,6 @@ package com.example.petland.mapas
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
-
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -12,15 +11,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.petland.R
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -40,7 +35,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private lateinit var locationRequest: LocationRequest
     private var locationUpdateState = false
     private val mLocationCallback: LocationCallback? = null
-    private var geoPoints =  listOf<LatLng>()
+    private var geoPoints:  MutableList<LatLng> = arrayListOf()
+    private var zoom = 16f
+    private var firstLocation: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,11 +57,17 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
             onMapReady(map)
 
         }
+
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult) {
                 super.onLocationResult(p0)
 
                 lastLocation = p0.lastLocation
+                val currentLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
+                geoPoints.add(currentLatLng)
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, zoom))
+                drawPolyline()
+
             }
 
         }
@@ -89,8 +92,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                 if (location != null) {
                     lastLocation = location
                     val currentLatLng = LatLng(location.latitude, location.longitude)
-                  //  locations.add(currentLatLng)
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                    geoPoints.add(currentLatLng)
+                    zoom = 16f
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, zoom))
                 }
             }
     }
@@ -107,10 +111,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
             )
             return
         }
+
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null /* Looper */)
     }
     override fun onMapReady(p0: GoogleMap?) {
-        map.uiSettings.isZoomControlsEnabled = true
+        map.uiSettings.isZoomControlsEnabled = false
+        zoom = map.cameraPosition.zoom
         map.setOnMarkerClickListener(this)
         setUpMap()
         //drawTestPolilyne();
@@ -127,11 +133,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     */
 
     private fun createLocationRequest() {
-        // 1
         locationRequest = LocationRequest()
-        // 2
         locationRequest.interval = 10000
-        // 3
         locationRequest.fastestInterval = 5000
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
@@ -165,9 +168,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == REQUEST_CHECK_SETTINGS) {
             if (resultCode == RESULT_OK) {
                 locationUpdateState = true
+
                 startLocationUpdates()
             }
         }

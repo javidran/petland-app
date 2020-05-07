@@ -17,12 +17,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.ui.EventsFragment
+import com.example.petland.mapas.MapsFragment
 import com.example.petland.pet.Pets
 import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.pet.Pets.Companion.setSelectedPet
 import com.example.petland.sign.BootActivity
 import com.example.petland.ubications.MapFragment
-import com.example.petland.mapas.MapsFragment
 import com.example.petland.user_profile.UserProfileFragment
 import com.example.petland.utils.CustomAdapter
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -194,7 +194,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onOptionsItemSelected(item)
         }
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
+        fragment.onActivityResult(requestCode, resultCode, intent)
 
+    }
     fun homeAntiguo(view: View) {
         val intent = Intent(this, TestingActivity::class.java).apply {
         }
