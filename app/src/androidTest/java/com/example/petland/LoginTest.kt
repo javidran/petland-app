@@ -42,6 +42,8 @@ class LoginTest {
     fun testUserCanLogin() {
         loginWithTestUser()
         onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
+        chooseItemFromNavbar(R.id.nav_logout)
+        Thread.sleep(20000)
     }
 
     @Test
