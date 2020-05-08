@@ -6,33 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".mapas.MapsFragment">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:background="@drawable/button_without_corners"
+            android:backgroundTint="#aaa"
+            android:text="Finalizar Paseo"
+            app:layout_constraintBottom_toBottomOf="@+id/frg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+       />
+
+
+    <fragment
             android:id="@+id/frg"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp">
-
+        >
 
 
         </fragment>
-
-        <!--<Button
-            android:id="@+id/buttonEndWalk"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="72dp"
-            android:elevation="10dp"
-            android:text="End walk"
-            app:layout_constraintBottom_toBottomOf="@+id/frg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </FrameLayout>
