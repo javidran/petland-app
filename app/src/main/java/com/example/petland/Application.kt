@@ -48,7 +48,7 @@ class Application : Application() {
         private const val TAG = "Petland Application"
         private const val appId = "petland"
         private const val clientKey = "clientPetland"
-        private const val parseUrl = "http://petland.fib.upc.edu:1337/parse"
+        private const val parseUrl = "http://petland.sytes.net:1337/parse"
 
         private lateinit var instance: Application
         fun getAppContext(): Context = instance.applicationContext
