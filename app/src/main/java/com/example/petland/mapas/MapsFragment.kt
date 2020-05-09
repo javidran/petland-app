@@ -8,6 +8,8 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
+import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +25,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
+import kotlinx.android.synthetic.main.fragment_maps.*
+import kotlinx.android.synthetic.main.fragment_maps.view.*
+import java.util.*
 
 
 class MapsFragment : Fragment(), OnMapReadyCallback,
@@ -34,14 +39,16 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
     private var locationUpdateState = false
-    private val mLocationCallback: LocationCallback? = null
     private var geoPoints:  MutableList<LatLng> = arrayListOf()
     private var zoom = 16f
-    private var firstLocation: Boolean = true
+    private var num: Long = 0
+    private lateinit var dateIni: Date
+    private lateinit var dateEnd: Date
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireContext())
+
     }
 
     override fun onCreateView(
@@ -61,7 +68,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult) {
                 super.onLocationResult(p0)
-
                 lastLocation = p0.lastLocation
                 val currentLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
                 geoPoints.add(currentLatLng)
@@ -71,9 +77,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
             }
 
         }
+
+        rootView.buttonpaseo.setOnClickListener { finalizarPaseo() }
+
         createLocationRequest()
         return rootView
     }
+
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(
                 this.requireContext(),
@@ -97,6 +107,20 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, zoom))
                 }
             }
+        chronometer.format = "%s"
+        chronometer.base = SystemClock.elapsedRealtime()
+        if (chronometer.base != num) {
+
+            chronometer.base = SystemClock.elapsedRealtime()
+
+        } else {
+
+            chronometer.base = chronometer.base + SystemClock.elapsedRealtime()
+
+        }
+
+        chronometer.start()
+        dateIni = Calendar.getInstance().time
     }
 
     private fun startLocationUpdates() {
@@ -119,19 +143,19 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         zoom = map.cameraPosition.zoom
         map.setOnMarkerClickListener(this)
         setUpMap()
-        //drawTestPolilyne();
-    }
-    /*
-    fun drawTestPolilyne(){
-        val line = map.addPolyline(
-            PolylineOptions()
-                .add(LatLng(51.5, -0.1), LatLng(40.7, -74.0))
-                .width(5f)
-                .color(Color.RED)
-        )
-    }
-    */
 
+    }
+
+  fun finalizarPaseo() {
+      val time: Long =
+          SystemClock.elapsedRealtime() - chronometer.base
+      chronometer.stop()
+      dateEnd = Calendar.getInstance().time
+      Log.d("tiempo" , time.toString())
+      Log.d("dateini" , dateIni.toString())
+      Log.d("dateend" , dateEnd.toString())
+
+  }
     private fun createLocationRequest() {
         locationRequest = LocationRequest()
         locationRequest.interval = 10000
@@ -193,21 +217,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         map.clear()
         val polyLine = PolylineOptions().width(5f).color(Color.BLUE)
         for (z in geoPoints.indices) {
-            val point: LatLng = geoPoints.get(z)
+            val point: LatLng = geoPoints[z]
             polyLine.add(point)
         }
         map.addPolyline(polyLine)
     }
 
-  /*  fun onLocationChanged(location: Location?) {
-        mLocationCallback?.handleNewLocation(location)
-
-        val text: CharSequence = "New locationa added"
-        val duration = Toast.LENGTH_SHORT
-        val toast = Toast.makeText(context, text, duration)
-        toast.show()
-        drawPolyline()
-    }*/
     override fun onMarkerClick(p0: Marker?) = false
 
     companion object {

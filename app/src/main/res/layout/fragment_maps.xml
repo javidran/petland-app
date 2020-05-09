@@ -12,21 +12,34 @@
         android:layout_height="match_parent">
 
         <Button
+            android:id="@+id/buttonpaseo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:paddingRight="10dp"
-            android:gravity="center_horizontal|center_vertical"
             android:background="@drawable/button_without_corners"
             android:backgroundTint="#aaa"
+            android:gravity="center_horizontal|center_vertical"
+            android:padding="10dp"
+            android:paddingRight="10dp"
             android:text="Finalizar Paseo"
             app:layout_constraintBottom_toBottomOf="@+id/frg"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:background="#000000"
+            android:textSize="30sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/button2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-       />
+            tools:visibility="visible" />
 
-
-    <fragment
+        <fragment
             android:id="@+id/frg"
             android:layout_weight="1"
             android:scrollbars="vertical"
