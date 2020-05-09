@@ -5,7 +5,9 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.graphics.Color
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.os.Bundle
 import android.os.SystemClock
@@ -25,9 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_maps.view.*
@@ -65,6 +65,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         mapFragment.getMapAsync { mMap ->
             mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             map = mMap
+
             onMapReady(map)
 
         }
@@ -75,11 +76,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                 lastLocation = p0.lastLocation
                 val currentLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
                 geoPoints.add(currentLatLng)
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, zoom))
                 drawPolyline()
-
-
-
             }
 
         }
