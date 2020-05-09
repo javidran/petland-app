@@ -78,7 +78,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
 
         }
 
-        rootView.buttonpaseo.setOnClickListener { finalizarPaseo() }
+        rootView.buttonFinalizarPaseo.setOnClickListener { finalizarPaseo() }
 
         createLocationRequest()
         return rootView
