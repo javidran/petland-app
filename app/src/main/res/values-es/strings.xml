@@ -112,4 +112,9 @@
     <string name="instructionsInvitationsdescription">Estas son las invitaciones que has recibido, puedes aceptarlas o denegarlas</string>
     <string name="done">Completado</string>
     <string name="review_invites">Invitaciones</string>
+    <string name="paseando">On a walk...</string>
+    <string name="tiempo_transcurrido">Walk duration:</string>
+    <string name="distancia_paseada">Walked distance:</string>
+    <string name="finalizar_paseo">Finish</string>
+    <string name="mins">mins</string>
 </resources>

@@ -122,4 +122,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps_ubication">Map</string>
     <string name="title_activity_maps">Map</string>
+    <string name="paseando">Paseando...</string>
+    <string name="finalizar_paseo">Terminar</string>
+    <string name="distancia_paseada">Distancia paseada:</string>
+    <string name="tiempo_transcurrido">Tiempo transcurrido:</string>
+    <string name="mins">mins</string>
 </resources>
