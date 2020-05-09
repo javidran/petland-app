@@ -64,13 +64,13 @@ class CaregiversAdapter(
                             "Invitación ya existe", Toast.LENGTH_SHORT
                         )
                         toast2.show()
-
                     }
                     else {
                         val invitation = ParseObject("Invitation")
                         invitation.put("creator", cUser)
                         invitation.put("receiver", this.user)
                         invitation.put("petO", pet)
+                        invitation.put("answer", false)
                         invitation.saveInBackground()
 
                         val toast1 = Toast.makeText(
