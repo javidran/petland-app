@@ -16,6 +16,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import com.example.petland.HomePrincipalFragment
 import com.example.petland.R
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -160,7 +162,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
       Log.d("tiempo" , time.toString())
       Log.d("dateini" , dateIni.toString())
       Log.d("dateend" , dateEnd.toString())
-
+      val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+      val fragment = HomePrincipalFragment.newInstance()
+      transaction.replace(R.id.frameLayout, fragment)
+      transaction.commit()
   }
     private fun createLocationRequest() {
         locationRequest = LocationRequest()
