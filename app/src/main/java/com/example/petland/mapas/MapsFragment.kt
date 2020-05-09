@@ -221,7 +221,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
      }
     fun drawPolyline(){
         map.clear()
-        val polyLine = PolylineOptions().width(5f).color(Color.BLUE)
+        val polyLine = PolylineOptions().width(5f).color(R.color.colorAccent)
 
         for (z in geoPoints.indices) {
             val point: LatLng = geoPoints[z]
