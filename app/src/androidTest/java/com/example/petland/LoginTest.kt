@@ -43,19 +43,20 @@ class LoginTest {
     fun testUserCanLogin() {
         loginWithTestUser()
         onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
-        chooseItemFromNavbar(R.id.nav_logout)
+        chooseItemFromNavBar(R.id.nav_logout)
         Thread.sleep(20000)
     }
 
     @Test
     fun testUserCanLogOut() {
         loginWithTestUser()
-        chooseItemFromNavbar(R.id.nav_logout)
+        chooseItemFromNavBar(R.id.nav_logout)
         Thread.sleep(20000)
         onView(withId(R.id.welcomeTitle)).check(matches(isDisplayed()))
     }
 
     private fun loginWithTestUser() {
+        Thread.sleep(4000)
         onView(withId(R.id.buttonSignIn)).perform(click())
         Thread.sleep(4000)
         onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
@@ -71,11 +72,12 @@ class LoginTest {
         Thread.sleep(20000)
     }
 
-    private fun chooseItemFromNavbar(id: Int) {
+    private fun chooseItemFromNavBar(id: Int) {
+        Thread.sleep(4000)
         onView(withId(R.id.drawer_layout))
             .check(matches(isClosed(Gravity.LEFT)))
             .perform(DrawerActions.open())
-
+        Thread.sleep(4000)
         onView(withId(R.id.nav_view))
             .perform(swipeUp(), NavigationViewActions.navigateTo(id))
 
