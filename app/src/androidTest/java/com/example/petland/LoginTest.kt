@@ -2,6 +2,7 @@ package com.example.petland
 
 import android.content.Intent
 import android.view.Gravity
+import android.widget.ScrollView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -55,13 +56,17 @@ class LoginTest {
     }
 
     private fun loginWithTestUser() {
-        onView(withId(R.id.buttonSignIn)).perform(click())
+        onView(withId(R.id.buttonSignIn)).perform( click())
         Thread.sleep(4000)
         onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
         Thread.sleep(4000)
+        val verticalSv = solo.getView(R.id.scrollViewSignIn) as ScrollView
+        verticalSv.scrollTo(0, 100)
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
         Thread.sleep(4000)
-        onView(withId(R.id.buttonContinuar)).perform(click())
+        verticalSv.scrollTo(0, 100)
+
+        onView(withId(R.id.buttonContinuar)).perform( click())
         Thread.sleep(20000)
     }
 
@@ -71,7 +76,7 @@ class LoginTest {
             .perform(DrawerActions.open())
 
         onView(withId(R.id.nav_view))
-            .perform(NavigationViewActions.navigateTo(id))
+            .perform(swipeUp(), NavigationViewActions.navigateTo(id))
 
     }
 
