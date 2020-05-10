@@ -127,4 +127,6 @@
     <string name="distancia_paseada">Distancia paseada:</string>
     <string name="tiempo_transcurrido">Tiempo transcurrido:</string>
     <string name="mins">mins</string>
+    <string name="end_walk">Are you sure you want to End the walk?</string>
+    <string name="end_walk_message">When ending a walk the distance, path and duration will be saved in the walks tab</string>
 </resources>

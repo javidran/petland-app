@@ -117,4 +117,6 @@
     <string name="distancia_paseada">Walked distance:</string>
     <string name="finalizar_paseo">Finish</string>
     <string name="mins">mins</string>
+    <string name="end_walk">¿Está seguro que desea terminar el paseo?</string>
+    <string name="end_walk_message">Al terminar un paseo se registra la distancia, el recorrido y la duración. Lo puede consultar en el historial de paseos</string>
 </resources>

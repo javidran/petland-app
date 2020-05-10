@@ -2,6 +2,7 @@ package com.example.petland.mapas
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -16,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -81,7 +83,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
 
         }
 
-        rootView.buttonFinalizarPaseo.setOnClickListener { finalizarPaseo() }
+        rootView.buttonFinalizarPaseo.setOnClickListener {endWalkConfirmation()}
 
         createLocationRequest()
         return rootView
@@ -149,21 +151,36 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
 
     }
 
-  fun finalizarPaseo() {
+    fun endWalkConfirmation() {
+        val builder = AlertDialog.Builder(activity)
+        builder.setTitle(getString(R.string.end_walk))
+        builder.setMessage(getString(R.string.end_walk_message))
 
-      val time: Long =
-          SystemClock.elapsedRealtime() - chronometer.base
-      chronometer.stop()
+        builder.setPositiveButton((getString(R.string.ok))){dialog, which ->
+            finalizarPaseo()
+        }
+        builder.setNeutralButton(getString(R.string.cancel)){_,_ ->
+        }
+        val dialog: AlertDialog = builder.create()
 
-      dateEnd = Calendar.getInstance().time
-      Log.d("tiempo" , time.toString())
-      Log.d("dateini" , dateIni.toString())
-      Log.d("dateend" , dateEnd.toString())
-      val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-      val fragment = HomePrincipalFragment.newInstance()
-      transaction.replace(R.id.frameLayout, fragment)
-      transaction.commit()
-  }
+        dialog.show()
+    }
+
+     private fun finalizarPaseo() {
+
+          val time: Long =
+              SystemClock.elapsedRealtime() - chronometer.base
+          chronometer.stop()
+
+          dateEnd = Calendar.getInstance().time
+          Log.d("tiempo" , time.toString())
+          Log.d("dateini" , dateIni.toString())
+          Log.d("dateend" , dateEnd.toString())
+          val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+          val fragment = HomePrincipalFragment.newInstance()
+          transaction.replace(R.id.frameLayout, fragment)
+          transaction.commit()
+     }
     private fun createLocationRequest() {
         locationRequest = LocationRequest()
         locationRequest.interval = 10000
