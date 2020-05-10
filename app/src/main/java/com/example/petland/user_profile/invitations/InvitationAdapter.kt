@@ -50,11 +50,11 @@ class InvitationAdapter(private val invitations: List<ParseObject>, private val 
                 pet.saveInBackground()
                 //this.invitation.deleteInBackground()
                 this.invitation.put("answer", true)
+                this.invitation.saveInBackground()
                 listCallback.updateInvitations()
             }
             view.buttonDeny.setOnClickListener {
                 this.invitation.deleteInBackground()
-                //this.invitation.put("answer", false)
                 listCallback.updateInvitations()
             }
 
