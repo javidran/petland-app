@@ -66,7 +66,7 @@ class LoginTest {
         Thread.sleep(4000)
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
         Thread.sleep(4000)
-        verticalSv.scrollTo(0, 100)
+        verticalSv.scrollTo(0, 300)
         Thread.sleep(4000)
         onView(withId(R.id.buttonContinuar)).perform(click())
         Thread.sleep(20000)
