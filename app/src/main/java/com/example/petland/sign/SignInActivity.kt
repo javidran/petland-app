@@ -84,7 +84,6 @@ class SignInActivity : AppCompatActivity() {
                             R.anim.slide_in_right,
                             R.anim.slide_out_left
                         )
-
                         notificationNewInvitation()
                         notificationAcceptCaregiver()
                     } else {
@@ -115,7 +114,7 @@ class SignInActivity : AppCompatActivity() {
     private fun createNotification(numInv:Int) {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.animal_paw)
-            .setContentTitle("New invitation of caregiver")
+            .setContentTitle("Nueva invitación para cuidar una mascota")
             .setContentText("Tienes $numInv invitaciones de cuidador")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         val notificationManagerCompat =
@@ -126,8 +125,8 @@ class SignInActivity : AppCompatActivity() {
     private fun createNotification2(numInv:Int) {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.animal_paw)
-            .setContentTitle("Accept invitation of caregiver")
-            .setContentText("Tienes $numInv invitaciones aceptadas de cuidador")
+            .setContentTitle("Invitación aceptada")
+            .setContentText("Tienes $numInv invitaciones aceptadas cuidador")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         val notificationManagerCompat =
             NotificationManagerCompat.from(applicationContext)
@@ -157,6 +156,9 @@ class SignInActivity : AppCompatActivity() {
                 if (invitationsList.size > 0) {
                     createNotificationChannel()
                     createNotification2(invitationsList.size)
+                    for ( i in invitationsList) {
+                        i.deleteInBackground()
+                    }
                 }
             }
         }
