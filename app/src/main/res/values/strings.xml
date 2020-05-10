@@ -117,4 +117,5 @@
     <string name="review_invites">Review invites</string>
     <string name="done">Completed</string>
     <string name="event_deletion_alert_title">Are you sure you want to delete this event?</string>
+    <string name="noPendingInvites">You have no pending invites at the moment</string>
 </resources>
