@@ -56,17 +56,18 @@ class LoginTest {
     }
 
     private fun loginWithTestUser() {
-        onView(withId(R.id.buttonSignIn)).perform( click())
+        onView(withId(R.id.buttonSignIn)).perform(click())
         Thread.sleep(4000)
         onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
         Thread.sleep(4000)
         val verticalSv = solo.getView(R.id.scrollViewSignIn) as ScrollView
         verticalSv.scrollTo(0, 100)
+        Thread.sleep(4000)
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
         Thread.sleep(4000)
         verticalSv.scrollTo(0, 100)
-
-        onView(withId(R.id.buttonContinuar)).perform( click())
+        Thread.sleep(4000)
+        onView(withId(R.id.buttonContinuar)).perform(click())
         Thread.sleep(20000)
     }
 
