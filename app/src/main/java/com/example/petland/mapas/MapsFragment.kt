@@ -6,13 +6,9 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,14 +18,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.HomePrincipalFragment
 import com.example.petland.R
+import com.example.petland.pet.Pets
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.SphericalUtil
+import com.parse.ParseObject
+import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_maps.view.*
 import java.util.*
@@ -49,6 +50,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private lateinit var dateIni: Date
     private lateinit var dateEnd: Date
     private lateinit var rootView: View
+    private lateinit var distance: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -170,16 +172,23 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
           val time: Long =
               SystemClock.elapsedRealtime() - chronometer.base
           chronometer.stop()
-
           dateEnd = Calendar.getInstance().time
-          Log.d("tiempo" , time.toString())
-          Log.d("dateini" , dateIni.toString())
-          Log.d("dateend" , dateEnd.toString())
+
+         val walk = ParseObject.create("Walk")
+         walk.put("user", ParseUser.getCurrentUser())
+         walk.put("pet", Pets.getSelectedPet())
+         walk.put("startDate", dateIni)
+         walk.put("endDate", dateEnd)
+         walk.put("duration", time.toInt())
+         walk.put("distance", distance.text)
+         walk.saveInBackground()
+
           val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
           val fragment = HomePrincipalFragment.newInstance()
           transaction.replace(R.id.frameLayout, fragment)
           transaction.commit()
      }
+
     private fun createLocationRequest() {
         locationRequest = LocationRequest()
         locationRequest.interval = 10000
@@ -245,7 +254,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
             val point: LatLng = geoPoints[z]
             polyLine.add(point)
         }
-        val distance: TextView = rootView.findViewById(R.id.distance)
+        distance = rootView.findViewById(R.id.distance)
         distance.text =  String.format("%.2f", (SphericalUtil.computeLength(geoPoints)/1000))
         map.addPolyline(polyLine)
     }
