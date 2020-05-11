@@ -33,14 +33,4 @@ class MeasurementEvent : ParseObject() {
     fun saveEvent() {
         save()
     }
-
-    companion object {
-        fun duplicate(oldEvent: MeasurementEvent) : MeasurementEvent {
-            val newEvent = MeasurementEvent()
-            if(oldEvent.hasWeight()) newEvent.setWeight(oldEvent.getWeight())
-            if(oldEvent.hasHeight()) newEvent.setHeight(oldEvent.getHeight())
-            newEvent.saveEvent()
-            return newEvent
-        }
-    }
 }

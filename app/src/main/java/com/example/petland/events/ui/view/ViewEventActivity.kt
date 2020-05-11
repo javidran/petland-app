@@ -10,14 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.model.PetEvent
-import com.example.petland.events.ui.callback.DeleteEventCallback
 import com.example.petland.events.ui.edit.EditEventActivity
 import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
 import com.parse.ParseQuery
-import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_view_event.*
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 

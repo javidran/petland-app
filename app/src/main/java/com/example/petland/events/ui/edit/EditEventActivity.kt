@@ -14,9 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
-import com.example.petland.events.enums.HygieneType
 import com.example.petland.events.model.*
-import com.example.petland.events.ui.callback.DeleteEventCallback
 import com.example.petland.events.ui.callback.SaveDataCallback
 import com.example.petland.events.ui.creation.*
 import com.example.petland.events.ui.view.ViewEventActivity

@@ -100,7 +100,10 @@ open class PetEvent : ParseObject() {
                 return HygieneEvent.duplicate(getData() as HygieneEvent)
             }
             EventType.MEASUREMENT -> {
-                return MeasurementEvent.duplicate(getData() as MeasurementEvent)
+                //Every Measurement Event should have different data
+                val newEv = MeasurementEvent()
+                newEv.saveEvent()
+                return newEv
             }
             EventType.MEDICINE -> {
                 return MedicineEvent.duplicate(getData() as MedicineEvent)
