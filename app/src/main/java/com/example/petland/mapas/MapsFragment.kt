@@ -17,7 +17,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -78,6 +77,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                 lastLocation = p0.lastLocation
                 val currentLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
                 geoPoints.add(currentLatLng)
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16f))
                 drawPolyline()
             }
 
@@ -108,8 +108,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                     lastLocation = location
                     val currentLatLng = LatLng(location.latitude, location.longitude)
                     geoPoints.add(currentLatLng)
-                    zoom = 16f
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, zoom))
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 16f))
                 }
             }
         chronometer.format = "%s"
