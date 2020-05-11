@@ -63,6 +63,20 @@
             app:layout_constraintTop_toBottomOf="@+id/birthday" />
 
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewEvents"
+            android:layout_width="392dp"
+            android:layout_height="147dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editProfileButton"
+            app:layout_constraintVertical_bias="0.155"
+            tools:itemCount="8"
+            tools:listitem="@layout/list_event_element" />
+
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
