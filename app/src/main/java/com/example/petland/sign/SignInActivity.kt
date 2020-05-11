@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -125,7 +126,7 @@ class SignInActivity : AppCompatActivity() {
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManagerX.createNotificationChannel(notificationChannelX)
 
-            val name3: CharSequence = "Nuevos eventos"
+            val name3: CharSequence = "Eventos"
             val notificationChannelY =
                 NotificationChannel(CHANNEL_IDY, name3, NotificationManager.IMPORTANCE_DEFAULT)
             val notificationManagerY =
@@ -142,18 +143,38 @@ class SignInActivity : AppCompatActivity() {
         query.findInBackground { invitationsList, e ->
             if (e == null) {
                 if (invitationsList.size > 0) {
+                    val events = arrayOfNulls<String>(invitationsList.size)
+                    var num = 0
+                    for ( i in invitationsList) {
+                        val creator = i.get("creator") as ParseObject
+                        val pet = i.get("petO") as ParseObject
+                        //val creatorN: String? = creator.getString("name")
+                        //val petN: String? = pet.getString("name")
+                        events[num++] = ("$ te ha invitado a ser cuidador de $")
+                    }
+
                     val intent = Intent(this, ViewInvitationsActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     }
                     val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
+                    val inboxStyle =
+                        NotificationCompat.InboxStyle()
+                    inboxStyle.setBigContentTitle("Invitaciones nuevas")
+                    for (element in events) {
+                        inboxStyle.addLine(element)
+                    }
+
                     val builder = NotificationCompat.Builder(this, CHANNEL_ID)
                         .setSmallIcon(R.drawable.animal_paw)
                         .setContentTitle("Nueva invitación para cuidar una mascota")
                         .setContentText("Tienes "+ invitationsList.size + " invitaciones de cuidador")
+                        .setStyle( inboxStyle )
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent)
+                        .setColor(Color.MAGENTA)
                         .setAutoCancel(true)
+
                     val notificationManagerCompat =
                         NotificationManagerCompat.from(applicationContext)
                     notificationManagerCompat.notify(NOTIFICACION_ID, builder.build())
@@ -174,11 +195,27 @@ class SignInActivity : AppCompatActivity() {
         query.findInBackground { invitationsList, e ->
             if (e == null) {
                 if (invitationsList.size > 0) {
+                    val events = arrayOfNulls<String>(invitationsList.size)
+                    for ((num, i) in invitationsList.withIndex()) {
+                        val creator = i.get("creator") as ParseObject
+                        val pet = i.get("petO") as ParseObject
+                        events[num] = ("" + creator.getString("username") + " ha aceptado tu invitació para ser cuidador de " + pet.getString("name"))
+                    }
+
                     val builder = NotificationCompat.Builder(this, CHANNEL_IDX)
                         .setSmallIcon(R.drawable.animal_paw)
                         .setContentTitle("Invitación aceptada")
                         .setContentText("Tienes " + invitationsList.size + " invitaciones aceptadas de cuidadores de mascota")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+                    val inboxStyle =
+                        NotificationCompat.InboxStyle()
+                    inboxStyle.setBigContentTitle("Invitaciones aceptadas")
+                    for (element in events) {
+                        inboxStyle.addLine(element)
+                    }
+                    builder.setStyle(inboxStyle)
+
                     val notificationManagerCompat =
                         NotificationManagerCompat.from(applicationContext)
                     notificationManagerCompat.notify(NOTIFICACION_IDX, builder.build())
@@ -210,3 +247,4 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 }
+
