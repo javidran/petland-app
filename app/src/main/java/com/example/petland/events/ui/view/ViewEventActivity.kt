@@ -16,9 +16,7 @@ import com.example.petland.events.ui.edit.EditEventActivity
 import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
 import com.parse.ParseQuery
-import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.android.synthetic.main.activity_view_event.*
-import kotlinx.android.synthetic.main.activity_view_event.returnButton
 import java.text.SimpleDateFormat
 import java.util.*
 

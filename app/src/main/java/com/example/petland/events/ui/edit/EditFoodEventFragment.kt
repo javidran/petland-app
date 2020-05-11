@@ -14,7 +14,6 @@ import com.example.petland.events.model.FoodEvent
 import com.example.petland.events.ui.callback.SaveDataCallback
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_edit_food_event.view.*
-import kotlinx.android.synthetic.main.fragment_edit_medicine_event.view.*
 
 class EditFoodEventFragment : Fragment(),
     SaveDataCallback {

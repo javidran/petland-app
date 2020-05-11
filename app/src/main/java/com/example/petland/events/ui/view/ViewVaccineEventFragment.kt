@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.petland.R
-import com.example.petland.events.model.FoodEvent
 import com.example.petland.events.model.VaccineEvent
-import kotlinx.android.synthetic.main.fragment_view_medicine_event.view.*
 import kotlinx.android.synthetic.main.fragment_view_vaccine_event.view.*
 
 class ViewVaccineEventFragment : Fragment() {

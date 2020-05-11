@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.petland.R
-import com.example.petland.events.model.FoodEvent
 import com.example.petland.events.model.WalkEvent
 
 class ViewWalkEventFragment : Fragment() {
