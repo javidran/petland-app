@@ -123,4 +123,7 @@
     <string name="event_completion_dialog">Did you complete the event on the expected date?</string>
     <string name="yes">Yes</string>
     <string name="no_choose_date">No, choose date</string>
+    <string name="type_of_food_hint">Type of food:</string>
+    <string name="quantity_hint">Quantity:</string>
+    <string name="type_of_hygiene_hint">Hygiene type:</string>
 </resources>

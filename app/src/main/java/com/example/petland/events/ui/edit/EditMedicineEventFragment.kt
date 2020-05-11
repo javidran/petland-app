@@ -53,6 +53,8 @@ class EditMedicineEventFragment : Fragment(),
                 dataEvent.setDosage(rootView.editMedicineDosage.text.toString().toInt())
                 if(rootView.editMedicineInfo.text.isNotEmpty()) {
                     dataEvent.setInfo(rootView.editMedicineInfo.text.toString())
+                } else {
+                    dataEvent.removeInfo()
                 }
                 dataEvent.saveEvent()
                 return dataEvent

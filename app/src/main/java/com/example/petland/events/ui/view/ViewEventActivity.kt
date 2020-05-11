@@ -7,14 +7,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
-import com.example.petland.events.model.PetEvent
+import com.example.petland.events.model.*
 import com.example.petland.events.ui.edit.EditEventActivity
 import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
 import com.parse.ParseQuery
+import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.android.synthetic.main.activity_view_event.*
+import kotlinx.android.synthetic.main.activity_view_event.returnButton
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -85,6 +89,37 @@ class ViewEventActivity : AppCompatActivity() {
             checkDoneButton.visibility = View.VISIBLE
             viewDoneLayout.visibility = View.GONE
         }
+
+        setDataLayout()
+    }
+
+    private fun setDataLayout() {
+        viewEventTypeLayout.removeAllViews()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        lateinit var fragment: Fragment
+
+        when (event.getDataType()) {
+            EventType.VACCINE -> {
+                fragment = ViewVaccineEventFragment.newInstance(event.getData() as VaccineEvent)
+            }
+            EventType.FOOD -> {
+                fragment = ViewFoodEventFragment.newInstance(event.getData() as FoodEvent)
+            }
+            EventType.HYGIENE -> {
+                fragment = ViewHygieneEventFragment.newInstance(event.getData() as HygieneEvent)
+            }
+            EventType.MEASUREMENT -> {
+                fragment = ViewMeasurementEventFragment.newInstance(event.getData() as MeasurementEvent)
+            }
+            EventType.MEDICINE -> {
+                fragment = ViewMedicineEventFragment.newInstance(event.getData() as MedicineEvent)
+            }
+            EventType.WALK -> {
+                fragment = ViewWalkEventFragment.newInstance(event.getData() as WalkEvent)
+            }
+        }
+        transaction.replace(R.id.viewEventTypeLayout, fragment)
+        transaction.commit()
     }
 
     private fun chooseDoneDate() {

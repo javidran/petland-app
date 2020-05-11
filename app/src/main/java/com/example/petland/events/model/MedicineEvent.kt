@@ -34,6 +34,10 @@ class MedicineEvent : ParseObject() {
         put("info", info)
     }
 
+    fun removeInfo() {
+        remove("info")
+    }
+
     fun saveEvent() {
         if(getString("name") != null && getInt("dosage") != 0) {
             save()

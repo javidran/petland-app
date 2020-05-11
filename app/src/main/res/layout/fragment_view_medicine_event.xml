@@ -4,65 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".events.ui.view.ViewFoodEventFragment">
+    tools:context=".events.ui.view.ViewMedicineEventFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/viewFoodTypeHint"
+            android:id="@+id/viewMedicineNameHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/type_of_food_hint"
+            android:text="@string/name"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/viewFoodType"
+            android:id="@+id/viewMedicineDots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Carne"
+            android:text="@string/dosPuntos"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/viewFoodTypeHint"
+            app:layout_constraintStart_toEndOf="@+id/viewMedicineNameHint"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/viewFoodAmountHint"
+            android:id="@+id/viewMedicineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Flutox"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/viewMedicineDots"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/viewMedicineDosageHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/quantity_hint"
+            android:text="@string/event_medicine_dosage"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewFoodTypeHint" />
+            app:layout_constraintTop_toBottomOf="@+id/viewMedicineNameHint" />
 
         <TextView
-            android:id="@+id/viewFoodAmount"
+            android:id="@+id/viewMedicineDots2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dosPuntos"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/viewMedicineDosageHint"
+            app:layout_constraintTop_toTopOf="@+id/viewMedicineDosageHint" />
+
+        <TextView
+            android:id="@+id/viewMedicineDosage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="20"
+            android:text="250"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/viewFoodAmountHint"
-            app:layout_constraintTop_toTopOf="@+id/viewFoodAmountHint" />
+            app:layout_constraintStart_toEndOf="@+id/viewMedicineDots2"
+            app:layout_constraintTop_toTopOf="@+id/viewMedicineDosageHint" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/viewFoodInfoLayout"
+            android:id="@+id/viewMedicineInfoLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewFoodAmountHint">
+            app:layout_constraintTop_toBottomOf="@+id/viewMedicineDosageHint">
 
             <TextView
-                android:id="@+id/viewFoodInfo"
+                android:id="@+id/viewMedicineInfo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -73,10 +93,10 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewFoodInfoHint" />
+                app:layout_constraintTop_toBottomOf="@+id/viewMedicineInfoHint" />
 
             <TextView
-                android:id="@+id/viewFoodInfoHint"
+                android:id="@+id/viewMedicineInfoHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -91,9 +111,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dosPuntos"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/viewFoodInfoHint"
-                app:layout_constraintTop_toTopOf="@+id/viewFoodInfoHint" />
+                app:layout_constraintStart_toEndOf="@+id/viewMedicineInfoHint"
+                app:layout_constraintTop_toTopOf="@+id/viewMedicineInfoHint" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

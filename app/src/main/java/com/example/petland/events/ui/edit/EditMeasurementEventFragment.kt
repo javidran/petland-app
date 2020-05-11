@@ -42,9 +42,13 @@ class EditMeasurementEventFragment : Fragment(),
     override fun checkAndSaveData(): ParseObject? {
         if(rootView.editMeasurementHeight.text.isNotEmpty()) {
             dataEvent.setHeight(rootView.editMeasurementHeight.text.toString().toDouble())
+        } else {
+            dataEvent.removeHeight()
         }
         if(rootView.editMeasurementWeight.text.isNotEmpty()) {
             dataEvent.setWeight(rootView.editMeasurementWeight.text.toString().toDouble())
+        } else {
+            dataEvent.removeWeight()
         }
         dataEvent.saveEvent()
         return dataEvent

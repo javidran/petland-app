@@ -28,6 +28,10 @@ class FoodEvent : ParseObject() {
         put("info", info)
     }
 
+    fun removeInfo() {
+        remove("info")
+    }
+
     fun getAmount() : Int {
         return getInt("amount")
     }

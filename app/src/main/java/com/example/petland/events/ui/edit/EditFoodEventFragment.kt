@@ -67,6 +67,8 @@ class EditFoodEventFragment : Fragment(),
             dataEvent.setAmount(rootView.editFoodAmount.text.toString().toInt())
             if(rootView.editFoodInfo.text.isNotEmpty()) {
                 dataEvent.setInfo(rootView.editFoodInfo.text.toString())
+            } else {
+                dataEvent.removeInfo()
             }
             dataEvent.setType(getEventFoodToEnum(spinner.selectedItem.toString()))
             dataEvent.saveEvent()

@@ -115,4 +115,10 @@
     <string name="done_on">Completado el</string>
     <string name="event_deletion_alert_title">Estás seguro de que quieres borrar este evento?</string>
     <string name="needed">Obligatorio</string>
+    <string name="type_of_food_hint">Tipo de comida:</string>
+    <string name="yes">Si</string>
+    <string name="event_completion_dialog">Has completada el evento en la fecha estimada?</string>
+    <string name="no_choose_date">No, escoger fecha</string>
+    <string name="quantity_hint">Cantidad:</string>
+    <string name="type_of_hygiene_hint">Tipo de higiene:</string>
 </resources>
