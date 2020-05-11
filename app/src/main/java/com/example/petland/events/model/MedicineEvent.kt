@@ -42,4 +42,15 @@ class MedicineEvent : ParseObject() {
         }
     }
 
+    companion object {
+        fun duplicate(oldEvent: MedicineEvent) : MedicineEvent {
+            val newEvent = MedicineEvent()
+            newEvent.setName(oldEvent.getName())
+            newEvent.setDosage(oldEvent.getDosage())
+            if(oldEvent.hasInfo()) newEvent.setInfo(oldEvent.getInfo())
+            newEvent.saveEvent()
+            return newEvent
+        }
+    }
+
 }

@@ -10,24 +10,25 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.model.PetEvent
+import com.example.petland.events.ui.callback.DeleteEventCallback
 import com.example.petland.events.ui.edit.EditEventActivity
 import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_view_event.*
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ViewEventActivity : AppCompatActivity() {
-    lateinit var event: PetEvent
+    private lateinit var event: PetEvent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_event)
 
         event = intent.extras?.get("event") as PetEvent
-        deleteEventButton.setOnClickListener { deletionDialog() }
         returnButton.setOnClickListener { onBackPressed() }
         checkDoneButton.setOnClickListener { chooseDoneDate() }
         editEventButton.setOnClickListener { onEditEvent() }
@@ -38,22 +39,9 @@ class ViewEventActivity : AppCompatActivity() {
         setInfo()
     }
 
-    private fun deletionDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.event_deletion_alert_title))
-        builder.setCancelable(false)
-        builder.setPositiveButton(getString(R.string.delete)) { _, _ -> deleteEvent() }
-        builder.setNegativeButton(getString(R.string.cancel)) { _, _ -> }
-        builder.show()
-    }
-
-    private fun deleteEvent() {
-        event.deleteEvent()
-        finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-    }
-
     private fun setInfo() {
+        event.fetch<PetEvent>()
+
         val dataType = event.getDataType()
         lateinit var dataTypeString: String
         dataTypeString = when (dataType) {
@@ -103,50 +91,71 @@ class ViewEventActivity : AppCompatActivity() {
     }
 
     private fun chooseDoneDate() {
-        val cal = Calendar.getInstance()
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.event_completion_dialog))
+        builder.setCancelable(true)
+        builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+            event.markAsDone(event.getDate())
+            onResume()
+        }
+        builder.setNegativeButton(getString(R.string.no_choose_date)) { _, _ ->
+            val cal = Calendar.getInstance()
 
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, monthOfYear)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                val timeSetListener =
-                    TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-                        cal.set(Calendar.HOUR_OF_DAY, hour)
-                        cal.set(Calendar.MINUTE, minute)
-                        event.markAsDone(cal.time)
-                        onResume()
-                    }
+                    val timeSetListener =
+                        TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                            cal.set(Calendar.HOUR_OF_DAY, hour)
+                            cal.set(Calendar.MINUTE, minute)
+                            event.markAsDone(cal.time)
+                            onResume()
+                        }
 
-                val dialog = TimePickerDialog(
-                    this, R.style.TimePickerTheme, timeSetListener,
-                    cal.get(Calendar.HOUR_OF_DAY),
-                    cal.get(Calendar.MINUTE),
-                    true
-                )
-                dialog.show()
-            }
+                    val dialog = TimePickerDialog(
+                        this, R.style.TimePickerTheme, timeSetListener,
+                        cal.get(Calendar.HOUR_OF_DAY),
+                        cal.get(Calendar.MINUTE),
+                        true
+                    )
+                    dialog.show()
+                }
 
-        val dialog = DatePickerDialog(
-            this, R.style.TimePickerTheme, dateSetListener,
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH)
-        )
-        dialog.show()
+            val dialog = DatePickerDialog(
+                this, R.style.TimePickerTheme, dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            )
+            dialog.show()
+        }
+        builder.show()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
     private fun onEditEvent() {
         val intent = Intent(this, EditEventActivity::class.java).apply {}
         intent.putExtra("event", event)
-        startActivity(intent)
+        startActivityForResult(intent, REQ_EDIT)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQ_EDIT && resultCode == RESULT_DELETED) {
+            finish()
+        }
+    }
+
+    companion object {
+        private const val REQ_EDIT = 1000
+        const val RESULT_DELETED = 96
     }
 
 }

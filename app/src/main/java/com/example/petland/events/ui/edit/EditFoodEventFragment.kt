@@ -50,7 +50,7 @@ class EditFoodEventFragment : Fragment(),
             }
         }
 
-        rootView.editMedicineDosage.setText(dataEvent.getAmount())
+        rootView.editFoodAmount.setText(dataEvent.getAmount().toString())
         if(dataEvent.hasInfo()) {
             rootView.editFoodInfo.setText(dataEvent.getInfo())
         }

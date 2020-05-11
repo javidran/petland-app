@@ -2,6 +2,7 @@ package com.example.petland.events.model
 
 import com.example.petland.events.enums.EventType
 import com.example.petland.pet.Pets
+import com.parse.Parse
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -90,6 +91,29 @@ open class PetEvent : ParseObject() {
         return query.find().first()
     }
 
+    fun getDataDuplicate() : ParseObject {
+        when(getDataType()) {
+            EventType.FOOD -> {
+                return FoodEvent.duplicate(getData() as FoodEvent)
+            }
+            EventType.HYGIENE -> {
+                return HygieneEvent.duplicate(getData() as HygieneEvent)
+            }
+            EventType.MEASUREMENT -> {
+                return MeasurementEvent.duplicate(getData() as MeasurementEvent)
+            }
+            EventType.MEDICINE -> {
+                return MedicineEvent.duplicate(getData() as MedicineEvent)
+            }
+            EventType.VACCINE -> {
+                return VaccineEvent.duplicate(getData() as VaccineEvent)
+            }
+            EventType.WALK -> {
+                return WalkEvent.duplicate(getData() as WalkEvent)
+            }
+        }
+    }
+
     fun getDataType() : EventType {
         val type = getString("data_type") ?: throw NullPointerException()
         when(type) {
@@ -116,8 +140,8 @@ open class PetEvent : ParseObject() {
 
                 nextEvent.setRecurrent(getRecurrency())
                 if (hasRecurrencyEndDate()) nextEvent.setRecurrencyEndDate(getRecurrencyEndDate())
-                nextEvent.setData(getData())
 
+                nextEvent.setData(getDataDuplicate())
                 nextEvent.saveEvent()
             }
 
@@ -127,8 +151,8 @@ open class PetEvent : ParseObject() {
     }
 
     fun deleteEvent() {
-        getData().deleteInBackground()
-        this.deleteInBackground()
+        getData().delete()
+        this.delete()
     }
 
     fun saveEvent() {

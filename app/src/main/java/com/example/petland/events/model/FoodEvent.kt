@@ -44,4 +44,15 @@ class FoodEvent : ParseObject() {
             throw NullPointerException("Some mandatory parameter of Foodevent is null")
         }
     }
+
+    companion object {
+        fun duplicate(oldEvent: FoodEvent) : FoodEvent {
+            val newEvent = FoodEvent()
+            newEvent.setType(oldEvent.getType())
+            newEvent.setAmount(oldEvent.getAmount())
+            if(oldEvent.hasInfo()) newEvent.setInfo(oldEvent.getInfo())
+            newEvent.saveEvent()
+            return newEvent
+        }
+    }
 }

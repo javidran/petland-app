@@ -120,4 +120,7 @@
 
     <string name="done_on">Completed on</string>
     <string name="needed">Needed</string>
+    <string name="event_completion_dialog">Did you complete the event on the expected date?</string>
+    <string name="yes">Yes</string>
+    <string name="no_choose_date">No, choose date</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.petland.events.ui.edit
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -15,8 +16,10 @@ import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.enums.HygieneType
 import com.example.petland.events.model.*
+import com.example.petland.events.ui.callback.DeleteEventCallback
 import com.example.petland.events.ui.callback.SaveDataCallback
 import com.example.petland.events.ui.creation.*
+import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.pet.Pets
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.activity_edit_event.*
@@ -24,13 +27,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    lateinit var selectedPet: ParseObject
-    lateinit var petList: List<ParseObject>
-    lateinit var event: PetEvent
-    lateinit var callback: SaveDataCallback
+    private lateinit var selectedPet: ParseObject
+    private lateinit var petList: List<ParseObject>
+    private lateinit var event: PetEvent
+    private lateinit var callback: SaveDataCallback
 
-    lateinit var spinnerEventType: Spinner
-    lateinit var spinnerPet: Spinner
+    private lateinit var spinnerEventType: Spinner
+    private lateinit var spinnerPet: Spinner
 
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     private val stf = SimpleDateFormat("HH:mm", Locale.US)
@@ -43,6 +46,7 @@ class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         event = intent.extras?.get("event") as PetEvent
 
         returnButton.setOnClickListener { goBack() }
+        deleteEventButton.setOnClickListener { deletionDialog() }
         saveButton.setOnClickListener { onSaveButtonClicked() }
         setDateChooser(dateDay)
         setDateChooser(untilDateDay)
@@ -88,6 +92,22 @@ class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     }
 
     fun goBack() {
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
+    private fun deletionDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.event_deletion_alert_title))
+        builder.setCancelable(false)
+        builder.setPositiveButton(getString(R.string.delete)) { _, _ -> deleteEvent() }
+        builder.setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+        builder.show()
+    }
+
+    private fun deleteEvent() {
+        event.deleteEvent()
+        setResult(ViewEventActivity.RESULT_DELETED)
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
@@ -300,6 +320,8 @@ class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
             }
         }
     }
+
+
 
     override fun onNothingSelected(parent: AdapterView<*>) {
     }
