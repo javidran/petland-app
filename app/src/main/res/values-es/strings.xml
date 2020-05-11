@@ -121,4 +121,7 @@
     <string name="no_choose_date">No, escoger fecha</string>
     <string name="quantity_hint">Cantidad:</string>
     <string name="type_of_hygiene_hint">Tipo de higiene:</string>
+    <string name="filter_by">Filtrar por:</string>
+    <string name="newest_first">Los nuevos primero</string>
+    <string name="oldest_first">Los antiguos primero</string>
 </resources>

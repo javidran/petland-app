@@ -126,4 +126,7 @@
     <string name="type_of_food_hint">Type of food:</string>
     <string name="quantity_hint">Quantity:</string>
     <string name="type_of_hygiene_hint">Hygiene type:</string>
+    <string name="filter_by">Filter by:</string>
+    <string name="newest_first">Newest first</string>
+    <string name="oldest_first">Oldest first</string>
 </resources>

@@ -121,4 +121,7 @@
     <string name="no_choose_date">No, triar data</string>
     <string name="quantity_hint">Quantitat:</string>
     <string name="type_of_hygiene_hint">Tipus d\'higiene:</string>
+    <string name="filter_by">Filtrar per:</string>
+    <string name="newest_first">Els nous primer</string>
+    <string name="oldest_first">Els antics primer</string>
 </resources>
