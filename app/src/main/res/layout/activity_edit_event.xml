@@ -225,7 +225,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_without_corners"
         android:backgroundTint="#00C4CC"
-        android:text="@string/create_event"
+        android:text="@string/saveChanges"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

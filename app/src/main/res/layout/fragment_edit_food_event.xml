@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".events.ui.creation.CreateMedicineEventFragment">
+    tools:context=".events.ui.edit.EditFoodEventFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:elevation="6sp">
 
         <EditText
-            android:id="@+id/editMedicineName"
+            android:id="@+id/editFoodAmount"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="50dp"
@@ -21,32 +21,15 @@
             android:background="@drawable/edittext_without_corners"
             android:elevation="6sp"
             android:ems="10"
-            android:hint="@string/name"
-            android:inputType="textPersonName"
+            android:hint="@string/event_food_dosage"
+            android:inputType="number"
             android:padding="8sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editMedicineDosage"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/edittext_without_corners"
-            android:elevation="6sp"
-            android:ems="10"
-            android:hint="@string/event_medicine_dosage"
-            android:inputType="number"
-            android:padding="8sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editMedicineName" />
-
-        <EditText
-            android:id="@+id/editMedicineInfo"
+            android:id="@+id/editFoodInfo"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="50dp"
@@ -62,7 +45,29 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editMedicineDosage" />
+            app:layout_constraintTop_toBottomOf="@+id/foodSpinner" />
+
+        <Spinner
+            android:id="@+id/foodSpinner"
+            android:layout_width="0dp"
+            android:layout_height="45sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/editFoodAmount" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:text="@string/event_type"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/foodSpinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/foodSpinner" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

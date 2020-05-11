@@ -114,4 +114,5 @@
     <string name="review_invites">Invitaciones</string>
     <string name="done_on">Completado el</string>
     <string name="event_deletion_alert_title">Estás seguro de que quieres borrar este evento?</string>
+    <string name="needed">Obligatorio</string>
 </resources>

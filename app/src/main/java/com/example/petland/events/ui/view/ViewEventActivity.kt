@@ -3,12 +3,14 @@ package com.example.petland.events.ui.view
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.model.PetEvent
+import com.example.petland.events.ui.edit.EditEventActivity
 import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -28,6 +30,7 @@ class ViewEventActivity : AppCompatActivity() {
         deleteEventButton.setOnClickListener { deletionDialog() }
         returnButton.setOnClickListener { onBackPressed() }
         checkDoneButton.setOnClickListener { chooseDoneDate() }
+        editEventButton.setOnClickListener { onEditEvent() }
     }
 
     override fun onResume() {
@@ -73,14 +76,18 @@ class ViewEventActivity : AppCompatActivity() {
         viewEventDate.text = sdf.format(event.getDate())
 
         if(event.isRecurrent()) {
-            viewUntilLayout.visibility = View.VISIBLE
+            viewEventRepeatable.visibility = View.VISIBLE
             val text = getString(R.string.repeat_every) + " " + event.getRecurrency() + " " + getString(R.string.days)
             viewEventRepeatable.text = text
             if(event.hasRecurrencyEndDate()) {
+                viewUntilLayout.visibility = View.VISIBLE
                 viewUntilDate.text = sdf.format(event.getRecurrencyEndDate())
+            } else {
+                viewUntilLayout.visibility = View.GONE
             }
         }
         else {
+            viewEventRepeatable.visibility = View.GONE
             viewUntilLayout.visibility = View.GONE
         }
 
@@ -134,6 +141,12 @@ class ViewEventActivity : AppCompatActivity() {
         super.onBackPressed()
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
+    private fun onEditEvent() {
+        val intent = Intent(this, EditEventActivity::class.java).apply {}
+        intent.putExtra("event", event)
+        startActivity(intent)
     }
 
 }
