@@ -112,4 +112,6 @@
     <string name="instructionsInvitationsdescription">A continuació hi són les invitacions que has rebut per cuidar mascotes. Pots acceptar-les o denegar-les</string>
     <string name="done">Completat</string>
     <string name="review_invites">Invitacions</string>
+    <string name="done_on">Completat el</string>
+    <string name="event_deletion_alert_title">Estàs segur que vols borrar aquest event?</string>
 </resources>

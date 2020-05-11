@@ -1,4 +1,4 @@
-package com.example.petland.events.ui.creation
+package com.example.petland.events.ui.edit
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_create_event.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     lateinit var selectedPet: ParseObject
     lateinit var petList: List<ParseObject>
     lateinit var event: PetEvent
@@ -36,7 +36,7 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_event)
+        setContentView(R.layout.activity_edit_event)
 
         event = PetEvent()
 

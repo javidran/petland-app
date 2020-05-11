@@ -112,4 +112,6 @@
     <string name="instructionsInvitationsdescription">Estas son las invitaciones que has recibido, puedes aceptarlas o denegarlas</string>
     <string name="done">Completado</string>
     <string name="review_invites">Invitaciones</string>
+    <string name="done_on">Completado el</string>
+    <string name="event_deletion_alert_title">Estás seguro de que quieres borrar este evento?</string>
 </resources>

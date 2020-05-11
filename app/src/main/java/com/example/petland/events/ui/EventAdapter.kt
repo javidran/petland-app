@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.model.PetEvent
+import com.example.petland.events.ui.callback.ViewEventCallback
 import kotlinx.android.synthetic.main.list_event_element.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,7 +58,7 @@ class EventAdapter(private val events: List<PetEvent>, private val context: Cont
                 }
                 event.isRecurrent() -> {
                     v.recurrencyTextView.visibility = View.VISIBLE
-                    val text = context.getString(R.string.repeat_every) + event.getRecurrency() + context.getString(R.string.days)
+                    val text = context.getString(R.string.repeat_every) + " " + event.getRecurrency() + " " +context.getString(R.string.days)
                     v.recurrencyTextView.text = text
                 }
                 else -> {

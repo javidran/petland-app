@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.R
 import com.example.petland.events.model.PetEvent
+import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.events.ui.creation.CreateEventActivity
+import com.example.petland.events.ui.view.ViewEventActivity
 import kotlinx.android.synthetic.main.fragment_events.view.*
 
-class EventsFragment : Fragment(), ViewEventCallback {
+class EventsFragment : Fragment(),
+    ViewEventCallback {
     private lateinit var adapter: EventAdapter
     private lateinit var rootView: View
 

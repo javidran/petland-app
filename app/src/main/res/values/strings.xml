@@ -103,7 +103,7 @@
     <string name="event_measurement_height">Height</string>
     <string name="event_medicine_dosage">Dosage</string>
     <string name="recurrent_event_check">It\'s a recurrent event</string>
-    <string name="repeat_every">Repeat every</string>
+    <string name="repeat_every">Repeats every</string>
     <string name="days">days</string>
     <string name="event_end_date">Finalization date</string>
     <string name="event_until_date">Until an specific date</string>
@@ -117,4 +117,6 @@
     <string name="review_invites">Review invites</string>
     <string name="done">Completed</string>
     <string name="event_deletion_alert_title">Are you sure you want to delete this event?</string>
+
+    <string name="done_on">Completed on</string>
 </resources>
