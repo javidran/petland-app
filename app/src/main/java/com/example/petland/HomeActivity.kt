@@ -1,5 +1,7 @@
 package com.example.petland
 
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -113,6 +115,12 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onCreateOptionsMenu(menu)
     }
 
+    private fun clearNotifications() {
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancelAll()
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_mascota -> {
@@ -148,6 +156,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_logout -> {
                 mGoogleSignInClient.signOut()
                     .addOnCompleteListener(this) {
+                        clearNotifications()
                         val currentUser = ParseUser.getCurrentUser()
                         if (currentUser != null) {
                             Log.d(TAG, getString(R.string.loggedOut)) //Mensaje en logcat
@@ -190,5 +199,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     companion object {
         private const val TAG = "Petland Dashboard"
     }
+
 }
 

@@ -27,10 +27,10 @@ import kotlinx.android.synthetic.main.activity_signin.*
 
 class SignInActivity : AppCompatActivity() {
     private val CHANNEL_ID = "Nuevas Invitaciones"
-    private val CHANNEL_IDX = "Invitaciones aceptadas"
-    private val CHANNEL_IDY = "Eventos"
     private val NOTIFICACION_ID = 0
+    private val CHANNEL_IDX = "Invitaciones aceptadas"
     private val NOTIFICACION_IDX = 1
+    private val CHANNEL_IDY = "Eventos"
     private val NOTIFICACION_IDY = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
