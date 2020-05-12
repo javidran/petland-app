@@ -3,6 +3,8 @@ package com.example.petland.mapas
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.parse.ParseObject
@@ -28,14 +30,21 @@ class TimelineAdapter(
         holder.bindWalkHolder(walks[position])
     }
 
-    class WalkHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class WalkHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
         var view: View = v
         private lateinit var walk: ParseObject
+
+        init {
+            v.setOnClickListener(this)
+        }
 
         fun bindWalkHolder(walk: ParseObject) {
             this.walk = walk
             view.durationNum.text = walk.getNumber("duration").toString()
             view.distanceNum.text = walk.getString("distance")
+        }
+
+        override fun onClick(v: View?) {
         }
 
     }

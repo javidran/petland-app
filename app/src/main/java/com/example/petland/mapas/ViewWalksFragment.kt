@@ -21,6 +21,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.PolylineOptions
+import com.parse.ParseObject
+import com.parse.ParseQuery
 
 
 class ViewWalksFragment : Fragment(), OnMapReadyCallback,
@@ -43,7 +46,7 @@ class ViewWalksFragment : Fragment(), OnMapReadyCallback,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        rootView = inflater.inflate(R.layout.fragment_view_walks, container, false)
+        rootView = inflater.inflate(R.layout.fragment_map, container, false)
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.frg) as SupportMapFragment
         mapFragment.getMapAsync { mMap ->
@@ -170,6 +173,22 @@ class ViewWalksFragment : Fragment(), OnMapReadyCallback,
         if (!locationUpdateState) {
             startLocationUpdates()
         }
+    }
+
+    fun drawPolyline(){
+        map.clear()
+        val walk = ParseQuery<ParseObject>("Walks")
+        val list = walk.whereEqualTo("objectId", "hGcvXlJBk6")
+        val polyLine = PolylineOptions().width(5f).color(R.color.colorAccent)
+        val latitudes = list.get("locLatitudes") as Array<*>
+        val longitudes = list.get("locLatitudes") as Array<*>
+        for (z in latitudes) {
+            val lat: Double = latitudes[z as Int] as Double
+            val lon: Double = longitudes[z] as Double
+            val point: LatLng = LatLng(lat,lon)
+            polyLine.add(point)
+        }
+        map.addPolyline(polyLine)
     }
 
     override fun onMarkerClick(p0: Marker?) = false
