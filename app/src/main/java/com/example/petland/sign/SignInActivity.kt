@@ -24,6 +24,7 @@ import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
+import java.time.LocalDateTime
 
 
 class SignInActivity : AppCompatActivity() {
@@ -94,7 +95,7 @@ class SignInActivity : AppCompatActivity() {
                         createNotificationChannels()
                         notificationNewInvitation()
                         notificationAcceptCaregiver()
-                        //notificationEvent()
+                        notificationEvent()
                     } else {
                         progress(false)
                         Log.d(TAG, "User does not exist.")
@@ -244,10 +245,12 @@ class SignInActivity : AppCompatActivity() {
         query.findInBackground { invitationsList, e ->
             if (e == null) {
                 if (invitationsList.size > 0) {
+                    val currentDate = LocalDateTime.now()
+
                     val builder = NotificationCompat.Builder(this, CHANNEL_IDY)
                         .setSmallIcon(R.drawable.animal_paw)
                         .setContentTitle("Nuevos eventos")
-                        .setContentText("Tienes eventos de mascota")
+                        .setContentText("Tienes eventos de mascota para hoy $currentDate")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     val notificationManagerCompat =
                         NotificationManagerCompat.from(applicationContext)
