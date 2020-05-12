@@ -9,13 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.pet.Pets
-import com.example.petland.pet.UserAdapter
-import com.example.petland.user_profile.PetAdapter
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import kotlinx.android.synthetic.main.fragment_timeline.view.*
-import kotlinx.android.synthetic.main.fragment_user_profile.view.*
-import kotlinx.android.synthetic.main.fragment_user_profile.view.recyclerView as recyclerView1
 
 class TimelineFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView

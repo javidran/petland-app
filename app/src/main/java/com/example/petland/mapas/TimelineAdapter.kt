@@ -34,8 +34,8 @@ class TimelineAdapter(
 
         fun bindWalkHolder(walk: ParseObject) {
             this.walk = walk
-            view.duration.text = walk.getNumber("duration").toString()
-            view.distance.text = walk.getString("distance")
+            view.durationNum.text = walk.getNumber("duration").toString()
+            view.distanceNum.text = walk.getString("distance")
         }
 
     }
