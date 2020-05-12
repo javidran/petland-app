@@ -18,6 +18,10 @@ class MeasurementEvent : ParseObject() {
         put("weight", weight)
     }
 
+    fun removeWeight() {
+        remove("weight")
+    }
+
     fun hasHeight() : Boolean {
         return getDouble("height") != 0.0
     }
@@ -28,6 +32,10 @@ class MeasurementEvent : ParseObject() {
 
     fun setHeight(height: Double) {
         put("height", height)
+    }
+
+    fun removeHeight() {
+        remove("Height")
     }
 
     fun saveEvent() {

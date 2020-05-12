@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.petland.R
 import com.example.petland.events.model.WalkEvent
+import com.example.petland.events.ui.callback.SaveDataCallback
 import com.parse.ParseObject
 
 class CreateWalkEventFragment : Fragment(),

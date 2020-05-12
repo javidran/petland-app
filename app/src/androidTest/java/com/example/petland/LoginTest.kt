@@ -2,6 +2,7 @@ package com.example.petland
 
 import android.content.Intent
 import android.view.Gravity
+import android.widget.ScrollView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -42,36 +43,43 @@ class LoginTest {
     fun testUserCanLogin() {
         loginWithTestUser()
         onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
-        chooseItemFromNavbar(R.id.nav_logout)
+        chooseItemFromNavBar(R.id.nav_logout)
         Thread.sleep(20000)
     }
 
     @Test
     fun testUserCanLogOut() {
         loginWithTestUser()
-        chooseItemFromNavbar(R.id.nav_logout)
+        chooseItemFromNavBar(R.id.nav_logout)
         Thread.sleep(20000)
         onView(withId(R.id.welcomeTitle)).check(matches(isDisplayed()))
     }
 
     private fun loginWithTestUser() {
+        Thread.sleep(4000)
         onView(withId(R.id.buttonSignIn)).perform(click())
         Thread.sleep(4000)
         onView(withId(R.id.editTextUsername)).perform(typeText(testUser), closeSoftKeyboard())
         Thread.sleep(4000)
+        val verticalSv = solo.getView(R.id.scrollViewSignIn) as ScrollView
+        verticalSv.scrollTo(0, 100)
+        Thread.sleep(4000)
         onView(withId(R.id.editTextPassword)).perform(typeText(testPassword), closeSoftKeyboard())
+        Thread.sleep(4000)
+        verticalSv.scrollTo(0, 300)
         Thread.sleep(4000)
         onView(withId(R.id.buttonContinuar)).perform(click())
         Thread.sleep(20000)
     }
 
-    private fun chooseItemFromNavbar(id: Int) {
+    private fun chooseItemFromNavBar(id: Int) {
+        Thread.sleep(4000)
         onView(withId(R.id.drawer_layout))
             .check(matches(isClosed(Gravity.LEFT)))
             .perform(DrawerActions.open())
-
+        Thread.sleep(4000)
         onView(withId(R.id.nav_view))
-            .perform(NavigationViewActions.navigateTo(id))
+            .perform(swipeUp(), NavigationViewActions.navigateTo(id))
 
     }
 

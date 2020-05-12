@@ -1,5 +1,6 @@
-package com.example.petland.events.ui.creation
+package com.example.petland.events.ui.edit
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -13,22 +14,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
-import com.example.petland.events.model.PetEvent
+import com.example.petland.events.model.*
 import com.example.petland.events.ui.callback.SaveDataCallback
+import com.example.petland.events.ui.creation.*
+import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.pet.Pets
 import com.parse.ParseObject
-import kotlinx.android.synthetic.main.activity_create_event.*
+import kotlinx.android.synthetic.main.activity_edit_event.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    lateinit var selectedPet: ParseObject
-    lateinit var petList: List<ParseObject>
-    lateinit var event: PetEvent
-    lateinit var callback: SaveDataCallback
+class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+    private lateinit var selectedPet: ParseObject
+    private lateinit var petList: List<ParseObject>
+    private lateinit var event: PetEvent
+    private lateinit var callback: SaveDataCallback
 
-    lateinit var spinnerEventType: Spinner
-    lateinit var spinnerPet: Spinner
+    private lateinit var spinnerEventType: Spinner
+    private lateinit var spinnerPet: Spinner
 
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     private val stf = SimpleDateFormat("HH:mm", Locale.US)
@@ -36,17 +39,21 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_event)
+        setContentView(R.layout.activity_edit_event)
 
-        event = PetEvent()
+        event = intent.extras?.get("event") as PetEvent
 
         returnButton.setOnClickListener { goBack() }
+        deleteEventButton.setOnClickListener { deletionDialog() }
         saveButton.setOnClickListener { onSaveButtonClicked() }
         setDateChooser(dateDay)
         setDateChooser(untilDateDay)
         setHourChooser(dateHour)
         setHourChooser(untilDateHour)
         setCheckBoxes()
+
+        dateDay.text = sdf.format(event.getDate())
+        dateHour.text = stf.format(event.getDate())
 
         spinnerEventType = findViewById(R.id.typeSpinner)
         val adapter = ArrayAdapter(
@@ -56,9 +63,14 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerEventType.adapter = adapter
         spinnerEventType.onItemSelectedListener = this
+        val dataType = event.getDataType()
+        EventType.values().forEachIndexed { index, eventType ->
+            if(eventType == dataType) {
+                spinnerEventType.setSelection(index, true)
+            }
+        }
 
         petList = Pets.getPetsFromCurrentUser()
-        selectedPet = Pets.getSelectedPet()
 
         spinnerPet = findViewById(R.id.spinnerPet)
         val adapterPet = ArrayAdapter(
@@ -67,17 +79,33 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         )
         adapterPet.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerPet.adapter = adapterPet
-
         spinnerPet.onItemSelectedListener = this
 
+        val eventPet = event.getPet()
         petList.forEachIndexed { index, parseObject ->
-            if(parseObject.objectId == selectedPet.objectId) {
-                spinnerPet.setSelection(index)
+            if(parseObject.objectId == eventPet.objectId) {
+                spinnerPet.setSelection(index, true)
             }
         }
     }
 
     fun goBack() {
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
+    private fun deletionDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.event_deletion_alert_title))
+        builder.setCancelable(false)
+        builder.setPositiveButton(getString(R.string.delete)) { _, _ -> deleteEvent() }
+        builder.setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+        builder.show()
+    }
+
+    private fun deleteEvent() {
+        event.deleteEvent()
+        setResult(ViewEventActivity.RESULT_DELETED)
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
@@ -126,14 +154,10 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
     }
 
     private fun setCheckBoxes() {
-        recurrencyLayout.visibility = View.GONE
         recurrencyCheckbox.setOnCheckedChangeListener { _, b ->
             if(b) recurrencyLayout.visibility = View.VISIBLE
             else recurrencyLayout.visibility = View.GONE
         }
-
-        untilDateDay.visibility = View.GONE
-        untilDateHour.visibility = View.GONE
         recurrencyUntilCheckbox.setOnCheckedChangeListener { _, b ->
             if(b) {
                 untilDateDay.visibility = View.VISIBLE
@@ -143,6 +167,25 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                 untilDateDay.visibility = View.GONE
                 untilDateHour.visibility = View.GONE
             }
+        }
+
+        if(event.isRecurrent()) {
+            recurrencyCheckbox.isChecked = true
+            recurrencyLayout.visibility = View.VISIBLE
+            recurrencyNumber.setText(event.getRecurrency().toString())
+        } else {
+            recurrencyLayout.visibility = View.GONE
+        }
+
+        if(event.hasRecurrencyEndDate()) {
+            recurrencyUntilCheckbox.isChecked = true
+            untilDateDay.visibility = View.VISIBLE
+            untilDateHour.visibility = View.VISIBLE
+            untilDateDay.text = sdf.format(event.getRecurrencyEndDate())
+            untilDateHour.text = stf.format(event.getRecurrencyEndDate())
+        } else {
+            untilDateDay.visibility = View.GONE
+            untilDateHour.visibility = View.GONE
         }
     }
 
@@ -206,28 +249,65 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                         : Fragment
                 when (parent.getItemAtPosition(pos).toString()) {
                     getString(R.string.vaccine) -> {
-                        fragment = CreateVaccineEventFragment.newInstance()
-                        callback = fragment
+                        if(event.getDataType() == EventType.VACCINE) {
+                            fragment = EditVaccineEventFragment.newInstance(event.getData() as VaccineEvent)
+                            callback = fragment
+                        }
+                        else {
+                            fragment = CreateVaccineEventFragment.newInstance()
+                            callback = fragment
+                        }
+
                     }
                     getString(R.string.food) -> {
-                        fragment = CreateFoodEventFragment.newInstance()
-                        callback = fragment
+                        if(event.getDataType() == EventType.FOOD) {
+                            fragment = EditFoodEventFragment.newInstance(event.getData() as FoodEvent)
+                            callback = fragment
+                        }
+                        else {
+                            fragment = CreateFoodEventFragment.newInstance()
+                            callback = fragment
+                        }
                     }
                     getString(R.string.hygiene) -> {
-                        fragment = CreateHygieneEventFragment.newInstance()
-                        callback = fragment
+                        if(event.getDataType() == EventType.HYGIENE) {
+                            fragment = EditHygieneEventFragment.newInstance(event.getData() as HygieneEvent)
+                            callback = fragment
+                        }
+                        else {
+                            fragment = CreateHygieneEventFragment.newInstance()
+                            callback = fragment
+                        }
                     }
                     getString(R.string.measurement) -> {
-                        fragment = CreateMeasurementEventFragment.newInstance()
-                        callback = fragment
+                        if(event.getDataType() == EventType.MEASUREMENT) {
+                            fragment = EditMeasurementEventFragment.newInstance(event.getData() as MeasurementEvent)
+                            callback = fragment
+                        }
+                        else {
+                            fragment = CreateMeasurementEventFragment.newInstance()
+                            callback = fragment
+                        }
                     }
                     getString(R.string.medicine) -> {
-                        fragment = CreateMedicineEventFragment.newInstance()
-                        callback = fragment
+                        if(event.getDataType() == EventType.MEDICINE) {
+                            fragment = EditMedicineEventFragment.newInstance(event.getData() as MedicineEvent)
+                            callback = fragment
+                        }
+                        else {
+                            fragment = CreateMedicineEventFragment.newInstance()
+                            callback = fragment
+                        }
                     }
                     getString(R.string.walk) -> {
-                        fragment = CreateWalkEventFragment.newInstance()
-                        callback = fragment
+                        if(event.getDataType() == EventType.WALK) {
+                            fragment = EditWalkEventFragment.newInstance(event.getData() as WalkEvent)
+                            callback = fragment
+                        }
+                        else {
+                            fragment = CreateWalkEventFragment.newInstance()
+                            callback = fragment
+                        }
                     }
                 }
                 transaction.replace(R.id.typeLayout, fragment)
@@ -238,6 +318,8 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             }
         }
     }
+
+
 
     override fun onNothingSelected(parent: AdapterView<*>) {
     }
