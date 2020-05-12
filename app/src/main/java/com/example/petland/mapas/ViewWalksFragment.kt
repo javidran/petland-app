@@ -180,8 +180,9 @@ class ViewWalksFragment : Fragment(), OnMapReadyCallback,
 
     fun drawPolyline(){
         map.clear()
+        val bundle = arguments
         val listWalks = ParseQuery<ParseObject>("Walk")
-        val list = listWalks.whereEqualTo("objectId", "WdbPNaw2S4")
+        val list = listWalks.whereEqualTo("objectId", bundle?.getString("objectId"))
         val walk = list.first
         val polyLine = PolylineOptions().width(5f).color(R.color.colorAccent)
         val latitudes = walk.getList<Double>("locLatitudes")

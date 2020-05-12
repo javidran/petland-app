@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
@@ -14,7 +13,7 @@ import com.parse.ParseObject
 import com.parse.ParseQuery
 import kotlinx.android.synthetic.main.fragment_timeline.view.*
 
-class TimelineFragment : Fragment() {
+class TimelineFragment : Fragment(), ViewWalkCallback {
     private lateinit var recyclerView: RecyclerView
 
     private lateinit var layoutManager: LinearLayoutManager
@@ -52,7 +51,7 @@ class TimelineFragment : Fragment() {
         walks.whereEqualTo("pet", pet)
         val list = walks.find()
 
-        this.adapter = TimelineAdapter(list.toList())
+        this.adapter = TimelineAdapter(list.toList(), this)
         rootView.recyclerViewTimeline.adapter = adapter
     }
 
@@ -61,6 +60,16 @@ class TimelineFragment : Fragment() {
         @JvmStatic
         fun newInstance() =
             TimelineFragment().apply {}
+    }
+
+    override fun startViewWalkFragment(walk: ParseObject) {
+        val bundle = Bundle()
+        bundle.putString("objectId", walk.objectId)
+        val transaction = requireFragmentManager().beginTransaction()
+        fragment = ViewWalksFragment.newInstance()
+        fragment.arguments = bundle
+        transaction.replace(R.id.frameLayout, fragment)
+        transaction.commit()
     }
 
 }
