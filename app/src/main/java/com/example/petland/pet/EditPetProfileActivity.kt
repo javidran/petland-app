@@ -21,6 +21,7 @@ import com.parse.ParseQuery
 import com.parse.ParseRelation
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_edit_pet_profile.*
+import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -71,7 +72,7 @@ class EditPetProfileActivity : AppCompatActivity() {
         listUsers.whereEqualTo("objectId", powner.objectId)
 
         usernameText1.text = myPet.getString("name")
-        ownerText1.text = listCaregivers.first.get("username").toString()
+        ownerText1.text = listUsers.first.username
 
         val listRaces = ParseQuery.getQuery<ParseObject>("Race")
         val pRacePrincipal = myPet.get("nameRace") as ParseObject
