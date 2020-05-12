@@ -57,6 +57,7 @@
         <activity android:name=".pet.ViewPetProfileActivity" />
         <activity android:name=".pet.EditPetProfileActivity" />
         <activity android:name=".TestingActivity" />
+        <activity android:name=".mapas.TimelineFragment"/>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="fullSensor"
