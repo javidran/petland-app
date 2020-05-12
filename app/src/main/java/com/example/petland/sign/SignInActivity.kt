@@ -147,10 +147,12 @@ class SignInActivity : AppCompatActivity() {
                     var num = 0
                     for ( i in invitationsList) {
                         val creator = i.get("creator") as ParseObject
+                        creator.fetch<ParseObject>()
                         val pet = i.get("petO") as ParseObject
-                        //val creatorN: String? = creator.getString("name")
-                        //val petN: String? = pet.getString("name")
-                        events[num++] = ("$ te ha invitado a ser cuidador de $")
+                        pet.fetch<ParseObject>()
+                        val creatorN: String? = creator.getString("name")
+                        val petN: String? = pet.getString("name")
+                        events[num++] = ("$creatorN te ha invitado a ser cuidador de $petN")
                     }
 
                     val intent = Intent(this, ViewInvitationsActivity::class.java).apply {
@@ -160,14 +162,14 @@ class SignInActivity : AppCompatActivity() {
 
                     val inboxStyle =
                         NotificationCompat.InboxStyle()
-                    inboxStyle.setBigContentTitle("Invitaciones nuevas")
+                    inboxStyle.setBigContentTitle("Nuevas invitaciones para cuidar una mascota")
                     for (element in events) {
                         inboxStyle.addLine(element)
                     }
 
                     val builder = NotificationCompat.Builder(this, CHANNEL_ID)
                         .setSmallIcon(R.drawable.animal_paw)
-                        .setContentTitle("Nueva invitación para cuidar una mascota")
+                        .setContentTitle("Nuevas invitaciones para cuidar una mascota")
                         .setContentText("Tienes "+ invitationsList.size + " invitaciones de cuidador")
                         .setStyle( inboxStyle )
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -198,13 +200,15 @@ class SignInActivity : AppCompatActivity() {
                     val events = arrayOfNulls<String>(invitationsList.size)
                     for ((num, i) in invitationsList.withIndex()) {
                         val creator = i.get("creator") as ParseObject
+                        creator.fetch<ParseObject>()
                         val pet = i.get("petO") as ParseObject
-                        events[num] = ("" + creator.getString("username") + " ha aceptado tu invitació para ser cuidador de " + pet.getString("name"))
+                        pet.fetch<ParseObject>()
+                        events[num] = ("" + creator.getString("name") + " ha aceptado tu invitació para ser cuidador de " + pet.getString("name"))
                     }
 
                     val builder = NotificationCompat.Builder(this, CHANNEL_IDX)
                         .setSmallIcon(R.drawable.animal_paw)
-                        .setContentTitle("Invitación aceptada")
+                        .setContentTitle("Invitaciones aceptadas")
                         .setContentText("Tienes " + invitationsList.size + " invitaciones aceptadas de cuidadores de mascota")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
@@ -233,17 +237,27 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun notificationEvent() {
-        val builder = NotificationCompat.Builder(this, CHANNEL_IDY)
-            .setSmallIcon(R.drawable.animal_paw)
-            .setContentTitle("Nuevos eventos")
-            .setContentText("Tienes eventos de mascota")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        val notificationManagerCompat =
-            NotificationManagerCompat.from(applicationContext)
-        notificationManagerCompat.notify(NOTIFICACION_IDY, builder.build())
+        val cUser = ParseUser.getCurrentUser()
+        val query = ParseQuery.getQuery<ParseObject>("PetEvent")
+        query.whereEqualTo("creator", cUser )
+        query.whereEqualTo("answer", true )
+        query.findInBackground { invitationsList, e ->
+            if (e == null) {
+                if (invitationsList.size > 0) {
+                    val builder = NotificationCompat.Builder(this, CHANNEL_IDY)
+                        .setSmallIcon(R.drawable.animal_paw)
+                        .setContentTitle("Nuevos eventos")
+                        .setContentText("Tienes eventos de mascota")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    val notificationManagerCompat =
+                        NotificationManagerCompat.from(applicationContext)
+                    notificationManagerCompat.notify(NOTIFICACION_IDY, builder.build())
 
-        with(NotificationManagerCompat.from(this)) {
-            notify(NOTIFICACION_IDY, builder.build())
+                    with(NotificationManagerCompat.from(this)) {
+                        notify(NOTIFICACION_IDY, builder.build())
+                    }
+                }
+            }
         }
     }
 }
