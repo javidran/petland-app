@@ -1,15 +1,11 @@
 package com.example.petland.mapas
 
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
-import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
-import com.parse.ParseUser
-import kotlinx.android.synthetic.main.pet_profile_user_element.view.*
 import kotlinx.android.synthetic.main.timeline_element.view.*
 
 
@@ -20,7 +16,7 @@ class TimelineAdapter(
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): WalkHolder {
         return WalkHolder(
-            LayoutInflater.from(p0.context).inflate(R.layout.fragment_timeline, p0, false)
+            LayoutInflater.from(p0.context).inflate(R.layout.timeline_element, p0, false)
         )
     }
 
@@ -38,6 +34,8 @@ class TimelineAdapter(
 
         fun bindWalkHolder(walk: ParseObject) {
             this.walk = walk
+            view.duration.text = walk.getNumber("duration").toString()
+            view.distance.text = walk.getString("distance")
         }
 
     }
