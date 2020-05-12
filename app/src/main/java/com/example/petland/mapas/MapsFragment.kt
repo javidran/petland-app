@@ -183,7 +183,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
          walk.put("endDate", dateEnd)
          walk.put("duration", time.toInt())
          walk.put("distance", distance.text)
-
          walk.put("locLatitudes", getLatitudes())
          walk.put("locLongitudes", getLongitudes())
          walk.saveInBackground()

@@ -24,6 +24,8 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
 import com.parse.ParseObject
 import com.parse.ParseQuery
+import kotlinx.android.synthetic.main.activity_get_first_pet.view.*
+import org.json.JSONArray
 
 
 class ViewWalksFragment : Fragment(), OnMapReadyCallback,
@@ -61,6 +63,7 @@ class ViewWalksFragment : Fragment(), OnMapReadyCallback,
             override fun onLocationResult(p0: LocationResult) {
                 super.onLocationResult(p0)
                 lastLocation = p0.lastLocation
+                drawPolyline()
 
             }
 
@@ -177,18 +180,21 @@ class ViewWalksFragment : Fragment(), OnMapReadyCallback,
 
     fun drawPolyline(){
         map.clear()
-        val walk = ParseQuery<ParseObject>("Walks")
-        val list = walk.whereEqualTo("objectId", "hGcvXlJBk6")
+        val listWalks = ParseQuery<ParseObject>("Walk")
+        val list = listWalks.whereEqualTo("objectId", "WdbPNaw2S4")
+        val walk = list.first
         val polyLine = PolylineOptions().width(5f).color(R.color.colorAccent)
-        val latitudes = list.get("locLatitudes") as Array<*>
-        val longitudes = list.get("locLatitudes") as Array<*>
-        for (z in latitudes) {
-            val lat: Double = latitudes[z as Int] as Double
-            val lon: Double = longitudes[z] as Double
-            val point: LatLng = LatLng(lat,lon)
-            polyLine.add(point)
+        val latitudes = walk.getList<Double>("locLatitudes")
+        val longitudes = walk.getList<Double>("locLongitudes")
+        if (latitudes != null) {
+            for (z in latitudes.indices) {
+                val lat: Double = latitudes[z]
+                val lon: Double? = longitudes?.get(z)
+                val point = lon?.let { LatLng(lat, it) }
+                polyLine.add(point)
+            }
+            map.addPolyline(polyLine)
         }
-        map.addPolyline(polyLine)
     }
 
     override fun onMarkerClick(p0: Marker?) = false
@@ -201,5 +207,4 @@ class ViewWalksFragment : Fragment(), OnMapReadyCallback,
         fun newInstance() =
             ViewWalksFragment().apply {}
     }
-
 }
