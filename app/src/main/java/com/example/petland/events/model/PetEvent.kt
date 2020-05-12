@@ -12,7 +12,9 @@ import java.util.*
 open class PetEvent : ParseObject() {
 
     fun getPet() : ParseObject {
-        return getParseObject(PET) ?: throw NullPointerException()
+        val obj = getParseObject(PET) ?: throw NullPointerException()
+        obj.fetch<ParseObject>()
+        return obj
     }
 
     fun setPet(pet: ParseObject) {
@@ -202,6 +204,16 @@ open class PetEvent : ParseObject() {
                 FilterEvent.ONLY_WALK -> query.whereEqualTo(DATA_TYPE, "WalkEvent")
             }
             return query.find().toList()
+        }
+
+        fun getEventsFromUser() : List<PetEvent> {
+            val pets = Pets.getPetsFromCurrentUser()
+            var events = ArrayList<PetEvent>()
+
+            for(p in pets) {
+                events.addAll(getEventsFromPet(p))
+            }
+            return events
         }
     }
 }
