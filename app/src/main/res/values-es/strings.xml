@@ -112,4 +112,16 @@
     <string name="instructionsInvitationsdescription">Estas son las invitaciones que has recibido, puedes aceptarlas o denegarlas</string>
     <string name="done">Completado</string>
     <string name="review_invites">Invitaciones</string>
+    <string name="done_on">Completado el</string>
+    <string name="event_deletion_alert_title">Estás seguro de que quieres borrar este evento?</string>
+    <string name="needed">Obligatorio</string>
+    <string name="type_of_food_hint">Tipo de comida:</string>
+    <string name="yes">Si</string>
+    <string name="event_completion_dialog">Has completada el evento en la fecha estimada?</string>
+    <string name="no_choose_date">No, escoger fecha</string>
+    <string name="quantity_hint">Cantidad:</string>
+    <string name="type_of_hygiene_hint">Tipo de higiene:</string>
+    <string name="filter_by">Filtrar por:</string>
+    <string name="newest_first">Los nuevos primero</string>
+    <string name="oldest_first">Los antiguos primero</string>
 </resources>

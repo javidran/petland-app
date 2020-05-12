@@ -112,4 +112,16 @@
     <string name="instructionsInvitationsdescription">A continuació hi són les invitacions que has rebut per cuidar mascotes. Pots acceptar-les o denegar-les</string>
     <string name="done">Completat</string>
     <string name="review_invites">Invitacions</string>
+    <string name="done_on">Completat el</string>
+    <string name="event_deletion_alert_title">Estàs segur que vols borrar aquest event?</string>
+    <string name="needed">Obligatori</string>
+    <string name="type_of_food_hint">Tipus de menjar:</string>
+    <string name="yes">Si</string>
+    <string name="event_completion_dialog">Has completat l\'event en la data estimada?</string>
+    <string name="no_choose_date">No, triar data</string>
+    <string name="quantity_hint">Quantitat:</string>
+    <string name="type_of_hygiene_hint">Tipus d\'higiene:</string>
+    <string name="filter_by">Filtrar per:</string>
+    <string name="newest_first">Els nous primer</string>
+    <string name="oldest_first">Els antics primer</string>
 </resources>
