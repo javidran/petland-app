@@ -135,7 +135,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_mapa -> {
                 frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                fragment = ViewWalksFragment.newInstance()
+                fragment = MapFragment.newInstance()
                 transaction.replace(R.id.frameLayout, fragment)
                 transaction.commit()
             }
