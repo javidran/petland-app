@@ -1,11 +1,14 @@
 package com.example.petland.mapas
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.parse.ParseObject
+import com.parse.ParseQuery
+import com.parse.ParseUser
 import kotlinx.android.synthetic.main.timeline_element.view.*
 
 
@@ -39,10 +42,18 @@ class TimelineAdapter(
             v.setOnClickListener(this)
         }
 
+        @SuppressLint("SetTextI18n")
         fun bindWalkHolder(walk: ParseObject) {
             this.walk = walk
-            view.durationNum.text = walk.getNumber("duration").toString()
-            view.distanceNum.text = walk.getString("distance")
+            var num = walk.getNumber("duration") as Int
+            num = num.div(60) as Int
+            view.durationNum.text = num.toString() + "min"
+            view.distanceNum.text = walk.getString("distance") + "m"
+
+            val users = ParseQuery.getQuery<ParseUser>("_User")
+            val pPaseador = walk.get("user") as ParseObject
+            users.whereEqualTo("objectId", pPaseador.objectId)
+            view.paseadorNom.text = users.first.username
         }
 
         override fun onClick(v: View?) {
