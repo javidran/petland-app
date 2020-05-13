@@ -47,44 +47,16 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/changeOwnerButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/button_without_corners"
-        android:backgroundTint="@color/md_blue_A100"
-        android:text="->"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
+    <ImageButton
         android:id="@+id/deleteCaregButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/button_without_corners"
-        android:backgroundTint="@color/md_red_A700"
-        android:text="X"
+        android:layout_width="40dp"
+        android:layout_height="36dp"
+        android:backgroundTint="@color/md_white_1000"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/changeOwnerButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="72dp"
-        android:layout_height="17dp"
-        android:gravity="center"
-        android:text="DELETED"
-        android:textColor="@color/md_red_A700"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_delete" />
 </androidx.constraintlayout.widget.ConstraintLayout>

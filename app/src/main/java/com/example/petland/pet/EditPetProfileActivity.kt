@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class EditPetProfileActivity : AppCompatActivity() {
+class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
 
     private lateinit var myPet:ParseObject
     private val TAG = "Petland EditPetProfile"
@@ -62,16 +62,13 @@ class EditPetProfileActivity : AppCompatActivity() {
 
         val user = ParseUser.getCurrentUser()
         myPet.fetch<ParseObject>()
-        val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
-        val listCaregivers = caregivers.query
-        val list = listCaregivers.find()
 
         val listUsers = ParseQuery.getQuery<ParseUser>("_User")
         val powner = myPet.get("owner") as ParseObject
         listUsers.whereEqualTo("objectId", powner.objectId)
 
         usernameText1.text = myPet.getString("name")
-        ownerText1.text = listCaregivers.first.get("username").toString()
+        ownerText1.text = listUsers.first.get("username").toString()
 
         val listRaces = ParseQuery.getQuery<ParseObject>("Race")
         val pRacePrincipal = myPet.get("nameRace") as ParseObject
@@ -122,26 +119,7 @@ class EditPetProfileActivity : AppCompatActivity() {
         if (ownerText1.text == user.username) {     // enable buttons
             val deleteButton:TextView = findViewById(R.id.deleteButton)
             deleteButton.visibility = View.VISIBLE
-            val addCarg:TextView = findViewById(R.id.addCarg)
-            addCarg.visibility = View.VISIBLE
-            val viewCargs:RecyclerView = findViewById(R.id.recyclerView1)
-            viewCargs.visibility = View.VISIBLE
-            if (list != null) {
-                viewManager = LinearLayoutManager(this)
-                viewAdapter = UserAdapter(list.toList(), true, myPet)
-                recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
-                    // use this setting to improve performance if you know that changes
-                    // in content do not change the layout size of the RecyclerView
-                    setHasFixedSize(true)
-
-                    // use a linear layout manager
-                    layoutManager = viewManager
-
-                    // specify an viewAdapter (see also next example)
-                    adapter = viewAdapter
-
-                }
-            }
+            updateCaregivers()
         }
         verImagen()
         addElementsToSpinnerRace()
@@ -321,6 +299,32 @@ class EditPetProfileActivity : AppCompatActivity() {
         builder.setNegativeButton(getString(R.string.cancel))
         { dialog, which -> }
         builder.show()
+    }
+
+    override fun updateCaregivers() {
+        val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
+        val listCaregivers = caregivers.query
+        val list = listCaregivers.find()
+        val addCarg:TextView = findViewById(R.id.addCarg)
+        addCarg.visibility = View.VISIBLE
+        val viewCargs:RecyclerView = findViewById(R.id.recyclerView1)
+        viewCargs.visibility = View.VISIBLE
+        if (list != null) {
+            viewManager = LinearLayoutManager(this)
+            viewAdapter = UserAdapter(list.toList(), true, myPet, this)
+            recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
+                setHasFixedSize(true)
+
+                // use a linear layout manager
+                layoutManager = viewManager
+
+                // specify an viewAdapter (see also next example)
+                adapter = viewAdapter
+
+            }
+        }
     }
 
 }
