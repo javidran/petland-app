@@ -6,6 +6,7 @@ import com.example.petland.events.enums.EventType
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.pet.Pets
 import com.parse.GetCallback
+import com.example.petland.Application
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -200,12 +201,12 @@ open class PetEvent : ParseObject() {
             query.orderByDescending(DATE)
 
             if (query.count() == 0 ) {
-               return getString(R.string.noWalks)
+               return Application.getAppContext().getString(R.string.noWalks)
                 }
             else {
               val objects = query.find().first()
 
-                return getString(R.string.walks) +  sdf.format(objects.get("date"))
+                return  Application.getAppContext().getString(R.string.walks) +  sdf.format(objects.get("date"))
             }
 
         }
