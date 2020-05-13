@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventAdapter
-import com.example.petland.events.ui.ViewEventActivity
-import com.example.petland.events.ui.ViewEventCallback
-import com.example.petland.events.ui.creation.CreateEventActivity
+import com.example.petland.events.ui.view.ViewEventActivity
+import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.image.ImageUtils
 import com.example.petland.pet.Pets.Companion.getSelectedPet
 import kotlinx.android.synthetic.main.fragment_home_principal.view.*
@@ -45,8 +45,9 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
 
     override fun onResume() {
         super.onResume()
-        adapter = EventAdapter(PetEvent.getEventsFromPet(),  context!!, this)
+        adapter = EventAdapter(PetEvent.getEventsWithoutWalk(getSelectedPet()),  context!!, this)
         rootView.recyclerViewEvents.adapter = adapter
+        PetEvent.getEventsFromPet(FilterEvent.ONLY_WALK)
         setPetInfo()
     }
     private fun setPetInfo() {
@@ -57,6 +58,10 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
 
         val birthDayText: TextView = rootView.findViewById(R.id.birthday)
         birthDayText.text = sdf.format(pet.get("birthday"))
+
+
+        val textWalk: TextView = rootView.findViewById(R.id.textWalk)
+        textWalk.text = PetEvent.getWalkEventDate(getSelectedPet())
 
 
         ImageUtils.retrieveImage(pet, rootView.profileImage)

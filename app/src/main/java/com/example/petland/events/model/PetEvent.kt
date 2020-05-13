@@ -1,12 +1,16 @@
 package com.example.petland.events.model
 
+import android.util.Log
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.pet.Pets
+import com.parse.GetCallback
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
+import java.text.SimpleDateFormat
 import java.util.*
+
 
 @ParseClassName("PetEvent")
 open class PetEvent : ParseObject() {
@@ -187,7 +191,29 @@ open class PetEvent : ParseObject() {
         fun getEventsFromPet(pet: ParseObject) : List<PetEvent> {
             return getEventsFromPet(pet, FilterEvent.NEWEST_FIRST)
         }
+        fun getWalkEventDate(pet: ParseObject) : String {
+            val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US)
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo(PET, pet)
+            query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            query.orderByDescending(DATE)
 
+            if (query.count() == 0 ) {
+               return "No hay próximos paseos"
+                }
+            else {
+              val objects = query.find().first()
+                return "Próximo paseo: " +  sdf.format(objects.get("date"))
+            }
+
+        }
+        fun getEventsWithoutWalk(pet: ParseObject) : List<PetEvent> {
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo(PET, pet)
+            query.whereNotEqualTo(DATA_TYPE, "WalkEvent")
+            query.orderByDescending(DATE)
+            return query.find().toList()
+        }
         fun getEventsFromPet(pet: ParseObject, filter: FilterEvent) : List<PetEvent> {
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)
