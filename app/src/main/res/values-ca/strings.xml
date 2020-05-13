@@ -124,4 +124,5 @@
     <string name="filter_by">Filtrar per:</string>
     <string name="newest_first">Els nous primer</string>
     <string name="oldest_first">Els antics primer</string>
+    <string name="add_caregiver">Afegir cuidador</string>
 </resources>

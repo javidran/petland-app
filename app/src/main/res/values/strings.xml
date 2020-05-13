@@ -129,4 +129,5 @@
     <string name="filter_by">Filter by:</string>
     <string name="newest_first">Newest first</string>
     <string name="oldest_first">Oldest first</string>
+    <string name="add_caregiver">Add caregiver</string>
 </resources>

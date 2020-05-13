@@ -31,6 +31,7 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
     private val TAG = "Petland EditPetProfile"
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
+    private var owner: Boolean = false
     private lateinit var raceObj: ParseObject
     private lateinit var raceObjOpt: ParseObject
     private lateinit var animalSpecies: AnimalSpecies
@@ -52,6 +53,7 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
         super.onResume()
         setData()
         verImagen()
+        updateCaregivers()
     }
 
     private fun verImagen () {
@@ -69,6 +71,7 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
 
         usernameText1.text = myPet.getString("name")
         ownerText1.text = listUsers.first.get("username").toString()
+        owner = (ownerText1.text == user.username)
 
         val listRaces = ParseQuery.getQuery<ParseObject>("Race")
         val pRacePrincipal = myPet.get("nameRace") as ParseObject
@@ -116,10 +119,13 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
         }
         else chipText1.setText("")
 
-        if (ownerText1.text == user.username) {     // enable buttons
+        updateCaregivers()
+
+        if (owner) {     // enable buttons
             val deleteButton:TextView = findViewById(R.id.deleteButton)
             deleteButton.visibility = View.VISIBLE
-            updateCaregivers()
+            val addCarg:TextView = findViewById(R.id.addCarg)
+            addCarg.visibility = View.VISIBLE
         }
         verImagen()
         addElementsToSpinnerRace()
@@ -272,7 +278,7 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
-    fun edit(view: View) {
+    fun save(view: View) {
         myPet.put("birthday", date)
         myPet.put("chip", Integer.valueOf(chipText1.text.toString()))
         myPet.put("nameRace", raceObj)
@@ -305,13 +311,9 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
         val list = listCaregivers.find()
-        val addCarg:TextView = findViewById(R.id.addCarg)
-        addCarg.visibility = View.VISIBLE
-        val viewCargs:RecyclerView = findViewById(R.id.recyclerView1)
-        viewCargs.visibility = View.VISIBLE
         if (list != null) {
             viewManager = LinearLayoutManager(this)
-            viewAdapter = UserAdapter(list.toList(), true, myPet, this)
+            viewAdapter = UserAdapter(list.toList(), owner, myPet, this)
             recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
