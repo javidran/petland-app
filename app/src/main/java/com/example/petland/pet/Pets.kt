@@ -21,7 +21,7 @@ class Pets {
             if(result.isEmpty()) {
                 Application.startNoPetsActivity()
             }
-            else if(result.isNotEmpty() && !this::selectedPet.isInitialized) {
+            else if (!this::selectedPet.isInitialized) {
                 selectedPet = result[0]
             }
             return result.toList()

@@ -18,12 +18,16 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventsFragment
+import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.pet.Pets
 import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.pet.Pets.Companion.setSelectedPet
+import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.UserProfileFragment
+import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.example.petland.utils.CustomAdapter
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -47,6 +51,16 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        if(!Pets.userHasPets()) {
+            val intent = Intent(this, GetFirstPetActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            if(intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION) != null && intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION)!!) {
+                intent.putExtra(Application.INVITATION_NOTIFICATION, true)
+            }
+            startActivity(intent)
+            finish()
+        }
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -80,10 +94,30 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragment = HomePrincipalFragment.newInstance()
         transaction.replace(R.id.frameLayout, fragment)
         transaction.commit()
+
+        if(intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION) != null && intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION)!!) {
+            val intent = Intent(this, ViewInvitationsActivity::class.java).apply {}
+            startActivity(intent)
+        }
+
+        if(intent.extras?.getBoolean(Application.EVENT_NOTIFICATION) != null && intent.extras?.getBoolean(Application.EVENT_NOTIFICATION)!!) {
+            frameLayout.removeAllViews()
+            val transactionEv: FragmentTransaction = supportFragmentManager.beginTransaction()
+            fragment = EventsFragment.newInstance()
+            transactionEv.replace(R.id.frameLayout, fragment)
+            transactionEv.commit()
+            if(intent.extras?.getParcelable<PetEvent>(Application.EVENT_NOTIFICATION_INSTANCE) != null) {
+                //En caso de que se reciba el evento en específico abrirá el evento
+                val intent = Intent(this, ViewEventActivity::class.java).apply {}
+                val ev: PetEvent = intent.extras?.getParcelable(Application.EVENT_NOTIFICATION_INSTANCE)!!
+                intent.putExtra("event", ev)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun createSpinnerPet() {
-         objectpet  = Pets.getPetsFromCurrentUser()
+        objectpet  = Pets.getPetsFromCurrentUser()
         listPets = getNamesFromPetList(objectpet.toList())
 
     }
