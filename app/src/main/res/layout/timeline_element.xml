@@ -11,11 +11,11 @@
     android:elevation="4dp">
 
     <TextView
-        android:id="@+id/distance"
+        android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:text="Distance"
+        android:layout_marginStart="170dp"
+        android:text="Duration"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/paseador"
@@ -28,7 +28,7 @@
         android:id="@+id/durationNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="170dp"
         android:text="Num"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -39,14 +39,14 @@
         app:layout_constraintVertical_bias="0.8" />
 
     <TextView
-        android:id="@+id/duration"
+        android:id="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="90dp"
         android:text="Distance"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/distance"
+        app:layout_constraintEnd_toStartOf="@+id/duration"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -56,7 +56,7 @@
         android:id="@+id/distanceNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="90dp"
         android:text="Num"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -109,5 +109,41 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/paseador"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hora"
+        android:layout_width="54dp"
+        android:layout_height="37dp"
+        android:gravity="center"
+        android:text="14"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/min"
+        app:layout_constraintEnd_toStartOf="@+id/distance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="24-11-19"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/distanceNum"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="00"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/dia"
+        app:layout_constraintEnd_toStartOf="@+id/distanceNum"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hora" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,9 +46,19 @@ class TimelineAdapter(
         fun bindWalkHolder(walk: ParseObject) {
             this.walk = walk
             var num = walk.getNumber("duration") as Int
-            num = num.div(60) as Int
+            num = num.div(60000) as Int
             view.durationNum.text = num.toString() + "min"
-            view.distanceNum.text = walk.getString("distance") + "m"
+            view.distanceNum.text = walk.getString("distance") + "km"
+
+            val fecha = walk.getDate("startDate")
+            if (fecha != null) {
+                view.hora.text = fecha.hours.toString()
+                view.min.text = fecha.minutes.toString()
+                val dia = fecha.day
+                val month = fecha.month
+                val year = fecha.year
+                view.dia.text = fecha.day.toString() + "-" + fecha.month.toString()+ "-" + fecha.year.toString()
+            }
 
             val users = ParseQuery.getQuery<ParseUser>("_User")
             val pPaseador = walk.get("user") as ParseObject

@@ -49,6 +49,7 @@ class TimelineFragment : Fragment(), ViewWalkCallback {
         val pet = Pets.getSelectedPet()
         val walks = ParseQuery<ParseObject>("Walk")
         walks.whereEqualTo("pets", pet)
+        walks.orderByDescending("createdAt")
         val list = walks.find()
         this.adapter = TimelineAdapter(list.toList(), this)
         rootView.recyclerViewTimeline.adapter = adapter
