@@ -66,7 +66,7 @@
     <string name="confirmationAlertMessage">Els canvis es guardaran i es modificarà el perfil</string>
     <string name="edit_image">Seleccionar imatge</string>
     <string name="reset_image">Utilitzar imatge predeterminada</string>
-    <string name="delete_account_message">Estàs segur de voler borrar el compte?</string>
+    <string name="delete_account_message">Estàs segur de voler borrar el compte? S\'esborraran totes les mascotes i dades desades</string>
     <string name="delete_account">Borrar compte</string>
     <string name="racetype">Raça múltiple</string>
     <string name="race">Raça</string>
