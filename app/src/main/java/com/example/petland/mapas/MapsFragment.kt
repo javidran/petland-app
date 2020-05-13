@@ -9,7 +9,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,8 +29,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.SphericalUtil
-import com.parse.Parse
-import com.parse.ParseGeoPoint
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
@@ -63,20 +60,21 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireContext())
         val selectedItems = ArrayList<String>()
         val builder = AlertDialog.Builder(context)
-        //val pet : ParseObject = Pets.getSelectedPet()
-        //val name : String = pet.get("name").toString()
+        val pet : ParseObject = Pets.getSelectedPet()
+        val name : String = pet.get("name").toString()
 
-        builder.setTitle("Escoja los animales que quiere pasear")
+        builder.setTitle(getString(R.string.walkpet))
         listPets = Pets.getNamesFromPetList(Pets.getPetsFromCurrentUser())
-        //  val num : Int = listPets.indexOf(name)
-        //val checkedItems = BooleanArray(listPets.size)
-       // checkedItems[num] = true
-        builder.setMultiChoiceItems(listPets, null) { dialog, which, isChecked ->
+        val num : Int = listPets.indexOf(name)
+        val checkedItems = BooleanArray(listPets.size)
+       checkedItems[num] = true
+        selectedItems.add(listPets[num])
+        builder.setMultiChoiceItems(listPets, checkedItems) { dialog, which, isChecked ->
             if(isChecked) {
                 selectedItems.add(listPets[which])
             }
-            else if (selectedItems.contains(listPets[which]) and !(isChecked)) {
-                selectedItems.removeAt(Integer.valueOf(which))
+            else if (selectedItems.contains(listPets[which])) {
+                selectedItems.removeAt(selectedItems.indexOf(listPets[which]))
             }
         }
 
@@ -85,6 +83,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         }
 
         val dialog = builder.create()
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
         dialog.show()
     }
 
@@ -211,7 +211,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
              val relation = walk.getRelation<ParseObject>("pets")
              relation.add(result)
         }
-         walk.put("pet", Pets.getSelectedPet())
          walk.put("startDate", dateIni)
          walk.put("endDate", dateEnd)
          walk.put("duration", time.toInt())

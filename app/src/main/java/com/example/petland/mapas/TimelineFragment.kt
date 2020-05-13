@@ -48,9 +48,8 @@ class TimelineFragment : Fragment(), ViewWalkCallback {
     private fun updatePaseos() {
         val pet = Pets.getSelectedPet()
         val walks = ParseQuery<ParseObject>("Walk")
-        walks.whereEqualTo("pet", pet)
+        walks.whereEqualTo("pets", pet)
         val list = walks.find()
-
         this.adapter = TimelineAdapter(list.toList(), this)
         rootView.recyclerViewTimeline.adapter = adapter
     }
