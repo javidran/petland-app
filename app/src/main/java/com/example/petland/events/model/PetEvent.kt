@@ -1,6 +1,7 @@
 package com.example.petland.events.model
 
 import android.util.Log
+import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.pet.Pets
@@ -199,11 +200,12 @@ open class PetEvent : ParseObject() {
             query.orderByDescending(DATE)
 
             if (query.count() == 0 ) {
-               return "No hay próximos paseos"
+               return getString(R.string.noWalks)
                 }
             else {
               val objects = query.find().first()
-                return "Próximo paseo: " +  sdf.format(objects.get("date"))
+
+                return getString(R.string.walks) +  sdf.format(objects.get("date"))
             }
 
         }

@@ -113,7 +113,7 @@ class EditProfileActivity : AppCompatActivity() {
     private fun deleteUser() {
         val user = ParseUser.getCurrentUser()
         val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.whereEqualTo("owner", user) //Query para obtener todas las mascotas propiedad del user a eliminar, para eliminarlas tambien
+        query.whereEqualTo("owner", user) //Query para obtener todas lƒas mascotas propiedad del user a eliminar, para eliminarlas tambien
         query.findInBackground { petsList, e ->
             if (e == null) {
                 for (pet in petsList) {
