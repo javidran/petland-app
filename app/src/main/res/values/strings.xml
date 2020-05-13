@@ -130,4 +130,7 @@
     <string name="end_walk">Are you sure you want to End the walk?</string>
     <string name="end_walk_message">When ending a walk the distance, path and duration will be saved in the walks tab</string>
     <string name="walkpet">Select the animals you want to walk with</string>
+    <string name="duration">Duration</string>
+    <string name="distance">Distance</string>
+    <string name="paseador">Walker</string>
 </resources>

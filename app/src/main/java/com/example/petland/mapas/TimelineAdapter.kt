@@ -52,12 +52,14 @@ class TimelineAdapter(
 
             val fecha = walk.getDate("startDate")
             if (fecha != null) {
-                view.hora.text = fecha.hours.toString()
+                view.hora.text = fecha.toGMTString()
+                /*
                 view.min.text = fecha.minutes.toString()
-                val dia = fecha.day
+                val dia = fecha.toGMTString()
                 val month = fecha.month
                 val year = fecha.year
                 view.dia.text = fecha.day.toString() + "-" + fecha.month.toString()+ "-" + fecha.year.toString()
+                */
             }
 
             val users = ParseQuery.getQuery<ParseUser>("_User")

@@ -120,4 +120,7 @@
     <string name="end_walk">Està segur que vol acabar el passeig?</string>
     <string name="end_walk_message">En acabar un passeig la distancia, el recorregut i la duració es registren. El pot consultar a l\'historial de passejos</string>
     <string name="walkpet">Escull els animals que vols passejar</string>
+    <string name="duration">Durada</string>
+    <string name="distance">Distància</string>
+    <string name="paseador">Passejador</string>
 </resources>
