@@ -36,6 +36,7 @@
         <activity android:name=".user_profile.invitations.ViewInvitationsActivity" />
         <activity android:name=".pet.SearchCaregiversActivity" />
         <activity android:name=".events.ui.creation.CreateEventActivity" />
+        <activity android:name=".events.ui.edit.EditEventActivity" />
         <activity android:name=".image.ImageActivity" />
         <activity android:name=".image.ImageOnCreationActivity" />
         <activity android:name=".user_profile.UserProfileFragment" />

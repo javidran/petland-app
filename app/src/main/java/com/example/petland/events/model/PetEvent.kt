@@ -1,6 +1,7 @@
 package com.example.petland.events.model
 
 import com.example.petland.events.enums.EventType
+import com.example.petland.events.enums.FilterEvent
 import com.example.petland.pet.Pets
 import com.parse.ParseClassName
 import com.parse.ParseObject
@@ -11,53 +12,53 @@ import java.util.*
 open class PetEvent : ParseObject() {
 
     fun getPet() : ParseObject {
-        return getParseObject("pet") ?: throw NullPointerException()
+        return getParseObject(PET) ?: throw NullPointerException()
     }
 
     fun setPet(pet: ParseObject) {
-        put("pet", pet)
+        put(PET, pet)
     }
 
     fun getDate() : Date {
-        return getDate("date") ?: throw NullPointerException()
+        return getDate(DATE) ?: throw NullPointerException()
     }
 
     fun setDate(value : Date) {
-        put("date", value)
+        put(DATE, value)
     }
 
     fun isRecurrent() : Boolean {
-        return getInt("recurrency") != 0
+        return getInt(RECURRENT) != 0
     }
 
     fun setRecurrent(recurrency: Int) {
-        put("recurrency", recurrency)
+        put(RECURRENT, recurrency)
     }
 
     fun getRecurrency(): Int {
-        return getInt("recurrency")
+        return getInt(RECURRENT)
     }
 
     fun removeRecurrency() {
-        remove("recurrency")
+        remove(RECURRENT)
         removeRecurrencyEndDate()
     }
 
 
     fun hasRecurrencyEndDate() : Boolean {
-        return getDate("recurrencyUntil") != null
+        return getDate(RECURRENT_UNTIL) != null
     }
 
     fun setRecurrencyEndDate(date: Date) {
-        put("recurrencyUntil", date)
+        put(RECURRENT_UNTIL, date)
     }
 
     fun getRecurrencyEndDate() : Date {
-        return getDate("recurrencyUntil") ?: throw NullPointerException()
+        return getDate(RECURRENT_UNTIL) ?: throw NullPointerException()
     }
 
     fun removeRecurrencyEndDate() {
-        remove("recurrencyUntil")
+        remove(RECURRENT_UNTIL)
     }
 
     fun isRecurrentlyFinished() : Boolean {
@@ -70,28 +71,54 @@ open class PetEvent : ParseObject() {
     }
 
     fun isDone() : Boolean {
-        return getDate("doneDate") != null
+        return getDate(DONE_DATE) != null
     }
 
     fun getDoneDate() : Date {
-        return getDate("doneDate") ?: throw NullPointerException()
+        return getDate(DONE_DATE) ?: throw NullPointerException()
     }
 
     fun setData(dataEvent: ParseObject) {
-        put("data", dataEvent.objectId)
-        put("data_type", dataEvent.className)
+        put(DATA, dataEvent.objectId)
+        put(DATA_TYPE, dataEvent.className)
     }
 
     fun getData() : ParseObject {
-        val objId = getString("data") ?: throw NullPointerException()
-        val className = getString("data_type") ?: throw NullPointerException()
+        val objId = getString(DATA) ?: throw NullPointerException()
+        val className = getString(DATA_TYPE) ?: throw NullPointerException()
         val query = ParseQuery.getQuery<ParseObject>(className)
         query.whereEqualTo("objectId", objId)
         return query.find().first()
     }
 
+    fun getDataDuplicate() : ParseObject {
+        when(getDataType()) {
+            EventType.FOOD -> {
+                return FoodEvent.duplicate(getData() as FoodEvent)
+            }
+            EventType.HYGIENE -> {
+                return HygieneEvent.duplicate(getData() as HygieneEvent)
+            }
+            EventType.MEASUREMENT -> {
+                //Every Measurement Event should have different data
+                val newEv = MeasurementEvent()
+                newEv.saveEvent()
+                return newEv
+            }
+            EventType.MEDICINE -> {
+                return MedicineEvent.duplicate(getData() as MedicineEvent)
+            }
+            EventType.VACCINE -> {
+                return VaccineEvent.duplicate(getData() as VaccineEvent)
+            }
+            EventType.WALK -> {
+                return WalkEvent.duplicate(getData() as WalkEvent)
+            }
+        }
+    }
+
     fun getDataType() : EventType {
-        val type = getString("data_type") ?: throw NullPointerException()
+        val type = getString(DATA_TYPE) ?: throw NullPointerException()
         when(type) {
             "FoodEvent" -> return EventType.FOOD
             "HygieneEvent" -> return EventType.HYGIENE
@@ -116,23 +143,23 @@ open class PetEvent : ParseObject() {
 
                 nextEvent.setRecurrent(getRecurrency())
                 if (hasRecurrencyEndDate()) nextEvent.setRecurrencyEndDate(getRecurrencyEndDate())
-                nextEvent.setData(getData())
 
+                nextEvent.setData(getDataDuplicate())
                 nextEvent.saveEvent()
             }
 
-            put("doneDate", date)
+            put(DONE_DATE, date)
             save()
         }
     }
 
     fun deleteEvent() {
-        getData().deleteInBackground()
-        this.deleteInBackground()
+        getData().delete()
+        this.delete()
     }
 
     fun saveEvent() {
-        if(getParseObject("pet") != null && getDate("date") != null && getString("data") != null) {
+        if(getParseObject(PET) != null && getDate(DATE) != null && getString(DATA) != null) {
             if(getDate() < Calendar.getInstance().time) markAsDone(getDate())
             save()
         } else {
@@ -141,16 +168,39 @@ open class PetEvent : ParseObject() {
     }
 
     companion object {
+        private const val DATE = "date"
+        private const val PET = "pet"
+        private const val DATA = "data"
+        private const val RECURRENT = "recurrent"
+        private const val RECURRENT_UNTIL = "recurrent_until"
+        private const val DONE_DATE = "done_date"
+        private const val DATA_TYPE = "data_type"
 
         fun getEventsFromPet() : List<PetEvent> {
-            val query = ParseQuery.getQuery(PetEvent::class.java)
-            query.whereEqualTo("pet", Pets.getSelectedPet())
-            return query.find().toList()
+            return getEventsFromPet(Pets.getSelectedPet(), FilterEvent.NEWEST_FIRST)
+        }
+
+        fun getEventsFromPet(filter: FilterEvent) : List<PetEvent> {
+            return getEventsFromPet(Pets.getSelectedPet(), filter)
         }
 
         fun getEventsFromPet(pet: ParseObject) : List<PetEvent> {
+            return getEventsFromPet(pet, FilterEvent.NEWEST_FIRST)
+        }
+
+        fun getEventsFromPet(pet: ParseObject, filter: FilterEvent) : List<PetEvent> {
             val query = ParseQuery.getQuery(PetEvent::class.java)
-            query.whereEqualTo("pet", pet)
+            query.whereEqualTo(PET, pet)
+            when(filter) {
+                FilterEvent.NEWEST_FIRST -> query.orderByDescending(DATE)
+                FilterEvent.OLDEST_FIRST -> query.orderByAscending(DATE)
+                FilterEvent.ONLY_FOOD -> query.whereEqualTo(DATA_TYPE, "FoodEvent")
+                FilterEvent.ONLY_VACCINE -> query.whereEqualTo(DATA_TYPE, "VaccineEvent")
+                FilterEvent.ONLY_MEDICINE -> query.whereEqualTo(DATA_TYPE, "MedicineEvent")
+                FilterEvent.ONLY_MEASUREMENT -> query.whereEqualTo(DATA_TYPE, "MeasurementEvent")
+                FilterEvent.ONLY_HYGIENE -> query.whereEqualTo(DATA_TYPE, "HygieneEvent")
+                FilterEvent.ONLY_WALK -> query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            }
             return query.find().toList()
         }
     }

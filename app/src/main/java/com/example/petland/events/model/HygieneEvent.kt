@@ -24,4 +24,13 @@ class HygieneEvent : ParseObject() {
         }
     }
 
+    companion object {
+        fun duplicate(oldEvent: HygieneEvent) : HygieneEvent {
+            val newEvent = HygieneEvent()
+            newEvent.setType(oldEvent.getType())
+            newEvent.saveEvent()
+            return newEvent
+        }
+    }
+
 }
