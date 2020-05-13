@@ -50,13 +50,17 @@ class Application : Application() {
         private const val clientKey = "clientPetland"
         private const val parseUrl = "http://petland.sytes.net:1337/parse"
 
+        const val INVITATION_NOTIFICATION = "inv_not"
+        const val EVENT_NOTIFICATION = "eve_not"
+        const val EVENT_NOTIFICATION_INSTANCE = "eve_not_ins"
+
         private lateinit var instance: Application
         fun getAppContext(): Context = instance.applicationContext
 
         fun startNoPetsActivity() {
             val context =  getAppContext()
             val intent = Intent(context, GetFirstPetActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             context.startActivity(intent)
         }
     }

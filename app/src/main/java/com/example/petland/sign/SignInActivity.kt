@@ -14,6 +14,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.example.petland.Application
 import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.pet.Pets
@@ -25,6 +26,7 @@ import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
 import java.time.LocalDateTime
+import java.util.*
 
 
 class SignInActivity : AppCompatActivity() {
@@ -156,9 +158,10 @@ class SignInActivity : AppCompatActivity() {
                         events[num++] = ("$creatorN te ha invitado a ser cuidador de $petN")
                     }
 
-                    val intent = Intent(this, ViewInvitationsActivity::class.java).apply {
+                    val intent = Intent(this, HomeActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     }
+                    intent.putExtra(Application.INVITATION_NOTIFICATION, true)
                     val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
                     val inboxStyle =
@@ -245,7 +248,7 @@ class SignInActivity : AppCompatActivity() {
         query.findInBackground { invitationsList, e ->
             if (e == null) {
                 if (invitationsList.size > 0) {
-                    val currentDate = LocalDateTime.now()
+                    val currentDate = Calendar.getInstance().time
 
                     val builder = NotificationCompat.Builder(this, CHANNEL_IDY)
                         .setSmallIcon(R.drawable.animal_paw)
