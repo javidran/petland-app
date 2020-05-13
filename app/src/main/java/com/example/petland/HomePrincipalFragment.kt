@@ -1,5 +1,6 @@
 package com.example.petland
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,14 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventAdapter
-import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.events.ui.callback.ViewEventCallback
+import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.image.ImageUtils
 import com.example.petland.pet.Pets.Companion.getSelectedPet
+import com.example.petland.user_profile.EditProfileActivity
 import kotlinx.android.synthetic.main.fragment_home_principal.view.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.profileImage
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class HomePrincipalFragment : Fragment(), ViewEventCallback {
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
@@ -39,6 +42,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
     ): View? {
 
        rootView = inflater.inflate(R.layout.fragment_home_principal, container, false)
+        rootView.editProfileButton.setOnClickListener { editProfileActivity() }
         rootView.recyclerViewEvents.layoutManager = LinearLayoutManager(context)
         return rootView
     }
@@ -67,7 +71,12 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         ImageUtils.retrieveImage(pet, rootView.profileImage)
     }
 
-
+fun editProfileActivity() {
+    val i = Intent(activity, EditProfileActivity::class.java)
+    startActivity(i)
+    (activity as Activity?)!!.overridePendingTransition(R.anim.slide_in_right,
+        R.anim.slide_out_left)
+}
     companion object {
 
         @JvmStatic
