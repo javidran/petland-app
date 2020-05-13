@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.SphericalUtil
 import com.parse.ParseObject
+import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_maps.view.*
@@ -47,15 +49,41 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private var geoPoints:  MutableList<LatLng> = arrayListOf()
     private var zoom = 16f
     private var num: Long = 0
+    private lateinit var  listPets:  Array<String>
     private lateinit var dateIni: Date
     private lateinit var dateEnd: Date
     private lateinit var rootView: View
     private lateinit var distance: TextView
+    private lateinit var listPetsSelected: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireContext())
+        val selectedItems = ArrayList<String>()
+        val builder = AlertDialog.Builder(context)
+        //val pet : ParseObject = Pets.getSelectedPet()
+        //val name : String = pet.get("name").toString()
 
+        builder.setTitle("Escoja los animales que quiere pasear")
+        listPets = Pets.getNamesFromPetList(Pets.getPetsFromCurrentUser())
+        //  val num : Int = listPets.indexOf(name)
+        //val checkedItems = BooleanArray(listPets.size)
+       // checkedItems[num] = true
+        builder.setMultiChoiceItems(listPets, null) { dialog, which, isChecked ->
+            if(isChecked) {
+                selectedItems.add(listPets[which])
+            }
+            else if (selectedItems.contains(listPets[which]) and !(isChecked)) {
+                selectedItems.removeAt(Integer.valueOf(which))
+            }
+        }
+
+        builder.setPositiveButton("OK") { dialog, which ->
+           listPetsSelected =  selectedItems
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     override fun onCreateView(
@@ -124,7 +152,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
             chronometer.base = chronometer.base + SystemClock.elapsedRealtime()
 
         }
-
         chronometer.start()
         dateIni = Calendar.getInstance().time
     }
@@ -169,19 +196,25 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
 
      private fun finalizarPaseo() {
 
-          val time: Long =
-              SystemClock.elapsedRealtime() - chronometer.base
-          chronometer.stop()
-          dateEnd = Calendar.getInstance().time
-
+         val time: Long =
+             SystemClock.elapsedRealtime() - chronometer.base
+         chronometer.stop()
+         dateEnd = Calendar.getInstance().time
          val walk = ParseObject.create("Walk")
          walk.put("user", ParseUser.getCurrentUser())
+         val query = ParseQuery.getQuery<ParseObject>("Pet")
+         for (pets in listPetsSelected) {
+         query.whereEqualTo("name", pets)
+         val result = query.find().first()
+             val relation = walk.getRelation<ParseObject>("pets")
+             relation.add(result)
+        }
          walk.put("pet", Pets.getSelectedPet())
          walk.put("startDate", dateIni)
          walk.put("endDate", dateEnd)
          walk.put("duration", time.toInt())
          walk.put("distance", distance.text)
-         walk.saveInBackground()
+         walk.save()
 
           val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
           val fragment = HomePrincipalFragment.newInstance()
