@@ -1,6 +1,7 @@
 package com.example.petland
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -44,6 +45,18 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
 
     }
 
+    private var mContext: Context? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(activity!!)
+        mContext = context
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        mContext = null
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,11 +76,11 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         val listAdapter = PetEvent.getEventsWithoutWalk(getSelectedPet())
         visibleNoEvents = listAdapter.isEmpty()
         adapter = EventAdapter(listAdapter,  requireContext(), this) //Android Studio ME HA PEDIDO QUE LO CAMBIE A requiereContext()
-
         rootView.recyclerViewEvents.adapter = adapter
         PetEvent.getEventsFromPet(FilterEvent.ONLY_WALK)
         setPetInfo()
     }
+
     private fun setPetInfo() {
        val pet = getSelectedPet()
 

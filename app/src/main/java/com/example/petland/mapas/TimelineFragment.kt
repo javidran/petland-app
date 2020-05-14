@@ -1,5 +1,6 @@
 package com.example.petland.mapas
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.pet.Pets
+import com.example.petland.pet.ViewPetProfileActivity
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import kotlinx.android.synthetic.main.fragment_timeline.view.*
@@ -63,13 +65,9 @@ class TimelineFragment : Fragment(), ViewWalkCallback {
     }
 
     override fun startViewWalkFragment(walk: ParseObject) {
-        val bundle = Bundle()
-        bundle.putString("objectId", walk.objectId)
-        val transaction = requireFragmentManager().beginTransaction()
-        fragment = ViewWalksFragment.newInstance()
-        fragment.arguments = bundle
-        transaction.replace(R.id.frameLayout, fragment)
-        transaction.commit()
+        val intent = Intent(context, ViewWalksActivity::class.java).apply {}
+        intent.putExtra("walk", walk)
+        startActivity(intent);
     }
 
 }
