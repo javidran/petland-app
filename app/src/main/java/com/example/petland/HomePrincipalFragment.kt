@@ -20,9 +20,6 @@ import com.example.petland.mapas.MapsFragment
 import com.example.petland.pet.Pets.Companion.getSelectedPet
 import com.example.petland.user_profile.EditProfileActivity
 import kotlinx.android.synthetic.main.fragment_home_principal.view.*
-import kotlinx.android.synthetic.main.content_home.*
-import kotlinx.android.synthetic.main.fragment_home_principal.view.*
-import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.profileImage
 import java.text.SimpleDateFormat
 import java.util.*
