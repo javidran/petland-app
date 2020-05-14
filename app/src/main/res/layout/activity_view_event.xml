@@ -10,12 +10,15 @@
         android:id="@+id/returnButton"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="40dp"
         android:background="@drawable/button_with_borders_translucent"
         android:text="@string/goBack"
-        app:layout_constraintBottom_toBottomOf="@+id/viewEventType"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/checkDoneButton"
+        app:layout_constraintHorizontal_bias="0.021"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewEventType" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.963" />
 
     <TextView
         android:id="@+id/viewEventType"
