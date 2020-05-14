@@ -136,8 +136,9 @@
     <string name="filter_by">Filtrar por:</string>
     <string name="newest_first">Los nuevos primero</string>
     <string name="oldest_first">Los antiguos primero</string>
-    <string name="noWalks">No hay próximos paseos</string>
+    <string name="noWalks">No hay ningún paso programado próximamente</string>
     <string name="walks">"Próximo paseo: "</string>
-    <string name="noEvents">NO HAY PRÓXIMOS EVENTOS</string>
+    <string name="noEvents">No hay eventos próximos para esta mascota</string>
     <string name="add_caregiver">Añadir cuidador</string>
+    <string name="events_header">Próximos eventos:</string>
 </resources>
