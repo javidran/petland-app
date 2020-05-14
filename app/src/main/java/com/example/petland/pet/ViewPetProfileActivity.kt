@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ViewPetProfileActivity : AppCompatActivity() {
+class ViewPetProfileActivity : AppCompatActivity() , ViewCaregiversCallback{
 
     private lateinit var myPet:ParseObject
     private val TAG = "Petland EditPetProfile"
@@ -75,7 +75,7 @@ class ViewPetProfileActivity : AppCompatActivity() {
 
         if (listCaregivers != null) {
             viewManager = LinearLayoutManager(this)
-            viewAdapter = UserAdapter(list.toList(), false, myPet)
+            viewAdapter = UserAdapter(list.toList(), false, myPet, this)
             recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
@@ -123,6 +123,10 @@ class ViewPetProfileActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
+
+    override fun updateCaregivers() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

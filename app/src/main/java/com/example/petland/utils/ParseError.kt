@@ -15,8 +15,8 @@ class ParseError {
             builder.setNeutralButton("OK") { dialogInterface, which ->
             }
         } else {
-            builder.setTitle(e.message)
-            builder.setMessage(e.message.toString())
+            builder.setTitle("Error")
+            builder.setMessage(e.message)
             builder.setNeutralButton("OK") { dialogInterface, which ->
             }
         }
