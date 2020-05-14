@@ -258,6 +258,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     companion object {
+
         private const val TAG = "Petland Dashboard"
     }
 
