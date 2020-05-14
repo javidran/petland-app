@@ -66,7 +66,7 @@
     <string name="confirmationAlertMessage">Los cambios se guardarán y se modificará el perfil</string>
     <string name="edit_image">Seleccionar imagen</string>
     <string name="reset_image">Utilizar imagen predeterminada</string>
-    <string name="delete_account_message">Estás seguro de borrar tu cuenta?</string>
+    <string name="delete_account_message">Estás seguro de borrar tu cuenta? Se borrarán todos las mascotas y datos guardados</string>
     <string name="delete_account">Borrar Cuenta</string>
     <string name="racetype">Raza multiple</string>
     <string name="race">Raza</string>
@@ -123,4 +123,16 @@
     <string name="duration">Duración</string>
     <string name="distance">Distancia</string>
     <string name="paseador">Paseador</string>
+    <string name="done_on">Completado el</string>
+    <string name="event_deletion_alert_title">Estás seguro de que quieres borrar este evento?</string>
+    <string name="needed">Obligatorio</string>
+    <string name="type_of_food_hint">Tipo de comida:</string>
+    <string name="yes">Si</string>
+    <string name="event_completion_dialog">Has completada el evento en la fecha estimada?</string>
+    <string name="no_choose_date">No, escoger fecha</string>
+    <string name="quantity_hint">Cantidad:</string>
+    <string name="type_of_hygiene_hint">Tipo de higiene:</string>
+    <string name="filter_by">Filtrar por:</string>
+    <string name="newest_first">Los nuevos primero</string>
+    <string name="oldest_first">Los antiguos primero</string>
 </resources>

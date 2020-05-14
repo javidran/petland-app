@@ -1,4 +1,4 @@
-package com.example.petland.events.ui.creation
+package com.example.petland.events.ui.edit
 
 import android.content.Context
 import android.os.Bundle
@@ -13,9 +13,9 @@ import com.example.petland.events.enums.HygieneType
 import com.example.petland.events.model.HygieneEvent
 import com.example.petland.events.ui.callback.SaveDataCallback
 import com.parse.ParseObject
-import kotlinx.android.synthetic.main.fragment_create_hygiene_event.view.*
+import kotlinx.android.synthetic.main.fragment_edit_hygiene_event.view.*
 
-class CreateHygieneEventFragment : Fragment(),
+class EditHygieneEventFragment : Fragment(),
     SaveDataCallback {
     private var dataEvent = HygieneEvent()
     private lateinit var rootView: View
@@ -23,13 +23,16 @@ class CreateHygieneEventFragment : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            dataEvent = it.getParcelable(ARG_PARAM)!!
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.fragment_create_hygiene_event, container, false)
+        rootView = inflater.inflate(R.layout.fragment_edit_hygiene_event, container, false)
 
         spinner = rootView.hyigieneSpinner
         val con: Context = context ?: throw NullPointerException()
@@ -39,6 +42,12 @@ class CreateHygieneEventFragment : Fragment(),
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
+        val dataType = dataEvent.getType()
+        HygieneType.values().forEachIndexed { index, type ->
+            if(type == dataType) {
+                spinner.setSelection(index)
+            }
+        }
 
         return rootView
     }
@@ -74,11 +83,15 @@ class CreateHygieneEventFragment : Fragment(),
 
     companion object {
         private const val TAG = "Petland Events"
+        private const val ARG_PARAM = "arg_param"
         const val DATA_EVENT = "data_event"
 
         @JvmStatic
-        fun newInstance() =
-            CreateHygieneEventFragment().apply {
+        fun newInstance(dataEvent: HygieneEvent) =
+            EditHygieneEventFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_PARAM, dataEvent)
+                }
             }
     }
 }

@@ -69,7 +69,7 @@
     <string name="edit_image">Choose image</string>
     <string name="reset_image">Use default image</string>
     <string name="crop_error">Could not bet cropped correctly, please try again</string>
-    <string name="delete_account_message">Are you sure you want to delete the account?</string>
+    <string name="delete_account_message">Are you sure you want to delete the account? All pets and saved data will be deleted</string>
     <string name="delete_account">Delete account</string>
     <string name="racetype">Multiple race</string>
     <string name="race">Race</string>
@@ -103,7 +103,7 @@
     <string name="event_measurement_height">Height</string>
     <string name="event_medicine_dosage">Dosage</string>
     <string name="recurrent_event_check">It\'s a recurrent event</string>
-    <string name="repeat_every">Repeat every</string>
+    <string name="repeat_every">Repeats every</string>
     <string name="days">days</string>
     <string name="event_end_date">Finalization date</string>
     <string name="event_until_date">Until an specific date</string>
@@ -133,4 +133,15 @@
     <string name="duration">Duration</string>
     <string name="distance">Distance</string>
     <string name="paseador">Walker</string>
+    <string name="done_on">Completed on</string>
+    <string name="needed">Needed</string>
+    <string name="event_completion_dialog">Did you complete the event on the expected date?</string>
+    <string name="yes">Yes</string>
+    <string name="no_choose_date">No, choose date</string>
+    <string name="type_of_food_hint">Type of food:</string>
+    <string name="quantity_hint">Quantity:</string>
+    <string name="type_of_hygiene_hint">Hygiene type:</string>
+    <string name="filter_by">Filter by:</string>
+    <string name="newest_first">Newest first</string>
+    <string name="oldest_first">Oldest first</string>
 </resources>
