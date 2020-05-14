@@ -117,6 +117,12 @@
     <string name="distancia_paseada">Walked distance:</string>
     <string name="finalizar_paseo">Finish</string>
     <string name="mins">mins</string>
+    <string name="end_walk">¿Está seguro que desea terminar el paseo?</string>
+    <string name="end_walk_message">Al terminar un paseo se registra la distancia, el recorrido y la duración. Lo puede consultar en el historial de paseos</string>
+    <string name="walkpet">Escoja los animales que quiere pasear</string>
+    <string name="duration">Duración</string>
+    <string name="distance">Distancia</string>
+    <string name="paseador">Paseador</string>
     <string name="done_on">Completado el</string>
     <string name="event_deletion_alert_title">Estás seguro de que quieres borrar este evento?</string>
     <string name="needed">Obligatorio</string>

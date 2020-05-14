@@ -127,6 +127,12 @@
     <string name="distancia_paseada">Distancia paseada:</string>
     <string name="tiempo_transcurrido">Tiempo transcurrido:</string>
     <string name="mins">mins</string>
+    <string name="end_walk">Are you sure you want to End the walk?</string>
+    <string name="end_walk_message">When ending a walk the distance, path and duration will be saved in the walks tab</string>
+    <string name="walkpet">Select the animals you want to walk with</string>
+    <string name="duration">Duration</string>
+    <string name="distance">Distance</string>
+    <string name="paseador">Walker</string>
     <string name="done_on">Completed on</string>
     <string name="needed">Needed</string>
     <string name="event_completion_dialog">Did you complete the event on the expected date?</string>

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
@@ -15,9 +16,13 @@ import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.image.ImageUtils
+import com.example.petland.mapas.MapsFragment
 import com.example.petland.pet.Pets.Companion.getSelectedPet
 import com.example.petland.user_profile.EditProfileActivity
 import kotlinx.android.synthetic.main.fragment_home_principal.view.*
+import kotlinx.android.synthetic.main.content_home.*
+import kotlinx.android.synthetic.main.fragment_home_principal.view.*
+import kotlinx.android.synthetic.main.fragment_user_profile.view.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.profileImage
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +34,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
     private lateinit var rootView: View
     private lateinit var adapter: EventAdapter
     private var visibleNoEvents: Boolean = false
+    lateinit var fragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +51,8 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
        rootView = inflater.inflate(R.layout.fragment_home_principal, container, false)
         rootView.editProfileButton.setOnClickListener { editProfileActivity() }
         rootView.recyclerViewEvents.layoutManager = LinearLayoutManager(context)
+        rootView.iniciarPaseoImage.setOnClickListener { iniciarPaseo() }
+
         return rootView
     }
 
@@ -88,6 +96,13 @@ fun editProfileActivity() {
     (activity as Activity?)!!.overridePendingTransition(R.anim.slide_in_right,
         R.anim.slide_out_left)
 }
+ fun iniciarPaseo() {
+
+     val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+     fragment = MapsFragment.newInstance()
+     transaction.replace(R.id.frameLayout, fragment)
+     transaction.commit()
+ }
     companion object {
 
         @JvmStatic

@@ -117,6 +117,12 @@
     <string name="distancia_paseada">Distancia passejada:</string>
     <string name="finalizar_paseo">Acabar</string>
     <string name="mins">mins</string>
+    <string name="end_walk">Està segur que vol acabar el passeig?</string>
+    <string name="end_walk_message">En acabar un passeig la distancia, el recorregut i la duració es registren. El pot consultar a l\'historial de passejos</string>
+    <string name="walkpet">Escull els animals que vols passejar</string>
+    <string name="duration">Durada</string>
+    <string name="distance">Distància</string>
+    <string name="paseador">Passejador</string>
     <string name="done_on">Completat el</string>
     <string name="event_deletion_alert_title">Estàs segur que vols borrar aquest event?</string>
     <string name="needed">Obligatori</string>

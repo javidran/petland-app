@@ -23,6 +23,7 @@
 
 
         <Button
+        
             android:id="@+id/baseSobreMapa"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -31,6 +32,7 @@
             android:gravity="center_horizontal|center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="0dp" />
+        
 
         <TextView
             android:id="@+id/paseando"
@@ -58,19 +60,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/duration"
+        <Chronometer
+            android:id="@+id/chronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="196dp"
             android:layout_marginBottom="60dp"
             android:elevation="4dp"
             android:text="Time"
+            android:visibility="visible"
             android:textColor="@color/md_grey_50"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
 
         <TextView
             android:id="@+id/timeUnit"
@@ -83,7 +87,7 @@
             android:textColor="@color/md_grey_50"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/duration" />
+            app:layout_constraintStart_toEndOf="@+id/chronometer" />
 
         <TextView
             android:id="@+id/distanciaPaseada"
@@ -105,7 +109,7 @@
             android:layout_marginStart="196dp"
             android:layout_marginBottom="28dp"
             android:elevation="4dp"
-            android:text="Distance"
+            android:text="0.00"
             android:textColor="@color/md_grey_50"
             android:textSize="20sp"
             android:textStyle="bold"

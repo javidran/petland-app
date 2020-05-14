@@ -17,7 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.ui.EventsFragment
-import com.example.petland.mapas.MapsFragment
+import com.example.petland.mapas.TimelineFragment
+import com.example.petland.mapas.ViewWalksFragment
 import com.example.petland.pet.Pets
 import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.pet.Pets.Companion.setSelectedPet
@@ -127,7 +128,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_paseos -> {
                 frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-                fragment = MapsFragment.newInstance()
+                fragment = TimelineFragment.newInstance()
                 transaction.replace(R.id.frameLayout, fragment)
                 transaction.commit()
             }

@@ -1,4 +1,4 @@
-package com.example.petland.ubications
+package com.example.petland.mapas
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
@@ -21,9 +21,14 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.PolylineOptions
+import com.parse.ParseObject
+import com.parse.ParseQuery
+import kotlinx.android.synthetic.main.activity_get_first_pet.view.*
+import org.json.JSONArray
 
 
-class MapFragment : Fragment(), OnMapReadyCallback,
+class ViewWalksFragment : Fragment(), OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener{
     private lateinit var map: GoogleMap
     private lateinit var lastLocation: Location
@@ -58,6 +63,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
             override fun onLocationResult(p0: LocationResult) {
                 super.onLocationResult(p0)
                 lastLocation = p0.lastLocation
+                drawPolyline()
 
             }
 
@@ -172,6 +178,26 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         }
     }
 
+    fun drawPolyline(){
+        map.clear()
+        val bundle = arguments
+        val listWalks = ParseQuery<ParseObject>("Walk")
+        val list = listWalks.whereEqualTo("objectId", bundle?.getString("objectId"))
+        val walk = list.first
+        val polyLine = PolylineOptions().width(5f).color(R.color.colorAccent)
+        val latitudes = walk.getList<Double>("locLatitudes")
+        val longitudes = walk.getList<Double>("locLongitudes")
+        if (latitudes != null) {
+            for (z in latitudes.indices) {
+                val lat: Double = latitudes[z]
+                val lon: Double? = longitudes?.get(z)
+                val point = lon?.let { LatLng(lat, it) }
+                polyLine.add(point)
+            }
+            map.addPolyline(polyLine)
+        }
+    }
+
     override fun onMarkerClick(p0: Marker?) = false
 
 
@@ -180,7 +206,6 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         private const val REQUEST_CHECK_SETTINGS = 2
         @JvmStatic
         fun newInstance() =
-            MapFragment().apply {}
+            ViewWalksFragment().apply {}
     }
-
 }
