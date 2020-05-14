@@ -1,5 +1,6 @@
 package com.example.petland.sign
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -26,6 +27,7 @@ import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -239,6 +241,8 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+
+    @SuppressLint("SimpleDateFormat")
     private fun notificationEvent() {
         val petsList =  PetEvent.getEventsFromUser()
         val today = Calendar.getInstance().time
@@ -253,8 +257,9 @@ class SignInActivity : AppCompatActivity() {
             if ( today < eventDate &&  eventDate < tomorrow) {
                 if (!mostrar) {mostrar = true}
                 val pet = i.getPet()
+                val sdf = SimpleDateFormat("HH:mm aa")
                 events[num] =
-                    ("" + pet.getString("name") + " tiene un evento a las " + eventDate.hours + "")
+                    ("" + pet.getString("name") + " tiene un evento a las " + sdf.format(eventDate) + "")
             }
         }
 
