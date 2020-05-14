@@ -2,6 +2,7 @@ package com.example.petland.user_profile.invitations
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.R
@@ -35,8 +36,23 @@ class ViewInvitationsActivity : AppCompatActivity(),
         val currentUser = ParseUser.getCurrentUser()
         val query = ParseQuery.getQuery<ParseObject>("Invitation")
         query.whereEqualTo("receiver", currentUser)
+        query.whereEqualTo("answer", false)
         invitationsList = query.find()
         if (invitationsList != null) {
+            if(invitationsList.toList().isEmpty()){
+                val noInvites: TextView = findViewById(R.id.noInvitations)
+                noInvites.visibility = View.VISIBLE
+                val yesInvites: TextView = findViewById(R.id.instructionsInvitations)
+                yesInvites.visibility = View.INVISIBLE
+            }
+            else{
+                val noInvites: TextView = findViewById(R.id.noInvitations)
+                noInvites.visibility = View.INVISIBLE
+                val yesInvites: TextView = findViewById(R.id.instructionsInvitations)
+                yesInvites.visibility = View.VISIBLE
+            }
+
+
             adapter =
                 InvitationAdapter(
                     invitationsList.toList(),
@@ -44,6 +60,8 @@ class ViewInvitationsActivity : AppCompatActivity(),
                 )
             recyclerView.adapter = adapter
         }
+
+
     }
 
     fun goBack(view: View) {
