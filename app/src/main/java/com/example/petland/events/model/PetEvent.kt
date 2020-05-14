@@ -1,12 +1,18 @@
 package com.example.petland.events.model
 
+import android.util.Log
+import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.pet.Pets
+import com.parse.GetCallback
+import com.example.petland.Application
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
+import java.text.SimpleDateFormat
 import java.util.*
+
 
 @ParseClassName("PetEvent")
 open class PetEvent : ParseObject() {
@@ -189,7 +195,37 @@ open class PetEvent : ParseObject() {
         fun getEventsFromPet(pet: ParseObject) : List<PetEvent> {
             return getEventsFromPet(pet, FilterEvent.NEWEST_FIRST)
         }
+        fun getWalkEventDate(pet: ParseObject) : String {
+            val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US)
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo(PET, pet)
+            query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            query.orderByDescending(DATE)
 
+            if (query.count() == 0 ) {
+               return Application.getAppContext().getString(R.string.noWalks)
+                }
+            else {
+              val objects = query.find().first()
+
+                return  Application.getAppContext().getString(R.string.walks) +  sdf.format(objects.get("date"))
+            }
+
+        }
+        fun getEventsWithoutWalk(pet: ParseObject) : List<PetEvent> {
+            val listPet: MutableList<PetEvent> = ArrayList()
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo(PET, pet)
+            query.whereNotEqualTo(DATA_TYPE, "WalkEvent")
+            query.orderByDescending(DATE)
+            val objects = query.find()
+            for(pets in objects) {
+                if(!pets.isDone()) {
+                    listPet.add(pets)
+                }
+            }
+            return listPet
+        }
         fun getEventsFromPet(pet: ParseObject, filter: FilterEvent) : List<PetEvent> {
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)

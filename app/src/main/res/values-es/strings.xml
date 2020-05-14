@@ -66,7 +66,7 @@
     <string name="confirmationAlertMessage">Los cambios se guardarán y se modificará el perfil</string>
     <string name="edit_image">Seleccionar imagen</string>
     <string name="reset_image">Utilizar imagen predeterminada</string>
-    <string name="delete_account_message">Estás seguro de borrar tu cuenta?</string>
+    <string name="delete_account_message">Estás seguro de borrar tu cuenta? Se borrarán todos las mascotas y datos guardados</string>
     <string name="delete_account">Borrar Cuenta</string>
     <string name="racetype">Raza multiple</string>
     <string name="race">Raza</string>
@@ -113,6 +113,17 @@
     <string name="done">Completado</string>
     <string name="review_invites">Invitaciones</string>
     <string name="noPendingInvites">No tienes ninguna invitación pendiente</string>
+    <string name="paseando">On a walk...</string>
+    <string name="tiempo_transcurrido">Walk duration:</string>
+    <string name="distancia_paseada">Walked distance:</string>
+    <string name="finalizar_paseo">Finish</string>
+    <string name="mins">mins</string>
+    <string name="end_walk">¿Está seguro que desea terminar el paseo?</string>
+    <string name="end_walk_message">Al terminar un paseo se registra la distancia, el recorrido y la duración. Lo puede consultar en el historial de paseos</string>
+    <string name="walkpet">Escoja los animales que quiere pasear</string>
+    <string name="duration">Duración</string>
+    <string name="distance">Distancia</string>
+    <string name="paseador">Paseador</string>
     <string name="done_on">Completado el</string>
     <string name="event_deletion_alert_title">Estás seguro de que quieres borrar este evento?</string>
     <string name="needed">Obligatorio</string>
@@ -125,4 +136,8 @@
     <string name="filter_by">Filtrar por:</string>
     <string name="newest_first">Los nuevos primero</string>
     <string name="oldest_first">Los antiguos primero</string>
+    <string name="noWalks">No hay próximos paseos</string>
+    <string name="walks">"Próximo paseo: "</string>
+    <string name="noEvents">NO HAY PRÓXIMOS EVENTOS</string>
+    <string name="add_caregiver">Añadir cuidador</string>
 </resources>

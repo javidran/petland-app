@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.petland.events.model.*
+import com.example.petland.mapas.Walk
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.parse.Parse
 import com.parse.ParseObject
@@ -41,6 +42,7 @@ class Application : Application() {
         ParseObject.registerSubclass(WalkEvent::class.java)
         ParseObject.registerSubclass(Race::class.java)
         ParseObject.registerSubclass(AnimalSpecies::class.java)
+        ParseObject.registerSubclass(Walk::class.java)
 
     }
 

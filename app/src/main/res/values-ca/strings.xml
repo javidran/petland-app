@@ -66,7 +66,7 @@
     <string name="confirmationAlertMessage">Els canvis es guardaran i es modificarà el perfil</string>
     <string name="edit_image">Seleccionar imatge</string>
     <string name="reset_image">Utilitzar imatge predeterminada</string>
-    <string name="delete_account_message">Estàs segur de voler borrar el compte?</string>
+    <string name="delete_account_message">Estàs segur de voler borrar el compte? S\'esborraran totes les mascotes i dades desades</string>
     <string name="delete_account">Borrar compte</string>
     <string name="racetype">Raça múltiple</string>
     <string name="race">Raça</string>
@@ -113,6 +113,17 @@
     <string name="done">Completat</string>
     <string name="review_invites">Invitacions</string>
     <string name="noPendingInvites">No tens cap invitació pendent</string>
+    <string name="paseando">Passejant...</string>
+    <string name="tiempo_transcurrido">Temps de passeig:</string>
+    <string name="distancia_paseada">Distancia passejada:</string>
+    <string name="finalizar_paseo">Acabar</string>
+    <string name="mins">mins</string>
+    <string name="end_walk">Està segur que vol acabar el passeig?</string>
+    <string name="end_walk_message">En acabar un passeig la distancia, el recorregut i la duració es registren. El pot consultar a l\'historial de passejos</string>
+    <string name="walkpet">Escull els animals que vols passejar</string>
+    <string name="duration">Durada</string>
+    <string name="distance">Distància</string>
+    <string name="paseador">Passejador</string>
     <string name="done_on">Completat el</string>
     <string name="event_deletion_alert_title">Estàs segur que vols borrar aquest event?</string>
     <string name="needed">Obligatori</string>
@@ -125,4 +136,8 @@
     <string name="filter_by">Filtrar per:</string>
     <string name="newest_first">Els nous primer</string>
     <string name="oldest_first">Els antics primer</string>
+    <string name="noWalks">No hi ha pròxims passejos</string>
+    <string name="walks">"Próxim passeig: "</string>
+    <string name="noEvents">NO HI HA PRÒXIMS PASSEJOS</string>
+    <string name="add_caregiver">Afegir cuidador</string>
 </resources>

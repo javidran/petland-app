@@ -21,11 +21,14 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventsFragment
 import com.example.petland.events.ui.view.ViewEventActivity
+import com.example.petland.mapas.TimelineFragment
+import com.example.petland.mapas.ViewWalksFragment
 import com.example.petland.pet.Pets
 import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.pet.Pets.Companion.setSelectedPet
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.sign.BootActivity
+import com.example.petland.ubications.MapFragment
 import com.example.petland.user_profile.UserProfileFragment
 import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.example.petland.utils.CustomAdapter
@@ -170,10 +173,18 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.commit()
             }
             R.id.nav_paseos -> {
-
+                frameLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                fragment = TimelineFragment.newInstance()
+                transaction.replace(R.id.frameLayout, fragment)
+                transaction.commit()
             }
             R.id.nav_mapa -> {
-
+                frameLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                fragment = MapFragment.newInstance()
+                transaction.replace(R.id.frameLayout, fragment)
+                transaction.commit()
             }
             R.id.nav_salud -> {
 
@@ -184,6 +195,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 fragment = EventsFragment.newInstance()
                 transaction.replace(R.id.frameLayout, fragment)
                 transaction.commit()
+            }
+            R.id.nav_testing -> {
+                frameLayout.removeAllViews()
+                val intent = Intent(this, TestingActivity::class.java).apply {
+                }
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             R.id.nav_perfil -> {
                 frameLayout.removeAllViews()
@@ -225,7 +243,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onOptionsItemSelected(item)
         }
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
+        fragment.onActivityResult(requestCode, resultCode, intent)
 
+    }
     fun homeAntiguo(view: View) {
         val intent = Intent(this, TestingActivity::class.java).apply {
         }

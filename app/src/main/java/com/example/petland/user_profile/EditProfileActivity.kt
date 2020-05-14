@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -18,7 +19,10 @@ import com.parse.ParseException
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.activity_editprofile.*
+import kotlinx.android.synthetic.main.activity_editprofile.editTextBirthday
+import kotlinx.android.synthetic.main.activity_editprofile.editTextEmail
+import kotlinx.android.synthetic.main.activity_editprofile.editTextName
+import kotlinx.android.synthetic.main.activity_editprofile.editTextUsername
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -60,25 +64,39 @@ class EditProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun edit(view: View) {
+    private fun edit() {
         val user = ParseUser.getCurrentUser()
         if (user != null) {
-            user.username = editTextUsername.text.toString()
-            user.email = editTextEmail.text.toString()
-            user.put("name", editTextName.text.toString())
-            user.put("birthday", date)
-            try {
-                user.save()
-                Log.d(TAG, getString(R.string.profileEditedCorrectly))
-                Toast.makeText(
-                    this@EditProfileActivity,
-                    getString(R.string.profileEditedCorrectly),
-                    Toast.LENGTH_LONG
-                ).show()
-                finish()
-            } catch (e: ParseException) {
-                val error = ParseError()
-                error.writeParseError(this, e)
+            when {
+                TextUtils.isEmpty(editTextUsername.text) -> {
+                    editTextUsername.error = getString(R.string.usernameNeeded)
+                }
+                TextUtils.isEmpty(editTextEmail.text) -> {
+                    editTextEmail.error = getString(R.string.emailNeeded)
+                }
+                TextUtils.isEmpty(editTextName.text) -> {
+                    editTextName.error = getString(R.string.nameNeeded)
+                }
+                else -> {
+                    user.username = editTextUsername.text.toString()
+                    user.email = editTextEmail.text.toString()
+                    user.put("name", editTextName.text.toString())
+                    user.put("birthday", date)
+                    try {
+                        user.save()
+                        Log.d(TAG, getString(R.string.profileEditedCorrectly))
+                        Toast.makeText(
+                            this@EditProfileActivity,
+                            getString(R.string.profileEditedCorrectly),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        finish()
+                    } catch (e: ParseException) {
+                        val error = ParseError()
+                        error.writeParseError(this, e)
+                        user.revert()
+                    }
+                }
             }
         } else {
             Log.d(TAG, getString(R.string.userNotLogged))
@@ -113,7 +131,7 @@ class EditProfileActivity : AppCompatActivity() {
     private fun deleteUser() {
         val user = ParseUser.getCurrentUser()
         val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.whereEqualTo("owner", user) //Query para obtener todas las mascotas propiedad del user a eliminar, para eliminarlas tambien
+        query.whereEqualTo("owner", user) //Query para obtener todas lƒas mascotas propiedad del user a eliminar, para eliminarlas tambien
         query.findInBackground { petsList, e ->
             if (e == null) {
                 for (pet in petsList) {
@@ -151,7 +169,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     fun savechanges(view: View) {
-        confirmationDialog(view)
+        confirmationDialog()
     }
 
     fun cancel(view: View) {
@@ -176,14 +194,14 @@ class EditProfileActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun confirmationDialog(view: View) {
+    private fun confirmationDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.confirmationAlertTitle))
         builder.setMessage(getString(R.string.confirmationAlertMessage))
         builder.setCancelable(false)
         builder.setPositiveButton(getString(R.string.ok))
         { dialog, which ->
-            edit(view)
+            edit()
         }
         builder.setNegativeButton(getString(R.string.cancel))
         { dialog, which -> }
