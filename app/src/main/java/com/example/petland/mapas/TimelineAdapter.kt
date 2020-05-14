@@ -44,13 +44,14 @@ class TimelineAdapter(
             v.setOnClickListener(this)
         }
 
-        @SuppressLint("SetTextI18n")
         fun bindWalkHolder(walk: ParseObject) {
             this.walk = walk
             var num = walk.getNumber("duration") as Int
             num = num.div(60000) as Int
-            view.durationNum.text = num.toString() + "min"
-            view.distanceNum.text = walk.getString("distance") + "km"
+            val duration = num.toString() + "min"
+            val distance = walk.getString("distance") + "km"
+            view.durationNum.text = duration
+            view.distanceNum.text = distance
             val sdf = SimpleDateFormat("dd/MM/yy HH:mm", Locale.US)
             val fecha = walk.getDate("startDate")
 
