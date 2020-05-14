@@ -144,5 +144,8 @@
     <string name="filter_by">Filter by:</string>
     <string name="newest_first">Newest first</string>
     <string name="oldest_first">Oldest first</string>
+    <string name="noWalks">There aren\'t upcoming walks</string>
+    <string name="walks">"Upcoming walk: "</string>
+    <string name="noEvents">THERE ARE NO UPCOMING EVENTS</string>
     <string name="add_caregiver">Add caregiver</string>
 </resources>

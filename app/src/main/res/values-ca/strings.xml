@@ -135,5 +135,8 @@
     <string name="filter_by">Filtrar per:</string>
     <string name="newest_first">Els nous primer</string>
     <string name="oldest_first">Els antics primer</string>
+    <string name="noWalks">No hi ha pròxims passejos</string>
+    <string name="walks">"Próxim passeig: "</string>
+    <string name="noEvents">NO HI HA PRÒXIMS PASSEJOS</string>
     <string name="add_caregiver">Afegir cuidador</string>
 </resources>

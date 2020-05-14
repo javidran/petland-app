@@ -135,5 +135,8 @@
     <string name="filter_by">Filtrar por:</string>
     <string name="newest_first">Los nuevos primero</string>
     <string name="oldest_first">Los antiguos primero</string>
+    <string name="noWalks">No hay próximos paseos</string>
+    <string name="walks">"Próximo paseo: "</string>
+    <string name="noEvents">NO HAY PRÓXIMOS EVENTOS</string>
     <string name="add_caregiver">Añadir cuidador</string>
 </resources>
