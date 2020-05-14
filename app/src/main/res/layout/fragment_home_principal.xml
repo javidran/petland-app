@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="278dp">
+        android:layout_height="wrap_content">
 
 
         <com.mikhaellopez.circularimageview.CircularImageView
@@ -49,7 +49,7 @@
             android:id="@+id/editProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/transparent_button_with_borders"
             android:shadowColor="#00FFFFFF"
             android:text="@string/editProfile"
@@ -61,6 +61,25 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/birthday" />
+
+
+        <ImageView
+            android:id="@+id/iniciarPaseoImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="364dp"
+            android:background="@drawable/button_paseo"
+            android:cropToPadding="true"
+            android:elevation="50dp"
+            android:padding="10dp"
+            android:onClick="iniciarPaseo"
+            android:scaleType="centerInside"
+            android:src="@drawable/animal_paw_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </ScrollView>
