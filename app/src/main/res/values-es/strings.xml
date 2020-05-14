@@ -131,4 +131,5 @@
     <string name="oldest_first">Los antiguos primero</string>
     <string name="noWalks">No hay próximos paseos</string>
     <string name="walks">"Próximo paseo: "</string>
+    <string name="noEvents">NO HAY PRÓXIMOS EVENTOS</string>
 </resources>

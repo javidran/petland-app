@@ -28,6 +28,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var rootView: View
     private lateinit var adapter: EventAdapter
+    private var visibleNoEvents: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +50,10 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
 
     override fun onResume() {
         super.onResume()
-        adapter = EventAdapter(PetEvent.getEventsWithoutWalk(getSelectedPet()),  context!!, this)
+        val listAdapter = PetEvent.getEventsWithoutWalk(getSelectedPet())
+        visibleNoEvents = listAdapter.isEmpty()
+        adapter = EventAdapter(listAdapter,  context!!, this)
+
         rootView.recyclerViewEvents.adapter = adapter
         PetEvent.getEventsFromPet(FilterEvent.ONLY_WALK)
         setPetInfo()
@@ -67,6 +71,13 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         val textWalk: TextView = rootView.findViewById(R.id.textWalk)
         textWalk.text = PetEvent.getWalkEventDate(getSelectedPet())
 
+        val textNoEvents: TextView = rootView.findViewById(R.id.textNoEvents)
+        if(visibleNoEvents) {
+            textNoEvents.visibility = View.VISIBLE
+            textNoEvents.text = getString(R.string.noEvents)
+
+        }
+        else textNoEvents.visibility = View.INVISIBLE
 
         ImageUtils.retrieveImage(pet, rootView.profileImage)
     }

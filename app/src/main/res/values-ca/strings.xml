@@ -131,4 +131,5 @@
     <string name="oldest_first">Els antics primer</string>
     <string name="noWalks">No hi ha pròxims passejos</string>
     <string name="walks">"Próxim passeig: "</string>
+    <string name="noEvents">NO HI HA PRÒXIMS PASSEJOS</string>
 </resources>
