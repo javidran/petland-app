@@ -97,7 +97,7 @@ class SignInActivity : AppCompatActivity() {
                         createNotificationChannels()
                         notificationNewInvitation()
                         notificationAcceptCaregiver()
-                        notificationEvent()
+//                        notificationEvent()
                     } else {
                         progress(false)
                         Log.d(TAG, "User does not exist.")
@@ -240,31 +240,6 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    private fun notificationEvent() {
-        val cUser = ParseUser.getCurrentUser()
-        val query = ParseQuery.getQuery<ParseObject>("PetEvent")
-        query.whereEqualTo("creator", cUser )
-        query.whereEqualTo("answer", true )
-        query.findInBackground { invitationsList, e ->
-            if (e == null) {
-                if (invitationsList.size > 0) {
-                    val currentDate = Calendar.getInstance().time
 
-                    val builder = NotificationCompat.Builder(this, CHANNEL_IDY)
-                        .setSmallIcon(R.drawable.animal_paw)
-                        .setContentTitle("Nuevos eventos")
-                        .setContentText("Tienes eventos de mascota para hoy $currentDate")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    val notificationManagerCompat =
-                        NotificationManagerCompat.from(applicationContext)
-                    notificationManagerCompat.notify(NOTIFICACION_IDY, builder.build())
-
-                    with(NotificationManagerCompat.from(this)) {
-                        notify(NOTIFICACION_IDY, builder.build())
-                    }
-                }
-            }
-        }
-    }
 }
 

@@ -96,6 +96,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         transaction.commit()
 
         if(intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION) != null && intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION)!!) {
+            frameLayout.removeAllViews()
+            val transactionPr: FragmentTransaction = supportFragmentManager.beginTransaction()
+            fragment = UserProfileFragment.newInstance()
+            transactionPr.replace(R.id.frameLayout, fragment)
+            transactionPr.commit()
             val intent = Intent(this, ViewInvitationsActivity::class.java).apply {}
             startActivity(intent)
         }
