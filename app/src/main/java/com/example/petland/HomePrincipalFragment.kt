@@ -19,7 +19,9 @@ import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.image.ImageUtils
 import com.example.petland.mapas.MapsFragment
 import com.example.petland.pet.Pets.Companion.getSelectedPet
+import com.example.petland.pet.ViewPetProfileActivity
 import com.example.petland.user_profile.EditProfileActivity
+import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_home_principal.*
 import kotlinx.android.synthetic.main.fragment_home_principal.view.*
 import kotlinx.android.synthetic.main.fragment_home_principal.view.eventsHome
@@ -49,7 +51,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
     ): View? {
 
        rootView = inflater.inflate(R.layout.fragment_home_principal, container, false)
-        rootView.editProfileButton.setOnClickListener { editProfileActivity() }
+        rootView.viewProfileButton.setOnClickListener { viewProfileActivity(getSelectedPet()) }
         rootView.recyclerViewEvents.layoutManager = LinearLayoutManager(context)
         rootView.iniciarPaseoImage.setOnClickListener { iniciarPaseo() }
 
@@ -90,11 +92,11 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         ImageUtils.retrieveImage(pet, rootView.profileImage)
     }
 
-fun editProfileActivity() {
-    val i = Intent(activity, EditProfileActivity::class.java)
-    startActivity(i)
-    (activity as Activity?)!!.overridePendingTransition(R.anim.slide_in_right,
-        R.anim.slide_out_left)
+ fun viewProfileActivity(pet: ParseObject)  {
+        val intent = Intent(context, ViewPetProfileActivity::class.java).apply {}
+        intent.putExtra("petId", pet)
+        intent.putExtra("eliminat", false)
+        startActivity(intent);
 }
  fun iniciarPaseo() {
 

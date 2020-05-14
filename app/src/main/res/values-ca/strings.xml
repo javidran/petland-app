@@ -141,4 +141,6 @@
     <string name="noEvents">No hi ha events pròxims per aquesta mascota</string>
     <string name="add_caregiver">Afegir cuidador</string>
     <string name="events_header">E</string>
+    <string name="viewProfile">Veure Perfil</string>
+    <string name="listNotNull">La llista no pot estar buida</string>
 </resources>

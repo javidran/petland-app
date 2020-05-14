@@ -62,7 +62,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         createDialogPets()
 
     }
-    fun createDialogPets() {
+    private fun createDialogPets() {
         val selectedItems = ArrayList<String>()
         val builder = AlertDialog.Builder(context)
         val pet : ParseObject = Pets.getSelectedPet()
@@ -83,13 +83,27 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         }
 
         builder.setPositiveButton("OK") { dialog, which ->
+
             listPetsSelected =  selectedItems
+            if (listPetsSelected.size == 0 ) {
+                val builder = AlertDialog.Builder(context)
+                builder.setMessage(getString(R.string.listNotNull))
+                builder.setPositiveButton("OK") { dialog, which ->
+                }
+                createDialogPets()
+                val dialog = builder.create();
+                dialog.show()
+
+            }
+
         }
 
-        val dialog = builder.create()
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.setCancelable(false)
-        dialog.show()
+            val dialog = builder.create()
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.setCancelable(false)
+            dialog.show()
+
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
