@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -19,7 +20,9 @@ import com.example.petland.image.ImageUtils
 import com.example.petland.mapas.MapsFragment
 import com.example.petland.pet.Pets.Companion.getSelectedPet
 import com.example.petland.user_profile.EditProfileActivity
+import kotlinx.android.synthetic.main.fragment_home_principal.*
 import kotlinx.android.synthetic.main.fragment_home_principal.view.*
+import kotlinx.android.synthetic.main.fragment_home_principal.view.eventsHome
 import kotlinx.android.synthetic.main.fragment_user_profile.view.profileImage
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,7 +60,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         super.onResume()
         val listAdapter = PetEvent.getEventsWithoutWalk(getSelectedPet())
         visibleNoEvents = listAdapter.isEmpty()
-        adapter = EventAdapter(listAdapter,  context!!, this)
+        adapter = EventAdapter(listAdapter,  requireContext(), this) //Android Studio ME HA PEDIDO QUE LO CAMBIE A requiereContext()
 
         rootView.recyclerViewEvents.adapter = adapter
         PetEvent.getEventsFromPet(FilterEvent.ONLY_WALK)
@@ -72,17 +75,17 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         val birthDayText: TextView = rootView.findViewById(R.id.birthday)
         birthDayText.text = sdf.format(pet.get("birthday"))
 
+        val textWalkCard: Button = rootView.findViewById(R.id.textWalkCard)
+        textWalkCard.text = PetEvent.getWalkEventDate(getSelectedPet())
 
-        val textWalk: TextView = rootView.findViewById(R.id.textWalk)
-        textWalk.text = PetEvent.getWalkEventDate(getSelectedPet())
-
-        val textNoEvents: TextView = rootView.findViewById(R.id.textNoEvents)
         if(visibleNoEvents) {
-            textNoEvents.visibility = View.VISIBLE
-            textNoEvents.text = getString(R.string.noEvents)
+            eventsHome.text = getString(R.string.noEvents)
 
         }
-        else textNoEvents.visibility = View.INVISIBLE
+        else {
+            eventsHome.text = getString(R.string.events_header)
+        }
+
 
         ImageUtils.retrieveImage(pet, rootView.profileImage)
     }
