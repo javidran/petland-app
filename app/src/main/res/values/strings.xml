@@ -150,4 +150,6 @@
     <string name="noEvents">There are no upcoming events for this pet</string>
     <string name="add_caregiver">Add caregiver</string>
     <string name="events_header">Upcoming events:</string>
+    <string name="viewProfile">View Profile</string>
+    <string name="listNotNull">List cannot be null</string>
 </resources>
