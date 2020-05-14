@@ -58,16 +58,20 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireContext())
+
+        createDialogPets()
+
+    }
+    fun createDialogPets() {
         val selectedItems = ArrayList<String>()
         val builder = AlertDialog.Builder(context)
         val pet : ParseObject = Pets.getSelectedPet()
         val name : String = pet.get("name").toString()
-
         builder.setTitle(getString(R.string.walkpet))
         listPets = Pets.getNamesFromPetList(Pets.getPetsFromCurrentUser())
         val num : Int = listPets.indexOf(name)
         val checkedItems = BooleanArray(listPets.size)
-       checkedItems[num] = true
+        checkedItems[num] = true
         selectedItems.add(listPets[num])
         builder.setMultiChoiceItems(listPets, checkedItems) { dialog, which, isChecked ->
             if(isChecked) {
@@ -79,7 +83,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         }
 
         builder.setPositiveButton("OK") { dialog, which ->
-           listPetsSelected =  selectedItems
+            listPetsSelected =  selectedItems
         }
 
         val dialog = builder.create()
@@ -87,7 +91,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         dialog.setCancelable(false)
         dialog.show()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
