@@ -10,6 +10,8 @@ import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.timeline_element.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TimelineAdapter(
@@ -49,10 +51,11 @@ class TimelineAdapter(
             num = num.div(60000) as Int
             view.durationNum.text = num.toString() + "min"
             view.distanceNum.text = walk.getString("distance") + "km"
-
+            val sdf = SimpleDateFormat("dd/MM/yy HH:mm", Locale.US)
             val fecha = walk.getDate("startDate")
+
             if (fecha != null) {
-                view.hora.text = fecha.toGMTString()
+                view.hora.text = sdf.format(fecha)
             }
 
             val users = ParseQuery.getQuery<ParseUser>("_User")
