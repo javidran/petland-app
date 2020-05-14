@@ -28,14 +28,14 @@
 
         <TableLayout
             android:id="@+id/tableLayout3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_width="365dp"
+            android:layout_height="178dp"
+            android:layout_marginTop="224dp"
             android:stretchColumns="0,2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.44"
+            app:layout_constraintHorizontal_bias="0.02"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usernameText">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TableRow />
 
@@ -43,9 +43,9 @@
 
                 <TextView
                     android:id="@+id/birthdayHint"
-                    android:layout_width="47dp"
+                    android:layout_width="10dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="80dp"
+                    android:paddingStart="30dp"
                     android:text="@string/owner"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"
@@ -63,7 +63,7 @@
 
                 <TextView
                     android:id="@+id/ownerText"
-                    android:layout_width="47dp"
+                    android:layout_width="193dp"
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text="Javi"
@@ -76,9 +76,9 @@
 
                 <TextView
                     android:id="@+id/nameHint"
-                    android:layout_width="47dp"
+                    android:layout_width="10dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="80dp"
+                    android:paddingStart="30dp"
                     android:text="@string/race"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"
@@ -109,12 +109,12 @@
 
                 <TextView
                     android:id="@+id/nameHint"
-                    android:layout_width="47dp"
+                    android:layout_width="10dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="80dp"
+                    android:paddingStart="30dp"
                     android:text=""
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -123,8 +123,8 @@
                     android:padding="3dip"
                     android:paddingEnd="10dip"
                     android:text=""
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="RtlSymmetry" />
 
                 <TextView
@@ -133,8 +133,8 @@
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:text=""
-                    android:textSize="18sp"
                     android:textColor="@color/md_grey_600"
+                    android:textSize="18sp"
                     tools:ignore="HardcodedText" />
             </TableRow>
 
@@ -142,9 +142,9 @@
 
                 <TextView
                     android:id="@+id/emailHint"
-                    android:layout_width="47dp"
+                    android:layout_width="10dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="80dp"
+                    android:paddingStart="30dp"
                     android:text="@string/chip"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"
@@ -175,9 +175,9 @@
 
                 <TextView
                     android:id="@+id/emailHint"
-                    android:layout_width="47dp"
+                    android:layout_width="111dp"
                     android:gravity="fill_horizontal"
-                    android:paddingStart="80dp"
+                    android:paddingStart="30dp"
                     android:text="@string/birthday"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"
@@ -207,18 +207,20 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_width="348dp"
+            android:layout_height="132dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@+id/buttonVolver2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
+            app:layout_constraintVertical_bias="0.411"
             tools:itemCount="2"
-            tools:listitem="@layout/pet_profile_user_element">
-
+            tools:listitem="@layout/pet_profile_user_element" >
         </androidx.recyclerview.widget.RecyclerView>
 
         <Button
@@ -279,6 +281,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileImageView"
             tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="116dp"
+            android:layout_height="26dp"
+            android:textSize="18dp"
+            android:text="@string/petCaregivers"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.105"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
