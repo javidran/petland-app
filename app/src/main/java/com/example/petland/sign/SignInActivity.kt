@@ -254,7 +254,7 @@ class SignInActivity : AppCompatActivity() {
                 if (!mostrar) {mostrar = true}
                 val pet = i.getPet()
                 events[num] =
-                    ("" + pet.getString("name") + " tiene un evento  "a las" + i.getDate().time)
+                    ("" + pet.getString("name") + " tiene un evento a las " + eventDate.hours + "")
             }
         }
 
