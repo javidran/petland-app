@@ -35,23 +35,12 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
     private lateinit var adapter: EventAdapter
     private var visibleNoEvents: Boolean = false
     lateinit var fragment: Fragment
-    private var mContext: Context? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        layoutManager = LinearLayoutManager(mContext)
+        layoutManager = LinearLayoutManager(context)
 
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(requireActivity())
-        mContext = context
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        mContext = null
     }
 
     override fun onCreateView(
@@ -62,7 +51,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
 
        rootView = inflater.inflate(R.layout.fragment_home_principal, container, false)
         rootView.viewProfileButton.setOnClickListener { viewProfileActivity(getSelectedPet()) }
-        rootView.recyclerViewEvents.layoutManager = LinearLayoutManager(mContext)
+        rootView.recyclerViewEvents.layoutManager = LinearLayoutManager(context)
         rootView.iniciarPaseoImage.setOnClickListener { iniciarPaseo() }
 
         return rootView
@@ -72,7 +61,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         super.onResume()
         val listAdapter = PetEvent.getEventsWithoutWalk(getSelectedPet())
         visibleNoEvents = listAdapter.isEmpty()
-        adapter = EventAdapter(listAdapter,  mContext!!, this) //Android Studio ME HA PEDIDO QUE LO CAMBIE A requiereContext()
+        adapter = EventAdapter(listAdapter,  context!!, this) //Android Studio ME HA PEDIDO QUE LO CAMBIE A requiereContext()
         rootView.recyclerViewEvents.adapter = adapter
         PetEvent.getEventsFromPet(FilterEvent.ONLY_WALK)
         setPetInfo()
@@ -103,7 +92,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
     }
 
  fun viewProfileActivity(pet: ParseObject)  {
-        val intent = Intent(mContext, ViewPetProfileActivity::class.java).apply {}
+        val intent = Intent(context, ViewPetProfileActivity::class.java).apply {}
         intent.putExtra("petId", pet)
         intent.putExtra("eliminat", false)
         startActivity(intent);
@@ -119,7 +108,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
     }
 
     override fun startViewEventActivity(event: PetEvent) {
-        val intent = Intent(mContext, ViewEventActivity::class.java).apply {}
+        val intent = Intent(context, ViewEventActivity::class.java).apply {}
         intent.putExtra("event", event)
         startActivity(intent)
     }
