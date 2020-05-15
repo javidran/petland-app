@@ -1,5 +1,6 @@
 package com.example.petland.sign
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -11,12 +12,14 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.petland.Application
 import com.example.petland.HomeActivity
 import com.example.petland.R
+import com.example.petland.events.model.PetEvent
 import com.example.petland.pet.Pets
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.utils.ParseError
@@ -24,6 +27,8 @@ import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class SignInActivity : AppCompatActivity() {
@@ -94,7 +99,7 @@ class SignInActivity : AppCompatActivity() {
                         createNotificationChannels()
                         notificationNewInvitation()
                         notificationAcceptCaregiver()
-//                        notificationEvent()
+                        notificationEvent()
                     } else {
                         progress(false)
                         Log.d(TAG, "User does not exist.")
@@ -144,26 +149,26 @@ class SignInActivity : AppCompatActivity() {
             if (e == null) {
                 if (invitationsList.size > 0) {
                     val events = arrayOfNulls<String>(invitationsList.size)
-                    var num = 0
-                    for ( i in invitationsList) {
+                    for ((num, i) in invitationsList.withIndex()) {
                         val creator = i.get("creator") as ParseObject
                         creator.fetch<ParseObject>()
                         val pet = i.get("petO") as ParseObject
                         pet.fetch<ParseObject>()
                         val creatorN: String? = creator.getString("name")
                         val petN: String? = pet.getString("name")
-                        events[num++] = ("$creatorN te ha invitado a ser cuidador de $petN")
+                        events[num] = ("$creatorN te ha invitado a ser cuidador de $petN")
                     }
 
                     val intent = Intent(this, HomeActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     }
                     intent.putExtra(Application.INVITATION_NOTIFICATION, true)
-                    val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+                    val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 10, intent, 0)
 
                     val inboxStyle =
                         NotificationCompat.InboxStyle()
                     inboxStyle.setBigContentTitle("Nuevas invitaciones para cuidar una mascota")
+
                     for (element in events) {
                         inboxStyle.addLine(element)
                     }
@@ -177,13 +182,8 @@ class SignInActivity : AppCompatActivity() {
                         .setContentIntent(pendingIntent)
                         .setColor(Color.MAGENTA)
                         .setAutoCancel(true)
-
-                    val notificationManagerCompat =
-                        NotificationManagerCompat.from(applicationContext)
-                    notificationManagerCompat.notify(NOTIFICACION_ID, builder.build())
-
+                    
                     with(NotificationManagerCompat.from(this)) {
-                        // notificationId is a unique int for each notification that you must define
                         notify(NOTIFICACION_ID, builder.build())
                     }
                 }
@@ -200,18 +200,12 @@ class SignInActivity : AppCompatActivity() {
                 if (invitationsList.size > 0) {
                     val events = arrayOfNulls<String>(invitationsList.size)
                     for ((num, i) in invitationsList.withIndex()) {
-                        val creator = i.get("creator") as ParseObject
+                        val creator = i.get("receiver") as ParseObject
                         creator.fetch<ParseObject>()
                         val pet = i.get("petO") as ParseObject
                         pet.fetch<ParseObject>()
                         events[num] = ("" + creator.getString("name") + " ha aceptado tu invitació para ser cuidador de " + pet.getString("name"))
                     }
-
-                    val builder = NotificationCompat.Builder(this, CHANNEL_IDX)
-                        .setSmallIcon(R.drawable.animal_paw)
-                        .setContentTitle("Invitaciones aceptadas")
-                        .setContentText("Tienes " + invitationsList.size + " invitaciones aceptadas de cuidadores de mascota")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
                     val inboxStyle =
                         NotificationCompat.InboxStyle()
@@ -219,16 +213,20 @@ class SignInActivity : AppCompatActivity() {
                     for (element in events) {
                         inboxStyle.addLine(element)
                     }
-                    builder.setStyle(inboxStyle)
 
-                    val notificationManagerCompat =
-                        NotificationManagerCompat.from(applicationContext)
-                    notificationManagerCompat.notify(NOTIFICACION_IDX, builder.build())
+                    val builder = NotificationCompat.Builder(this, CHANNEL_IDX)
+                        .setSmallIcon(R.drawable.animal_paw)
+                        .setContentTitle("Invitaciones aceptadas")
+                        .setContentText("Tienes " + invitationsList.size + " invitaciones aceptadas de cuidadores de mascota")
+                        .setStyle( inboxStyle )
+                        .setColor(Color.CYAN)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setAutoCancel(true)
 
                     with(NotificationManagerCompat.from(this)) {
-                        // notificationId is a unique int for each notification that you must define
                         notify(NOTIFICACION_IDX, builder.build())
                     }
+
                     for ( i in invitationsList) {
                         i.deleteInBackground()
                     }
@@ -238,5 +236,53 @@ class SignInActivity : AppCompatActivity() {
     }
 
 
+    private fun notificationEvent() {
+        val petsList =  PetEvent.getEventsFromUser()
+        val today = Calendar.getInstance().time
+        val date = Calendar.getInstance()
+        date.add(Calendar.DAY_OF_MONTH , 1)
+        val tomorrow = date.time
+
+        val events = arrayOfNulls<String>(petsList.size)
+        var mostrar = false
+        for((num, i) in petsList.withIndex()) {
+            val eventDate = i.getDate()
+            if ( today < eventDate &&  eventDate < tomorrow) {
+                if (!mostrar) {mostrar = true}
+                val pet = i.getPet()
+                val sdf = SimpleDateFormat("HH:mm aa", Locale.US)
+                events[num] =
+                    ("" + pet.getString("name") + " tiene un evento a las " + sdf.format(eventDate) + "")
+            }
+        }
+
+        if (mostrar) {
+            val intent = Intent(this, HomeActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            intent.putExtra(Application.EVENT_NOTIFICATION, true)
+            val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 20, intent, 0)
+
+            val inboxStyle = NotificationCompat.InboxStyle()
+            inboxStyle.setBigContentTitle("Eventos")
+            for (element in events) {
+                inboxStyle.addLine(element)
+            }
+
+            val builder = NotificationCompat.Builder(this, CHANNEL_IDY)
+                .setSmallIcon(R.drawable.animal_paw)
+                .setContentTitle("Evento")
+                .setContentText("Tienes eventos de mascotas para hoy")
+                .setStyle(inboxStyle)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+
+            with(NotificationManagerCompat.from(this)) {
+                notify(NOTIFICACION_IDY, builder.build())
+            }
+        }
+    }
 }
+
 
