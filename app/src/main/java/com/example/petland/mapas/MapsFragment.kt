@@ -15,8 +15,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import com.example.petland.HomeActivity
 import com.example.petland.HomePrincipalFragment
 import com.example.petland.R
 import com.example.petland.pet.Pets
