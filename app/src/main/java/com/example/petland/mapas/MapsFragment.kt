@@ -3,6 +3,7 @@ package com.example.petland.mapas
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -17,6 +18,8 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.petland.HomePrincipalFragment
 import com.example.petland.R
+import com.example.petland.events.enums.FilterEvent
+import com.example.petland.events.model.PetEvent
 import com.example.petland.pet.Pets
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -28,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.SphericalUtil
+import com.parse.Parse
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
@@ -48,8 +52,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private var zoom = 16f
     private var num: Long = 0
     private lateinit var  listPets:  Array<String>
+    private lateinit var  listEvents:  ArrayList<PetEvent>
     private lateinit var dateIni: Date
     private lateinit var dateEnd: Date
+    private lateinit var dateEvents: ArrayList<Date>
     private lateinit var rootView: View
     private lateinit var distance: TextView
     private lateinit var listPetsSelected: MutableList<String>
@@ -227,6 +233,26 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
              val relation = walk.getRelation<ParseObject>("pets")
              relation.add(result)
         }
+         val petEvents = PetEvent.getEventsFromPet(Pets.getSelectedPet(), FilterEvent.ONLY_WALK)
+         for(pet in petEvents) {
+             if (pet.get("date") == dateIni) {
+                listEvents.add(pet)
+             }
+         }
+         if(listEvents.size != 0 ) {
+             for(event in listEvents) {
+                 dateEvents.add(event.get("date"))
+             }
+             val builder = AlertDialog.Builder(activity)
+             builder.setTitle("Eventos posibles ")
+                 .setItems(,
+                     DialogInterface.OnClickListener { dialog, which ->
+                         // The 'which' argument contains the index position
+                         // of the selected item
+                     })
+             builder.create()
+         }
+
          walk.put("startDate", dateIni)
          walk.put("endDate", dateEnd)
          walk.put("duration", time.toInt())
