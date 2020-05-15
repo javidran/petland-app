@@ -1,15 +1,14 @@
 package com.example.petland.events.model
 
-import android.util.Log
+import com.example.petland.Application
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.pet.Pets
-import com.parse.GetCallback
-import com.example.petland.Application
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
+import com.parse.ParseUser
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,6 +34,33 @@ open class PetEvent : ParseObject() {
         put(DATE, value)
     }
 
+    fun hasAssigned() :Boolean {
+        return containsKey(ASSIGNED)
+    }
+
+    fun setAssigned(user: ParseUser) {
+        put(ASSIGNED, user)
+    }
+
+    fun getAssigned(): ParseUser {
+        val obj = getParseUser(ASSIGNED) ?: throw NullPointerException()
+        obj.fetch()
+        return obj
+    }
+
+    fun removeAssigned() {
+        remove(ASSIGNED)
+    }
+
+    fun checkAssignedIsCorrect() : Boolean {
+        if(hasAssigned()) {
+            val q = getPet().getRelation<ParseUser>("caregivers").query
+            val result = q.whereContains("username", getAssigned().username).find()
+            if (result.isNotEmpty()) return true
+        }
+        return false
+    }
+
     fun isRecurrent() : Boolean {
         return getInt(RECURRENT) != 0
     }
@@ -51,7 +77,6 @@ open class PetEvent : ParseObject() {
         remove(RECURRENT)
         removeRecurrencyEndDate()
     }
-
 
     fun hasRecurrencyEndDate() : Boolean {
         return getDate(RECURRENT_UNTIL) != null
@@ -143,6 +168,9 @@ open class PetEvent : ParseObject() {
             if (!isRecurrentlyFinished()) {
                 val nextEvent = PetEvent()
                 nextEvent.setPet(getPet())
+                if(hasAssigned()) {
+                    nextEvent.setAssigned(getAssigned())
+                }
 
                 val c = Calendar.getInstance()
                 c.time = getDate()
@@ -179,6 +207,7 @@ open class PetEvent : ParseObject() {
         private const val DATE = "date"
         private const val PET = "pet"
         private const val DATA = "data"
+        private const val ASSIGNED = "assigned_to"
         private const val RECURRENT = "recurrent"
         private const val RECURRENT_UNTIL = "recurrent_until"
         private const val DONE_DATE = "done_date"
@@ -195,7 +224,8 @@ open class PetEvent : ParseObject() {
         fun getEventsFromPet(pet: ParseObject) : List<PetEvent> {
             return getEventsFromPet(pet, FilterEvent.NEWEST_FIRST)
         }
-        fun getWalkEventDate(pet: ParseObject) : String {
+
+        fun getNextWalkEventDate(pet: ParseObject) : String {
             val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US)
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)
@@ -203,15 +233,14 @@ open class PetEvent : ParseObject() {
             query.orderByDescending(DATE)
 
             if (query.count() == 0 ) {
-               return Application.getAppContext().getString(R.string.noWalks)
-                }
-            else {
-              val objects = query.find().first()
-
-                return  Application.getAppContext().getString(R.string.walks) +  sdf.format(objects.get("date"))
+                return Application.getAppContext().getString(R.string.noWalks)
             }
-
+            else {
+                val ev = query.find().first()
+                return  Application.getAppContext().getString(R.string.walks) +  sdf.format(ev.getDate())
+            }
         }
+
         fun getEventsWithoutWalk(pet: ParseObject) : List<PetEvent> {
             val listPet: MutableList<PetEvent> = ArrayList()
             val query = ParseQuery.getQuery(PetEvent::class.java)
@@ -244,7 +273,7 @@ open class PetEvent : ParseObject() {
 
         fun getEventsFromUser() : List<PetEvent> {
             val pets = Pets.getPetsFromCurrentUser()
-            var events = ArrayList<PetEvent>()
+            val events = ArrayList<PetEvent>()
 
             for(p in pets) {
                 events.addAll(getEventsFromPet(p))

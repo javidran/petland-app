@@ -79,7 +79,7 @@ class ViewPetProfileActivity : AppCompatActivity() , ViewCaregiversCallback{
             recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
-                setHasFixedSize(true)
+                isNestedScrollingEnabled = false
 
                 // use a linear layout manager
                 layoutManager = viewManager

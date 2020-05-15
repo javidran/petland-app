@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
+import com.example.petland.events.model.PetEvent
 import com.example.petland.image.ImageUtils
-import com.example.petland.user_profile.invitations.ViewInvitationsCallback
 import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.pet_profile_user_element.view.*
@@ -52,6 +52,14 @@ class UserAdapter(
             if (this.owner && u.username != user.username) {
                 view.deleteCaregButton.visibility = View.VISIBLE
                 view.deleteCaregButton.setOnClickListener {
+                    //Se quita de todos los eventos de la mascota de los que formaba parte
+                    for(ev in PetEvent.getEventsFromPet(pet)) {
+                        if(ev.hasAssigned() && ev.getAssigned().username == user.username) {
+                            ev.removeAssigned()
+                            ev.saveEvent()
+                        }
+                    }
+
                     val relation = pet.getRelation<ParseUser>("caregivers")
                     relation.remove(this.user)
                     pet.saveInBackground()

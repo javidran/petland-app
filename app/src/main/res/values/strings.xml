@@ -120,7 +120,6 @@
     <string name="noPendingInvites">You have no pending invites at the moment</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps_ubication">Map</string>
     <string name="title_activity_maps">Map</string>
     <string name="paseando">Paseando...</string>
@@ -152,4 +151,9 @@
     <string name="events_header">Upcoming events:</string>
     <string name="viewProfile">View Profile</string>
     <string name="listNotNull">List cannot be null</string>
+    <string name="assigned_to">Assigned to</string>
+    <string name="tipo_de_evento">Type of event</string>
+    <string name="assigned_to_no_one">No one</string>
+    <string name="error_caregivers_updated">Error: Caregivers have been updated</string>
+    <string name="error_caregiver_deleted">Error: The previous assigned caregiver is no longer eligible</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.petland
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -21,11 +20,9 @@ import com.example.petland.image.ImageUtils
 import com.example.petland.mapas.MapsFragment
 import com.example.petland.pet.Pets.Companion.getSelectedPet
 import com.example.petland.pet.ViewPetProfileActivity
-import com.example.petland.user_profile.EditProfileActivity
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_home_principal.*
 import kotlinx.android.synthetic.main.fragment_home_principal.view.*
-import kotlinx.android.synthetic.main.fragment_home_principal.view.eventsHome
 import kotlinx.android.synthetic.main.fragment_user_profile.view.profileImage
 import java.text.SimpleDateFormat
 import java.util.*
@@ -91,7 +88,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         birthDayText.text = sdf.format(pet.get("birthday"))
 
         val textWalkCard: Button = rootView.findViewById(R.id.textWalkCard)
-        textWalkCard.text = PetEvent.getWalkEventDate(getSelectedPet())
+        textWalkCard.text = PetEvent.getNextWalkEventDate(getSelectedPet())
 
         if(visibleNoEvents) {
             eventsHome.text = getString(R.string.noEvents)

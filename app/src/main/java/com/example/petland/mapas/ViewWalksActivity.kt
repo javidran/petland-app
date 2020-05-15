@@ -1,18 +1,12 @@
 package com.example.petland.mapas
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.petland.R
 import com.google.android.gms.common.api.ResolvableApiException
@@ -24,10 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
-import com.parse.Parse
 import com.parse.ParseObject
-import com.parse.ParseQuery
-import java.security.AccessController.getContext
 
 class ViewWalksActivity : AppCompatActivity(), OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener {

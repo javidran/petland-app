@@ -127,12 +127,54 @@
         app:layout_constraintTop_toBottomOf="@+id/viewUntilLayout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/viewDoneLayout"
+        android:id="@+id/viewAssignedLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/secondDivider">
+
+        <TextView
+            android:id="@+id/viewEventAssignedHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/assigned_to"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/viewAssignedName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="someone"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/viewEventAssignedHint"
+            app:layout_constraintTop_toTopOf="@+id/viewEventAssignedHint" />
+
+        <View
+            android:id="@+id/thirdDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="24dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewAssignedName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/viewDoneLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewAssignedLayout">
 
         <TextView
             android:id="@+id/viewEventCompleted"
@@ -156,7 +198,7 @@
             app:layout_constraintTop_toTopOf="@+id/viewEventCompleted" />
 
         <View
-            android:id="@+id/thirdDivider"
+            android:id="@+id/anotherDivider"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="1dp"

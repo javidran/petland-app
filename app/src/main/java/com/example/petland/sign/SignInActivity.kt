@@ -19,14 +19,11 @@ import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.pet.Pets
 import com.example.petland.pet.creation.GetFirstPetActivity
-import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.example.petland.utils.ParseError
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_signin.*
-import java.time.LocalDateTime
-import java.util.*
 
 
 class SignInActivity : AppCompatActivity() {

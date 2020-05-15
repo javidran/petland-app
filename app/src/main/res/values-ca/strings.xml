@@ -143,4 +143,11 @@
     <string name="events_header">E</string>
     <string name="viewProfile">Veure Perfil</string>
     <string name="listNotNull">La llista no pot estar buida</string>
+    <string name="title_activity_maps_ubication">Mapa</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="tipo_de_evento">Tipus d\'event</string>
+    <string name="assigned_to">Assignat a</string>
+    <string name="assigned_to_no_one">Ningú</string>
+    <string name="error_caregivers_updated">Error: Els cuidadors han sigut actualitzats</string>
+    <string name="error_caregiver_deleted">Error: El cuidador previament assignat no es pot escollir més</string>
 </resources>
