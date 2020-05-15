@@ -21,7 +21,6 @@ import com.parse.ParseQuery
 import com.parse.ParseRelation
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_edit_pet_profile.*
-import kotlinx.android.synthetic.main.activity_view_pet_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -318,7 +317,7 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
             recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
-                setHasFixedSize(true)
+                isNestedScrollingEnabled = false
 
                 // use a linear layout manager
                 layoutManager = viewManager

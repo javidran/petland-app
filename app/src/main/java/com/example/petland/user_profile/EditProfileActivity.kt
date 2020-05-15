@@ -19,10 +19,7 @@ import com.parse.ParseException
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.activity_editprofile.editTextBirthday
-import kotlinx.android.synthetic.main.activity_editprofile.editTextEmail
-import kotlinx.android.synthetic.main.activity_editprofile.editTextName
-import kotlinx.android.synthetic.main.activity_editprofile.editTextUsername
+import kotlinx.android.synthetic.main.activity_editprofile.*
 import java.text.SimpleDateFormat
 import java.util.*
 

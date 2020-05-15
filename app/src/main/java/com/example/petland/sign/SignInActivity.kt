@@ -169,6 +169,7 @@ class SignInActivity : AppCompatActivity() {
                     val inboxStyle =
                         NotificationCompat.InboxStyle()
                     inboxStyle.setBigContentTitle("Nuevas invitaciones para cuidar una mascota")
+
                     for (element in events) {
                         inboxStyle.addLine(element)
                     }
@@ -181,12 +182,11 @@ class SignInActivity : AppCompatActivity() {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent)
                         .setColor(Color.MAGENTA)
-                        .setAutoCancel(true)
 
                     val notificationManagerCompat =
                         NotificationManagerCompat.from(applicationContext)
                     notificationManagerCompat.notify(NOTIFICACION_ID, builder.build())
-
+                    
                     with(NotificationManagerCompat.from(this)) {
                         notify(NOTIFICACION_ID, builder.build())
                     }
@@ -225,10 +225,7 @@ class SignInActivity : AppCompatActivity() {
                         .setStyle( inboxStyle )
                         .setColor(Color.CYAN)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-                    val notificationManagerCompat =
-                        NotificationManagerCompat.from(applicationContext)
-                    notificationManagerCompat.notify(NOTIFICACION_IDX, builder.build())
+                        .setAutoCancel(true)
 
                     with(NotificationManagerCompat.from(this)) {
                         notify(NOTIFICACION_IDX, builder.build())
@@ -279,12 +276,12 @@ class SignInActivity : AppCompatActivity() {
 
             val builder = NotificationCompat.Builder(this, CHANNEL_IDY)
                 .setSmallIcon(R.drawable.animal_paw)
-                .setContentTitle("Eventos")
+                .setContentTitle("Evento")
                 .setContentText("Tienes eventos de mascotas para hoy")
                 .setStyle(inboxStyle)
-
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
+
             val notificationManagerCompat =
                 NotificationManagerCompat.from(applicationContext)
             notificationManagerCompat.notify(NOTIFICACION_IDY, builder.build())

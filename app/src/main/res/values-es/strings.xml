@@ -136,8 +136,18 @@
     <string name="filter_by">Filtrar por:</string>
     <string name="newest_first">Los nuevos primero</string>
     <string name="oldest_first">Los antiguos primero</string>
-    <string name="noWalks">No hay próximos paseos</string>
+    <string name="noWalks">No hay ningún paso programado próximamente</string>
     <string name="walks">"Próximo paseo: "</string>
-    <string name="noEvents">NO HAY PRÓXIMOS EVENTOS</string>
+    <string name="noEvents">No hay eventos próximos para esta mascota</string>
     <string name="add_caregiver">Añadir cuidador</string>
+    <string name="events_header">Próximos eventos:</string>
+    <string name="viewProfile">Ver Perfil</string>
+    <string name="listNotNull">La lista no puede ser vacía</string>
+    <string name="tipo_de_evento">Tipo de evento</string>
+    <string name="title_activity_maps_ubication">Mapa</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="assigned_to">Asignado a</string>
+    <string name="assigned_to_no_one">Nadie</string>
+    <string name="error_caregivers_updated">Error: Los cuidadores han sido actualizados</string>
+    <string name="error_caregiver_deleted">Error: El cuidador previamente asignado no se puede escoger</string>
 </resources>

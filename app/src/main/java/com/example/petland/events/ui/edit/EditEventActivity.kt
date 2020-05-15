@@ -5,10 +5,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -20,18 +17,20 @@ import com.example.petland.events.ui.creation.*
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.pet.Pets
 import com.parse.ParseObject
+import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_edit_event.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    private lateinit var selectedPet: ParseObject
     private lateinit var petList: List<ParseObject>
+    private lateinit var caregiversList: List<ParseUser>
     private lateinit var event: PetEvent
     private lateinit var callback: SaveDataCallback
 
     private lateinit var spinnerEventType: Spinner
     private lateinit var spinnerPet: Spinner
+    private lateinit var spinnerAssigned: Spinner
 
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     private val stf = SimpleDateFormat("HH:mm", Locale.US)
@@ -87,9 +86,14 @@ class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
                 spinnerPet.setSelection(index, true)
             }
         }
+
+        spinnerAssigned = findViewById(R.id.assignedSpinner)
+        spinnerAssigned.onItemSelectedListener = this
+        setAssignedAdapter()
     }
 
     fun goBack() {
+        event.revert()
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
@@ -191,6 +195,16 @@ class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
 
     private fun onSaveButtonClicked() {
         if(dateDay.text.isEmpty()) dateDay.error = getString(R.string.date_needed)
+        else if(event.hasAssigned() && !event.checkAssignedIsCorrect()) {
+            event.revert()
+            setAssignedAdapter()
+            val toast = Toast.makeText(
+                this,
+                getString(R.string.error_caregivers_updated),
+                Toast.LENGTH_SHORT
+            )
+            toast.show()
+        }
         else {
             if (recurrencyCheckbox.isChecked) {
                 if (recurrencyNumber.text.isEmpty()) recurrencyNumber.error = getString(R.string.content_mandatory)
@@ -216,7 +230,6 @@ class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
             val data = callback.checkAndSaveData()
             if(data != null) {
                 event.setData(data)
-                event.setPet(selectedPet)
                 event.saveEvent()
                 finish()
             }
@@ -237,6 +250,39 @@ class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
             }
         }
         return array
+    }
+
+    private fun setAssignedAdapter() {
+        caregiversList = Pets.getCaregiversFromPet(event.getPet())
+        val arrayAssigned  = ArrayList(Pets.getCaregiversNamesFromPet(event.getPet()))
+        arrayAssigned.add(0, getString(R.string.assigned_to_no_one))
+        val adapterAssigned = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, arrayAssigned
+        )
+        adapterAssigned.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerAssigned.adapter = adapterAssigned
+
+        if(event.hasAssigned()) {
+            val evAs = event.getAssigned()
+            var done = false
+            caregiversList.forEachIndexed { index, user ->
+                if(user.objectId == evAs.objectId) {
+                    spinnerAssigned.setSelection(index+1, true)
+                    done = true
+                }
+                else if(index == caregiversList.lastIndex && !done) {
+                    spinnerAssigned.setSelection(0)
+                    val toast = Toast.makeText(
+                        this,
+                        getString(R.string.error_caregiver_deleted),
+                        Toast.LENGTH_SHORT
+                    )
+                    toast.show()
+                }
+            }
+        }
+        else spinnerAssigned.setSelection(0)
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
@@ -314,7 +360,12 @@ class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
                 transaction.commit()
             }
             spinnerPet -> {
-                selectedPet = petList[pos]
+                event.setPet(petList[pos])
+                setAssignedAdapter()
+            }
+            spinnerAssigned -> {
+                if(pos == 0) event.removeAssigned()
+                else event.setAssigned(caregiversList[pos-1])
             }
         }
     }

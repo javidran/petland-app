@@ -78,6 +78,16 @@ class ViewEventActivity : AppCompatActivity() {
             viewUntilLayout.visibility = View.GONE
         }
 
+        if(event.hasAssigned()) {
+            viewAssignedLayout.visibility = View.VISIBLE
+            val name = event.getAssigned().getString("name")
+            if(name != null) viewAssignedName.text = name
+            else viewAssignedLayout.visibility = View.GONE
+        }
+        else {
+            viewAssignedLayout.visibility = View.GONE
+        }
+
         if(event.isDone()) {
             checkDoneButton.visibility = View.GONE
             viewDoneLayout.visibility = View.VISIBLE
