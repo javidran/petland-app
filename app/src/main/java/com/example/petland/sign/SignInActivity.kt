@@ -64,7 +64,6 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun login(view: View) {
 
         when {
