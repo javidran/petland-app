@@ -182,10 +182,7 @@ class SignInActivity : AppCompatActivity() {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent)
                         .setColor(Color.MAGENTA)
-
-                    val notificationManagerCompat =
-                        NotificationManagerCompat.from(applicationContext)
-                    notificationManagerCompat.notify(NOTIFICACION_ID, builder.build())
+                        .setAutoCancel(true)
                     
                     with(NotificationManagerCompat.from(this)) {
                         notify(NOTIFICACION_ID, builder.build())
@@ -230,6 +227,7 @@ class SignInActivity : AppCompatActivity() {
                     with(NotificationManagerCompat.from(this)) {
                         notify(NOTIFICACION_IDX, builder.build())
                     }
+
                     for ( i in invitationsList) {
                         i.deleteInBackground()
                     }
@@ -268,7 +266,7 @@ class SignInActivity : AppCompatActivity() {
             val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 20, intent, 0)
 
             val inboxStyle = NotificationCompat.InboxStyle()
-            inboxStyle.setBigContentTitle("Eventos del dia")
+            inboxStyle.setBigContentTitle("Eventos")
             for (element in events) {
                 inboxStyle.addLine(element)
             }
@@ -280,10 +278,7 @@ class SignInActivity : AppCompatActivity() {
                 .setStyle(inboxStyle)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
-
-            val notificationManagerCompat =
-                NotificationManagerCompat.from(applicationContext)
-            notificationManagerCompat.notify(NOTIFICACION_IDY, builder.build())
+                .setAutoCancel(true)
 
             with(NotificationManagerCompat.from(this)) {
                 notify(NOTIFICACION_IDY, builder.build())
