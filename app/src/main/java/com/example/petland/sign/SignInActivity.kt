@@ -164,7 +164,7 @@ class SignInActivity : AppCompatActivity() {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     }
                     intent.putExtra(Application.INVITATION_NOTIFICATION, true)
-                    val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+                    val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 10, intent, 0)
 
                     val inboxStyle =
                         NotificationCompat.InboxStyle()
@@ -265,10 +265,9 @@ class SignInActivity : AppCompatActivity() {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
             intent.putExtra(Application.EVENT_NOTIFICATION, true)
-            val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+            val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 20, intent, 0)
 
-            val inboxStyle =
-                NotificationCompat.InboxStyle()
+            val inboxStyle = NotificationCompat.InboxStyle()
             inboxStyle.setBigContentTitle("Eventos del dia")
             for (element in events) {
                 inboxStyle.addLine(element)
