@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_maps.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -52,10 +54,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private var zoom = 16f
     private var num: Long = 0
     private lateinit var  listPets:  Array<String>
-    private lateinit var  listEvents:  ArrayList<PetEvent>
     private lateinit var dateIni: Date
     private lateinit var dateEnd: Date
-    private lateinit var dateEvents: ArrayList<Date>
     private lateinit var rootView: View
     private lateinit var distance: TextView
     private lateinit var listPetsSelected: MutableList<String>
@@ -219,7 +219,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     }
 
      private fun finalizarPaseo() {
-
+         var selection = ""
+         val dateEvents =  ArrayList<String>()
          val time: Long =
              SystemClock.elapsedRealtime() - chronometer.base
          chronometer.stop()
@@ -233,33 +234,49 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
              val relation = walk.getRelation<ParseObject>("pets")
              relation.add(result)
         }
+         val listEvents =  ArrayList<PetEvent>()
          val petEvents = PetEvent.getEventsFromPet(Pets.getSelectedPet(), FilterEvent.ONLY_WALK)
          for(pet in petEvents) {
-             if (pet.get("date") == dateIni) {
+             val sdf = SimpleDateFormat("dd/MM/yy", Locale.US)
+             if (sdf.format(pet.getDate()) == sdf.format(dateIni)) {
                 listEvents.add(pet)
+                 Log.d("añadido", listEvents.toString())
              }
          }
-         if(listEvents.size != 0 ) {
-             for(event in listEvents) {
-                 dateEvents.add(event.get("date"))
-             }
-             val builder = AlertDialog.Builder(activity)
-             builder.setTitle("Eventos posibles ")
-                 .setItems(,
-                     DialogInterface.OnClickListener { dialog, which ->
-                         // The 'which' argument contains the index position
-                         // of the selected item
-                     })
-             builder.create()
-         }
+         if(listEvents.isNotEmpty()) {
 
-         walk.put("startDate", dateIni)
-         walk.put("endDate", dateEnd)
-         walk.put("duration", time.toInt())
-         walk.put("distance", distance.text)
-         walk.put("locLatitudes", getLatitudes())
-         walk.put("locLongitudes", getLongitudes())
-         walk.saveInBackground()
+             for(event in listEvents) {
+                 val sdf = SimpleDateFormat("dd/MM HH:mm", Locale.US)
+                 dateEvents.add(sdf.format(event.getDate()))
+             }
+             dateEvents.add("No asignar a ningún evento")
+             val builder = AlertDialog.Builder(context)
+             builder.setTitle("Es el paseo uno de estos eventos?")
+
+             builder.setItems(dateEvents.toArray(arrayOfNulls<String>(0))) { dialog, which ->
+                selection = dateEvents[which]
+             }
+
+
+             val dialog = builder.create()
+             dialog.show()
+         }
+             walk.put("startDate", dateIni)
+             walk.put("endDate", dateEnd)
+             walk.put("duration", time.toInt())
+             walk.put("distance", distance.text)
+             walk.put("locLatitudes", getLatitudes())
+             walk.put("locLongitudes", getLongitudes())
+             if (selection != "No asignar a ningún evento" && selection!= "") {
+                 for(event in listEvents) {
+                     val sdf = SimpleDateFormat("dd/MM HH:mm", Locale.US)
+                     val date = event.getDate()
+                    if (selection == sdf.format(date)){
+                        walk.put("petEvent", event )
+                    }
+                 }
+             }
+             walk.saveInBackground()
 
          val fragment = HomePrincipalFragment.newInstance()
          fragmentManager?.beginTransaction()?.replace(R.id.frameLayout, fragment)?.commit()
