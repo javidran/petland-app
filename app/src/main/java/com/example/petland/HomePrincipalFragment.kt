@@ -61,7 +61,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         super.onResume()
         val listAdapter = PetEvent.getEventsWithoutWalk(getSelectedPet())
         visibleNoEvents = listAdapter.isEmpty()
-        adapter = EventAdapter(listAdapter,  context!!, this) //Android Studio ME HA PEDIDO QUE LO CAMBIE A requiereContext()
+        adapter = EventAdapter(listAdapter,  context!!, this)
         rootView.recyclerViewEvents.adapter = adapter
         PetEvent.getEventsFromPet(FilterEvent.ONLY_WALK)
         setPetInfo()
