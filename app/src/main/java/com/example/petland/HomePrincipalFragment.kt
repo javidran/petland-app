@@ -109,11 +109,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         startActivity(intent);
 }
  fun iniciarPaseo() {
-
-     val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-     fragment = MapsFragment.newInstance()
-     transaction.replace(R.id.frameLayout, fragment)
-     transaction.commit()
+     (activity as HomeActivity).iniciarPaseo()
  }
     companion object {
 

@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.example.petland.HomeActivity
 import com.example.petland.HomePrincipalFragment
 import com.example.petland.R
 import com.example.petland.pet.Pets
@@ -235,8 +236,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
          walk.put("locLongitudes", getLongitudes())
          walk.saveInBackground()
 
-         val fragment = HomePrincipalFragment.newInstance()
-         fragmentManager?.beginTransaction()?.replace(R.id.frameLayout, fragment)?.commit()
+         (activity as HomeActivity).volverHome()
      }
 
     private fun getLatitudes(): MutableList<Double> {
