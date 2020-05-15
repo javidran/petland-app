@@ -236,7 +236,6 @@ class SignInActivity : AppCompatActivity() {
     }
 
 
-    @SuppressLint("SimpleDateFormat")
     private fun notificationEvent() {
         val petsList =  PetEvent.getEventsFromUser()
         val today = Calendar.getInstance().time
@@ -251,7 +250,7 @@ class SignInActivity : AppCompatActivity() {
             if ( today < eventDate &&  eventDate < tomorrow) {
                 if (!mostrar) {mostrar = true}
                 val pet = i.getPet()
-                val sdf = SimpleDateFormat("HH:mm aa")
+                val sdf = SimpleDateFormat("HH:mm aa", Locale.US)
                 events[num] =
                     ("" + pet.getString("name") + " tiene un evento a las " + sdf.format(eventDate) + "")
             }
