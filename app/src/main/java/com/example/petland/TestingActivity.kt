@@ -51,6 +51,7 @@ class TestingActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
+
     companion object {
         private const val TAG = "Petland Dashboard"
     }

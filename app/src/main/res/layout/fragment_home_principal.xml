@@ -5,12 +5,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".HomePrincipalFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="278dp">
+        android:layout_height="wrap_content">
 
 
         <com.mikhaellopez.circularimageview.CircularImageView
@@ -31,28 +31,31 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TextView"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+
 
         <TextView
             android:id="@+id/birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="8dp"
             android:text="TextView"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/petName" />
 
         <Button
-            android:id="@+id/editProfileButton"
+            android:id="@+id/viewProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/transparent_button_with_borders"
             android:shadowColor="#00FFFFFF"
-            android:text="@string/editProfile"
+            android:text="@string/viewProfile"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="?android:attr/textColorSecondary"
@@ -61,6 +64,67 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/birthday" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewEvents"
+            android:layout_width="400dp"
+            android:layout_height="225dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventsHome"
+            tools:itemCount="8"
+            tools:listitem="@layout/list_event_element" />
+
+        <ImageView
+            android:id="@+id/iniciarPaseoImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_paseo"
+            android:cropToPadding="true"
+            android:elevation="50dp"
+            android:padding="10dp"
+            android:onClick="iniciarPaseo"
+            android:scaleType="centerInside"
+            android:src="@drawable/animal_paw_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textWalkCard" />
+
+        <TextView
+            android:id="@+id/eventsHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+
+            android:text="@string/events_header"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewProfileButton" />
+
+        <Button
+            android:id="@+id/textWalkCard"
+            android:layout_width="wrap_content"
+            android:paddingLeft="40sp"
+            android:paddingRight="40sp"
+            android:layout_height="50sp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/card_simulation"
+            android:elevation="6dp"
+            android:text="Próximos paseos: "
+            android:textAllCaps="false"
+            android:textColor="@color/md_grey_500"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewEvents" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </ScrollView>

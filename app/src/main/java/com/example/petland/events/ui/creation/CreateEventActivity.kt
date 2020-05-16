@@ -4,30 +4,30 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.model.PetEvent
+import com.example.petland.events.ui.callback.SaveDataCallback
 import com.example.petland.pet.Pets
 import com.parse.ParseObject
+import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_create_event.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    lateinit var selectedPet: ParseObject
-    lateinit var petList: List<ParseObject>
-    lateinit var event: PetEvent
-    lateinit var callback: SaveDataCallback
+    private lateinit var petList: List<ParseObject>
+    private lateinit var caregiversList: List<ParseUser>
+    private lateinit var event: PetEvent
+    private lateinit var callback: SaveDataCallback
 
-    lateinit var spinnerEventType: Spinner
-    lateinit var spinnerPet: Spinner
+    private lateinit var spinnerEventType: Spinner
+    private lateinit var spinnerPet: Spinner
+    private lateinit var spinnerAssigned: Spinner
 
     private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     private val stf = SimpleDateFormat("HH:mm", Locale.US)
@@ -57,7 +57,7 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         spinnerEventType.onItemSelectedListener = this
 
         petList = Pets.getPetsFromCurrentUser()
-        selectedPet = Pets.getSelectedPet()
+        event.setPet(Pets.getSelectedPet())
 
         spinnerPet = findViewById(R.id.spinnerPet)
         val adapterPet = ArrayAdapter(
@@ -70,10 +70,16 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         spinnerPet.onItemSelectedListener = this
 
         petList.forEachIndexed { index, parseObject ->
-            if(parseObject.objectId == selectedPet.objectId) {
+            if(parseObject.objectId == event.getPet().objectId) {
                 spinnerPet.setSelection(index)
             }
         }
+
+
+        spinnerAssigned = findViewById(R.id.assignedSpinner)
+        spinnerAssigned.onItemSelectedListener = this
+        setAssignedAdapter()
+
     }
 
     fun goBack() {
@@ -101,7 +107,6 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             )
             dialog.show()
         }
-
     }
 
     private fun setHourChooser(textView : TextView) {
@@ -148,6 +153,16 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
     private fun onSaveButtonClicked() {
         if(dateDay.text.isEmpty()) dateDay.error = getString(R.string.date_needed)
+        else if(event.hasAssigned() && !event.checkAssignedIsCorrect()) {
+            event.removeAssigned()
+            setAssignedAdapter()
+            val toast = Toast.makeText(
+                this,
+                getString(R.string.error_caregivers_updated),
+                Toast.LENGTH_SHORT
+            )
+            toast.show()
+        }
         else {
             if (recurrencyCheckbox.isChecked) {
                 if (recurrencyNumber.text.isEmpty()) recurrencyNumber.error = getString(R.string.content_mandatory)
@@ -173,7 +188,6 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             val data = callback.checkAndSaveData()
             if(data != null) {
                 event.setData(data)
-                event.setPet(selectedPet)
                 event.saveEvent()
                 finish()
             }
@@ -194,6 +208,20 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             }
         }
         return array
+    }
+
+    private fun setAssignedAdapter() {
+        caregiversList = Pets.getCaregiversFromPet(event.getPet())
+        val arrayAssigned  = ArrayList(Pets.getCaregiversNamesFromPet(event.getPet()))
+        arrayAssigned.add(0, getString(R.string.assigned_to_no_one))
+        val adapterAssigned = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, arrayAssigned
+        )
+        adapterAssigned.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerAssigned.adapter = adapterAssigned
+
+        spinnerAssigned.setSelection(0)
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
@@ -234,7 +262,12 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                 transaction.commit()
             }
             spinnerPet -> {
-                selectedPet = petList[pos]
+                event.setPet(petList[pos])
+                setAssignedAdapter()
+            }
+            spinnerAssigned -> {
+                if(pos == 0) event.removeAssigned()
+                else event.setAssigned(caregiversList[pos-1])
             }
         }
     }

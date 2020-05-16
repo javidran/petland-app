@@ -69,7 +69,7 @@
     <string name="edit_image">Choose image</string>
     <string name="reset_image">Use default image</string>
     <string name="crop_error">Could not bet cropped correctly, please try again</string>
-    <string name="delete_account_message">Are you sure you want to delete the account?</string>
+    <string name="delete_account_message">Are you sure you want to delete the account? All pets and saved data will be deleted</string>
     <string name="delete_account">Delete account</string>
     <string name="racetype">Multiple race</string>
     <string name="race">Race</string>
@@ -103,7 +103,7 @@
     <string name="event_measurement_height">Height</string>
     <string name="event_medicine_dosage">Dosage</string>
     <string name="recurrent_event_check">It\'s a recurrent event</string>
-    <string name="repeat_every">Repeat every</string>
+    <string name="repeat_every">Repeats every</string>
     <string name="days">days</string>
     <string name="event_end_date">Finalization date</string>
     <string name="event_until_date">Until an specific date</string>
@@ -117,4 +117,43 @@
     <string name="review_invites">Review invites</string>
     <string name="done">Completed</string>
     <string name="event_deletion_alert_title">Are you sure you want to delete this event?</string>
+    <string name="noPendingInvites">You have no pending invites at the moment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_maps_ubication">Map</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="paseando">Paseando...</string>
+    <string name="finalizar_paseo">Terminar</string>
+    <string name="distancia_paseada">Distancia paseada:</string>
+    <string name="tiempo_transcurrido">Tiempo transcurrido:</string>
+    <string name="mins">mins</string>
+    <string name="end_walk">Are you sure you want to End the walk?</string>
+    <string name="end_walk_message">When ending a walk the distance, path and duration will be saved in the walks tab</string>
+    <string name="walkpet">Select the animals you want to walk with</string>
+    <string name="duration">Duration</string>
+    <string name="distance">Distance</string>
+    <string name="paseador">Walker</string>
+    <string name="done_on">Completed on</string>
+    <string name="needed">Needed</string>
+    <string name="event_completion_dialog">Did you complete the event on the expected date?</string>
+    <string name="yes">Yes</string>
+    <string name="no_choose_date">No, choose date</string>
+    <string name="type_of_food_hint">Type of food:</string>
+    <string name="quantity_hint">Quantity:</string>
+    <string name="type_of_hygiene_hint">Hygiene type:</string>
+    <string name="filter_by">Filter by:</string>
+    <string name="newest_first">Newest first</string>
+    <string name="oldest_first">Oldest first</string>
+    <string name="noWalks">There aren\'t any upcoming walks</string>
+    <string name="walks">"Upcoming walk: "</string>
+    <string name="noEvents">There are no upcoming events for this pet</string>
+    <string name="add_caregiver">Add caregiver</string>
+    <string name="events_header">Upcoming events:</string>
+    <string name="viewProfile">View Profile</string>
+    <string name="listNotNull">List cannot be null</string>
+    <string name="assigned_to">Assigned to</string>
+    <string name="tipo_de_evento">Type of event</string>
+    <string name="assigned_to_no_one">No one</string>
+    <string name="error_caregivers_updated">Error: Caregivers have been updated</string>
+    <string name="error_caregiver_deleted">Error: The previous assigned caregiver is no longer eligible</string>
 </resources>

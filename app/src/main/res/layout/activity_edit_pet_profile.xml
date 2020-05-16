@@ -28,12 +28,12 @@
 
         <TableLayout
             android:id="@+id/tableLayout3"
-            android:layout_width="366dp"
-            android:layout_height="220dp"
-            android:layout_marginTop="250dp"
+            android:layout_width="361dp"
+            android:layout_height="204dp"
+            android:layout_marginTop="224dp"
             android:stretchColumns="0,2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.02"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -129,7 +129,7 @@
 
                 <Spinner
                     android:id="@+id/spinnerRace2"
-                    android:layout_width="40dp"
+                    android:layout_width="20dp"
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
                     android:textColor="@color/md_grey_600"
@@ -137,6 +137,7 @@
                     android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@+id/ownerText1"
                     tools:layout_editor_absoluteX="40dp" />
+
             </TableRow>
 
             <TableRow>
@@ -166,13 +167,16 @@
                     android:layout_width="47dp"
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
+                    android:inputType="numberSigned"
                     android:text="1515"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"
                     tools:ignore="HardcodedText" />
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/emailHint"
@@ -209,18 +213,15 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView1"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/buttonVolver2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
-            app:layout_constraintVertical_bias="0.79"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintVertical_bias="0.411"
             tools:itemCount="2"
             tools:listitem="@layout/pet_profile_user_element">
 
@@ -252,104 +253,114 @@
             android:layout_width="143dp"
             android:layout_height="59dp"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/button_without_corners"
             android:backgroundTint="#00C4CC"
             android:cropToPadding="false"
-            android:onClick="edit"
+            android:onClick="save"
             android:text="@string/saveChanges"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/petCaregivers"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/usernameText1"
             android:layout_width="410dp"
             android:layout_height="41dp"
-            android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="Lucas"
             android:textColor="@color/md_grey_600"
-            android:textSize="22dp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileImageView"
-            app:layout_constraintVertical_bias="0.518"
+            app:layout_constraintTop_toBottomOf="@+id/profileImageView1"
+            app:layout_constraintVertical_bias="1.0"
             tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/deleteButton"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="20dp"
+            android:layout_width="75dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="64dp"
             android:background="@drawable/button_deny_invitation"
             android:onClick="wantToDeletePet"
             android:text="@string/delete"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/usernameText1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profileImageView"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.939" />
 
         <Button
             android:id="@+id/addCarg"
-            android:layout_width="40dp"
-            android:layout_height="46dp"
-            android:background="@drawable/button_without_corners"
-            android:backgroundTint="@color/md_blue_A100"
+            android:layout_width="185dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_accept_invitation"
+            android:cropToPadding="false"
             android:onClick="addCargs"
-            android:text="+"
+            android:text="@string/add_caregiver"
+            android:textAllCaps="false"
+            android:textColor="@color/md_grey_600"
+            android:textSize="16sp"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/buttonEdit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toEndOf="@+id/recyclerView1"
-            app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView1"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonAddRace"
-            android:layout_width="25dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="316dp"
-            android:background="@drawable/button_without_corners"
-            android:backgroundTint="@color/md_blue_A100"
+            android:layout_width="35dp"
+            android:layout_height="29dp"
+            android:background="@color/md_grey_50"
             android:onClick="editRace"
-            android:text="+"
-            app:layout_constraintBottom_toTopOf="@+id/buttonEdit"
+            android:tint="@color/md_blue_A100"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.35"
-            app:layout_constraintStart_toEndOf="@+id/tableLayout3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.006" />
+            app:layout_constraintHorizontal_bias="0.962"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usernameText1"
+            app:layout_constraintVertical_bias="0.172"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
 
         <Button
             android:id="@+id/buttonDelRace"
-            android:layout_width="25dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="316dp"
-            android:background="@drawable/button_without_corners"
-            android:backgroundTint="@color/md_red_A700"
+            android:layout_width="35dp"
+            android:layout_height="29dp"
+            android:background="@color/md_grey_50"
             android:onClick="editRace"
+            android:text="X"
+            android:textColor="@color/md_red_A700"
+            android:textSize="17sp"
             android:visibility="gone"
-            android:text="-"
-            app:layout_constraintBottom_toTopOf="@+id/buttonEdit"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.35"
-            app:layout_constraintStart_toEndOf="@+id/tableLayout3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.006" />
+            app:layout_constraintHorizontal_bias="0.962"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usernameText1"
+            app:layout_constraintVertical_bias="0.296" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="116dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/petCaregivers"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -21,7 +21,7 @@ class Pets {
             if(result.isEmpty()) {
                 Application.startNoPetsActivity()
             }
-            else if(result.isNotEmpty() && !this::selectedPet.isInitialized) {
+            else if (!this::selectedPet.isInitialized) {
                 selectedPet = result[0]
             }
             return result.toList()
@@ -65,6 +65,20 @@ class Pets {
                     Log.d(TAG, "An error occurred while deleting a pet!")
                 }
             }
+        }
+
+        fun getCaregiversFromPet(pet: ParseObject) : List<ParseUser> {
+            return pet.getRelation<ParseUser>("caregivers").query.find()
+        }
+
+        fun getCaregiversNamesFromPet(pet: ParseObject) : List<String> {
+            val list = pet.getRelation<ParseUser>("caregivers").query.find()
+            val names = ArrayList<String>()
+            for(l in list) {
+                val name = (l.getString("name") ?: throw NullPointerException("Pet name should not be null"))
+                names.add(name)
+            }
+            return names
         }
     }
 

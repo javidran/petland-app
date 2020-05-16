@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.petland.R
 import com.example.petland.events.model.MeasurementEvent
+import com.example.petland.events.ui.callback.SaveDataCallback
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_create_measurement_event.view.*
 

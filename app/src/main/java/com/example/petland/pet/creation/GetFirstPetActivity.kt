@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petland.Application
 import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.pet.Pets
@@ -35,6 +36,10 @@ class GetFirstPetActivity : AppCompatActivity() {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
+        if(intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION) != null && intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION)!!) {
+            val intent = Intent(this, ViewInvitationsActivity::class.java).apply {}
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {

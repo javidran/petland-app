@@ -11,10 +11,12 @@ import androidx.fragment.app.Fragment
 import com.example.petland.R
 import com.example.petland.events.enums.HygieneType
 import com.example.petland.events.model.HygieneEvent
+import com.example.petland.events.ui.callback.SaveDataCallback
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_create_hygiene_event.view.*
 
-class CreateHygieneEventFragment : Fragment(), SaveDataCallback {
+class CreateHygieneEventFragment : Fragment(),
+    SaveDataCallback {
     private var dataEvent = HygieneEvent()
     private lateinit var rootView: View
     private lateinit var spinner: Spinner

@@ -34,11 +34,26 @@ class MedicineEvent : ParseObject() {
         put("info", info)
     }
 
+    fun removeInfo() {
+        remove("info")
+    }
+
     fun saveEvent() {
         if(getString("name") != null && getInt("dosage") != 0) {
             save()
         } else {
             throw NullPointerException("Some mandatory parameter of MedicineEvent is null")
+        }
+    }
+
+    companion object {
+        fun duplicate(oldEvent: MedicineEvent) : MedicineEvent {
+            val newEvent = MedicineEvent()
+            newEvent.setName(oldEvent.getName())
+            newEvent.setDosage(oldEvent.getDosage())
+            if(oldEvent.hasInfo()) newEvent.setInfo(oldEvent.getInfo())
+            newEvent.saveEvent()
+            return newEvent
         }
     }
 

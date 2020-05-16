@@ -25,12 +25,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class EditPetProfileActivity : AppCompatActivity() {
+class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
 
     private lateinit var myPet:ParseObject
     private val TAG = "Petland EditPetProfile"
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
+    private var owner: Boolean = false
     private lateinit var raceObj: ParseObject
     private lateinit var raceObjOpt: ParseObject
     private lateinit var animalSpecies: AnimalSpecies
@@ -52,6 +53,7 @@ class EditPetProfileActivity : AppCompatActivity() {
         super.onResume()
         setData()
         verImagen()
+        updateCaregivers()
     }
 
     private fun verImagen () {
@@ -62,16 +64,14 @@ class EditPetProfileActivity : AppCompatActivity() {
 
         val user = ParseUser.getCurrentUser()
         myPet.fetch<ParseObject>()
-        val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
-        val listCaregivers = caregivers.query
-        val list = listCaregivers.find()
 
         val listUsers = ParseQuery.getQuery<ParseUser>("_User")
         val powner = myPet.get("owner") as ParseObject
         listUsers.whereEqualTo("objectId", powner.objectId)
 
         usernameText1.text = myPet.getString("name")
-        ownerText1.text = listCaregivers.first.get("username").toString()
+        ownerText1.text = listUsers.first.get("username").toString()
+        owner = (ownerText1.text == user.username)
 
         val listRaces = ParseQuery.getQuery<ParseObject>("Race")
         val pRacePrincipal = myPet.get("nameRace") as ParseObject
@@ -119,29 +119,13 @@ class EditPetProfileActivity : AppCompatActivity() {
         }
         else chipText1.setText("")
 
-        if (ownerText1.text == user.username) {     // enable buttons
+        updateCaregivers()
+
+        if (owner) {     // enable buttons
             val deleteButton:TextView = findViewById(R.id.deleteButton)
             deleteButton.visibility = View.VISIBLE
             val addCarg:TextView = findViewById(R.id.addCarg)
             addCarg.visibility = View.VISIBLE
-            val viewCargs:RecyclerView = findViewById(R.id.recyclerView1)
-            viewCargs.visibility = View.VISIBLE
-            if (list != null) {
-                viewManager = LinearLayoutManager(this)
-                viewAdapter = UserAdapter(list.toList(), true, myPet)
-                recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
-                    // use this setting to improve performance if you know that changes
-                    // in content do not change the layout size of the RecyclerView
-                    setHasFixedSize(true)
-
-                    // use a linear layout manager
-                    layoutManager = viewManager
-
-                    // specify an viewAdapter (see also next example)
-                    adapter = viewAdapter
-
-                }
-            }
         }
         verImagen()
         addElementsToSpinnerRace()
@@ -294,7 +278,7 @@ class EditPetProfileActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
-    fun edit(view: View) {
+    fun save(view: View) {
         myPet.put("birthday", date)
         myPet.put("chip", Integer.valueOf(chipText1.text.toString()))
         myPet.put("nameRace", raceObj)
@@ -321,6 +305,28 @@ class EditPetProfileActivity : AppCompatActivity() {
         builder.setNegativeButton(getString(R.string.cancel))
         { dialog, which -> }
         builder.show()
+    }
+
+    override fun updateCaregivers() {
+        val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
+        val listCaregivers = caregivers.query
+        val list = listCaregivers.find()
+        if (list != null) {
+            viewManager = LinearLayoutManager(this)
+            viewAdapter = UserAdapter(list.toList(), owner, myPet, this)
+            recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
+                isNestedScrollingEnabled = false
+
+                // use a linear layout manager
+                layoutManager = viewManager
+
+                // specify an viewAdapter (see also next example)
+                adapter = viewAdapter
+
+            }
+        }
     }
 
 }

@@ -11,10 +11,12 @@ import androidx.fragment.app.Fragment
 import com.example.petland.R
 import com.example.petland.events.enums.FoodType
 import com.example.petland.events.model.FoodEvent
+import com.example.petland.events.ui.callback.SaveDataCallback
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_create_food_event.view.*
 
-class CreateFoodEventFragment : Fragment(), SaveDataCallback {
+class CreateFoodEventFragment : Fragment(),
+    SaveDataCallback {
     private var dataEvent = FoodEvent()
     private lateinit var rootView: View
     private lateinit var spinner: Spinner
@@ -43,7 +45,7 @@ class CreateFoodEventFragment : Fragment(), SaveDataCallback {
 
     override fun checkAndSaveData(): ParseObject? {
         if(rootView.editFoodAmount.text.isEmpty()) {
-            rootView.editFoodAmount.error = getString(R.string.date_needed)
+            rootView.editFoodAmount.error = getString(R.string.needed)
             return null
         }
         else {

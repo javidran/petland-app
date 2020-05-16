@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.petland.R
 import com.example.petland.events.model.VaccineEvent
+import com.example.petland.events.ui.callback.SaveDataCallback
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_create_vaccine_event.view.*
 
@@ -29,7 +30,7 @@ class CreateVaccineEventFragment : Fragment(),
 
     override fun checkAndSaveData(): ParseObject? {
         if(rootView.editVaccineName.text.isEmpty()) {
-            rootView.editVaccineName.error = getString(R.string.date_needed)
+            rootView.editVaccineName.error = getString(R.string.needed)
             return null
         }
         dataEvent.setName(rootView.editVaccineName.text.toString())

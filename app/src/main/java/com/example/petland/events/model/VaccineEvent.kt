@@ -21,4 +21,13 @@ class VaccineEvent : ParseObject() {
             throw NullPointerException("Some mandatory parameter of VaccineEvent is null")
         }
     }
+
+    companion object {
+        fun duplicate(oldEvent: VaccineEvent) : VaccineEvent {
+            val newEvent = VaccineEvent()
+            newEvent.setName(oldEvent.getName())
+            newEvent.saveEvent()
+            return newEvent
+        }
+    }
 }

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
+import com.example.petland.events.model.PetEvent
 import com.example.petland.image.ImageUtils
 import com.parse.ParseObject
 import com.parse.ParseUser
@@ -14,13 +15,15 @@ import kotlinx.android.synthetic.main.pet_profile_user_element.view.*
 class UserAdapter(
     private val caregivers: List<ParseUser>,
     private val owner: Boolean,
-    private val myPet: ParseObject
+    private val myPet: ParseObject,
+    private val vCCallback: ViewCaregiversCallback
 ) :
     RecyclerView.Adapter<UserAdapter.UserHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): UserHolder {
         return UserHolder(
-            LayoutInflater.from(p0.context).inflate(R.layout.pet_profile_user_element, p0, false), this.owner, this.myPet
+            LayoutInflater.from(p0.context).inflate(R.layout.pet_profile_user_element, p0, false),
+            this.owner, this.myPet, vCCallback
         )
     }
 
@@ -32,10 +35,13 @@ class UserAdapter(
         holder.bindUserInfo(caregivers[position])
     }
 
-    class UserHolder(v: View, o: Boolean, myPet: ParseObject) : RecyclerView.ViewHolder(v) {
+    class UserHolder(v: View, o: Boolean, myPet: ParseObject,
+                     vCCallback: ViewCaregiversCallback ) : RecyclerView.ViewHolder(v) {
         var view: View = v
         var owner: Boolean = o
         var pet: ParseObject = myPet
+        private var listCallback  = vCCallback
+
 
         private lateinit var user: ParseUser
 
@@ -45,16 +51,20 @@ class UserAdapter(
             view.editPetName.text = user.username
             if (this.owner && u.username != user.username) {
                 view.deleteCaregButton.visibility = View.VISIBLE
-                view.changeOwnerButton.visibility = View.VISIBLE
                 view.deleteCaregButton.setOnClickListener {
+                    //Se quita de todos los eventos de la mascota de los que formaba parte
+                    for(ev in PetEvent.getEventsFromPet(pet)) {
+                        if(ev.hasAssigned() && ev.getAssigned().username == user.username) {
+                            ev.removeAssigned()
+                            ev.saveEvent()
+                        }
+                    }
+
                     val relation = pet.getRelation<ParseUser>("caregivers")
                     relation.remove(this.user)
                     pet.saveInBackground()
-                    view.deleteCaregButton.visibility = View.GONE
-                    view.changeOwnerButton.visibility = View.GONE
-                    view.textView2.visibility = View.VISIBLE
+                    listCallback.updateCaregivers()
                 }
-                view.changeOwnerButton.setOnClickListener { TODO("not implemented") }
             }
             ImageUtils.retrieveImage(user, view.userImage)
         }
