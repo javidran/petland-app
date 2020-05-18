@@ -26,7 +26,17 @@ class Pets {
             }
             return result.toList()
         }
+       fun getPetsObjectOfSelection(listPetsSelected: List<String>): List<ParseObject> {
+           val result = ArrayList<ParseObject>()
+            val query = ParseQuery.getQuery<ParseObject>("Pet")
+            for (pet in listPetsSelected) {
+                query.whereEqualTo("name", pet)
+                val objectPet = query.find().first()
+                result.add(objectPet)
+            }
 
+            return result
+       }
         fun userHasPets(): Boolean {
             val query = ParseQuery.getQuery<ParseObject>("Pet")
             query.whereEqualTo("caregivers", ParseUser.getCurrentUser())
