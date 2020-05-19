@@ -287,6 +287,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                 if (selection == sdf.format(date)) {
                     val walkEv = event.getData() as WalkEvent
                     walkEv.setWalk(walk)
+                    event.markAsDone(dateEnd)
                 }
             }
         }
