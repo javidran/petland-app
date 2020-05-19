@@ -20,6 +20,7 @@ import com.example.petland.HomePrincipalFragment
 import com.example.petland.R
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
+import com.example.petland.events.model.WalkEvent
 import com.example.petland.pet.Pets
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -269,7 +270,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         val query = ParseQuery.getQuery<ParseObject>("Pet")
         query.whereEqualTo("name", pet)
         val result = query.find().first()
-        val walk = ParseObject.create("Walk")
+        val walk = Walk()
         walk.put("user", ParseUser.getCurrentUser())
         val relation = walk.getRelation<ParseObject>("pets")
         relation.add(result)
@@ -284,7 +285,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                 val sdf = SimpleDateFormat("dd/MM HH:mm", Locale.US)
                 val date = event.getDate()
                 if (selection == sdf.format(date)) {
-                    walk.put("petEvent", event)
+                    val walkEv = event.getData() as WalkEvent
+                    walkEv.setWalk(walk)
                 }
             }
         }
