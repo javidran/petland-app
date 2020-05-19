@@ -6,5 +6,10 @@ import com.parse.ParseObject
 
 @ParseClassName("Walk")
 class Walk  : ParseObject() {
-
+    fun getTime(): Int {
+        return getInt("duration")
+    }
+    fun getRecorrido(): String {
+        return getString("distance").toString()
+    }
 }

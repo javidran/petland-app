@@ -156,4 +156,8 @@
     <string name="assigned_to_no_one">No one</string>
     <string name="error_caregivers_updated">Error: Caregivers have been updated</string>
     <string name="error_caregiver_deleted">Error: The previous assigned caregiver is no longer eligible</string>
+    <string name="distance_value">"Distance: "</string>
+    <string name="time">"Time: "</string>
+    <string name="view_map">View Map</string>
+    <string name="datos_del_paseo">Walk data</string>
 </resources>

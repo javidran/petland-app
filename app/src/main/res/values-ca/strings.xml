@@ -150,4 +150,8 @@
     <string name="assigned_to_no_one">Ningú</string>
     <string name="error_caregivers_updated">Error: Els cuidadors han sigut actualitzats</string>
     <string name="error_caregiver_deleted">Error: El cuidador previament assignat no es pot escollir més</string>
+    <string name="distance_value">"Distància: "</string>
+    <string name="time">"Temps: "</string>
+    <string name="view_map">Veure Mapa</string>
+    <string name="datos_del_paseo">Dades del passeig</string>
 </resources>
