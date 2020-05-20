@@ -13,12 +13,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.example.petland.HomeActivity
-import com.example.petland.HomePrincipalFragment
 import com.example.petland.R
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
@@ -37,7 +34,6 @@ import com.google.maps.android.SphericalUtil
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
-import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_maps.view.*
 import java.text.SimpleDateFormat
