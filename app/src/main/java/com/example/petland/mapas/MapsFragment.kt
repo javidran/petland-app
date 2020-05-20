@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.petland.HomeActivity
 import com.example.petland.HomePrincipalFragment
 import com.example.petland.R
 import com.example.petland.events.enums.FilterEvent
@@ -302,7 +303,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         val transaction: FragmentTransaction = (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout, fragment)
        transaction.commit()
+       (activity as HomeActivity).volverHome()
     }
+
 
     private fun getLatitudes(): MutableList<Double> {
         val latitudes: MutableList<Double> = arrayListOf()

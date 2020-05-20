@@ -167,6 +167,7 @@
                     android:layout_width="47dp"
                     android:gravity="fill_horizontal"
                     android:paddingStart="20dp"
+                    android:inputType="numberSigned"
                     android:text="1515"
                     android:textColor="@color/md_grey_600"
                     android:textSize="18sp"

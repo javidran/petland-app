@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventsFragment
 import com.example.petland.events.ui.view.ViewEventActivity
+import com.example.petland.mapas.MapsFragment
 import com.example.petland.mapas.TimelineFragment
 import com.example.petland.pet.Pets
 import com.example.petland.pet.Pets.Companion.getNamesFromPetList
@@ -247,6 +248,23 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragment.onActivityResult(requestCode, resultCode, intent)
 
     }
+
+    fun iniciarPaseo() {
+        frameLayout.removeAllViews()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        fragment = MapsFragment.newInstance()
+        transaction.replace(R.id.frameLayout, fragment)
+        transaction.commit()
+    }
+
+    fun volverHome() {
+        frameLayout.removeAllViews()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        fragment = HomePrincipalFragment.newInstance()
+        transaction.replace(R.id.frameLayout, fragment)
+        transaction.commit()
+    }
+
     fun homeAntiguo(view: View) {
         val intent = Intent(this, TestingActivity::class.java).apply {
         }

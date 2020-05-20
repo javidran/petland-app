@@ -36,22 +36,11 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
     private var visibleNoEvents: Boolean = false
     lateinit var fragment: Fragment
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutManager = LinearLayoutManager(context)
 
-    }
-
-    private var mContext: Context? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(activity!!)
-        mContext = context
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        mContext = null
     }
 
     override fun onCreateView(
@@ -72,7 +61,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         super.onResume()
         val listAdapter = PetEvent.getEventsWithoutWalk(getSelectedPet())
         visibleNoEvents = listAdapter.isEmpty()
-        adapter = EventAdapter(listAdapter,  requireContext(), this) //Android Studio ME HA PEDIDO QUE LO CAMBIE A requiereContext()
+        adapter = EventAdapter(listAdapter,  context!!, this)
         rootView.recyclerViewEvents.adapter = adapter
         PetEvent.getEventsFromPet(FilterEvent.ONLY_WALK)
         setPetInfo()
@@ -109,11 +98,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
         startActivity(intent);
 }
  fun iniciarPaseo() {
-
-     val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-     fragment = MapsFragment.newInstance()
-     transaction.replace(R.id.frameLayout, fragment)
-     transaction.commit()
+     (activity as HomeActivity).iniciarPaseo()
  }
     companion object {
 
