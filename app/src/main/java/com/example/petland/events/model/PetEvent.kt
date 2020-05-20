@@ -123,9 +123,6 @@ open class PetEvent : ParseObject() {
         query.whereEqualTo("objectId", objId)
         return query.find().first()
     }
-    fun getEventsFromToday() {
-
-    }
     fun getDataDuplicate() : ParseObject {
         when(getDataType()) {
             EventType.FOOD -> {
