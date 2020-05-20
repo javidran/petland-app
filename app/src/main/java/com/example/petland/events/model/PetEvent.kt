@@ -232,6 +232,7 @@ open class PetEvent : ParseObject() {
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)
             query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            query.whereEqualTo(DONE_DATE, null)
             query.orderByDescending(DATE)
 
             if (query.count() == 0 ) {
