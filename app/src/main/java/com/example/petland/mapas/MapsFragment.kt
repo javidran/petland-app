@@ -1,9 +1,9 @@
 package com.example.petland.mapas
 
 import android.Manifest
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -14,8 +14,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import com.example.petland.HomePrincipalFragment
 import com.example.petland.R
 import com.example.petland.events.enums.FilterEvent
@@ -32,10 +35,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.SphericalUtil
-import com.parse.Parse
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
+import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_maps.view.*
 import java.text.SimpleDateFormat
@@ -220,6 +223,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         builder.setPositiveButton((getString(R.string.ok))) { dialog, which ->
             ShowEventDialog()
             changeToHomePrincipalFragment()
+
         }
         builder.setNeutralButton(getString(R.string.cancel)) { _, _ ->
         }
@@ -239,9 +243,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
             val result = query.find().first()
             val listEventsPet = ArrayList<PetEvent>()
             val petEvents = PetEvent.getEventsFromPet(result, FilterEvent.ONLY_WALK)
+
             for (event in petEvents) {
                 val sdf = SimpleDateFormat("dd/MM/yy", Locale.US)
-                if (sdf.format(event.getDate()) == sdf.format(dateIni)) {
+                if (sdf.format(event.getDate()) == sdf.format(dateIni) && !event.isDone()) {
                     listEventsPet.add(event)
                 }
             }
@@ -249,13 +254,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                 listEvents = listEventsPet
                 val dateEvents = ArrayList<String>()
                 for (event in listEventsPet) {
-
                     val sdf = SimpleDateFormat("dd/MM HH:mm", Locale.US)
                     dateEvents.add(sdf.format(event.getDate()))
                 }
-                dateEvents.add("No asignar a ningún evento")
+                dateEvents.add(getString(R.string.noAssignedToEvent))
                 val builder = AlertDialog.Builder(context)
-                builder.setTitle("Es el paseo de " + pets + " uno de estos eventos?")
+                builder.setTitle(getString(R.string.walkev) + pets + getString(R.string.eventPet))
                 builder.setItems(dateEvents.toArray(arrayOfNulls<String>(0))) { dialog, which ->
                     selection = dateEvents[which]
                     finalizarPaseo(pets)
@@ -294,9 +298,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         walk.saveInBackground()
     }
 
-    private fun changeToHomePrincipalFragment() {
+    fun changeToHomePrincipalFragment() {
+
         val fragment = HomePrincipalFragment.newInstance()
-        fragmentManager?.beginTransaction()?.replace(R.id.frameLayout, fragment)?.commit()
+        val transaction: FragmentTransaction = (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frameLayout, fragment)
+       transaction.commit()
     }
 
     private fun getLatitudes(): MutableList<Double> {

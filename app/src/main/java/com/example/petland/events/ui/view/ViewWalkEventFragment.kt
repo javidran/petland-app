@@ -12,7 +12,6 @@ import com.example.petland.R
 import com.example.petland.events.model.WalkEvent
 import com.example.petland.mapas.ViewWalksActivity
 import com.example.petland.mapas.Walk
-import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_view_walk_event.*
 import kotlinx.android.synthetic.main.fragment_view_walk_event.view.buttonViewMap
 

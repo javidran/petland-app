@@ -154,4 +154,7 @@
     <string name="time">"Temps: "</string>
     <string name="view_map">Veure Mapa</string>
     <string name="datos_del_paseo">Dades del passeig</string>
+    <string name="noAssignedToEvent">No assignar a cap event</string>
+    <string name="walkev">"És el passeig de "</string>
+    <string name="eventPet">un d\'aquests events?</string>
 </resources>

@@ -160,4 +160,7 @@
     <string name="time">"Time: "</string>
     <string name="view_map">View Map</string>
     <string name="datos_del_paseo">Walk data</string>
+    <string name="noAssignedToEvent">Do not assign to any event</string>
+    <string name="eventPet">one of this events?</string>
+    <string name="walkev">"Is this walk from "</string>
 </resources>
