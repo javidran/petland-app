@@ -298,11 +298,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     }
 
     fun changeToHomePrincipalFragment() {
-
-        val fragment = HomePrincipalFragment.newInstance()
-        val transaction: FragmentTransaction = (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, fragment)
-       transaction.commit()
        (activity as HomeActivity).volverHome()
     }
 
