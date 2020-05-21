@@ -1,12 +1,14 @@
 package com.example.petland.ubications.model
 
 import com.example.petland.ubications.enums.PlaceTag
+import com.google.android.gms.maps.model.LatLng
 import com.parse.ParseClassName
 import com.parse.ParseObject
+import com.parse.ParseQuery
 
 
 @ParseClassName("Location")
-class Location : ParseObject() {
+class PetlandLocation : ParseObject() {
 
     fun getName() : String {
         return getString(NAME) ?: throw NullPointerException()
@@ -64,7 +66,20 @@ class Location : ParseObject() {
         return getInt(PHONE)
     }
 
+    fun getLat() : Double {
+        return getDouble(LATITUDE)
+    }
+
+    fun getLon() : Double {
+        return getDouble(LONGITUDE)
+    }
+
+    fun getLatLng()  : LatLng {
+        return LatLng(getLat(), getLon())
+    }
+
     companion object {
+        private const val OBJECT_NAME = "Location"
         private const val NAME = "name"
         private const val ADDRESS = "address"
         private const val PHONE = "phone_number"
@@ -72,5 +87,13 @@ class Location : ParseObject() {
         private const val PLACE_TAG = "tag"
         private const val AVG_STARS = "average_stars"
         private const val N_REVIEWS = "review_count"
+        private const val LATITUDE = "latitude"
+        private const val LONGITUDE = "longitude"
+
+
+        fun getAllLocations() : List<PetlandLocation> {
+            val query = ParseQuery.getQuery(PetlandLocation::class.java)
+            return query.find().toList()
+        }
     }
 }
