@@ -18,10 +18,6 @@ class PetlandLocation : ParseObject() {
         return getString(ADDRESS) ?: throw NullPointerException()
     }
 
-    fun getLocation() : String {
-        return getString("name") ?: throw NullPointerException()
-    }
-
     fun getPlaceTag() : PlaceTag {
         val type = getString(PLACE_TAG) ?: throw NullPointerException()
         when(type) {
@@ -66,16 +62,9 @@ class PetlandLocation : ParseObject() {
         return getInt(PHONE)
     }
 
-    fun getLat() : Double {
-        return getDouble(LATITUDE)
-    }
-
-    fun getLon() : Double {
-        return getDouble(LONGITUDE)
-    }
-
     fun getLatLng()  : LatLng {
-        return LatLng(getLat(), getLon())
+        val point = getParseGeoPoint(LOCATION) ?: throw NullPointerException()
+        return LatLng(point.latitude, point.longitude)
     }
 
     companion object {
@@ -87,8 +76,7 @@ class PetlandLocation : ParseObject() {
         private const val PLACE_TAG = "tag"
         private const val AVG_STARS = "average_stars"
         private const val N_REVIEWS = "review_count"
-        private const val LATITUDE = "latitude"
-        private const val LONGITUDE = "longitude"
+        private const val LOCATION = "location"
 
 
         fun getAllLocations() : List<PetlandLocation> {
