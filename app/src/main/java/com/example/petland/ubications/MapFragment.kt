@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.fragment_map.view.*
 
 
 class MapFragment : Fragment(), OnMapReadyCallback,
@@ -46,25 +47,22 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         savedInstanceState: Bundle?
     ): View {
         rootView = inflater.inflate(R.layout.fragment_map, container, false)
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.frg) as SupportMapFragment
+        val mapFragment = childFragmentManager.findFragmentById(R.id.frg) as SupportMapFragment
+
         mapFragment.getMapAsync { mMap ->
             mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             map = mMap
-
             onMapReady(map)
-
         }
+
+        rootView.locationViewLayout.visibility = View.GONE
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult) {
                 super.onLocationResult(p0)
                 lastLocation = p0.lastLocation
-
             }
-
         }
-
 
         createLocationRequest()
         return rootView
@@ -111,13 +109,13 @@ class MapFragment : Fragment(), OnMapReadyCallback,
     override fun onMapReady(p0: GoogleMap?) {
         map.uiSettings.isZoomControlsEnabled = true
         map.setOnMarkerClickListener(this)
+        map.setOnMapClickListener { rootView.locationViewLayout.visibility = View.GONE }
         setUpMap()
 
         for (location in PetlandLocation.getAllLocations()) {
-            val marker = map.addMarker(MarkerOptions().position(location.getLatLng()).title(location.getName()))
+            val marker = map.addMarker(MarkerOptions().position(location.getLatLng()).title(location.getName()).icon(location.getIcon()))
             marker.tag = location
         }
-
     }
 
 
@@ -179,7 +177,31 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         }
     }
 
-    override fun onMarkerClick(p0: Marker?) = false
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val location : PetlandLocation = marker.tag as PetlandLocation
+        rootView.locationViewLayout.visibility = View.VISIBLE
+
+        rootView.locationName.text = location.getName()
+        rootView.locationAddress.text = location.getAddress()
+        if(location.hasLink()) {
+            rootView.locationLink.visibility = View.VISIBLE
+            rootView.locationLink.text = location.getLink()
+        }
+        else {
+            rootView.locationLink.visibility = View.GONE
+        }
+        if(location.hasPhoneNumber()) {
+            rootView.locationPhone.visibility = View.VISIBLE
+            rootView.locationPhone.text = location.getPhoneNumber().toString()
+        }
+        else {
+            rootView.locationPhone.visibility = View.GONE
+        }
+
+        rootView.locationType.text = location.getPlaceTag().toString()
+
+        return false
+    }
 
 
     companion object {
