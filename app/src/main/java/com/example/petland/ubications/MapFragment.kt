@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.petland.R
+import com.example.petland.ubications.model.PetlandLocation
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 
 
 class MapFragment : Fragment(), OnMapReadyCallback,
@@ -110,6 +112,11 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         map.uiSettings.isZoomControlsEnabled = true
         map.setOnMarkerClickListener(this)
         setUpMap()
+
+        for (location in PetlandLocation.getAllLocations()) {
+            val marker = map.addMarker(MarkerOptions().position(location.getLatLng()).title(location.getName()))
+            marker.tag = location
+        }
 
     }
 
