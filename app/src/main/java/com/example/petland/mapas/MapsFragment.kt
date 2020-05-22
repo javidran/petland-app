@@ -58,7 +58,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private lateinit var distance: TextView
     private lateinit var listPetsSelected: MutableList<String>
     var selection = ""
-    var listEvents = ArrayList<PetEvent>()
     var time: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -217,7 +216,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
 
         builder.setPositiveButton((getString(R.string.ok))) { dialog, which ->
             ShowEventDialog()
-            changeToHomePrincipalFragment()
 
         }
         builder.setNeutralButton(getString(R.string.cancel)) { _, _ ->
@@ -233,9 +231,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         chronometer.stop()
         dateEnd = Calendar.getInstance().time
         for (pets in listPetsSelected) {
-            val query = ParseQuery.getQuery<ParseObject>("Pet")
+            var query = ParseQuery.getQuery<ParseObject>("Pet")
             query.whereEqualTo("name", pets)
-            val result = query.find().first()
+            var result = query.find().first()
             val listEventsPet = ArrayList<PetEvent>()
             val petEvents = PetEvent.getEventsFromPet(result, FilterEvent.ONLY_WALK)
 
@@ -246,7 +244,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                 }
             }
             if (listEventsPet.isNotEmpty()) {
-                listEvents = listEventsPet
                 val dateEvents = ArrayList<String>()
                 for (event in listEventsPet) {
                     val sdf = SimpleDateFormat("dd/MM HH:mm", Locale.US)
@@ -257,41 +254,21 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                 builder.setTitle(getString(R.string.walkev) + pets + getString(R.string.eventPet))
                 builder.setItems(dateEvents.toArray(arrayOfNulls<String>(0))) { dialog, which ->
                     selection = dateEvents[which]
-                    finalizarPaseo(pets)
+                    query = ParseQuery.getQuery<ParseObject>("Pet")
+                    query.whereEqualTo("name", pets)
+                    result = query.find().first()
+                    val walk = Walk()
+                    val relation = walk.getRelation<ParseObject>("pets")
+                    walk.createWalk(dateEnd, dateIni, time.toInt(),
+                        distance.text as String, getLatitudes(),getLongitudes(),selection,listEventsPet, relation, result)
                 }
                 val dialog = builder.create()
                 dialog.show()
             }
         }
+        changeToHomePrincipalFragment()
     }
 
-    private fun finalizarPaseo(pet: String) {
-        val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.whereEqualTo("name", pet)
-        val result = query.find().first()
-        val walk = Walk()
-        walk.put("user", ParseUser.getCurrentUser())
-        val relation = walk.getRelation<ParseObject>("pets")
-        relation.add(result)
-        walk.put("startDate", dateIni)
-        walk.put("endDate", dateEnd)
-        walk.put("duration", time.toInt())
-        walk.put("distance", distance.text)
-        walk.put("locLatitudes", getLatitudes())
-        walk.put("locLongitudes", getLongitudes())
-        if (selection != "No asignar a ningún evento" && selection != "") {
-            for (event in listEvents) {
-                val sdf = SimpleDateFormat("dd/MM HH:mm", Locale.US)
-                val date = event.getDate()
-                if (selection == sdf.format(date)) {
-                    val walkEv = event.getData() as WalkEvent
-                    walkEv.setWalk(walk)
-                    event.markAsDone(dateEnd)
-                }
-            }
-        }
-        walk.saveInBackground()
-    }
 
     fun changeToHomePrincipalFragment() {
        (activity as HomeActivity).volverHome()
