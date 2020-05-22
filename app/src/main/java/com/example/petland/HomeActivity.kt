@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventsFragment
 import com.example.petland.events.ui.view.ViewEventActivity
+import com.example.petland.health.HealthFragment
 import com.example.petland.mapas.MapsFragment
 import com.example.petland.mapas.TimelineFragment
 import com.example.petland.pet.Pets
@@ -187,7 +188,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.commit()
             }
             R.id.nav_salud -> {
-
+                frameLayout.removeAllViews()
+                val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                fragment = HealthFragment.newInstance()
+                transaction.replace(R.id.frameLayout, fragment)
+                transaction.commit()
             }
             R.id.nav_eventos -> {
                 frameLayout.removeAllViews()
