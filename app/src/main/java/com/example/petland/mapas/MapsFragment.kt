@@ -263,6 +263,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                         distance.text as String, getLatitudes(),getLongitudes(),selection,listEventsPet, relation, result)
                 }
                 val dialog = builder.create()
+                dialog.setCanceledOnTouchOutside(false)
+                dialog.setCancelable(false)
                 dialog.show()
             }
         }
