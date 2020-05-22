@@ -150,4 +150,12 @@
     <string name="assigned_to_no_one">Ningú</string>
     <string name="error_caregivers_updated">Error: Els cuidadors han sigut actualitzats</string>
     <string name="error_caregiver_deleted">Error: El cuidador previament assignat no es pot escollir més</string>
+    <string name="hairdresser">Perruqueria</string>
+    <string name="veterinary">Veterinari</string>
+    <string name="park">Parc</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="other">Altres</string>
+    <string name="filter_location_text">Mostrar:</string>
+    <string name="all">Tots</string>
+    <string name="reviews">Valoracions</string>
 </resources>

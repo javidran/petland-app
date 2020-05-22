@@ -1,13 +1,14 @@
-package com.example.petland.ubications.model
+package com.example.petland.locations.model
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.example.petland.Application.Companion.getAppContext
 import com.example.petland.R
-import com.example.petland.ubications.enums.PlaceTag
+import com.example.petland.locations.enums.PlaceTag
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -77,23 +78,26 @@ class PetlandLocation : ParseObject() {
         return LatLng(point.latitude, point.longitude)
     }
 
-    fun getIcon() : BitmapDescriptor? {
+    fun getIcon() : Drawable? {
         return when(getPlaceTag()) {
-            PlaceTag.RESTAURANT -> bitmapDescriptorFromVector(getAppContext(), R.drawable.map_restaurant_icon)
-            PlaceTag.VETERINARY -> bitmapDescriptorFromVector(getAppContext(), R.drawable.map_veterinary_icon)
-            PlaceTag.PARK -> bitmapDescriptorFromVector(getAppContext(), R.drawable.map_park_icon)
-            PlaceTag.HAIRDRESSER -> bitmapDescriptorFromVector(getAppContext(), R.drawable.map_hairdresser_icon)
-            PlaceTag.OTHER -> bitmapDescriptorFromVector(getAppContext(), R.drawable.map_other_icon)
+            PlaceTag.RESTAURANT -> ContextCompat.getDrawable(getAppContext(), R.drawable.map_restaurant_icon)
+            PlaceTag.VETERINARY -> ContextCompat.getDrawable(getAppContext(), R.drawable.map_veterinary_icon)
+            PlaceTag.PARK -> ContextCompat.getDrawable(getAppContext(), R.drawable.map_park_icon)
+            PlaceTag.HAIRDRESSER -> ContextCompat.getDrawable(getAppContext(), R.drawable.map_hairdresser_icon)
+            PlaceTag.OTHER -> ContextCompat.getDrawable(getAppContext(), R.drawable.map_other_icon)
         }
+    }
+
+    fun getMarkerIcon() : BitmapDescriptor? {
+        return bitmapDescriptorFromVector(getAppContext(), getIcon())
     }
 
     private fun bitmapDescriptorFromVector(
         context: Context,
-        @DrawableRes vectorDrawableResourceId: Int
+        vectorDrawable: Drawable?
     ): BitmapDescriptor? {
         val background = ContextCompat.getDrawable(context, R.drawable.map_pin_icon)
         background!!.setBounds(0, 0, background.intrinsicWidth, background.intrinsicHeight)
-        val vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId)
         if(vectorDrawable != null) {
             val left = (background.intrinsicWidth - vectorDrawable.intrinsicWidth) / 2
             val top = (background.intrinsicHeight - vectorDrawable.intrinsicHeight) / 3
@@ -129,7 +133,14 @@ class PetlandLocation : ParseObject() {
 
 
         fun getAllLocations() : List<PetlandLocation> {
+            return getAllLocations(null)
+        }
+
+        fun getAllLocations(placeTag : PlaceTag?) : List<PetlandLocation> {
             val query = ParseQuery.getQuery(PetlandLocation::class.java)
+            if(placeTag != null) {
+                query.whereEqualTo(PLACE_TAG, placeTag.toString())
+            }
             return query.find().toList()
         }
     }

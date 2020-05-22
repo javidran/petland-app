@@ -28,7 +28,7 @@ import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.pet.Pets.Companion.setSelectedPet
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.sign.BootActivity
-import com.example.petland.ubications.MapFragment
+import com.example.petland.locations.ui.MapFragment
 import com.example.petland.user_profile.UserProfileFragment
 import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.example.petland.utils.CustomAdapter

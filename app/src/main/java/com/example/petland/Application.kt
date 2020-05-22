@@ -9,7 +9,7 @@ import android.util.Log
 import com.example.petland.events.model.*
 import com.example.petland.mapas.Walk
 import com.example.petland.pet.creation.GetFirstPetActivity
-import com.example.petland.ubications.model.PetlandLocation
+import com.example.petland.locations.model.PetlandLocation
 import com.parse.Parse
 import com.parse.ParseObject
 

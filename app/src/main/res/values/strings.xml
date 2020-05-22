@@ -156,4 +156,12 @@
     <string name="assigned_to_no_one">No one</string>
     <string name="error_caregivers_updated">Error: Caregivers have been updated</string>
     <string name="error_caregiver_deleted">Error: The previous assigned caregiver is no longer eligible</string>
+    <string name="hairdresser">Hairdresser</string>
+    <string name="veterinary">Veterinary</string>
+    <string name="park">Park</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="other">Other</string>
+    <string name="filter_location_text">Show:</string>
+    <string name="all">All</string>
+    <string name="reviews">Reviews</string>
 </resources>
