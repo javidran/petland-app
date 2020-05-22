@@ -157,4 +157,12 @@
     <string name="noAssignedToEvent">No asignar a ningún evento</string>
     <string name="walkev">\"Es el paseo de \"</string>
     <string name="eventPet">\" uno de estos eventos?\"</string>
+    <string name="hairdresser">Peluqueria</string>
+    <string name="veterinary">Veterinario</string>
+    <string name="park">parque</string>
+    <string name="restaurant">Restaurante</string>
+    <string name="other">Otros</string>
+    <string name="filter_location_text">Mostrar:</string>
+    <string name="all">Todos</string>
+    <string name="reviews">Valoraciones</string>
 </resources>

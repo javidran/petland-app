@@ -163,4 +163,12 @@
     <string name="noAssignedToEvent">Do not assign to any event</string>
     <string name="eventPet">one of this events?</string>
     <string name="walkev">"Is this walk from "</string>
+    <string name="hairdresser">Hairdresser</string>
+    <string name="veterinary">Veterinary</string>
+    <string name="park">Park</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="other">Other</string>
+    <string name="filter_location_text">Show:</string>
+    <string name="all">All</string>
+    <string name="reviews">Reviews</string>
 </resources>

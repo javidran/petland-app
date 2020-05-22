@@ -157,4 +157,12 @@
     <string name="noAssignedToEvent">No assignar a cap event</string>
     <string name="walkev">"És el passeig de "</string>
     <string name="eventPet">un d\'aquests events?</string>
+    <string name="hairdresser">Perruqueria</string>
+    <string name="veterinary">Veterinari</string>
+    <string name="park">Parc</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="other">Altres</string>
+    <string name="filter_location_text">Mostrar:</string>
+    <string name="all">Tots</string>
+    <string name="reviews">Valoracions</string>
 </resources>
