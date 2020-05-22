@@ -18,8 +18,12 @@ class Walk  : ParseObject() {
     fun createWalk(
          dateEnd: Date, dateIni: Date, time: Int,
         distance: String, latitudes: MutableList<Double>,
-        longitudes: MutableList<Double>, selection: String, listEvents: ArrayList<PetEvent>, relation: ParseRelation<ParseObject>, result: ParseObject
+        longitudes: MutableList<Double>, selection: String, listEvents: ArrayList<PetEvent>, pet: String
     ) {
+        val query = ParseQuery.getQuery<ParseObject>("Pet")
+        query.whereEqualTo("name", pet)
+       val  result = query.find().first()
+        val relation = this.getRelation<ParseObject>("pets")
         put("user", ParseUser.getCurrentUser())
         relation.add(result)
         put("user", ParseUser.getCurrentUser())
@@ -40,6 +44,6 @@ class Walk  : ParseObject() {
                 }
             }
         }
-        save()
+        saveInBackground()
     }
 }
