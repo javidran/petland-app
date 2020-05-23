@@ -41,7 +41,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
     private lateinit var rootView: View
     private var filter : PlaceTag? = null
     private var markers = ArrayList<Marker>()
-    private var shownLocation : PetlandLocation? = null
+    private var shownLocation  = PetlandLocation()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +54,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         savedInstanceState: Bundle?
     ): View {
         rootView = inflater.inflate(R.layout.fragment_map, container, false)
+        rootView.reviewButton.setOnClickListener { viewReviewActivity(shownLocation) }
         val mapFragment = childFragmentManager.findFragmentById(R.id.frg) as SupportMapFragment
 
         mapFragment.getMapAsync { mMap ->
@@ -103,7 +104,12 @@ class MapFragment : Fragment(), OnMapReadyCallback,
                 }
             }
     }
+    fun viewReviewActivity( shownLocation : PetlandLocation) {
+        val intent = Intent(context, ReviewActivity::class.java).apply {}
+        intent.putExtra("Location", shownLocation)
+        startActivity(intent)
 
+    }
     private fun startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(
                 this.requireContext(),
