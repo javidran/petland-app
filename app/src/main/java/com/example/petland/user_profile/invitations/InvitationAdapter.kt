@@ -48,7 +48,6 @@ class InvitationAdapter(private val invitations: List<ParseObject>, private val 
                 val relation = pet.getRelation<ParseUser>("caregivers")
                 relation.add(user)
                 pet.saveInBackground()
-                //this.invitation.deleteInBackground()
                 this.invitation.put("answer", true)
                 this.invitation.saveInBackground()
                 listCallback.updateInvitations()
