@@ -10,7 +10,7 @@ import com.parse.ParseObject
 import kotlinx.android.synthetic.main.activity_review.*
 
 class ReviewActivity : AppCompatActivity() {
-
+    var location = PetlandLocation()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review)
@@ -18,12 +18,13 @@ class ReviewActivity : AppCompatActivity() {
     }
 
     private fun setUpValues() {
-        val location = intent.extras?.get("Location") as PetlandLocation
+        location = intent.extras?.get("Location") as PetlandLocation
         textName.text = location.getName()
     }
 
     fun addReview( view: View) {
         val intent = Intent(this, AddReviewActivity::class.java).apply {}
+        intent.putExtra("Location", location)
         startActivity(intent)
         finish()
         overridePendingTransition(
