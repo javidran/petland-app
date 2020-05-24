@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.pet.Pets
+import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_events.view.*
 import kotlinx.android.synthetic.main.fragment_events.view.recyclerViewEvents
 import kotlinx.android.synthetic.main.fragment_health.view.*
@@ -34,14 +36,16 @@ class HealthFragment : Fragment(), ViewEventCallback {
 
     private lateinit var recyclerView: RecyclerView
 
-    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var layoutManagerVac: LinearLayoutManager
+    private lateinit var layoutManagerMed: LinearLayoutManager
     private lateinit var adapter: EventAdapter
     private lateinit var rootView: View
     lateinit var fragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        layoutManager = LinearLayoutManager(context)
+        layoutManagerVac = LinearLayoutManager(context)
+        layoutManagerMed = LinearLayoutManager(context)
     }
 
     override fun onCreateView(
@@ -50,30 +54,77 @@ class HealthFragment : Fragment(), ViewEventCallback {
     ): View? {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_health, container, false)
-        rootView.recyclerViewEvents.isNestedScrollingEnabled = false
-        rootView.recyclerViewEvents.layoutManager = layoutManager
+        rootView.recyclerViewEventsVac.isNestedScrollingEnabled = false
+        rootView.recyclerViewEventsVac.layoutManager = layoutManagerVac
+        rootView.recyclerViewEventsMed.isNestedScrollingEnabled = false
+        rootView.recyclerViewEventsMed.layoutManager = layoutManagerMed
         rootView.vetNum.setOnClickListener { copiarTelefono() }
 
-        setData();
+        createFragment();
         return rootView;
     }
 
     override fun onResume() {
         super.onResume()
-        setData()
+        createFragment()
     }
 
-    private fun setData() {
+    private fun createFragment() {
         val pet = Pets.getSelectedPet()
         val veterinary = Pets.getVeterinary(pet)
-        if (veterinary != null) {
-            val vetNum: Button = rootView.findViewById(R.id.vetNum)
-            val infoVet: TextView = rootView.findViewById(R.id.infoVet)
-            vetNum.text = veterinary.getNumber("phone_number").toString()
-            infoVet.text = veterinary.getString("address")
+
+        if (veterinary != null) hasVet(veterinary)
+        else visibilities(false)
+
+        this.adapter = EventAdapter(PetEvent.getEventsFromPetNotDone(FilterEvent.ONLY_VACCINE), requireContext(), this)
+        rootView.recyclerViewEventsVac.adapter = adapter
+
+        this.adapter = EventAdapter(PetEvent.getEventsFromPetNotDone(FilterEvent.ONLY_MEDICINE), requireContext(), this)
+        rootView.recyclerViewEventsMed.adapter = adapter
+    }
+
+    private fun hasVet(veterinaty: ParseObject) {
+        visibilities(true)
+
+        val vetNum: Button = rootView.findViewById(R.id.vetNum)
+        val vetInfo: TextView = rootView.findViewById(R.id.infoVet)
+        val vetNom: TextView = rootView.findViewById(R.id.nomVet)
+
+        vetNum.text = veterinaty.getNumber("phone_number").toString()
+        vetInfo.text = veterinaty.getString("address")
+        vetNom.text = veterinaty.getString("name")
+    }
+
+    private fun visibilities(hasVet : Boolean) {
+        val newVet: TextView = rootView.findViewById(R.id.newVet)
+        val newVetIcon: ImageButton = rootView.findViewById(R.id.newVetIcon)
+        val vetNum: Button = rootView.findViewById(R.id.vetNum)
+        val vetInfo: TextView = rootView.findViewById(R.id.infoVet)
+        val vetNom: TextView = rootView.findViewById(R.id.nomVet)
+        val searchVet: TextView = rootView.findViewById(R.id.searchVet)
+        val searchVetIcon: ImageButton = rootView.findViewById(R.id.searchVetIcon)
+
+        if(hasVet) {
+            newVet.visibility = View.VISIBLE
+            newVetIcon.visibility = View.VISIBLE
+            vetNum.visibility = View.VISIBLE
+            vetInfo.visibility = View.VISIBLE
+            vetNom.visibility = View.VISIBLE
+
+            searchVet.visibility = View.INVISIBLE
+            searchVetIcon.visibility = View.INVISIBLE
+
         }
-        this.adapter = EventAdapter(PetEvent.getEventsFromPet(FilterEvent.ONLY_VACCINE), requireContext(), this)
-        rootView.recyclerViewEvents.adapter = adapter
+        else {
+            searchVet.visibility = View.VISIBLE
+            searchVetIcon.visibility = View.VISIBLE
+
+            newVet.visibility = View.INVISIBLE
+            newVetIcon.visibility = View.INVISIBLE
+            vetNum.visibility = View.INVISIBLE
+            vetInfo.visibility = View.INVISIBLE
+            vetNom.visibility = View.INVISIBLE
+        }
     }
 
     companion object {
