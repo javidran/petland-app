@@ -6,8 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.parse.ParseObject
+import kotlinx.android.synthetic.main.review_element.view.*
 
-class ReviewAdapter(private val reviews: List<ParseObject>, private val viewReviewsCallback: ViewReviewsCallback ) :
+class ReviewAdapter(
+    private val reviews: List<ParseObject>,
+    private val viewReviewsCallback: ViewReviewsCallback
+) :
     RecyclerView.Adapter<ReviewAdapter.ReviewHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ReviewHolder {
         return ReviewHolder(
@@ -24,18 +28,21 @@ class ReviewAdapter(private val reviews: List<ParseObject>, private val viewRevi
         holder.bindReviewInfo(reviews[position])
     }
 
-    class ReviewHolder(v: View, viewReviewsCallback: ViewReviewsCallback) : RecyclerView.ViewHolder(v) {
+    class ReviewHolder(v: View, viewReviewsCallback: ViewReviewsCallback) :
+        RecyclerView.ViewHolder(v) {
         var view: View = v
         val listCallback: ViewReviewsCallback = viewReviewsCallback
 
         private lateinit var review: ParseObject
 
-        fun bindReviewInfo(review: ParseObject){
+        fun bindReviewInfo(review: ParseObject) {
             val creator = review.get("user") as ParseObject
             val rate = review.get("stars")
             val textComment = review.get("text")
-            // atributos recyclerView = estos val
-            //creo que no hace falta listCallback porque no cambia la view
+            view.title.text = creator.toString()
+            view.comment.text = textComment.toString()
+            listCallback.startViewReview()
+
         }
 
     }
