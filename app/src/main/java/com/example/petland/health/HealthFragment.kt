@@ -23,6 +23,7 @@ import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
+import com.example.petland.events.ui.creation.CreateEventActivity
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.pet.Pets
 import com.parse.ParseObject
@@ -59,6 +60,7 @@ class HealthFragment : Fragment(), ViewEventCallback {
         rootView.recyclerViewEventsMed.isNestedScrollingEnabled = false
         rootView.recyclerViewEventsMed.layoutManager = layoutManagerMed
         rootView.vetNum.setOnClickListener { copiarTelefono() }
+        rootView.medicalHistory.setOnClickListener { seeMedicalHistory() }
 
         createFragment();
         return rootView;
@@ -143,5 +145,10 @@ class HealthFragment : Fragment(), ViewEventCallback {
         val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("NumVet", rootView.vetNum.text)
         clipboard.setPrimaryClip(clip)
+    }
+
+    fun seeMedicalHistory() {
+        val intent = Intent(context, MedicalHistoryActivity::class.java).apply {}
+        startActivity(intent)
     }
 }
