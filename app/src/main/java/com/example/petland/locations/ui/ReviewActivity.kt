@@ -13,25 +13,24 @@ import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_review.*
 
-class ReviewActivity : AppCompatActivity(), ViewReviewsCallback {
+class ReviewActivity : AppCompatActivity() {
     var location = PetlandLocation()
     private lateinit var layoutManager: LinearLayoutManager
     var reviewsList = listOf<ParseObject>() //Empty list of parse objects
     private lateinit var adapter: ReviewAdapter
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutManager = LinearLayoutManager(this)
         setContentView(R.layout.activity_review)
-        recyclerView.isNestedScrollingEnabled = false //evitar scrolling
+        recyclerView.isNestedScrollingEnabled = false // evitar scrolling
         recyclerView.layoutManager = layoutManager
         setUpValues()
     }
+
     override fun onResume() {
         super.onResume()
-        startViewReview()
+//        startViewReview() // TODO Descomentar cuando funcione
     }
 
     private fun setUpValues() {
@@ -39,30 +38,21 @@ class ReviewActivity : AppCompatActivity(), ViewReviewsCallback {
         textName.text = location.getName()
     }
 
-    fun addReview( view: View) {
+    fun addReview(view: View) {
         val intent = Intent(this, AddReviewActivity::class.java).apply {}
         intent.putExtra("Location", location)
         startActivity(intent)
-        finish()
-        overridePendingTransition(
-            R.anim.slide_in_right,
-            R.anim.slide_out_left
-        )
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
-    override fun startViewReview() {
+    fun startViewReview() {
         // val cUser = ParseUser.getCurrentUser()
         val query = ParseQuery.getQuery<ParseObject>("Review")
         query.whereEqualTo("location", location )
         reviewsList = query.find()
         if (reviewsList != null) {
-            adapter =
-                ReviewAdapter(
-                    reviewsList.toList(),
-                    this
-                )
+            adapter = ReviewAdapter(reviewsList.toList())
             recyclerView.adapter = adapter
-
         }
     }
 

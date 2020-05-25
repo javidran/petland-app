@@ -47,10 +47,10 @@ class PetlandLocation : ParseObject() {
         return getInt(N_REVIEWS)
     }
 
-    fun addStars(stars: Int) {
+    fun addStars(stars: Double) {
         val oldAvg = getAverageStars()
         val newNumber = getNumberOfReviews() + 1
-        val newAvg = if(newNumber == 1) stars.toDouble()
+        val newAvg = if(newNumber == 1) stars
                     else oldAvg + ((stars - oldAvg) / newNumber)
         put(AVG_STARS, newAvg)
         put(N_REVIEWS, newNumber)

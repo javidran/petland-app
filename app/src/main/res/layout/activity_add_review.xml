@@ -13,8 +13,10 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="12dp"
+        android:isIndicator="false"
         android:numStars="5"
-        android:progressTint="@color/md_blue_grey_50"
+        android:progressTint="@color/colorAccent"
+        android:stepSize="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.221"
         app:layout_constraintStart_toStartOf="parent"
