@@ -82,6 +82,11 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         rootView.spinnerLocation.adapter = adapterFilter
         rootView.spinnerLocation.onItemSelectedListener = this
 
+        val bundle = this.arguments
+        if (bundle != null) {
+            rootView.spinnerLocation.setSelection(2)
+        }
+
         return rootView
     }
 

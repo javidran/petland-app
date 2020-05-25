@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
@@ -61,6 +62,8 @@ class HealthFragment : Fragment(), ViewEventCallback {
         rootView.recyclerViewEventsMed.layoutManager = layoutManagerMed
         rootView.vetNum.setOnClickListener { copiarTelefono() }
         rootView.medicalHistory.setOnClickListener { seeMedicalHistory() }
+        rootView.newVetIcon.setOnClickListener { searchVeterinary() }
+        rootView.searchVetIcon.setOnClickListener { searchVeterinary() }
 
         createFragment();
         return rootView;
@@ -150,5 +153,9 @@ class HealthFragment : Fragment(), ViewEventCallback {
     fun seeMedicalHistory() {
         val intent = Intent(context, MedicalHistoryActivity::class.java).apply {}
         startActivity(intent)
+    }
+
+    fun searchVeterinary() {
+        (activity as HomeActivity).searchVeterinary()
     }
 }

@@ -22,6 +22,7 @@ import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventsFragment
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.health.HealthFragment
+import com.example.petland.locations.enums.PlaceTag
 import com.example.petland.mapas.MapsFragment
 import com.example.petland.mapas.TimelineFragment
 import com.example.petland.pet.Pets
@@ -40,6 +41,7 @@ import com.google.android.material.navigation.NavigationView
 import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
+import kotlinx.android.synthetic.main.fragment_map.*
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -266,6 +268,19 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         frameLayout.removeAllViews()
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         fragment = HomePrincipalFragment.newInstance()
+        transaction.replace(R.id.frameLayout, fragment)
+        transaction.commit()
+    }
+
+    fun searchVeterinary() {
+        frameLayout.removeAllViews()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        fragment = MapFragment.newInstance()
+
+        val bundle = Bundle();
+        bundle.putString("PlaceTag", "VETERINARY");
+        fragment.arguments = bundle;
+
         transaction.replace(R.id.frameLayout, fragment)
         transaction.commit()
     }
