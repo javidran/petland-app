@@ -167,4 +167,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_vaccines_are_scheduled">No vaccines are scheduled</string>
+    <string name="no_medications_are_scheduled">No medications are scheduled</string>
+    <string name="upcoming_medications">Upcoming medications:</string>
+    <string name="upcoming_vaccines">Upcoming vaccines:</string>
+    <string name="look_for_a_new_vet">Look for a new vet</string>
+    <string name="look_for_a_vet_near_you">Look for a vet near you</string>
+    <string name="see_medical_history">See medical history</string>
+    <string name="medical_history">Medical history</string>
+    <string name="medicines_supplied">Medications supplied:</string>
+    <string name="vaccines_supplied">Vaccines supplied:</string>
 </resources>
