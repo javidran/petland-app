@@ -7,6 +7,8 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,12 +29,14 @@ import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.events.ui.creation.CreateEventActivity
 import com.example.petland.events.ui.view.ViewEventActivity
+import com.example.petland.locations.ui.MapFragment
 import com.example.petland.pet.Pets
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_events.view.*
 import kotlinx.android.synthetic.main.fragment_events.view.recyclerViewEvents
 import kotlinx.android.synthetic.main.fragment_health.view.*
 import kotlinx.android.synthetic.main.fragment_home_principal.view.*
+import java.util.jar.Manifest
 
 
 class HealthFragment : Fragment(), ViewEventCallback {
@@ -133,6 +138,7 @@ class HealthFragment : Fragment(), ViewEventCallback {
     }
 
     companion object {
+        private const val CALL_PERMISSION_REQUEST_CODE = 1
         @JvmStatic
         fun newInstance() =
             HealthFragment().apply {}
@@ -145,9 +151,21 @@ class HealthFragment : Fragment(), ViewEventCallback {
     }
 
     private fun copiarTelefono() {
-        val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("NumVet", rootView.vetNum.text)
-        clipboard.setPrimaryClip(clip)
+
+        if (ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                android.Manifest.permission.CALL_PHONE
+            ) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(
+                arrayOf(android.Manifest.permission.CALL_PHONE),
+                CALL_PERMISSION_REQUEST_CODE)
+            return
+        }
+        else {
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.data = Uri.parse("tel:" + rootView.vetNum.text as String?)
+            startActivity(intent)
+        }
     }
 
     fun seeMedicalHistory() {
