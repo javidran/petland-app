@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.locations.model.PetlandLocation
 import com.parse.ParseObject
 import com.parse.ParseQuery
-import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_review.*
 
 class ReviewActivity : AppCompatActivity() {
@@ -23,7 +21,7 @@ class ReviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         layoutManager = LinearLayoutManager(this)
         setContentView(R.layout.activity_review)
-        recyclerView.isNestedScrollingEnabled = false // evitar scrolling
+
         recyclerView.layoutManager = layoutManager
         setUpValues()
     }
@@ -37,6 +35,7 @@ class ReviewActivity : AppCompatActivity() {
         location = intent.extras?.get("Location") as PetlandLocation
         textName.text = location.getName()
         ratingBar.rating = location.getAverageStars().toFloat()
+        ratingText.text = location.getAverageStars().toString()
     }
 
     fun addReview(view: View) {
@@ -45,7 +44,10 @@ class ReviewActivity : AppCompatActivity() {
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
-
+    fun returnLocation(view: View) {
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
     fun startViewReview() {
         // val cUser = ParseUser.getCurrentUser()
         val query = ParseQuery.getQuery<ParseObject>("Review")

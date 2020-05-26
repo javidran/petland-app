@@ -1,5 +1,6 @@
 package com.example.petland.locations.ui
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -39,7 +40,24 @@ class AddReviewActivity : AppCompatActivity() {
             }
         }
     }
+    fun returnReviews(view: View){
 
+        val builder = AlertDialog.Builder(this@AddReviewActivity)
+        builder.setTitle(getString(R.string.notsaved))
+        builder.setMessage(getString(R.string.dialogReview))
+        builder.setPositiveButton((getString(R.string.ok))){dialog, which ->
+            finish()
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+        builder.setNeutralButton(getString(R.string.cancel)){_,_ ->
+        }
+        val dialog: AlertDialog = builder.create()
+
+        dialog.show()
+
+
+
+    }
     fun saveReview(view: View) {
         val cUser = ParseUser.getCurrentUser()
         val today = Calendar.getInstance().time

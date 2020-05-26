@@ -11,7 +11,6 @@
         style="@android:style/Widget.DeviceDefault.RatingBar.Indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginStart="52dp"
         android:layout_marginTop="16dp"
         android:isIndicator="false"
@@ -23,10 +22,11 @@
 
     <EditText
         android:id="@+id/textReview"
-        android:layout_width="259dp"
-        android:layout_height="131dp"
+        android:layout_width="307dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="52dp"
         android:background="@drawable/edittext_without_corners"
         android:elevation="10sp"
         android:ems="10"
@@ -34,6 +34,8 @@
         android:padding="10dp"
         android:textColor="#BDBDBD"
         android:textColorHint="#BBC1CE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -41,13 +43,15 @@
         android:id="@+id/saveReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="52dp"
         android:background="@drawable/button_without_corners"
-        android:backgroundTint="@color/md_grey_300"
+        android:backgroundTint="#00C4CC"
         android:onClick="saveReview"
         android:text="Save Review"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textReview" />
 
     <TextView
@@ -82,4 +86,21 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+    <Button
+        android:id="@+id/returnButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_without_corners"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/cancel"
+        android:onClick="returnReviews"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/saveReview"
+        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textReview" />
 </androidx.constraintlayout.widget.ConstraintLayout>
