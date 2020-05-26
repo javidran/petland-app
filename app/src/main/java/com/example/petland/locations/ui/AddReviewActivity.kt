@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.petland.R
@@ -17,12 +18,12 @@ import java.util.*
 
 class AddReviewActivity : AppCompatActivity() {
     var location = PetlandLocation()
-    private var review  = PetlandReview()
-
+    var stars = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_review)
         location = intent.extras?.get("Location") as PetlandLocation
+
         checkReview()
     }
 
@@ -34,11 +35,13 @@ class AddReviewActivity : AppCompatActivity() {
         query.findInBackground { reviews, e ->
             if (e == null) {
                 if (reviews.size > 0) {
+                    textTitle.text = "Modify your review:"
+                    textComment.text = "Modify your comment: "
                     //MENSAJE  editar review en vista
                     val textV = reviews[0].getString("text")
                     val starsV = reviews[0].getDouble("stars")
                     textReview.setText(textV)
-                    ratingBar.rating = starsV.toFloat()
+                    ratingBar.rating = stars - starsV.toFloat()
                 }
             }
         }
@@ -71,10 +74,12 @@ class AddReviewActivity : AppCompatActivity() {
         query.findInBackground { reviews, e ->
             if (e == null) {
                 if (reviews.size > 0) {
+                    reviews
                     reviews[0].put("text", textReview.text.toString())
                     reviews[0].put("stars", ratingBar.rating)
                     reviews[0].put("date", today)
                     reviews[0].saveInBackground()
+                    location.addStars(ratingBar.rating.toDouble())
                 }
                 else {
                     val review = ParseObject("Review")
@@ -84,6 +89,7 @@ class AddReviewActivity : AppCompatActivity() {
                     review.put("user", cUser)
                     review.put("location", location)
                     review.save()
+                    Log.d("estrellas", ratingBar.rating.toDouble().toString())
                     location.addStars(ratingBar.rating.toDouble())
 
                 }
