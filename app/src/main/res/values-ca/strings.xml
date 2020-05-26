@@ -158,4 +158,6 @@
     <string name="filter_location_text">Mostrar:</string>
     <string name="all">Tots</string>
     <string name="reviews">Valoracions</string>
+    <string name="notsaved">Canvis no guardats</string>
+    <string name="dialogReview">Estàs segur de no voler guardar els canvis fets a la Review?</string>
 </resources>

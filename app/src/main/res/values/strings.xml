@@ -164,4 +164,6 @@
     <string name="filter_location_text">Show:</string>
     <string name="all">All</string>
     <string name="reviews">Reviews</string>
+    <string name="notsaved">Changes not saved</string>
+    <string name="dialogReview">Are you sure you don\'t want to save your reviews changes?</string>
 </resources>
