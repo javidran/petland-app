@@ -30,12 +30,13 @@ class ReviewActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-//        startViewReview() // TODO Descomentar cuando funcione
+        startViewReview()
     }
 
     private fun setUpValues() {
         location = intent.extras?.get("Location") as PetlandLocation
         textName.text = location.getName()
+        ratingBar.rating = location.getAverageStars().toFloat()
     }
 
     fun addReview(view: View) {

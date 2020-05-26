@@ -12,13 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="16dp"
         android:isIndicator="false"
         android:numStars="5"
         android:progressTint="@color/colorAccent"
         android:stepSize="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.221"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -26,7 +25,8 @@
         android:id="@+id/textReview"
         android:layout_width="259dp"
         android:layout_height="131dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edittext_without_corners"
         android:elevation="10sp"
         android:ems="10"
@@ -34,8 +34,6 @@
         android:padding="10dp"
         android:textColor="#BDBDBD"
         android:textColorHint="#BBC1CE"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -43,27 +41,23 @@
         android:id="@+id/saveReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="108dp"
         android:background="@drawable/button_without_corners"
         android:backgroundTint="@color/md_grey_300"
         android:onClick="saveReview"
         android:text="Save Review"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textReview"
-        app:layout_constraintVertical_bias="0.562" />
+        app:layout_constraintTop_toBottomOf="@+id/textReview" />
 
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="52dp"
         android:text="Add your review:"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.217"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,19 +65,21 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="16dp"
         android:text="Rate the location:"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle"
-        tools:layout_editor_absoluteX="51dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="16dp"
         android:text="Add a comment: "
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        tools:layout_editor_absoluteX="56dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

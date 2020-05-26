@@ -14,37 +14,39 @@
 
     <TextView
         android:id="@+id/comment"
-        android:layout_width="370dp"
-        android:layout_height="74dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
         android:text="Comment"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toBottomOf="@+id/user"
+        app:layout_constraintVertical_bias="0.0"
+        />
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="363dp"
-        android:layout_height="38dp"
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+/>
 
     <RatingBar
         android:id="@+id/ratingBar"
         style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="81dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="16dp"
         android:numStars="5"
-        android:progressTint="@color/md_blue_grey_50"
+        android:progressTint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.01"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comment" />
+        app:layout_constraintTop_toTopOf="@+id/user"
+        app:layout_constraintVertical_bias="0.0" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

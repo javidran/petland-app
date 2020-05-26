@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewcomments"
-        tools:itemCount="3"
+        tools:itemCount="4"
         tools:listitem="@layout/review_element">
 
     </androidx.recyclerview.widget.RecyclerView>
