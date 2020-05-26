@@ -67,7 +67,7 @@ class HealthFragment : Fragment(), ViewEventCallback {
         rootView.recyclerViewEventsMed.layoutManager = layoutManagerMed
         rootView.vetNum.setOnClickListener { copiarTelefono() }
         rootView.medicalHistory.setOnClickListener { seeMedicalHistory() }
-        rootView.newVetIcon.setOnClickListener { searchVeterinary() }
+        rootView.newVet.setOnClickListener { searchVeterinary() }
         rootView.searchVetIcon.setOnClickListener { searchVeterinary() }
 
         createFragment();
@@ -106,8 +106,7 @@ class HealthFragment : Fragment(), ViewEventCallback {
     }
 
     private fun visibilities(hasVet : Boolean) {
-        val newVet: TextView = rootView.findViewById(R.id.newVet)
-        val newVetIcon: ImageButton = rootView.findViewById(R.id.newVetIcon)
+        val newVet: Button = rootView.findViewById(R.id.newVet)
         val vetNum: Button = rootView.findViewById(R.id.vetNum)
         val vetInfo: TextView = rootView.findViewById(R.id.infoVet)
         val vetNom: TextView = rootView.findViewById(R.id.nomVet)
@@ -116,7 +115,6 @@ class HealthFragment : Fragment(), ViewEventCallback {
 
         if(hasVet) {
             newVet.visibility = View.VISIBLE
-            newVetIcon.visibility = View.VISIBLE
             vetNum.visibility = View.VISIBLE
             vetInfo.visibility = View.VISIBLE
             vetNom.visibility = View.VISIBLE
@@ -130,7 +128,6 @@ class HealthFragment : Fragment(), ViewEventCallback {
             searchVetIcon.visibility = View.VISIBLE
 
             newVet.visibility = View.INVISIBLE
-            newVetIcon.visibility = View.INVISIBLE
             vetNum.visibility = View.INVISIBLE
             vetInfo.visibility = View.INVISIBLE
             vetNom.visibility = View.INVISIBLE

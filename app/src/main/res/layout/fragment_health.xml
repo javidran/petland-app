@@ -15,34 +15,32 @@
             android:id="@+id/vetNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="128dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/button_without_corners"
-            android:backgroundTint="@color/md_blue_A100"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:gravity="center"
+            android:background="@drawable/button_selector"
             android:text="NUM"
             android:textColor="@color/md_white_1000"
             android:textSize="40dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/infoVet"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/infoVet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vetNum" />
+            app:layout_constraintTop_toBottomOf="@+id/nomVet" />
 
         <TextView
             android:id="@+id/textView8"
@@ -70,9 +68,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewEventsVac"
-            android:layout_width="407dp"
+            android:layout_width="match_parent"
             android:layout_height="173dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,9 +84,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewEventsMed"
-            android:layout_width="407dp"
+            android:layout_width="match_parent"
             android:layout_height="173dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,27 +114,11 @@
             app:layout_constraintTop_toBottomOf="@+id/searchVet"
             app:layout_constraintVertical_bias="0.0" />
 
-        <ImageButton
-            android:id="@+id/newVetIcon"
-            android:layout_width="37dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="27dp"
-            android:layout_marginBottom="52dp"
-            android:background="@drawable/button_without_corners"
-            android:backgroundTint="@color/md_blue_A100"
-            android:src="@android:drawable/ic_menu_search"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/vetNum"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.955"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
         <TextView
             android:id="@+id/searchVet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:text="@string/look_for_a_vet_near_you"
             android:textColor="@color/md_blue_A100"
             android:textSize="25dp"
@@ -141,31 +127,38 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/nomVet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="100dp"
+            android:text="dwfegrt"
             android:textSize="25dp"
-            android:visibility="invisible"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/newVet"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/button_accept_invitation"
+            android:cropToPadding="false"
+            android:padding="5dp"
+            android:text="@string/look_for_a_new_vet"
+            android:textColor="@color/md_grey_600"
+            android:textSize="12sp"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/vetNum"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <TextView
-            android:id="@+id/newVet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="228dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/look_for_a_new_vet"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/vetNum"
-            app:layout_constraintEnd_toStartOf="@+id/newVetIcon"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
@@ -180,7 +173,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/infoVet" />
+            app:layout_constraintTop_toBottomOf="@+id/vetNum" />
 
         <TextView
             android:id="@+id/textView7"
@@ -194,14 +187,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewEventsMed" />
 
-        <TextView
+        <Button
             android:id="@+id/medicalHistory"
-            android:layout_width="wrap_content"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="50dp"
+            android:background="@drawable/button_accept_invitation"
+            android:cropToPadding="false"
             android:text="@string/see_medical_history"
+            android:padding="5dp"
+            android:textColor="@color/md_grey_600"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/newVet"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
