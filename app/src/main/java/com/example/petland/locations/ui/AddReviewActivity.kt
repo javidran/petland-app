@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.petland.R
 import com.example.petland.locations.model.PetlandLocation
+import com.example.petland.locations.model.PetlandReview
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
@@ -15,6 +16,7 @@ import java.util.*
 
 class AddReviewActivity : AppCompatActivity() {
     var location = PetlandLocation()
+    private var review  = PetlandReview()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,7 @@ class AddReviewActivity : AppCompatActivity() {
         query.findInBackground { reviews, e ->
             if (e == null) {
                 if (reviews.size > 0) {
+                    //MENSAJE  editar review en vista
                     val textV = reviews[0].getString("text")
                     val starsV = reviews[0].getDouble("stars")
                     textReview.setText(textV)
@@ -65,8 +68,6 @@ class AddReviewActivity : AppCompatActivity() {
                     review.save()
                     location.addStars(ratingBar.rating.toDouble())
 
-                    val toast1 = Toast.makeText(this, "Create review", Toast.LENGTH_SHORT)
-                    toast1.show()
                 }
                 finish()
             }
