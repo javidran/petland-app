@@ -92,15 +92,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/locationType" />
 
-            <TextView
+            <Button
                 android:id="@+id/selectVeterinary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="81dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="Select as my veterinary"
-                android:textColor="#FFFFFF"
+                android:background="@drawable/button_transparent"
                 android:clickable="true"
+                android:padding="5dp"
+                android:text="Select as my veterinary"
+                android:textColor="@color/md_white_1000"
+                android:textSize="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
