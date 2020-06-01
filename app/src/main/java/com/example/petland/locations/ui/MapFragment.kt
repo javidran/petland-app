@@ -42,7 +42,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
     private lateinit var rootView: View
     private var filter : PlaceTag? = null
     private var markers = ArrayList<Marker>()
-    private var shownLocation  = PetlandLocation()
+    private var shownLocation : PetlandLocation? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,12 +105,14 @@ class MapFragment : Fragment(), OnMapReadyCallback,
                 }
             }
     }
-    fun viewReviewActivity( shownLocation : PetlandLocation) {
-        val intent = Intent(context, ReviewActivity::class.java).apply {}
-        intent.putExtra("Location", shownLocation)
-        startActivity(intent)
-
+    fun viewReviewActivity( shownLocation : PetlandLocation?) {
+        if (shownLocation != null) {
+            val intent = Intent(context, ReviewActivity::class.java).apply {}
+            intent.putExtra("Location", shownLocation)
+            startActivity(intent)
+        }
     }
+
     private fun startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(
                 this.requireContext(),
@@ -202,17 +204,23 @@ class MapFragment : Fragment(), OnMapReadyCallback,
 
     override fun onResume() {
         super.onResume()
+        shownLocation?.fetch<PetlandLocation>()
+        shownLocation?.let { setShownLocationData(it) }
         if (!locationUpdateState) {
             startLocationUpdates()
         }
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onMarkerClick(marker: Marker): Boolean {
         val location : PetlandLocation = marker.tag as PetlandLocation
         shownLocation = location
         rootView.locationViewLayout.visibility = View.VISIBLE
+        setShownLocationData(location)
+        return false
+    }
 
+    @SuppressLint("SetTextI18n")
+    private fun setShownLocationData(location: PetlandLocation) {
         rootView.locationName.text = location.getName()
         rootView.locationAddress.text = location.getAddress()
         rootView.locationType.text = getPlaceTagTranslated(location.getPlaceTag())
@@ -238,8 +246,6 @@ class MapFragment : Fragment(), OnMapReadyCallback,
             rootView.locationPhone.visibility = View.GONE
             rootView.locationGuion.visibility = View.GONE
         }
-
-        return false
     }
 
     private fun getPlaceTagArray() : Array<String?> {

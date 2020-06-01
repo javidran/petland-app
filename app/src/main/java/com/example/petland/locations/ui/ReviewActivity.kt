@@ -36,6 +36,7 @@ class ReviewActivity : AppCompatActivity() {
 
 
     private fun setUpValues() {
+        location.fetch<PetlandLocation>()
         textName.text = location.getName()
         ratingBar.rating = location.getAverageStars().toFloat()
         ratingText.text = location.getAverageStars().toString()
