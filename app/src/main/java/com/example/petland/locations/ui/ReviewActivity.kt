@@ -3,6 +3,7 @@ package com.example.petland.locations.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.R
@@ -23,6 +24,7 @@ class ReviewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_review)
 
         recyclerView.layoutManager = layoutManager
+        location = intent.extras?.get("Location") as PetlandLocation
         setUpValues()
     }
 
@@ -32,12 +34,14 @@ class ReviewActivity : AppCompatActivity() {
         setUpValues()
     }
 
+
     private fun setUpValues() {
-        location = intent.extras?.get("Location") as PetlandLocation
         textName.text = location.getName()
         ratingBar.rating = location.getAverageStars().toFloat()
         ratingText.text = location.getAverageStars().toString()
+        Log.d("ACTUALIZACION EN REVIEW",location.getAverageStars().toString() )
     }
+
 
     fun addReview(view: View) {
         val intent = Intent(this, AddReviewActivity::class.java).apply {}
@@ -51,7 +55,6 @@ class ReviewActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
     fun startViewReview() {
-        // val cUser = ParseUser.getCurrentUser()
         val query = ParseQuery.getQuery<ParseObject>("Review")
         query.whereEqualTo("location", location )
         reviewsList = query.find()
