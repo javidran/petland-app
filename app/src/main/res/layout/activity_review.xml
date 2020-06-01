@@ -81,7 +81,7 @@
         android:backgroundTint="#00C4CC"
         android:onClick="addReview"
         android:textColor="#FFFFFF"
-        android:text="Add Review"
+        android:text="@string/add_review"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

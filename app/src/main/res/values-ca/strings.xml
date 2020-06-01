@@ -160,4 +160,6 @@
     <string name="reviews">Valoracions</string>
     <string name="notsaved">Canvis no guardats</string>
     <string name="dialogReview">Estàs segur de no voler guardar els canvis fets a la Review?</string>
+    <string name="add_review">Afegir Review</string>
+    <string name="save_review">Guardar Review</string>
 </resources>

@@ -48,7 +48,7 @@
         android:background="@drawable/button_without_corners"
         android:backgroundTint="#00C4CC"
         android:onClick="saveReview"
-        android:text="Save Review"
+        android:text="@string/save_review"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"

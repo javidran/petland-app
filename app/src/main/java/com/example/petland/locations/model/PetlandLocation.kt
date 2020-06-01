@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.example.petland.Application.Companion.getAppContext
@@ -47,14 +48,15 @@ class PetlandLocation : ParseObject() {
         return getInt(N_REVIEWS)
     }
 
-    fun addStars(stars: Double) {
+    fun addStars(stars: Double, modify: Boolean) {
         val oldAvg = getAverageStars()
-        val newNumber = getNumberOfReviews() + 1
-        val newAvg = if(newNumber <= 2) stars
+        val newNumber = if (modify) getNumberOfReviews()
+        else getNumberOfReviews() + 1
+        val newAvg = if(newNumber <  2) stars
                     else oldAvg + ((stars - oldAvg) / newNumber)
         put(AVG_STARS, newAvg)
+        Log.d(AVG_STARS, newAvg.toString())
         put(N_REVIEWS, newNumber)
-        save()
     }
 
     fun hasLink() : Boolean {

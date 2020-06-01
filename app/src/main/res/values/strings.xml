@@ -166,5 +166,7 @@
     <string name="reviews">Reviews</string>
     <string name="notsaved">Changes not saved</string>
     <string name="dialogReview">Are you sure you don\'t want to save your reviews changes?</string>
+    <string name="add_review">Add Review</string>
+    <string name="save_review">Save Review</string>
 
 </resources>

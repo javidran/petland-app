@@ -160,4 +160,6 @@
     <string name="reviews">Valoraciones</string>
     <string name="notsaved">Cambios no guardados</string>
     <string name="dialogReview">¿Estás seguro de no querer guardar los cambios de la Review?</string>
+    <string name="add_review">Añadir Review</string>
+    <string name="save_review">Guardar Review</string>
 </resources>

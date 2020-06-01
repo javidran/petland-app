@@ -29,6 +29,7 @@ class ReviewActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         startViewReview()
+        setUpValues()
     }
 
     private fun setUpValues() {
@@ -43,6 +44,7 @@ class ReviewActivity : AppCompatActivity() {
         intent.putExtra("Location", location)
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
     }
     fun returnLocation(view: View) {
         finish()
