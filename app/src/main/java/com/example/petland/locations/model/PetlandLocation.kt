@@ -41,7 +41,6 @@ class PetlandLocation : ParseObject() {
     }
 
     fun getAverageStars() : Double {
-        Log.d("STARS EN LOCATION",  getDouble(AVG_STARS).toString())
         return getDouble(AVG_STARS)
     }
 
@@ -50,13 +49,20 @@ class PetlandLocation : ParseObject() {
     }
 
     fun addStars(stars: Double, modify: Boolean) {
-        Log.d("STARS", stars.toString())
+        Log.d("STARSSSS", stars.toString())
+        var newAvg = 0.0
         val oldAvg = getAverageStars()
         val newNumber = if (modify) getNumberOfReviews()
         else getNumberOfReviews() + 1
-        val newAvg = if(newNumber <  2) stars
-                    else oldAvg + ((stars - oldAvg) / newNumber)
+        if(newNumber <  2) newAvg = stars
+        else if (newNumber >= 2 && modify) {
+                Log.d("MODIFY", stars.toString())
+            newAvg = ((oldAvg + (oldAvg + stars)) / newNumber)
+            }
+        else newAvg = ((oldAvg + stars)  / newNumber)
+
         put(AVG_STARS, newAvg)
+        Log.d("NEWAVG", newAvg.toString())
         put(N_REVIEWS, newNumber)
     }
 

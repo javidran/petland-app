@@ -168,5 +168,9 @@
     <string name="dialogReview">Are you sure you don\'t want to save your reviews changes?</string>
     <string name="add_review">Add Review</string>
     <string name="save_review">Save Review</string>
+    <string name="modify_review">Modify your review:</string>
+    <string name="modify_comment">\"Modify your comment: \"</string>
+    <string name="add_comment">Add a comment:</string>
+    <string name="rate_the_location">Rate the location:</string>
 
 </resources>

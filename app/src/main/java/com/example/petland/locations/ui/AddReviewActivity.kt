@@ -1,10 +1,8 @@
 package com.example.petland.locations.ui
 
 import android.app.AlertDialog
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.example.petland.R
 import com.example.petland.locations.model.PetlandLocation
@@ -33,12 +31,11 @@ class AddReviewActivity : AppCompatActivity() {
         query.findInBackground { reviews, e ->
             if (e == null) {
                 if (reviews.size > 0) {
-                    textTitle.text = "Modify your review:"
-                    textComment.text = "Modify your comment: "
+                    textTitle.text = getString(R.string.modify_review)
+                    textComment.text = getString(R.string.modify_comment)
                     //MENSAJE  editar review en vista
                     val textV = reviews[0].getString("text")
                     stars = reviews[0].getDouble("stars")
-                    Log.d("antiguas stars", stars.toString())
                     textReview.setText(textV)
                     ratingBar.rating = stars.toFloat()
                 }
@@ -77,8 +74,7 @@ class AddReviewActivity : AppCompatActivity() {
                     reviews[0].put("stars", ratingBar.rating)
                     reviews[0].put("date", today)
                     reviews[0].saveInBackground()
-                    Log.d(" location", location.getName())
-                    location.addStars( stars + (ratingBar.rating.toDouble() - stars), true )
+                    location.addStars((ratingBar.rating.toDouble() - stars), true )
                     location.save()
 
                 }
@@ -90,7 +86,6 @@ class AddReviewActivity : AppCompatActivity() {
                     review.put("user", cUser)
                     review.put("location", location)
                     review.save()
-                    Log.d("estrellas" , ratingBar.rating.toDouble().toString())
                     location.addStars(ratingBar.rating.toDouble(), false)
                     location.save()
 

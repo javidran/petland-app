@@ -162,4 +162,8 @@
     <string name="dialogReview">¿Estás seguro de no querer guardar los cambios de la Review?</string>
     <string name="add_review">Añadir Review</string>
     <string name="save_review">Guardar Review</string>
+    <string name="modify_review">Modifica tu review:</string>
+    <string name="modify_comment">Modifica tu comentario:</string>
+    <string name="add_comment">Añade un comentario:</string>
+    <string name="rate_the_location">Puntua la localización:</string>
 </resources>
