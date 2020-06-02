@@ -5,6 +5,10 @@
     <item
         android:id="@+id/spinner"
         android:title="Spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:dropDownWidth="wrap_content"
+        android:layout_weight="1"
         app:actionViewClass="android.widget.Spinner"
         app:showAsAction="always" />
 
