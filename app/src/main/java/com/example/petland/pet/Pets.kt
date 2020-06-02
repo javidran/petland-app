@@ -3,6 +3,7 @@ package com.example.petland.pet
 import android.util.Log
 import com.example.petland.Application
 import com.example.petland.events.model.PetEvent
+import com.example.petland.health.Veterinary
 import com.example.petland.locations.model.PetlandLocation
 import com.parse.Parse
 import com.parse.ParseObject
@@ -82,11 +83,10 @@ class Pets {
             return names
         }
 
-        fun getVeterinary(pet: ParseObject) : ParseObject? {
-            val query = ParseQuery.getQuery<ParseObject>("Location")
-            val veterinary = pet.getParseObject("veterinarian")?.objectId ?: return null
-            query.whereEqualTo("objectId", veterinary)
-            return query.find().first()
+        fun setVeterinary(veterinary: ParseObject) {
+            val pet = getSelectedPet()
+            getSelectedPet().put("veterinarian", veterinary)
+            pet.save()
         }
 
     }
