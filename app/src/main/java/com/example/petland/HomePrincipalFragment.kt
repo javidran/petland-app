@@ -66,6 +66,7 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
 
     private fun setPetInfo() {
        val pet = getSelectedPet()
+        pet.fetch<ParseObject>()
 
         val petNameText: TextView = rootView.findViewById(R.id.petName)
         petNameText.text = pet.get("name").toString()
