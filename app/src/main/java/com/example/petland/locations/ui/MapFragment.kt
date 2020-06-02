@@ -8,7 +8,6 @@ import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -225,9 +224,9 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         rootView.locationAddress.text = location.getAddress()
         rootView.locationType.text = getPlaceTagTranslated(location.getPlaceTag())
         rootView.locationType.setCompoundDrawablesWithIntrinsicBounds( location.getIcon(), null, null, null)
-        Log.d("ACTUALIZACIONNN", location.getAverageStars().toString())
+
         rootView.ratingBar.rating = location.getAverageStars().toFloat()
-        rootView.ratingText.text = "(" + location.getAverageStars() + ")"
+        rootView.ratingText.text = "(" + String.format("%.2f", location.getAverageStars()) + ")"
 
         if(location.hasLink()) {
             rootView.locationLink.visibility = View.VISIBLE

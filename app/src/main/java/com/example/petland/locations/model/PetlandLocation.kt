@@ -4,8 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import android.util.Log
-import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.example.petland.Application.Companion.getAppContext
 import com.example.petland.R
@@ -47,22 +45,27 @@ class PetlandLocation : ParseObject() {
     fun getNumberOfReviews() : Int {
         return getInt(N_REVIEWS)
     }
-
-    fun addStars(stars: Double, modify: Boolean) {
-        Log.d("STARSSSS", stars.toString())
+    fun modifyStars(stars: Double, oldStars: Double) {
+        var newAvg = 0.0
+        var oldAvg = getAverageStars()
+        val newNumber = getNumberOfReviews()
+        if(newNumber <  2) newAvg = stars
+        else  {
+            oldAvg = ((oldAvg * newNumber) - oldStars) / (newNumber - 1);
+            newAvg = oldAvg + ((stars - oldAvg) / newNumber)
+        }
+        put(AVG_STARS, newAvg)
+        put(N_REVIEWS, newNumber)
+    }
+    fun addStars(stars: Double) {
         var newAvg = 0.0
         val oldAvg = getAverageStars()
-        val newNumber = if (modify) getNumberOfReviews()
-        else getNumberOfReviews() + 1
+        val newNumber = getNumberOfReviews() + 1
         if(newNumber <  2) newAvg = stars
-        else if (newNumber >= 2 && modify) {
-                Log.d("MODIFY", stars.toString())
-            newAvg = ((oldAvg + (oldAvg + stars)) / newNumber)
-            }
-        else newAvg = ((oldAvg + stars)  / newNumber)
-
+        else{
+            newAvg = oldAvg + ((stars - oldAvg) / newNumber)
+        }
         put(AVG_STARS, newAvg)
-        Log.d("NEWAVG", newAvg.toString())
         put(N_REVIEWS, newNumber)
     }
 

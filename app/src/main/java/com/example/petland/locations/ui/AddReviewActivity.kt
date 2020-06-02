@@ -74,7 +74,7 @@ class AddReviewActivity : AppCompatActivity() {
                     reviews[0].put("stars", ratingBar.rating)
                     reviews[0].put("date", today)
                     reviews[0].saveInBackground()
-                    location.addStars((ratingBar.rating.toDouble() - stars), true )
+                    location.modifyStars(ratingBar.rating.toDouble(), stars)
                     location.save()
 
                 }
@@ -86,7 +86,7 @@ class AddReviewActivity : AppCompatActivity() {
                     review.put("user", cUser)
                     review.put("location", location)
                     review.save()
-                    location.addStars(ratingBar.rating.toDouble(), false)
+                    location.addStars(ratingBar.rating.toDouble())
                     location.save()
 
                 }

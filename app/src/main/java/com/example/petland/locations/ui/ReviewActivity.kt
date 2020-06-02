@@ -3,7 +3,6 @@ package com.example.petland.locations.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.R
@@ -39,8 +38,7 @@ class ReviewActivity : AppCompatActivity() {
         location.fetch<PetlandLocation>()
         textName.text = location.getName()
         ratingBar.rating = location.getAverageStars().toFloat()
-        ratingText.text = location.getAverageStars().toString()
-        Log.d("ACTUALIZACION EN REVIEW",location.getAverageStars().toString() )
+        ratingText.text = String.format("%.2f", location.getAverageStars())
     }
 
 
