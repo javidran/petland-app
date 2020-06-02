@@ -3,6 +3,7 @@ package com.example.petland
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -69,8 +70,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         toolbar = findViewById(R.id.toolbar)
+
         setSupportActionBar(toolbar)
 
+        toolbar.setTitleTextColor(android.graphics.Color.WHITE)
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
 
@@ -283,15 +286,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         transaction.replace(R.id.frameLayout, fragment)
         transaction.commit()
-    }
-
-    fun homeAntiguo(view: View) {
-        val intent = Intent(this, TestingActivity::class.java).apply {
-        }
-
-        startActivity(intent)
-        finish()
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     companion object {
