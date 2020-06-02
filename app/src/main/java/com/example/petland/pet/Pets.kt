@@ -26,7 +26,6 @@ class Pets {
             }
             return result.toList()
         }
-
         fun userHasPets(): Boolean {
             val query = ParseQuery.getQuery<ParseObject>("Pet")
             query.whereEqualTo("caregivers", ParseUser.getCurrentUser())
