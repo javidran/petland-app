@@ -165,4 +165,14 @@
     <string name="filter_location_text">Mostrar:</string>
     <string name="all">Tots</string>
     <string name="reviews">Valoracions</string>
+    <string name="no_vaccines_are_scheduled">No hi ha vacunes programades</string>
+    <string name="no_medications_are_scheduled">No hi ha medicaments programats</string>
+    <string name="upcoming_medications">Propers medicaments:</string>
+    <string name="upcoming_vaccines">Properes vacunes:</string>
+    <string name="look_for_a_new_vet">Buscar un nou veterinari</string>
+    <string name="look_for_a_vet_near_you">Troba un veterinari a prop teu</string>
+    <string name="see_medical_history">Veure antecedents mèdics</string>
+    <string name="medical_history">Antecedents mèdics</string>
+    <string name="medicines_supplied">Medicaments subministrats</string>
+    <string name="vaccines_supplied">Vaccines subministrades:</string>
 </resources>
