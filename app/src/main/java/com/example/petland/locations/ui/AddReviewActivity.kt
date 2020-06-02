@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.petland.R
 import com.example.petland.locations.model.PetlandLocation
+import com.example.petland.locations.model.PetlandReview
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
@@ -57,9 +58,8 @@ class AddReviewActivity : AppCompatActivity() {
 
         dialog.show()
 
-
-
     }
+
     fun saveReview(view: View) {
         val cUser = ParseUser.getCurrentUser()
         val today = Calendar.getInstance().time

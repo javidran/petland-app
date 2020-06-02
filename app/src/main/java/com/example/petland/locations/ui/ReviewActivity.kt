@@ -34,7 +34,6 @@ class ReviewActivity : AppCompatActivity() {
         setUpValues()
     }
 
-
     private fun setUpValues() {
         location.fetch<PetlandLocation>()
         textName.text = location.getName()
@@ -42,7 +41,6 @@ class ReviewActivity : AppCompatActivity() {
         ratingText.text = location.getAverageStars().toString()
         Log.d("ACTUALIZACION EN REVIEW",location.getAverageStars().toString() )
     }
-
 
     fun addReview(view: View) {
         val intent = Intent(this, AddReviewActivity::class.java).apply {}
