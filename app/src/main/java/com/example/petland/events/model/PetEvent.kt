@@ -123,7 +123,6 @@ open class PetEvent : ParseObject() {
         query.whereEqualTo("objectId", objId)
         return query.find().first()
     }
-
     fun getDataDuplicate() : ParseObject {
         when(getDataType()) {
             EventType.FOOD -> {
@@ -238,6 +237,7 @@ open class PetEvent : ParseObject() {
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)
             query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            query.whereEqualTo(DONE_DATE, null)
             query.orderByDescending(DATE)
 
             if (query.count() == 0 ) {
