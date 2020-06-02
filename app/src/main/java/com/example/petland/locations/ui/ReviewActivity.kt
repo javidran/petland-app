@@ -33,14 +33,12 @@ class ReviewActivity : AppCompatActivity() {
         setUpValues()
     }
 
-
     private fun setUpValues() {
         location.fetch<PetlandLocation>()
         textName.text = location.getName()
         ratingBar.rating = location.getAverageStars().toFloat()
         ratingText.text = String.format("%.2f", location.getAverageStars())
     }
-
 
     fun addReview(view: View) {
         val intent = Intent(this, AddReviewActivity::class.java).apply {}
