@@ -156,6 +156,13 @@
     <string name="assigned_to_no_one">No one</string>
     <string name="error_caregivers_updated">Error: Caregivers have been updated</string>
     <string name="error_caregiver_deleted">Error: The previous assigned caregiver is no longer eligible</string>
+    <string name="distance_value">"Distance: "</string>
+    <string name="time">"Time: "</string>
+    <string name="view_map">View Map</string>
+    <string name="datos_del_paseo">Walk data</string>
+    <string name="noAssignedToEvent">Do not assign to any event</string>
+    <string name="eventPet">one of this events?</string>
+    <string name="walkev">"Is this walk from "</string>
     <string name="hairdresser">Hairdresser</string>
     <string name="veterinary">Veterinary</string>
     <string name="park">Park</string>
@@ -173,4 +180,17 @@
     <string name="add_comment">Add a comment:</string>
     <string name="rate_the_location">Rate the location:</string>
 
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_vaccines_are_scheduled">No vaccines are scheduled</string>
+    <string name="no_medications_are_scheduled">No medications are scheduled</string>
+    <string name="upcoming_medications">Upcoming medications:</string>
+    <string name="upcoming_vaccines">Upcoming vaccines:</string>
+    <string name="look_for_a_new_vet">Look for a new vet</string>
+    <string name="look_for_a_vet_near_you">Look for a vet near you</string>
+    <string name="see_medical_history">See medical history</string>
+    <string name="medical_history">Medical history</string>
+    <string name="medicines_supplied">Medications supplied:</string>
+    <string name="vaccines_supplied">Vaccines supplied:</string>
 </resources>
