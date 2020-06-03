@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import com.example.petland.R
 import com.example.petland.locations.enums.PlaceTag
 import com.example.petland.locations.model.PetlandLocation
+import com.example.petland.pet.Pets
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -27,6 +28,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.parse.Parse
+import com.parse.ParseObject
+import kotlinx.android.synthetic.main.fragment_health.view.*
 import kotlinx.android.synthetic.main.fragment_map.view.*
 
 
@@ -78,6 +82,11 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         adapterFilter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         rootView.spinnerLocation.adapter = adapterFilter
         rootView.spinnerLocation.onItemSelectedListener = this
+
+        val bundle = this.arguments
+        if (bundle != null) {
+            rootView.spinnerLocation.setSelection(2)
+        }
 
         return rootView
     }
@@ -245,6 +254,26 @@ class MapFragment : Fragment(), OnMapReadyCallback,
             rootView.locationPhone.visibility = View.GONE
             rootView.locationGuion.visibility = View.GONE
         }
+
+        if (location.getPlaceTag() == PlaceTag.VETERINARY) {
+            val pet = Pets.getSelectedPet()
+            val veterinary = pet.get("veterinarian") as ParseObject
+            if (location.objectId == veterinary.objectId) {
+                rootView.myVeterinary.visibility = View.VISIBLE
+                rootView.selectVeterinary.visibility = View.GONE
+            }
+            else {
+                rootView.selectVeterinary.setOnClickListener { setVeterinary(pet, location, marker) }
+                rootView.myVeterinary.visibility = View.GONE
+                rootView.selectVeterinary.visibility = View.VISIBLE
+            }
+        }
+        else {
+            rootView.myVeterinary.visibility = View.GONE
+            rootView.selectVeterinary.visibility = View.GONE
+        }
+
+        return false
     }
 
     private fun getPlaceTagArray() : Array<String?> {
@@ -285,6 +314,12 @@ class MapFragment : Fragment(), OnMapReadyCallback,
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
+    fun setVeterinary(pet:ParseObject, location: ParseObject, marker:Marker) {
+        pet.put("veterinarian", location)
+        pet.save()
+        rootView.myVeterinary.visibility = View.VISIBLE
+        rootView.selectVeterinary.visibility = View.GONE
+    }
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1

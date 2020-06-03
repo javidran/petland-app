@@ -123,7 +123,6 @@ open class PetEvent : ParseObject() {
         query.whereEqualTo("objectId", objId)
         return query.find().first()
     }
-
     fun getDataDuplicate() : ParseObject {
         when(getDataType()) {
             EventType.FOOD -> {
@@ -221,6 +220,14 @@ open class PetEvent : ParseObject() {
             return getEventsFromPet(Pets.getSelectedPet(), filter)
         }
 
+        fun getEventsFromPetNotDone(filter: FilterEvent) : List<PetEvent> {
+            return getEventsFromPetNotDone(Pets.getSelectedPet(), filter)
+        }
+
+        fun getEventsFromPetDone(filter: FilterEvent) : List<PetEvent> {
+            return getEventsFromPetDone(Pets.getSelectedPet(), filter)
+        }
+
         fun getEventsFromPet(pet: ParseObject) : List<PetEvent> {
             return getEventsFromPet(pet, FilterEvent.NEWEST_FIRST)
         }
@@ -230,6 +237,7 @@ open class PetEvent : ParseObject() {
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)
             query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            query.whereEqualTo(DONE_DATE, null)
             query.orderByDescending(DATE)
 
             if (query.count() == 0 ) {
@@ -268,6 +276,40 @@ open class PetEvent : ParseObject() {
                 FilterEvent.ONLY_HYGIENE -> query.whereEqualTo(DATA_TYPE, "HygieneEvent")
                 FilterEvent.ONLY_WALK -> query.whereEqualTo(DATA_TYPE, "WalkEvent")
             }
+            return query.find().toList()
+        }
+
+        fun getEventsFromPetNotDone(pet: ParseObject, filter: FilterEvent) : List<PetEvent> {
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo(PET, pet)
+            when(filter) {
+                FilterEvent.NEWEST_FIRST -> query.orderByDescending(DATE)
+                FilterEvent.OLDEST_FIRST -> query.orderByAscending(DATE)
+                FilterEvent.ONLY_FOOD -> query.whereEqualTo(DATA_TYPE, "FoodEvent")
+                FilterEvent.ONLY_VACCINE -> query.whereEqualTo(DATA_TYPE, "VaccineEvent")
+                FilterEvent.ONLY_MEDICINE -> query.whereEqualTo(DATA_TYPE, "MedicineEvent")
+                FilterEvent.ONLY_MEASUREMENT -> query.whereEqualTo(DATA_TYPE, "MeasurementEvent")
+                FilterEvent.ONLY_HYGIENE -> query.whereEqualTo(DATA_TYPE, "HygieneEvent")
+                FilterEvent.ONLY_WALK -> query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            }
+            query.whereEqualTo(DONE_DATE, null)
+            return query.find().toList()
+        }
+
+        fun getEventsFromPetDone(pet: ParseObject, filter: FilterEvent) : List<PetEvent> {
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo(PET, pet)
+            when(filter) {
+                FilterEvent.NEWEST_FIRST -> query.orderByDescending(DATE)
+                FilterEvent.OLDEST_FIRST -> query.orderByAscending(DATE)
+                FilterEvent.ONLY_FOOD -> query.whereEqualTo(DATA_TYPE, "FoodEvent")
+                FilterEvent.ONLY_VACCINE -> query.whereEqualTo(DATA_TYPE, "VaccineEvent")
+                FilterEvent.ONLY_MEDICINE -> query.whereEqualTo(DATA_TYPE, "MedicineEvent")
+                FilterEvent.ONLY_MEASUREMENT -> query.whereEqualTo(DATA_TYPE, "MeasurementEvent")
+                FilterEvent.ONLY_HYGIENE -> query.whereEqualTo(DATA_TYPE, "HygieneEvent")
+                FilterEvent.ONLY_WALK -> query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            }
+            query.whereNotEqualTo(DONE_DATE, null)
             return query.find().toList()
         }
 

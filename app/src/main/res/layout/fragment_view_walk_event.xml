@@ -8,7 +8,59 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="314dp"
+        android:elevation="6sp">
 
+        <Button
+            android:id="@+id/buttonViewMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_map"
+            android:background="@drawable/button_without_corners"
+            android:backgroundTint="@color/md_blue_grey_100"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textWalkTime"
+            app:layout_constraintVertical_bias="0.514" />
+
+        <TextView
+            android:id="@+id/textwalkAssigned"
+            android:layout_width="155dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="72dp"
+            android:text="@string/datos_del_paseo"
+            android:textSize="20sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textWalkKm"
+            android:layout_width="156dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="44dp"
+            android:text="recorrido:"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.187"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textwalkAssigned" />
+
+        <TextView
+            android:id="@+id/textWalkTime"
+            android:layout_width="148dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="32dp"
+            android:text="tiempo:"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.187"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textWalkKm" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

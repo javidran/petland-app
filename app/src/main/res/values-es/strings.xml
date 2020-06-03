@@ -150,6 +150,13 @@
     <string name="assigned_to_no_one">Nadie</string>
     <string name="error_caregivers_updated">Error: Los cuidadores han sido actualizados</string>
     <string name="error_caregiver_deleted">Error: El cuidador previamente asignado no se puede escoger</string>
+    <string name="distance_value">"Distancia: "</string>
+    <string name="time">"Tiempo: "</string>
+    <string name="view_map">Ver mapa</string>
+    <string name="datos_del_paseo">Datos del paseo</string>
+    <string name="noAssignedToEvent">No asignar a ningún evento</string>
+    <string name="walkev">\"Es el paseo de \"</string>
+    <string name="eventPet">\" uno de estos eventos?\"</string>
     <string name="hairdresser">Peluqueria</string>
     <string name="veterinary">Veterinario</string>
     <string name="park">parque</string>
@@ -166,4 +173,14 @@
     <string name="modify_comment">Modifica tu comentario:</string>
     <string name="add_comment">Añade un comentario:</string>
     <string name="rate_the_location">Puntua la localización:</string>
+    <string name="no_vaccines_are_scheduled">No hay vacunas programadas.</string>
+    <string name="no_medications_are_scheduled">No hay medicamentos programados.</string>
+    <string name="upcoming_medications">Próximos medicamentos:</string>
+    <string name="upcoming_vaccines">Próximas vacunas:</string>
+    <string name="look_for_a_new_vet">Busca un nuevo veterinario</string>
+    <string name="look_for_a_vet_near_you">Busca un veterinario cerca de ti</string>
+    <string name="see_medical_history">Ver historial médico</string>
+    <string name="medical_history">Historial médico</string>
+    <string name="medicines_supplied">Medicamentos suministrados:</string>
+    <string name="vaccines_supplied">Vacunas subministradas:</string>
 </resources>
