@@ -3,12 +3,12 @@ package com.example.petland
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.Toast
@@ -23,7 +23,7 @@ import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventsFragment
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.health.HealthFragment
-import com.example.petland.locations.enums.PlaceTag
+import com.example.petland.locations.ui.MapFragment
 import com.example.petland.mapas.MapsFragment
 import com.example.petland.mapas.TimelineFragment
 import com.example.petland.pet.Pets
@@ -31,7 +31,6 @@ import com.example.petland.pet.Pets.Companion.getNamesFromPetList
 import com.example.petland.pet.Pets.Companion.setSelectedPet
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.sign.BootActivity
-import com.example.petland.locations.ui.MapFragment
 import com.example.petland.user_profile.UserProfileFragment
 import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.example.petland.utils.CustomAdapter
@@ -42,7 +41,6 @@ import com.google.android.material.navigation.NavigationView
 import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
-import kotlinx.android.synthetic.main.fragment_map.*
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -138,9 +136,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-
         createSpinnerPet()
-        Log.d("creamos spinner", listPets.toString())
         menuInflater.inflate(R.menu.options_menu, menu)
         val item = menu!!.findItem(R.id.spinner)
         val spinner = item.actionView as Spinner
@@ -149,6 +145,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             CustomAdapter(applicationContext, objectpet, listPets)
 
         spinner.adapter = customAdapter
+
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -156,6 +153,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 position: Int,
                 id: Long
             ) {
+                val spinnerLayoutParams: ViewGroup.LayoutParams = spinner.layoutParams
+                spinnerLayoutParams.width -= 2
+                spinnerLayoutParams.height-= 2
+                spinner.layoutParams = spinnerLayoutParams
                 setSelectedPet(parent?.getItemAtPosition(position) as ParseObject)
                 fragment.onResume()
             }
