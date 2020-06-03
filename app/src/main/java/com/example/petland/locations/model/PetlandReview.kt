@@ -46,6 +46,12 @@ class PetlandReview : ParseObject() {
         creator.fetch()
         return creator.getString("name")
     }
+    fun getUser(): ParseUser {
+        val creator = getParseUser(USER) ?: throw NullPointerException()
+        creator.fetch()
+        return creator
+    }
+
 
     fun setUser( user: ParseUser)  {
         put(USER, user)
