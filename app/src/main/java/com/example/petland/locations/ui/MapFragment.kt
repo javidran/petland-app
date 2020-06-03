@@ -212,30 +212,23 @@ class MapFragment : Fragment(), OnMapReadyCallback,
 
     override fun onResume() {
         super.onResume()
-        shownLocation?.fetch<PetlandLocation>()
-        shownLocation?.let { setShownLocationData(it) }
         if (!locationUpdateState) {
             startLocationUpdates()
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onMarkerClick(marker: Marker): Boolean {
         val location : PetlandLocation = marker.tag as PetlandLocation
         shownLocation = location
         rootView.locationViewLayout.visibility = View.VISIBLE
-        setShownLocationData(location)
-        return false
-    }
 
-    @SuppressLint("SetTextI18n")
-    private fun setShownLocationData(location: PetlandLocation) {
         rootView.locationName.text = location.getName()
         rootView.locationAddress.text = location.getAddress()
         rootView.locationType.text = getPlaceTagTranslated(location.getPlaceTag())
         rootView.locationType.setCompoundDrawablesWithIntrinsicBounds( location.getIcon(), null, null, null)
-
         rootView.ratingBar.rating = location.getAverageStars().toFloat()
-        rootView.ratingText.text = "(" + String.format("%.2f", location.getAverageStars()) + ")"
+        rootView.ratingText.text = "(" + String.format("%.2f", location.getAverageStars())  + ")"
 
         if(location.hasLink()) {
             rootView.locationLink.visibility = View.VISIBLE
@@ -275,6 +268,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
 
         return false
     }
+
 
     private fun getPlaceTagArray() : Array<String?> {
         val array = arrayOfNulls<String>(PlaceTag.values().size + 1)
