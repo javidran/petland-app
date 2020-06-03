@@ -21,8 +21,8 @@ class PetlandReview : ParseObject() {
         return getDouble(STARS).toFloat()
     }
 
-    fun setStars(stars: Double) {
-        put(STARS, stars)
+    fun setStars(stars: Float) {
+        put(STARS, stars.toDouble())
     }
 
     fun getDate() : Date {
@@ -41,12 +41,6 @@ class PetlandReview : ParseObject() {
         put(LOCATION, location)
     }
 
-    fun getUser() : ParseUser {
-        val obj = getParseUser(USER) ?: throw NullPointerException()
-        obj.fetch()
-        return obj
-    }
-
     fun getUsername() : String? {
         val creator = getParseUser(USER) ?: throw NullPointerException()
         creator.fetch()
@@ -58,37 +52,38 @@ class PetlandReview : ParseObject() {
     }
 
     fun saveReview() {
-        if(getParseObject(USER) != null && getDate(LOCATION) != null ) {
+        if(containsKey(USER) && containsKey(LOCATION) ) {
             save()
         } else {
             throw NullPointerException("Some mandatory parameter of PetlandReview is null")
         }
     }
 
-    fun getReviewsUserInLocation(u: ParseUser, loc: PetlandLocation): List<PetlandReview> {
-        val listReview: MutableList<PetlandReview> = ArrayList() //Deberia haber solo 1
-        val query = ParseQuery.getQuery(PetlandReview::class.java)
-        query.whereEqualTo("user", u )
-        query.whereEqualTo("location", loc )
-        val objects = query.find()
-        for(r in objects) {
-            listReview.add(r)
-        }
-        return listReview
-    }
-
-    fun getReviewsLocation(loc: PetlandLocation): List<PetlandReview> {
-        val listReview: MutableList<PetlandReview> = ArrayList() //Deberia haber solo 1
-        val query = ParseQuery.getQuery(PetlandReview::class.java)
-        query.whereEqualTo("location", loc )
-        val objects = query.find()
-        for(r in objects) {
-            listReview.add(r)
-        }
-        return listReview
-    }
-
     companion object {
+
+        fun getReviewsLocation(loc: PetlandLocation): List<PetlandReview> {
+            val listReview: MutableList<PetlandReview> = ArrayList() //Deberia haber solo 1
+            val query = ParseQuery.getQuery(PetlandReview::class.java)
+            query.whereEqualTo("location", loc )
+            val objects = query.find()
+            for(r in objects) {
+                listReview.add(r)
+            }
+            return listReview
+        }
+
+        fun getReviewsUserInLocation(u: ParseUser, loc: PetlandLocation): List<PetlandReview> {
+            val listReview: MutableList<PetlandReview> = ArrayList() //Deberia haber solo 1
+            val query = ParseQuery.getQuery(PetlandReview::class.java)
+            query.whereEqualTo("user", u )
+            query.whereEqualTo("location", loc )
+            val objects = query.find()
+            for(r in objects) {
+                listReview.add(r)
+            }
+            return listReview
+        }
+
         private const val OBJECT_NAME = "Review"
         private const val TEXT = "text"
         private const val STARS = "stars"

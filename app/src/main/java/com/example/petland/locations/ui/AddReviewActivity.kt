@@ -7,8 +7,6 @@ import android.view.View
 import com.example.petland.R
 import com.example.petland.locations.model.PetlandLocation
 import com.example.petland.locations.model.PetlandReview
-import com.parse.ParseObject
-import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_add_review.*
 import java.util.*
@@ -20,29 +18,23 @@ class AddReviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_review)
         location = intent.extras?.get("Location") as PetlandLocation
-
         checkReview()
     }
 
     fun checkReview() {
         val cUser = ParseUser.getCurrentUser()
-        val query = ParseQuery.getQuery<ParseObject>("Review")
-        query.whereEqualTo("user", cUser )
-        query.whereEqualTo("location", location )
-        query.findInBackground { reviews, e ->
-            if (e == null) {
-                if (reviews.size > 0) {
-                    textTitle.text = getString(R.string.modify_review)
-                    textComment.text = getString(R.string.modify_comment)
-                    //MENSAJE  editar review en vista
-                    val textV = reviews[0].getString("text")
-                    stars = reviews[0].getDouble("stars")
-                    textReview.setText(textV)
-                    ratingBar.rating = stars.toFloat()
-                }
-            }
+        val reviews = PetlandReview.getReviewsUserInLocation(cUser, location)
+        if (reviews.isNotEmpty()) {
+             textTitle.text = getString(R.string.modify_review)
+             textComment.text = getString(R.string.modify_comment)
+             //MENSAJE  editar review en vista
+             val textV = reviews[0].getText()
+             stars = reviews[0].getStars().toDouble()
+             textReview.setText(textV)
+             ratingBar.rating = stars.toFloat()
         }
     }
+
     fun returnReviews(view: View){
 
         val builder = AlertDialog.Builder(this@AddReviewActivity)
@@ -63,35 +55,26 @@ class AddReviewActivity : AppCompatActivity() {
     fun saveReview(view: View) {
         val cUser = ParseUser.getCurrentUser()
         val today = Calendar.getInstance().time
-        val query = ParseQuery.getQuery<ParseObject>("Review")
-        query.whereEqualTo("user", cUser )
-        query.whereEqualTo("location", location)
-
-        query.findInBackground { reviews, e ->
-            if (e == null) {
-                if (reviews.size > 0) {
-                    reviews[0].put("text", textReview.text.toString())
-                    reviews[0].put("stars", ratingBar.rating)
-                    reviews[0].put("date", today)
-                    reviews[0].saveInBackground()
-                    location.modifyStars(ratingBar.rating.toDouble(), stars)
-                    location.save()
-
-                }
-                else {
-                    val review = ParseObject("Review")
-                    review.put("text", textReview.text.toString())
-                    review.put("stars", ratingBar.rating.toDouble())
-                    review.put("date", today)
-                    review.put("user", cUser)
-                    review.put("location", location)
-                    review.save()
-                    location.addStars(ratingBar.rating.toDouble())
-                    location.save()
-
-                }
-                finish()
-            }
+        val reviews = PetlandReview.getReviewsUserInLocation(cUser, location)
+        if (reviews.isNotEmpty()) {
+            reviews[0].setText(textReview.text.toString())
+            reviews[0].setStars(ratingBar.rating)
+            reviews[0].setDate(today)
+            reviews[0].saveReview()
+            location.modifyStars(ratingBar.rating.toDouble(), stars)
+            location.save()
         }
+         else {
+            val review = PetlandReview()
+            review.setText(textReview.text.toString())
+            review.setStars(ratingBar.rating)
+            review.setDate(today)
+            review.setUser(cUser)
+            review.setLocation(location)
+            review.saveReview()
+            location.addStars(ratingBar.rating.toDouble())
+            location.save()
+        }
+        finish()
     }
 }

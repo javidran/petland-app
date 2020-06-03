@@ -7,14 +7,13 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.R
 import com.example.petland.locations.model.PetlandLocation
-import com.parse.ParseObject
-import com.parse.ParseQuery
+import com.example.petland.locations.model.PetlandReview
 import kotlinx.android.synthetic.main.activity_review.*
 
 class ReviewActivity : AppCompatActivity() {
     var location = PetlandLocation()
     private lateinit var layoutManager: LinearLayoutManager
-    var reviewsList = listOf<ParseObject>() //Empty list of parse objects
+    var reviewsList = listOf<PetlandReview>() //Empty list of parse objects
     private lateinit var adapter: ReviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,13 +51,9 @@ class ReviewActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
     fun startViewReview() {
-        val query = ParseQuery.getQuery<ParseObject>("Review")
-        query.whereEqualTo("location", location )
-        reviewsList = query.find()
-        if (reviewsList != null) {
-            adapter = ReviewAdapter(reviewsList.toList())
-            recyclerView.adapter = adapter
-        }
+        reviewsList = PetlandReview.getReviewsLocation(location)
+        adapter = ReviewAdapter(reviewsList.toList())
+        recyclerView.adapter = adapter
     }
 
 }
