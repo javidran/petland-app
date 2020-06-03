@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.petland.R
-import com.example.petland.health.Veterinary
 import com.example.petland.locations.enums.PlaceTag
 import com.example.petland.locations.model.PetlandLocation
 import com.example.petland.pet.Pets
@@ -241,7 +240,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
 
         if (location.getPlaceTag() == PlaceTag.VETERINARY) {
 
-            val myVet = Veterinary.getVeterinary()
+            val myVet = PetlandLocation.getVeterinary()
             if (myVet != null && location.objectId == myVet.objectId) {
                 rootView.myVeterinary.visibility = View.VISIBLE
                 rootView.selectVeterinary.visibility = View.GONE

@@ -21,6 +21,7 @@ import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.events.ui.view.ViewEventActivity
+import com.example.petland.locations.model.PetlandLocation
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_health.view.*
 
@@ -66,7 +67,7 @@ class HealthFragment : Fragment(), ViewEventCallback {
     }
 
     private fun createFragment() {
-        val myVet = Veterinary.getVeterinary()
+        val myVet = PetlandLocation.getVeterinary()
         if (myVet != null) hasVet(myVet)
         else visibilities(false)
 
@@ -77,16 +78,17 @@ class HealthFragment : Fragment(), ViewEventCallback {
         rootView.recyclerViewEventsMed.adapter = adapter
     }
 
-    private fun hasVet(veterinary: ParseObject) {
+    private fun hasVet(veterinary: PetlandLocation) {
         visibilities(true)
 
         val vetNum: Button = rootView.findViewById(R.id.vetNum)
         val vetInfo: TextView = rootView.findViewById(R.id.infoVet)
         val vetNom: TextView = rootView.findViewById(R.id.nomVet)
 
-        vetNum.text = Veterinary.getNumber(veterinary).toString()
-        vetInfo.text = Veterinary.getAdress(veterinary)
-        vetNom.text = Veterinary.getName(veterinary)
+        if (veterinary.hasPhoneNumber()) vetNum.text = veterinary.getPhoneNumber().toString()
+        else vetNum.text = null
+        vetInfo.text = veterinary.getAddress()
+        vetNom.text = veterinary.getName()
     }
 
     private fun visibilities(hasVet: Boolean) {

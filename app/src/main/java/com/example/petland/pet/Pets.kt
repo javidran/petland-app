@@ -3,9 +3,6 @@ package com.example.petland.pet
 import android.util.Log
 import com.example.petland.Application
 import com.example.petland.events.model.PetEvent
-import com.example.petland.health.Veterinary
-import com.example.petland.locations.model.PetlandLocation
-import com.parse.Parse
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.ParseUser
