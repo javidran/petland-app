@@ -10,6 +10,7 @@ import com.example.petland.events.model.*
 import com.example.petland.mapas.Walk
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.locations.model.PetlandLocation
+import com.example.petland.locations.model.PetlandReview
 import com.parse.Parse
 import com.parse.ParseObject
 
@@ -20,7 +21,7 @@ class Application : Application() {
         instance = this
         Log.d(TAG, "Initializing Parse Server")
 
-        registerEvents()
+        registerObjects()
 
         Parse.initialize(
             Parse.Configuration.Builder(this)
@@ -33,7 +34,7 @@ class Application : Application() {
     }
 
 
-    private fun registerEvents() {
+    private fun registerObjects() {
         ParseObject.registerSubclass(FoodEvent::class.java)
         ParseObject.registerSubclass(HygieneEvent::class.java)
         ParseObject.registerSubclass(MeasurementEvent::class.java)
@@ -45,6 +46,7 @@ class Application : Application() {
         ParseObject.registerSubclass(AnimalSpecies::class.java)
         ParseObject.registerSubclass(Walk::class.java)
         ParseObject.registerSubclass(PetlandLocation::class.java)
+        ParseObject.registerSubclass(PetlandReview::class.java)
 
     }
 
