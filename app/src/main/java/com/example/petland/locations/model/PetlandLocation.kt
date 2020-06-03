@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.example.petland.Application.Companion.getAppContext
 import com.example.petland.R
 import com.example.petland.locations.enums.PlaceTag
+import com.example.petland.pet.Pets
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -131,6 +132,14 @@ class PetlandLocation : ParseObject() {
         private const val N_REVIEWS = "review_count"
         private const val LOCATION = "location"
 
+        fun getVeterinary(): PetlandLocation? {
+            val pet = Pets.getSelectedPet()
+            val query = getAllLocations(PlaceTag.VETERINARY)
+            val veterinary = pet.getParseObject("veterinarian")?.objectId ?: return null
+            var myVet = query.first()
+            for(vet in query) if(vet.objectId == veterinary) myVet = vet
+            return myVet
+        }
 
         fun getAllLocations() : List<PetlandLocation> {
             return getAllLocations(null)
