@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
@@ -253,11 +254,13 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
 
     fun deletePet(view: View) {
         Pets.deletePet(myPet)
-        val intent = Intent(this, ViewPetProfileActivity::class.java).apply {}
-        intent.putExtra("eliminat", true)
+        val intent = Intent(this, HomeActivity::class.java).apply {}
         startActivity(intent)
         finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        overridePendingTransition(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
     }
 
     fun addCargs(view:View) {

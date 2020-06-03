@@ -136,11 +136,15 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+
+        createSpinnerPet()
+        Log.d("creamos spinner", listPets.toString())
         menuInflater.inflate(R.menu.options_menu, menu)
         val item = menu!!.findItem(R.id.spinner)
         val spinner = item.actionView as Spinner
- 
+
         val customAdapter =
             CustomAdapter(applicationContext, objectpet, listPets)
 
@@ -160,7 +164,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
         }
-        return super.onCreateOptionsMenu(menu)
+        return super.onPrepareOptionsMenu(menu)
     }
 
     private fun clearNotifications() {
