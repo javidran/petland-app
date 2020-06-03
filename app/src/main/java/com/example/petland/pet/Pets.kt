@@ -82,7 +82,7 @@ class Pets {
 
         fun setVeterinary(veterinary: ParseObject) {
             val pet = getSelectedPet()
-            getSelectedPet().put("veterinarian", veterinary)
+            pet.put("veterinarian", veterinary)
             pet.save()
         }
 
