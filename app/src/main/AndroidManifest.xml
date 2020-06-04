@@ -53,8 +53,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".sign.SignUpActivity" />
-        <activity android:name=".sign.SignInActivity" />
+        <activity android:name=".sign.SignUpActivity"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".sign.SignInActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".user_profile.EditProfileActivity" />
         <activity android:name=".user_profile.ChangePasswordActivity" />
         <activity android:name=".pet.creation.GetFirstPetActivity" />

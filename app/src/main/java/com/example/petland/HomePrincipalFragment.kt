@@ -15,6 +15,7 @@ import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.image.ImageUtils
+import com.example.petland.pet.Pet
 import com.example.petland.pet.Pet.Companion.getSelectedPet
 import com.example.petland.pet.ViewPetProfileActivity
 import com.parse.ParseObject
@@ -66,12 +67,14 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
 
     private fun setPetInfo() {
        val pet = getSelectedPet()
+        pet.fetch<Pet>()
 
         val petNameText: TextView = rootView.findViewById(R.id.petName)
-        petNameText.text = pet.get("name").toString()
+        petNameText.text = pet.getName().toString()
 
         val birthDayText: TextView = rootView.findViewById(R.id.birthday)
-        birthDayText.text = sdf.format(pet.get("birthday"))
+        if (pet.hasBirthday()) birthDayText.text = sdf.format(pet.getBirthday())
+        else birthDayText.visibility = View.INVISIBLE
 
         val textWalkCard: Button = rootView.findViewById(R.id.textWalkCard)
         textWalkCard.text = PetEvent.getNextWalkEventDate(getSelectedPet())

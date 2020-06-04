@@ -250,19 +250,14 @@ open class PetEvent : ParseObject() {
         }
 
         fun getEventsWithoutWalk(pet: ParseObject) : List<PetEvent> {
-            val listPet: MutableList<PetEvent> = ArrayList()
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)
             query.whereNotEqualTo(DATA_TYPE, "WalkEvent")
-            query.orderByDescending(DATE)
-            val objects = query.find()
-            for(pets in objects) {
-                if(!pets.isDone()) {
-                    listPet.add(pets)
-                }
-            }
-            return listPet
+            query.whereEqualTo(DONE_DATE, null)
+            query.orderByAscending(DATE)
+            return query.find().toList()
         }
+
         fun getEventsFromPet(pet: ParseObject, filter: FilterEvent) : List<PetEvent> {
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)
