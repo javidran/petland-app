@@ -68,7 +68,7 @@ class PetlandReview : ParseObject() {
     companion object {
 
         fun getReviewsLocation(loc: PetlandLocation): List<PetlandReview> {
-            val listReview: MutableList<PetlandReview> = ArrayList() //Deberia haber solo 1
+            val listReview    = ArrayList<PetlandReview>() //Deberia haber solo 1
             val query = ParseQuery.getQuery(PetlandReview::class.java)
             query.whereEqualTo("location", loc )
             val objects = query.find()
