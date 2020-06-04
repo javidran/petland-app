@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private lateinit var rootView: View
     private lateinit var distance: TextView
     private lateinit var listPetsSelected: MutableList<String>
+    private lateinit var listObjectsPet: List<Pet>
     var selection = ""
     var time: Long = 0
 
@@ -66,28 +68,28 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     }
 
     private fun createDialogPets() {
-        val selectedItems = ArrayList<String>()
+        val selectedItems = ArrayList<Pet>()
         val builder = AlertDialog.Builder(context)
-        val pet: Pet = Pet.getSelectedPet()
-        val name: String = pet.getName()
         builder.setTitle(getString(R.string.walkpet))
-        listPets = Pet.getNamesFromPetList(Pet.getPetsFromCurrentUser())
-        val num: Int = listPets.indexOf(name)
+        listObjectsPet = Pet.getPetsFromCurrentUser()
+        listPets = Pet.getNamesFromPetList(listObjectsPet)
+        val listObjectId = Pet.getIdFromPetsList(listObjectsPet)
+        val num: Int = listObjectId.indexOf(Pet.getSelectedPet().objectId)
         val checkedItems = BooleanArray(listPets.size)
         checkedItems[num] = true
-        selectedItems.add(listPets[num])
+        selectedItems.add(listObjectsPet[num])
         builder.setMultiChoiceItems(listPets, checkedItems) { dialog, which, isChecked ->
             if (isChecked) {
-                selectedItems.add(listPets[which])
-            } else if (selectedItems.contains(listPets[which])) {
-                selectedItems.removeAt(selectedItems.indexOf(listPets[which]))
+                selectedItems.add(listObjectsPet[which])
+            } else if (selectedItems.contains(listObjectsPet[which])) {
+                selectedItems.removeAt(selectedItems.indexOf(listObjectsPet[which]))
             }
         }
 
         builder.setPositiveButton("OK") { dialog, which ->
 
-            listPetsSelected = selectedItems
-            if (listPetsSelected.size == 0) {
+            listObjectsPet = selectedItems
+            if (listObjectsPet.isEmpty()) {
                 val builder = AlertDialog.Builder(context)
                 builder.setMessage(getString(R.string.listNotNull))
                 builder.setPositiveButton("OK") { dialog, which ->
@@ -227,9 +229,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         time = SystemClock.elapsedRealtime() - chronometer.base
         chronometer.stop()
         dateEnd = Calendar.getInstance().time
-        for (pets in listPetsSelected) {
+        for (pets in listObjectsPet) {
             val query = ParseQuery.getQuery<Pet>(Pet::class.java)
-            query.whereEqualTo("name", pets)
+            query.whereEqualTo("objectId", pets.objectId)
             val result = query.find().first()
             val listEventsPet = ArrayList<PetEvent>()
             val petEvents = PetEvent.getEventsFromPet(result, FilterEvent.ONLY_WALK)
