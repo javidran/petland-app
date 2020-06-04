@@ -209,7 +209,8 @@ class MapFragment : Fragment(), OnMapReadyCallback,
 
     override fun onResume() {
         super.onResume()
-        if (!locationUpdateState) {
+        if (locationUpdateState) {
+            onMapReady(map)
             startLocationUpdates()
         }
     }

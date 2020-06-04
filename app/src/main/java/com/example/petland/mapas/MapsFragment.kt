@@ -120,9 +120,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         mapFragment.getMapAsync { mMap ->
             mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             map = mMap
-
             onMapReady(map)
-
         }
 
         locationCallback = object : LocationCallback() {
@@ -340,7 +338,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         if (requestCode == REQUEST_CHECK_SETTINGS) {
             if (resultCode == RESULT_OK) {
                 locationUpdateState = true
-
                 startLocationUpdates()
             }
         }
@@ -353,7 +350,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
 
     override fun onResume() {
         super.onResume()
-        if (!locationUpdateState) {
+        if (locationUpdateState) {
+            onMapReady(map)
             startLocationUpdates()
         }
     }
