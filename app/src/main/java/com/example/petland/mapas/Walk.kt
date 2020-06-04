@@ -2,6 +2,7 @@ package com.example.petland.mapas
 
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.model.WalkEvent
+import com.example.petland.pet.Pet
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -21,10 +22,10 @@ class Walk  : ParseObject() {
     fun createWalk(
          dateEnd: Date, dateIni: Date, time: Int,
         distance: String, latitudes: MutableList<Double>,
-        longitudes: MutableList<Double>, selection: String, listEvents: ArrayList<PetEvent>, pet: String
+        longitudes: MutableList<Double>, selection: String, listEvents: ArrayList<PetEvent>, pet: Pet
     ) {
         val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.whereEqualTo("name", pet)
+        query.whereEqualTo("objectId", pet.objectId)
        val  result = query.find().first()
         val relation = this.getRelation<ParseObject>("pets")
         put("user", ParseUser.getCurrentUser())

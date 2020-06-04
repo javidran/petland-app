@@ -185,4 +185,15 @@
     <string name="vaccines_supplied">Vaccines subministrades:</string>
     <string name="invi_exists">La invitació ja existeix</string>
     <string name="invi_sent">Invitació enviada</string>
+    <string name="invitation_caregiver">Invitacions a cuidador acceptades</string>
+    <string name="new_caregiver">"Noves invitacions a cuidador "</string>
+    <string name="events_pet">Avui tens events de mascota</string>
+    <string name="have_event">té un event a les</string>
+    <string name="number_invitations_caregiver">invitacions de cuidador acceptades</string>
+    <string name="accepted_invitations">invitaciones aceptadas</string>
+    <string name="invitation_accepted">ha acceptat la teva invitació per ser cuidador</string>
+    <string name="number_invitations">invitacions de cuidador</string>
+    <string name="have">Tens</string>
+    <string name="invitation_caregive">t\'ha convidat a ser cuidador de</string>
+    <string name="new_invitations">Noves invitacions per cuidar una mascota</string>
 </resources>

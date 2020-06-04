@@ -23,7 +23,7 @@
 
 
         <Button
-        
+
             android:id="@+id/baseSobreMapa"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -32,7 +32,6 @@
             android:gravity="center_horizontal|center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="0dp" />
-        
 
         <TextView
             android:id="@+id/paseando"
@@ -135,8 +134,9 @@
             android:id="@+id/buttonFinalizarPaseo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="12dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/button_with_borders_translucent"
             android:elevation="8dp"
             android:gravity="center_horizontal|center_vertical"
@@ -146,7 +146,9 @@
             android:textColor="@color/md_grey_50"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/baseSobreMapa"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.615"
+            app:layout_constraintStart_toEndOf="@+id/distanceUnit" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

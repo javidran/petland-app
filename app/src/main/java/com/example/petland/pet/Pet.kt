@@ -211,7 +211,15 @@ class Pet : ParseObject() {
             val array = arrayOfNulls<String>(pets.size)
             return names.toArray(array)
         }
-
+        fun getIdFromPetsList(pets: List<Pet>) : Array<String> {
+            val names: ArrayList<String> = ArrayList()
+            for(p in pets) {
+                val name: String = (p.objectId ?: throw NullPointerException("Petid should not be null"))
+                names.add(name)
+            }
+            val array = arrayOfNulls<String>(pets.size)
+            return names.toArray(array)
+        }
         fun deletePet(pet: Pet) {
             PetEvent.getEventsFromPet(pet).forEach { e -> e.deleteEvent() }
             pet.deleteInBackground { e ->

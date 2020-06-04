@@ -194,4 +194,15 @@
     <string name="vaccines_supplied">Vaccines supplied:</string>
     <string name="invi_exists">Invitation already exists</string>
     <string name="invi_sent">Invitation sent</string>
+    <string name="invitation_caregiver">" Accepted caregiver invitations"</string>
+    <string name="new_caregiver">New caregiver invitations</string>
+    <string name="events_pet">You have pet events for today</string>
+    <string name="have_event">"have an event at "</string>
+    <string name="number_invitations_caregiver">caregiver invitations accepted</string>
+    <string name="accepted_invitations">invitations accepted</string>
+    <string name="invitation_accepted">accepted your invitation to caregive</string>
+    <string name="number_invitations">caregiver invitatios</string>
+    <string name="have">You have</string>
+    <string name="invitation_caregive">invited you to caregive</string>
+    <string name="new_invitations">New invitations to take care of a pet</string>
 </resources>
