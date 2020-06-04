@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.events.model.PetEvent
 import com.example.petland.image.ImageUtils
-import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.pet_profile_user_element.view.*
 
@@ -15,8 +14,8 @@ import kotlinx.android.synthetic.main.pet_profile_user_element.view.*
 class UserAdapter(
     private val caregivers: List<ParseUser>,
     private val owner: Boolean,
-    private val myPet: ParseObject,
-    private val vCCallback: ViewCaregiversCallback
+    private val myPet: Pet,
+    private val vCCallback: ViewCaregiversCallback?
 ) :
     RecyclerView.Adapter<UserAdapter.UserHolder>() {
 
@@ -35,11 +34,11 @@ class UserAdapter(
         holder.bindUserInfo(caregivers[position])
     }
 
-    class UserHolder(v: View, o: Boolean, myPet: ParseObject,
-                     vCCallback: ViewCaregiversCallback ) : RecyclerView.ViewHolder(v) {
+    class UserHolder(v: View, o: Boolean, myPet: Pet,
+                     vCCallback: ViewCaregiversCallback? ) : RecyclerView.ViewHolder(v) {
         var view: View = v
         var owner: Boolean = o
-        var pet: ParseObject = myPet
+        var pet: Pet = myPet
         private var listCallback  = vCCallback
 
 
@@ -59,11 +58,8 @@ class UserAdapter(
                             ev.saveEvent()
                         }
                     }
-
-                    val relation = pet.getRelation<ParseUser>("caregivers")
-                    relation.remove(this.user)
-                    pet.saveInBackground()
-                    listCallback.updateCaregivers()
+                    pet.removeCaregiver(this.user)
+                    listCallback?.updateCaregivers()
                 }
             }
             ImageUtils.retrieveImage(user, view.userImage)

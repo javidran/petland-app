@@ -15,15 +15,14 @@ import com.example.petland.events.model.*
 import com.example.petland.events.ui.callback.SaveDataCallback
 import com.example.petland.events.ui.creation.*
 import com.example.petland.events.ui.view.ViewEventActivity
-import com.example.petland.pet.Pets
-import com.parse.ParseObject
+import com.example.petland.pet.Pet
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_edit_event.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    private lateinit var petList: List<ParseObject>
+    private lateinit var petList: List<Pet>
     private lateinit var caregiversList: List<ParseUser>
     private lateinit var event: PetEvent
     private lateinit var callback: SaveDataCallback
@@ -69,12 +68,12 @@ class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
             }
         }
 
-        petList = Pets.getPetsFromCurrentUser()
+        petList = Pet.getPetsFromCurrentUser()
 
         spinnerPet = findViewById(R.id.spinnerPet)
         val adapterPet = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item, Pets.getNamesFromPetList(petList)
+            android.R.layout.simple_spinner_item, Pet.getNamesFromPetList(petList)
         )
         adapterPet.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerPet.adapter = adapterPet
@@ -253,8 +252,8 @@ class EditEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     }
 
     private fun setAssignedAdapter() {
-        caregiversList = Pets.getCaregiversFromPet(event.getPet())
-        val arrayAssigned  = ArrayList(Pets.getCaregiversNamesFromPet(event.getPet()))
+        caregiversList = Pet.getCaregiversFromPet(event.getPet())
+        val arrayAssigned  = ArrayList(Pet.getCaregiversNamesFromPet(event.getPet()))
         arrayAssigned.add(0, getString(R.string.assigned_to_no_one))
         val adapterAssigned = ArrayAdapter(
             this,

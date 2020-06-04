@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +16,7 @@ import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
-import com.parse.ParseObject
 import com.parse.ParseQuery
-import com.parse.ParseRelation
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_edit_pet_profile.*
 import java.text.SimpleDateFormat
@@ -28,13 +25,12 @@ import java.util.*
 
 class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
 
-    private lateinit var myPet:ParseObject
+    private lateinit var myPet:Pet
     private val TAG = "Petland EditPetProfile"
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
-    private var owner: Boolean = false
-    private lateinit var raceObj: ParseObject
-    private lateinit var raceObjOpt: ParseObject
+    private lateinit var raceObj: Race
+    private lateinit var raceObjOpt: Race
     private lateinit var animalSpecies: AnimalSpecies
 
     private lateinit var recyclerView: RecyclerView
@@ -46,7 +42,7 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
 
         setContentView(com.example.petland.R.layout.activity_edit_pet_profile)
         profileImageView1.setOnClickListener { seeImage() }
-        myPet = intent.extras?.get("petId") as ParseObject
+        myPet = intent.extras?.get("petId") as Pet
         setData()
     }
 
@@ -62,47 +58,31 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
     }
 
     private fun setData() {
-
-        val user = ParseUser.getCurrentUser()
-        myPet.fetch<ParseObject>()
-
-        val listUsers = ParseQuery.getQuery<ParseUser>("_User")
-        val powner = myPet.get("owner") as ParseObject
-        listUsers.whereEqualTo("objectId", powner.objectId)
+        myPet.fetch<Pet>()
 
         usernameText1.text = myPet.getString("name")
-        ownerText1.text = listUsers.first.get("username").toString()
-        owner = (ownerText1.text == user.username)
+        ownerText1.text = myPet.getOwner().getString("username")
 
-        val listRaces = ParseQuery.getQuery<ParseObject>("Race")
-        val pRacePrincipal = myPet.get("nameRace") as ParseObject
-        listRaces.whereEqualTo("objectId", pRacePrincipal.objectId)
-
-
-        val textViewBirthday: TextView = findViewById(R.id.birthText1)
-        val cal = Calendar.getInstance()
-        var birth = myPet.get("birthday")
-        date = birth as Date
-        if(birth!=null) {
+        if(myPet.hasBirthday()) {
             val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-            birth = sdf.format(birth)
-            birthText1.setText(birth.toString())
+            date = myPet.getBirthday()
+            birthText1.setText(sdf.format(date))
         }
-        else birthText1.setText("")
+        else {
+            birthText1.setText("")
+        }
 
-
-
-
+        val cal = Calendar.getInstance()
         val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 date = cal.time
-                textViewBirthday.text = sdf.format(cal.time)
+                birthText1.setText(sdf.format(cal.time))
             }
 
-        textViewBirthday.setOnClickListener {
+        birthText1.setOnClickListener {
             val dialog = DatePickerDialog(
                 this@EditPetProfileActivity, dateSetListener,
                 cal.get(Calendar.YEAR),
@@ -114,24 +94,24 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
         }
 
 
-        val chipText = myPet.get("chip")
-        if(chipText!=null) {
-            chipText1.setText(chipText.toString())
+        if(myPet.hasChipNumber()) {
+            chipText1.setText(myPet.getChipNumber().toString())
         }
-        else chipText1.setText("")
+        else {
+            chipText1.setText("")
+        }
 
         updateCaregivers()
 
-        if (owner) {     // enable buttons
-            val deleteButton:TextView = findViewById(R.id.deleteButton)
+        if (myPet.isOwner(ParseUser.getCurrentUser())) {
             deleteButton.visibility = View.VISIBLE
-            val addCarg:TextView = findViewById(R.id.addCarg)
             addCarg.visibility = View.VISIBLE
         }
+
         verImagen()
         addElementsToSpinnerRace()
         addElementsToSpinnerRaceOpt()
-        if(myPet.getParseObject("nameRaceopt") != null) {
+        if(myPet.hasSecondRace()) {
             buttonAddRace.visibility = View.GONE
             buttonDelRace.visibility = View.VISIBLE
             spinnerRace2.visibility = View.VISIBLE
@@ -140,19 +120,14 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
 
     private fun addElementsToSpinnerRace() {
         val listRace: ArrayList<String> = ArrayList()
-        val query = ParseQuery.getQuery(Race::class.java)
-        query.whereEqualTo("nameSpecie",  myPet.get("nameSpecie"))
-        val myRace:ParseObject = myPet.get("nameRace") as ParseObject
-        val objects = query.find()
+        val myRace = myPet.getFirstRace()
+        val objects = Race.getRaces(myPet.getSpecie())
         var i = 0
-        if (objects != null) {
-            var found = false
-            for (species in objects) {
-                listRace.add(species.getName())
-                if(species.objectId == myRace.objectId) found = true
-
-                if(!found) ++i
-            }
+        var found = false
+        for (species in objects) {
+            listRace.add(species.getName())
+            if(species.objectId == myRace.objectId) found = true
+            if(!found) ++i
         }
 
         val dataAdapter = ArrayAdapter(
@@ -168,6 +143,7 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
                 position: Int,
                 id: Long
             ) {
+                val query = ParseQuery.getQuery(Race::class.java)
                 when (Locale.getDefault().displayLanguage) {
                     "català" -> {
                         query.whereEqualTo("name_ca", parent?.getItemAtPosition(position).toString())
@@ -201,19 +177,18 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
 
     private fun addElementsToSpinnerRaceOpt() {
         val listRace: ArrayList<String> = ArrayList()
-        val query = ParseQuery.getQuery(Race::class.java)
-        query.whereEqualTo("nameSpecie",  myPet.get("nameSpecie"))
-        val num: Int = query.count()
-        val myRace: ParseObject? = myPet.getParseObject("nameRaceopt")
-        val objects = query.find()
-        var i = 0
-        if (objects != null) {
-            var found = false
-            for (species in objects) {
-                listRace.add(species.getName())
-                if(myRace != null && species.objectId == myRace.objectId) found = true
+        val objects = Race.getRaces(myPet.getSpecie())
 
-                if(myRace != null && !found) ++i
+        var i = 0
+        var found = false
+        var myRace : Race? = null
+        if(myPet.hasSecondRace()) myRace = myPet.getSecondRace()
+
+        for (species in objects) {
+            listRace.add(species.getName())
+            if (myRace != null) {
+                if (species.objectId == myRace.objectId) found = true
+                if (!found) ++i
             }
         }
 
@@ -230,6 +205,7 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
                 position: Int,
                 id: Long
             ) {
+                val query = ParseQuery.getQuery(Race::class.java)
                 when (Locale.getDefault().displayLanguage) {
                     "català" -> {
                         query.whereEqualTo("name_ca", parent?.getItemAtPosition(position).toString())
@@ -253,8 +229,9 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
     }
 
     fun deletePet(view: View) {
-        Pets.deletePet(myPet)
-        val intent = Intent(this, HomeActivity::class.java).apply {}
+        Pet.deletePet(myPet)
+        val intent = Intent(this, ViewPetProfileActivity::class.java).apply {}
+        intent.putExtra("eliminat", true)
         startActivity(intent)
         finish()
         overridePendingTransition(
@@ -282,12 +259,12 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
     }
 
     fun save(view: View) {
-        myPet.put("birthday", date)
-        myPet.put("chip", Integer.valueOf(chipText1.text.toString()))
-        myPet.put("nameRace", raceObj)
-        if(buttonAddRace.visibility == View.GONE) myPet.put("nameRaceopt", raceObjOpt)
-        else myPet.remove("nameRaceopt")
-        myPet.save()
+        myPet.setBirthday(date)
+        myPet.setChipNumber(Integer.valueOf(chipText1.text.toString()))
+        myPet.setFirstRace(raceObj)
+        if(buttonAddRace.visibility == View.GONE) myPet.setSecondRace(raceObjOpt)
+        else myPet.removeSecondRace()
+        myPet.savePet()
         volver(view)
     }
 
@@ -301,34 +278,19 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.pet_deletion_alert_title))
         builder.setCancelable(false)
-        builder.setPositiveButton(getString(R.string.delete))
-        { dialog, which ->
-            deletePet(view)
-        }
-        builder.setNegativeButton(getString(R.string.cancel))
-        { dialog, which -> }
+        builder.setPositiveButton(getString(R.string.delete)) { _, _ -> deletePet(view) }
+        builder.setNegativeButton(getString(R.string.cancel)) { _, _ -> }
         builder.show()
     }
 
     override fun updateCaregivers() {
-        val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
-        val listCaregivers = caregivers.query
-        val list = listCaregivers.find()
-        if (list != null) {
-            viewManager = LinearLayoutManager(this)
-            viewAdapter = UserAdapter(list.toList(), owner, myPet, this)
-            recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
-                // use this setting to improve performance if you know that changes
-                // in content do not change the layout size of the RecyclerView
-                isNestedScrollingEnabled = false
-
-                // use a linear layout manager
-                layoutManager = viewManager
-
-                // specify an viewAdapter (see also next example)
-                adapter = viewAdapter
-
-            }
+        val list = myPet.getCaregivers()
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = UserAdapter(list, myPet.isOwner(ParseUser.getCurrentUser()), myPet, this)
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerView1).apply {
+            isNestedScrollingEnabled = false
+            layoutManager = viewManager
+            adapter = viewAdapter
         }
     }
 

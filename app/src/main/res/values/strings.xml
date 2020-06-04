@@ -173,7 +173,6 @@
     <string name="reviews">Reviews</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_vaccines_are_scheduled">No vaccines are scheduled</string>
     <string name="no_medications_are_scheduled">No medications are scheduled</string>
     <string name="upcoming_medications">Upcoming medications:</string>
@@ -184,4 +183,6 @@
     <string name="medical_history">Medical history</string>
     <string name="medicines_supplied">Medications supplied:</string>
     <string name="vaccines_supplied">Vaccines supplied:</string>
+    <string name="invi_exists">Invitation already exists</string>
+    <string name="invi_sent">Invitation sent</string>
 </resources>

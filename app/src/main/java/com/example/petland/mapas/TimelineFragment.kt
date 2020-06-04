@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
-import com.example.petland.pet.Pets
+import com.example.petland.pet.Pet
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import kotlinx.android.synthetic.main.fragment_timeline.view.*
@@ -47,12 +47,11 @@ class TimelineFragment : Fragment(), ViewWalkCallback {
     }
 
     private fun updatePaseos() {
-        val pet = Pets.getSelectedPet()
-        val walks = ParseQuery<ParseObject>("Walk")
+        val pet = Pet.getSelectedPet()
+        val walks = ParseQuery(Walk::class.java)
         walks.whereEqualTo("pets", pet)
         walks.orderByDescending("createdAt")
-        val list = walks.find()
-        this.adapter = TimelineAdapter(list.toList(), this)
+        this.adapter = TimelineAdapter(walks.find(), this)
         rootView.recyclerViewTimeline.adapter = adapter
     }
 

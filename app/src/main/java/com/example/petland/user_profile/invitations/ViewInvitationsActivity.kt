@@ -6,9 +6,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.R
-import com.parse.ParseObject
-import com.parse.ParseQuery
-import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_view_invitations.*
 
 class ViewInvitationsActivity : AppCompatActivity(),
@@ -17,7 +14,7 @@ class ViewInvitationsActivity : AppCompatActivity(),
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: InvitationAdapter
     private lateinit var rootView: View
-    var invitationsList = listOf<ParseObject>() //Empty list of parse objects
+    var invitationsList = listOf<Invitation>() //Empty list of parse objects
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,35 +30,23 @@ class ViewInvitationsActivity : AppCompatActivity(),
         updateInvitations()
     }
     override fun updateInvitations(){
-        val currentUser = ParseUser.getCurrentUser()
-        val query = ParseQuery.getQuery<ParseObject>("Invitation")
-        query.whereEqualTo("receiver", currentUser)
-        query.whereEqualTo("answer", false)
-        invitationsList = query.find()
-        if (invitationsList != null) {
-            if(invitationsList.toList().isEmpty()){
-                val noInvites: TextView = findViewById(R.id.noInvitations)
-                noInvites.visibility = View.VISIBLE
-                val yesInvites: TextView = findViewById(R.id.instructionsInvitations)
-                yesInvites.visibility = View.INVISIBLE
-            }
-            else{
-                val noInvites: TextView = findViewById(R.id.noInvitations)
-                noInvites.visibility = View.INVISIBLE
-                val yesInvites: TextView = findViewById(R.id.instructionsInvitations)
-                yesInvites.visibility = View.VISIBLE
-            }
+        invitationsList = Invitation.getUnansweredInvitations()
 
-
-            adapter =
-                InvitationAdapter(
-                    invitationsList.toList(),
-                    this
-                )
-            recyclerView.adapter = adapter
+        if(invitationsList.isEmpty()){
+            val noInvites: TextView = findViewById(R.id.noInvitations)
+            noInvites.visibility = View.VISIBLE
+            val yesInvites: TextView = findViewById(R.id.instructionsInvitations)
+            yesInvites.visibility = View.INVISIBLE
+        }
+        else{
+            val noInvites: TextView = findViewById(R.id.noInvitations)
+            noInvites.visibility = View.INVISIBLE
+            val yesInvites: TextView = findViewById(R.id.instructionsInvitations)
+            yesInvites.visibility = View.VISIBLE
         }
 
-
+        adapter = InvitationAdapter(invitationsList.toList(), this)
+        recyclerView.adapter = adapter
     }
 
     fun goBack(view: View) {

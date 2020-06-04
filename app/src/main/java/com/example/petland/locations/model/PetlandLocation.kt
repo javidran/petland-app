@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.example.petland.Application.Companion.getAppContext
 import com.example.petland.R
@@ -130,7 +129,6 @@ class PetlandLocation : ParseObject() {
         private const val AVG_STARS = "average_stars"
         private const val N_REVIEWS = "review_count"
         private const val LOCATION = "location"
-
 
         fun getAllLocations() : List<PetlandLocation> {
             return getAllLocations(null)

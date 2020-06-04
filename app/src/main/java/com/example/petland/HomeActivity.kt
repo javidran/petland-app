@@ -26,9 +26,9 @@ import com.example.petland.health.HealthFragment
 import com.example.petland.locations.ui.MapFragment
 import com.example.petland.mapas.MapsFragment
 import com.example.petland.mapas.TimelineFragment
-import com.example.petland.pet.Pets
-import com.example.petland.pet.Pets.Companion.getNamesFromPetList
-import com.example.petland.pet.Pets.Companion.setSelectedPet
+import com.example.petland.pet.Pet
+import com.example.petland.pet.Pet.Companion.getNamesFromPetList
+import com.example.petland.pet.Pet.Companion.setSelectedPet
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.UserProfileFragment
@@ -38,7 +38,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
-import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
 
@@ -50,14 +49,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var spinner: Spinner
     lateinit var listPets: Array<String>
-    private lateinit var objectpet: List<ParseObject>
+    private lateinit var objectpet: List<Pet>
     lateinit var fragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        if(!Pets.userHasPets()) {
+        if(!Pet.userHasPets()) {
             val intent = Intent(this, GetFirstPetActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             if(intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION) != null && intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION)!!) {
@@ -129,9 +128,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun createSpinnerPet() {
-        objectpet  = Pets.getPetsFromCurrentUser()
+        objectpet  = Pet.getPetsFromCurrentUser()
         listPets = getNamesFromPetList(objectpet.toList())
-
     }
 
 
@@ -157,7 +155,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 spinnerLayoutParams.width -= 2
                 spinnerLayoutParams.height-= 2
                 spinner.layoutParams = spinnerLayoutParams
-                setSelectedPet(parent?.getItemAtPosition(position) as ParseObject)
+                setSelectedPet(parent?.getItemAtPosition(position) as Pet)
                 fragment.onResume()
             }
 

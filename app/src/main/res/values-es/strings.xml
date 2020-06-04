@@ -175,4 +175,6 @@
     <string name="medical_history">Historial médico</string>
     <string name="medicines_supplied">Medicamentos suministrados:</string>
     <string name="vaccines_supplied">Vacunas subministradas:</string>
+    <string name="invi_exists">Invitación ya existe</string>
+    <string name="invi_sent">Invitación enviada</string>
 </resources>

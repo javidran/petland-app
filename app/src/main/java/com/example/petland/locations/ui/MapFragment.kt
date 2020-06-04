@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment
 import com.example.petland.R
 import com.example.petland.locations.enums.PlaceTag
 import com.example.petland.locations.model.PetlandLocation
-import com.example.petland.pet.Pets
+import com.example.petland.pet.Pet
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -28,9 +28,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.parse.Parse
-import com.parse.ParseObject
-import kotlinx.android.synthetic.main.fragment_health.view.*
 import kotlinx.android.synthetic.main.fragment_map.view.*
 
 
@@ -241,14 +238,13 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         }
 
         if (location.getPlaceTag() == PlaceTag.VETERINARY) {
-            val pet = Pets.getSelectedPet()
-            val veterinary = pet.get("veterinarian") as ParseObject
-            if (location.objectId == veterinary.objectId) {
+            val pet = Pet.getSelectedPet()
+            if (pet.hasVeterinary() && location.objectId == pet.getVeterinary().objectId) {
                 rootView.myVeterinary.visibility = View.VISIBLE
                 rootView.selectVeterinary.visibility = View.GONE
             }
             else {
-                rootView.selectVeterinary.setOnClickListener { setVeterinary(pet, location, marker) }
+                rootView.selectVeterinary.setOnClickListener { setVeterinary(location) }
                 rootView.myVeterinary.visibility = View.GONE
                 rootView.selectVeterinary.visibility = View.VISIBLE
             }
@@ -299,9 +295,8 @@ class MapFragment : Fragment(), OnMapReadyCallback,
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
-    fun setVeterinary(pet:ParseObject, location: ParseObject, marker:Marker) {
-        pet.put("veterinarian", location)
-        pet.save()
+    private fun setVeterinary(location: PetlandLocation) {
+        Pet.getSelectedPet().setVeterinary(location)
         rootView.myVeterinary.visibility = View.VISIBLE
         rootView.selectVeterinary.visibility = View.GONE
     }

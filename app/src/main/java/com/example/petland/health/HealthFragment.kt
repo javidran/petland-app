@@ -1,11 +1,5 @@
 package com.example.petland.health
 
-import android.R.attr.label
-import android.R.attr.onClick
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -17,7 +11,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,16 +20,10 @@ import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
-import com.example.petland.events.ui.creation.CreateEventActivity
 import com.example.petland.events.ui.view.ViewEventActivity
-import com.example.petland.locations.ui.MapFragment
-import com.example.petland.pet.Pets
-import com.parse.ParseObject
-import kotlinx.android.synthetic.main.fragment_events.view.*
-import kotlinx.android.synthetic.main.fragment_events.view.recyclerViewEvents
+import com.example.petland.locations.model.PetlandLocation
+import com.example.petland.pet.Pet
 import kotlinx.android.synthetic.main.fragment_health.view.*
-import kotlinx.android.synthetic.main.fragment_home_principal.view.*
-import java.util.jar.Manifest
 
 
 class HealthFragment : Fragment(), ViewEventCallback {
@@ -80,10 +67,9 @@ class HealthFragment : Fragment(), ViewEventCallback {
     }
 
     private fun createFragment() {
-        val pet = Pets.getSelectedPet()
-        val veterinary = Pets.getVeterinary(pet)
-
-        if (veterinary != null) hasVet(veterinary)
+        if (Pet.getSelectedPet().hasVeterinary()) {
+            hasVet(Pet.getSelectedPet().getVeterinary())
+        }
         else visibilities(false)
 
         this.adapter = EventAdapter(PetEvent.getEventsFromPetNotDone(FilterEvent.ONLY_VACCINE), requireContext(), this)
@@ -93,19 +79,20 @@ class HealthFragment : Fragment(), ViewEventCallback {
         rootView.recyclerViewEventsMed.adapter = adapter
     }
 
-    private fun hasVet(veterinaty: ParseObject) {
+    private fun hasVet(veterinary: PetlandLocation) {
         visibilities(true)
 
         val vetNum: Button = rootView.findViewById(R.id.vetNum)
         val vetInfo: TextView = rootView.findViewById(R.id.infoVet)
         val vetNom: TextView = rootView.findViewById(R.id.nomVet)
 
-        vetNum.text = veterinaty.getNumber("phone_number").toString()
-        vetInfo.text = veterinaty.getString("address")
-        vetNom.text = veterinaty.getString("name")
+        if (veterinary.hasPhoneNumber()) vetNum.text = veterinary.getPhoneNumber().toString()
+        else vetNum.text = null
+        vetInfo.text = veterinary.getAddress()
+        vetNom.text = veterinary.getName()
     }
 
-    private fun visibilities(hasVet : Boolean) {
+    private fun visibilities(hasVet: Boolean) {
         val newVet: Button = rootView.findViewById(R.id.newVet)
         val vetNum: Button = rootView.findViewById(R.id.vetNum)
         val vetInfo: TextView = rootView.findViewById(R.id.infoVet)
