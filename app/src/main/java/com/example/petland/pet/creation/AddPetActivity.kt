@@ -204,6 +204,9 @@ class AddPetActivity : AppCompatActivity() {
         when {
             TextUtils.isEmpty(textPetName.text) -> {
                 textPetName.error = getString(R.string.petNameNeeded)
+                }
+              TextUtils.isEmpty(editTextBirthday.text) ->  {
+                  editTextBirthday.error = getString(R.string.birthdayNeeded)
             }
             else -> {
                 val currentUser = ParseUser.getCurrentUser()
