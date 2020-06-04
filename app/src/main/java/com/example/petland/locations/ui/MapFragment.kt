@@ -55,6 +55,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         savedInstanceState: Bundle?
     ): View {
         rootView = inflater.inflate(R.layout.fragment_map, container, false)
+        rootView.reviewButton.setOnClickListener { viewReviewActivity(shownLocation) }
         val mapFragment = childFragmentManager.findFragmentById(R.id.frg) as SupportMapFragment
 
         mapFragment.getMapAsync { mMap ->
@@ -108,6 +109,13 @@ class MapFragment : Fragment(), OnMapReadyCallback,
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
                 }
             }
+    }
+    fun viewReviewActivity( shownLocation : PetlandLocation?) {
+        if (shownLocation != null) {
+            val intent = Intent(context, ReviewActivity::class.java).apply {}
+            intent.putExtra("Location", shownLocation)
+            startActivity(intent)
+        }
     }
 
     private fun startLocationUpdates() {
@@ -217,7 +225,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         rootView.locationType.text = getPlaceTagTranslated(location.getPlaceTag())
         rootView.locationType.setCompoundDrawablesWithIntrinsicBounds( location.getIcon(), null, null, null)
         rootView.ratingBar.rating = location.getAverageStars().toFloat()
-        rootView.ratingText.text = "(" + location.getAverageStars() + ")"
+        rootView.ratingText.text = "(" + String.format("%.2f", location.getAverageStars())  + ")"
 
         if(location.hasLink()) {
             rootView.locationLink.visibility = View.VISIBLE
@@ -256,6 +264,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
 
         return false
     }
+
 
     private fun getPlaceTagArray() : Array<String?> {
         val array = arrayOfNulls<String>(PlaceTag.values().size + 1)

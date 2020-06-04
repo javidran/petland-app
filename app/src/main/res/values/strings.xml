@@ -171,6 +171,15 @@
     <string name="filter_location_text">Show:</string>
     <string name="all">All</string>
     <string name="reviews">Reviews</string>
+    <string name="notsaved">Changes not saved</string>
+    <string name="dialogReview">Are you sure you don\'t want to save your reviews changes?</string>
+    <string name="add_review">Add Review</string>
+    <string name="save_review">Save Review</string>
+    <string name="modify_review">Modify your review:</string>
+    <string name="modify_comment">\"Modify your comment: \"</string>
+    <string name="add_comment">Add a comment:</string>
+    <string name="rate_the_location">Rate the location:</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="no_vaccines_are_scheduled">No vaccines are scheduled</string>

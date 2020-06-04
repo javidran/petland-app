@@ -165,6 +165,14 @@
     <string name="filter_location_text">Mostrar:</string>
     <string name="all">Todos</string>
     <string name="reviews">Valoraciones</string>
+    <string name="notsaved">Cambios no guardados</string>
+    <string name="dialogReview">¿Estás seguro de no querer guardar los cambios de la Review?</string>
+    <string name="add_review">Añadir Review</string>
+    <string name="save_review">Guardar Review</string>
+    <string name="modify_review">Modifica tu review:</string>
+    <string name="modify_comment">Modifica tu comentario:</string>
+    <string name="add_comment">Añade un comentario:</string>
+    <string name="rate_the_location">Puntua la localización:</string>
     <string name="no_vaccines_are_scheduled">No hay vacunas programadas.</string>
     <string name="no_medications_are_scheduled">No hay medicamentos programados.</string>
     <string name="upcoming_medications">Próximos medicamentos:</string>
