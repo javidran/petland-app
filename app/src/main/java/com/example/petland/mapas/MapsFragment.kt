@@ -19,8 +19,7 @@ import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
-import com.example.petland.events.model.WalkEvent
-import com.example.petland.pet.Pets
+import com.example.petland.pet.Pet
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -31,9 +30,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.SphericalUtil
-import com.parse.ParseObject
 import com.parse.ParseQuery
-import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_maps.view.*
 import java.text.SimpleDateFormat
@@ -71,10 +68,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private fun createDialogPets() {
         val selectedItems = ArrayList<String>()
         val builder = AlertDialog.Builder(context)
-        val pet: ParseObject = Pets.getSelectedPet()
-        val name: String = pet.get("name").toString()
+        val pet: Pet = Pet.getSelectedPet()
+        val name: String = pet.getName()
         builder.setTitle(getString(R.string.walkpet))
-        listPets = Pets.getNamesFromPetList(Pets.getPetsFromCurrentUser())
+        listPets = Pet.getNamesFromPetList(Pet.getPetsFromCurrentUser())
         val num: Int = listPets.indexOf(name)
         val checkedItems = BooleanArray(listPets.size)
         checkedItems[num] = true
@@ -231,7 +228,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         chronometer.stop()
         dateEnd = Calendar.getInstance().time
         for (pets in listPetsSelected) {
-            val query = ParseQuery.getQuery<ParseObject>("Pet")
+            val query = ParseQuery.getQuery<Pet>(Pet::class.java)
             query.whereEqualTo("name", pets)
             val result = query.find().first()
             val listEventsPet = ArrayList<PetEvent>()

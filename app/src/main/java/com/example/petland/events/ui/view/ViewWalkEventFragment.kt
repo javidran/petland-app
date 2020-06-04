@@ -13,7 +13,7 @@ import com.example.petland.events.model.WalkEvent
 import com.example.petland.mapas.ViewWalksActivity
 import com.example.petland.mapas.Walk
 import kotlinx.android.synthetic.main.fragment_view_walk_event.*
-import kotlinx.android.synthetic.main.fragment_view_walk_event.view.buttonViewMap
+import kotlinx.android.synthetic.main.fragment_view_walk_event.view.*
 
 class ViewWalkEventFragment : Fragment() {
     private lateinit var event: WalkEvent
