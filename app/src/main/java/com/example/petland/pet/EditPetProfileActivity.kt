@@ -230,7 +230,7 @@ class EditPetProfileActivity : AppCompatActivity(), ViewCaregiversCallback {
 
     fun deletePet(view: View) {
         Pet.deletePet(myPet)
-        val intent = Intent(this, ViewPetProfileActivity::class.java).apply {}
+        val intent = Intent(this, HomeActivity::class.java).apply {}
         intent.putExtra("eliminat", true)
         startActivity(intent)
         finish()
