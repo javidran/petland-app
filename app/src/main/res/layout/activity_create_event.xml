@@ -28,6 +28,8 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/button_with_borders_translucent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="@string/cancel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

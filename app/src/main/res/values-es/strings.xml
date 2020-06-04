@@ -136,7 +136,7 @@
     <string name="filter_by">Filtrar por:</string>
     <string name="newest_first">Los nuevos primero</string>
     <string name="oldest_first">Los antiguos primero</string>
-    <string name="noWalks">No hay ningún paso programado próximamente</string>
+    <string name="noWalks">No hay ningún paseo programado próximamente</string>
     <string name="walks">"Próximo paseo: "</string>
     <string name="noEvents">No hay eventos próximos para esta mascota</string>
     <string name="add_caregiver">Añadir cuidador</string>
@@ -185,4 +185,15 @@
     <string name="vaccines_supplied">Vacunas subministradas:</string>
     <string name="invi_exists">Invitación ya existe</string>
     <string name="invi_sent">Invitación enviada</string>
+    <string name="invitation_caregiver">Invitaciones a cuidador aceptadas</string>
+    <string name="new_caregiver">Nuevas invitaciones a cuidador</string>
+    <string name="invitation_caregive">te ha invitado a ser cuidador de</string>
+    <string name="new_invitations">Nuevas invitaciones para cuidar una mascota</string>
+    <string name="have">\"Tienes \"</string>
+    <string name="number_invitations">\" invitaciones de cuidador\"</string>
+    <string name="invitation_accepted">\" ha aceptado tu invitació para ser cuidador de \"</string>
+    <string name="accepted_invitations">Invitaciones aceptadas</string>
+    <string name="number_invitations_caregiver">\" invitaciones aceptadas de cuidadores de mascota\"</string>
+    <string name="have_event">\" tiene un evento a las \"</string>
+    <string name="events_pet">Tienes eventos de mascotas para hoy</string>
 </resources>

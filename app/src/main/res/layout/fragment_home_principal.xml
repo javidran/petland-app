@@ -52,6 +52,8 @@
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/transparent_button_with_borders"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:shadowColor="#00FFFFFF"
             android:text="@string/viewProfile"
             android:textAlignment="center"
@@ -106,11 +108,11 @@
 
         <Button
             android:id="@+id/textWalkCard"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="24dp"
             android:background="@drawable/card_simulation"
             android:elevation="6dp"
             android:paddingLeft="40sp"
