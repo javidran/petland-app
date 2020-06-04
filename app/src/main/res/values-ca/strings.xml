@@ -165,6 +165,14 @@
     <string name="filter_location_text">Mostrar:</string>
     <string name="all">Tots</string>
     <string name="reviews">Valoracions</string>
+    <string name="notsaved">Canvis no guardats</string>
+    <string name="dialogReview">Estàs segur de no voler guardar els canvis fets a la Review?</string>
+    <string name="add_review">Afegir Review</string>
+    <string name="save_review">Guardar Review</string>
+    <string name="modify_review">Modifica la teva review:</string>
+    <string name="modify_comment">Modifica el teu comentari:</string>
+    <string name="add_comment">Afegeix un comentari:</string>
+    <string name="rate_the_location">Puntua la localització:</string>
     <string name="no_vaccines_are_scheduled">No hi ha vacunes programades</string>
     <string name="no_medications_are_scheduled">No hi ha medicaments programats</string>
     <string name="upcoming_medications">Propers medicaments:</string>
