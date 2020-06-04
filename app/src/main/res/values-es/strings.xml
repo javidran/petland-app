@@ -165,4 +165,24 @@
     <string name="filter_location_text">Mostrar:</string>
     <string name="all">Todos</string>
     <string name="reviews">Valoraciones</string>
+    <string name="notsaved">Cambios no guardados</string>
+    <string name="dialogReview">¿Estás seguro de no querer guardar los cambios de la Review?</string>
+    <string name="add_review">Añadir Review</string>
+    <string name="save_review">Guardar Review</string>
+    <string name="modify_review">Modifica tu review:</string>
+    <string name="modify_comment">Modifica tu comentario:</string>
+    <string name="add_comment">Añade un comentario:</string>
+    <string name="rate_the_location">Puntua la localización:</string>
+    <string name="no_vaccines_are_scheduled">No hay vacunas programadas.</string>
+    <string name="no_medications_are_scheduled">No hay medicamentos programados.</string>
+    <string name="upcoming_medications">Próximos medicamentos:</string>
+    <string name="upcoming_vaccines">Próximas vacunas:</string>
+    <string name="look_for_a_new_vet">Busca un nuevo veterinario</string>
+    <string name="look_for_a_vet_near_you">Busca un veterinario cerca de ti</string>
+    <string name="see_medical_history">Ver historial médico</string>
+    <string name="medical_history">Historial médico</string>
+    <string name="medicines_supplied">Medicamentos suministrados:</string>
+    <string name="vaccines_supplied">Vacunas subministradas:</string>
+    <string name="invi_exists">Invitación ya existe</string>
+    <string name="invi_sent">Invitación enviada</string>
 </resources>

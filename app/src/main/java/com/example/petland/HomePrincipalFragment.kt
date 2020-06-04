@@ -15,7 +15,7 @@ import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.image.ImageUtils
-import com.example.petland.pet.Pets.Companion.getSelectedPet
+import com.example.petland.pet.Pet.Companion.getSelectedPet
 import com.example.petland.pet.ViewPetProfileActivity
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_home_principal.*

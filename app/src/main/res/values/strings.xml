@@ -171,4 +171,27 @@
     <string name="filter_location_text">Show:</string>
     <string name="all">All</string>
     <string name="reviews">Reviews</string>
+    <string name="notsaved">Changes not saved</string>
+    <string name="dialogReview">Are you sure you don\'t want to save your reviews changes?</string>
+    <string name="add_review">Add Review</string>
+    <string name="save_review">Save Review</string>
+    <string name="modify_review">Modify your review:</string>
+    <string name="modify_comment">\"Modify your comment: \"</string>
+    <string name="add_comment">Add a comment:</string>
+    <string name="rate_the_location">Rate the location:</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="no_vaccines_are_scheduled">No vaccines are scheduled</string>
+    <string name="no_medications_are_scheduled">No medications are scheduled</string>
+    <string name="upcoming_medications">Upcoming medications:</string>
+    <string name="upcoming_vaccines">Upcoming vaccines:</string>
+    <string name="look_for_a_new_vet">Look for a new vet</string>
+    <string name="look_for_a_vet_near_you">Look for a vet near you</string>
+    <string name="see_medical_history">See medical history</string>
+    <string name="medical_history">Medical history</string>
+    <string name="medicines_supplied">Medications supplied:</string>
+    <string name="vaccines_supplied">Vaccines supplied:</string>
+    <string name="invi_exists">Invitation already exists</string>
+    <string name="invi_sent">Invitation sent</string>
 </resources>

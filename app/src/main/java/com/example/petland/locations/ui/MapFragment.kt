@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import com.example.petland.R
 import com.example.petland.locations.enums.PlaceTag
 import com.example.petland.locations.model.PetlandLocation
+import com.example.petland.pet.Pet
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -54,6 +55,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         savedInstanceState: Bundle?
     ): View {
         rootView = inflater.inflate(R.layout.fragment_map, container, false)
+        rootView.reviewButton.setOnClickListener { viewReviewActivity(shownLocation) }
         val mapFragment = childFragmentManager.findFragmentById(R.id.frg) as SupportMapFragment
 
         mapFragment.getMapAsync { mMap ->
@@ -77,6 +79,11 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         adapterFilter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         rootView.spinnerLocation.adapter = adapterFilter
         rootView.spinnerLocation.onItemSelectedListener = this
+
+        val bundle = this.arguments
+        if (bundle != null) {
+            rootView.spinnerLocation.setSelection(2)
+        }
 
         return rootView
     }
@@ -102,6 +109,13 @@ class MapFragment : Fragment(), OnMapReadyCallback,
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
                 }
             }
+    }
+    fun viewReviewActivity( shownLocation : PetlandLocation?) {
+        if (shownLocation != null) {
+            val intent = Intent(context, ReviewActivity::class.java).apply {}
+            intent.putExtra("Location", shownLocation)
+            startActivity(intent)
+        }
     }
 
     private fun startLocationUpdates() {
@@ -211,7 +225,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,
         rootView.locationType.text = getPlaceTagTranslated(location.getPlaceTag())
         rootView.locationType.setCompoundDrawablesWithIntrinsicBounds( location.getIcon(), null, null, null)
         rootView.ratingBar.rating = location.getAverageStars().toFloat()
-        rootView.ratingText.text = "(" + location.getAverageStars() + ")"
+        rootView.ratingText.text = "(" + String.format("%.2f", location.getAverageStars())  + ")"
 
         if(location.hasLink()) {
             rootView.locationLink.visibility = View.VISIBLE
@@ -231,8 +245,26 @@ class MapFragment : Fragment(), OnMapReadyCallback,
             rootView.locationGuion.visibility = View.GONE
         }
 
+        if (location.getPlaceTag() == PlaceTag.VETERINARY) {
+            val pet = Pet.getSelectedPet()
+            if (pet.hasVeterinary() && location.objectId == pet.getVeterinary().objectId) {
+                rootView.myVeterinary.visibility = View.VISIBLE
+                rootView.selectVeterinary.visibility = View.GONE
+            }
+            else {
+                rootView.selectVeterinary.setOnClickListener { setVeterinary(location) }
+                rootView.myVeterinary.visibility = View.GONE
+                rootView.selectVeterinary.visibility = View.VISIBLE
+            }
+        }
+        else {
+            rootView.myVeterinary.visibility = View.GONE
+            rootView.selectVeterinary.visibility = View.GONE
+        }
+
         return false
     }
+
 
     private fun getPlaceTagArray() : Array<String?> {
         val array = arrayOfNulls<String>(PlaceTag.values().size + 1)
@@ -272,6 +304,11 @@ class MapFragment : Fragment(), OnMapReadyCallback,
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
+    private fun setVeterinary(location: PetlandLocation) {
+        Pet.getSelectedPet().setVeterinary(location)
+        rootView.myVeterinary.visibility = View.VISIBLE
+        rootView.selectVeterinary.visibility = View.GONE
+    }
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1

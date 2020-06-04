@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.example.petland.Application.Companion.getAppContext
 import com.example.petland.R
@@ -46,15 +45,28 @@ class PetlandLocation : ParseObject() {
     fun getNumberOfReviews() : Int {
         return getInt(N_REVIEWS)
     }
-
-    fun addStars(stars: Int) {
-        val oldAvg = getAverageStars()
-        val newNumber = getNumberOfReviews() + 1
-        val newAvg = if(newNumber == 1) stars.toDouble()
-                    else oldAvg + ((stars - oldAvg) / newNumber)
+    fun modifyStars(stars: Double, oldStars: Double) {
+        var newAvg = 0.0
+        var oldAvg = getAverageStars()
+        val newNumber = getNumberOfReviews()
+        if(newNumber <  2) newAvg = stars
+        else  {
+            oldAvg = ((oldAvg * newNumber) - oldStars) / (newNumber - 1);
+            newAvg = oldAvg + ((stars - oldAvg) / newNumber)
+        }
         put(AVG_STARS, newAvg)
         put(N_REVIEWS, newNumber)
-        save()
+    }
+    fun addStars(stars: Double) {
+        var newAvg = 0.0
+        val oldAvg = getAverageStars()
+        val newNumber = getNumberOfReviews() + 1
+        if(newNumber <  2) newAvg = stars
+        else{
+            newAvg = oldAvg + ((stars - oldAvg) / newNumber)
+        }
+        put(AVG_STARS, newAvg)
+        put(N_REVIEWS, newNumber)
     }
 
     fun hasLink() : Boolean {
@@ -130,7 +142,6 @@ class PetlandLocation : ParseObject() {
         private const val AVG_STARS = "average_stars"
         private const val N_REVIEWS = "review_count"
         private const val LOCATION = "location"
-
 
         fun getAllLocations() : List<PetlandLocation> {
             return getAllLocations(null)
