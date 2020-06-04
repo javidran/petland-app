@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.Toast
@@ -22,15 +23,14 @@ import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventsFragment
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.health.HealthFragment
-import com.example.petland.locations.enums.PlaceTag
+import com.example.petland.locations.ui.MapFragment
 import com.example.petland.mapas.MapsFragment
 import com.example.petland.mapas.TimelineFragment
-import com.example.petland.pet.Pets
-import com.example.petland.pet.Pets.Companion.getNamesFromPetList
-import com.example.petland.pet.Pets.Companion.setSelectedPet
+import com.example.petland.pet.Pet
+import com.example.petland.pet.Pet.Companion.getNamesFromPetList
+import com.example.petland.pet.Pet.Companion.setSelectedPet
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.sign.BootActivity
-import com.example.petland.locations.ui.MapFragment
 import com.example.petland.user_profile.UserProfileFragment
 import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.example.petland.utils.CustomAdapter
@@ -38,10 +38,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
-import com.parse.ParseObject
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.content_home.*
-import kotlinx.android.synthetic.main.fragment_map.*
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -51,14 +49,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var spinner: Spinner
     lateinit var listPets: Array<String>
-    private lateinit var objectpet: List<ParseObject>
+    private lateinit var objectpet: List<Pet>
     lateinit var fragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        if(!Pets.userHasPets()) {
+        if(!Pet.userHasPets()) {
             val intent = Intent(this, GetFirstPetActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             if(intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION) != null && intent.extras?.getBoolean(Application.INVITATION_NOTIFICATION)!!) {
@@ -69,8 +67,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         toolbar = findViewById(R.id.toolbar)
+
         setSupportActionBar(toolbar)
 
+        toolbar.setTitleTextColor(android.graphics.Color.WHITE)
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
 
@@ -128,20 +128,22 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun createSpinnerPet() {
-        objectpet  = Pets.getPetsFromCurrentUser()
+        objectpet  = Pet.getPetsFromCurrentUser()
         listPets = getNamesFromPetList(objectpet.toList())
-
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        createSpinnerPet()
         menuInflater.inflate(R.menu.options_menu, menu)
         val item = menu!!.findItem(R.id.spinner)
         val spinner = item.actionView as Spinner
- 
+
         val customAdapter =
             CustomAdapter(applicationContext, objectpet, listPets)
 
         spinner.adapter = customAdapter
+
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -149,7 +151,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 position: Int,
                 id: Long
             ) {
-                setSelectedPet(parent?.getItemAtPosition(position) as ParseObject)
+                val spinnerLayoutParams: ViewGroup.LayoutParams = spinner.layoutParams
+                spinnerLayoutParams.width -= 2
+                spinnerLayoutParams.height-= 2
+                spinner.layoutParams = spinnerLayoutParams
+                setSelectedPet(parent?.getItemAtPosition(position) as Pet)
                 fragment.onResume()
             }
 
@@ -157,7 +163,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
         }
-        return super.onCreateOptionsMenu(menu)
+        return super.onPrepareOptionsMenu(menu)
     }
 
     private fun clearNotifications() {
@@ -203,13 +209,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transaction.replace(R.id.frameLayout, fragment)
                 transaction.commit()
             }
-            R.id.nav_testing -> {
-                frameLayout.removeAllViews()
-                val intent = Intent(this, TestingActivity::class.java).apply {
-                }
-                startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
+
             R.id.nav_perfil -> {
                 frameLayout.removeAllViews()
                 val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -283,15 +283,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         transaction.replace(R.id.frameLayout, fragment)
         transaction.commit()
-    }
-
-    fun homeAntiguo(view: View) {
-        val intent = Intent(this, TestingActivity::class.java).apply {
-        }
-
-        startActivity(intent)
-        finish()
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     companion object {

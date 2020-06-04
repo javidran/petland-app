@@ -6,12 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
-import com.parse.ParseObject
-import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.user_invitation_element.view.*
 
-class InvitationAdapter(private val invitations: List<ParseObject>, private val viewInvitationsCallback: ViewInvitationsCallback) :
+class InvitationAdapter(private val invitations: List<Invitation>, private val viewInvitationsCallback: ViewInvitationsCallback) :
     RecyclerView.Adapter<InvitationAdapter.InvitationHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): InvitationHolder {
         return InvitationHolder(
@@ -32,23 +30,18 @@ class InvitationAdapter(private val invitations: List<ParseObject>, private val 
         var view: View = v
         val listCallback: ViewInvitationsCallback = viewInvitationsCallback
 
-        private lateinit var invitation: ParseObject
+        private lateinit var invitation: Invitation
 
-        fun bindInvitationInfo(invitation: ParseObject){
-            val pet = invitation.get("petO") as ParseObject
-            val creator = invitation.get("creator") as ParseObject
+        fun bindInvitationInfo(invitation: Invitation){
+            val pet = invitation.getPet()
+            val creator = invitation.getCreator()
             this.invitation = invitation
             val user = ParseUser.getCurrentUser()
 
-            val listUsers = ParseQuery.getQuery<ParseObject>("_User")
-            listUsers.whereEqualTo("objectId", creator.objectId)
-            val listPets = ParseQuery.getQuery<ParseObject>("Pet")
-            listPets.whereEqualTo("objectId", pet.objectId)
             view.buttonAccept.setOnClickListener {
-                val relation = pet.getRelation<ParseUser>("caregivers")
-                relation.add(user)
+                pet.addCaregiver(user)
                 pet.saveInBackground()
-                this.invitation.put("answer", true)
+                this.invitation.setAnswer(true)
                 this.invitation.saveInBackground()
                 listCallback.updateInvitations()
             }
@@ -57,9 +50,9 @@ class InvitationAdapter(private val invitations: List<ParseObject>, private val 
                 listCallback.updateInvitations()
             }
 
-            view.ownerName.text = listUsers.first.get("name") as String
-            view.name.text = listPets.first.get("name") as String
-            ImageUtils.retrieveImage(listPets.first, view.petImageInvitation)
+            view.ownerName.text = creator.getString("name")
+            view.name.text = pet.getName()
+            ImageUtils.retrieveImage(pet, view.petImageInvitation)
         }
     }
 

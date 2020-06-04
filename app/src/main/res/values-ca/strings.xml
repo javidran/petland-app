@@ -183,4 +183,6 @@
     <string name="medical_history">Antecedents mèdics</string>
     <string name="medicines_supplied">Medicaments subministrats</string>
     <string name="vaccines_supplied">Vaccines subministrades:</string>
+    <string name="invi_exists">La invitació ja existeix</string>
+    <string name="invi_sent">Invitació enviada</string>
 </resources>

@@ -18,7 +18,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
-import com.parse.ParseObject
 
 class ViewWalksActivity : AppCompatActivity(), OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener {
@@ -167,7 +166,7 @@ class ViewWalksActivity : AppCompatActivity(), OnMapReadyCallback,
 
     fun drawPolyline(){
         map.clear()
-        val walk = intent.extras?.get("walk") as ParseObject
+        val walk = intent.extras?.get("walk") as Walk
         val polyLine = PolylineOptions().width(5f).color(R.color.colorAccent)
         val latitudes = walk.getList<Double>("locLatitudes")
         val longitudes = walk.getList<Double>("locLongitudes")

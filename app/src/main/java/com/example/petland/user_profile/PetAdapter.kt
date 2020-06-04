@@ -6,14 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
 import com.example.petland.image.ImageUtils
-import com.parse.ParseObject
-import com.parse.ParseQuery
+import com.example.petland.pet.Pet
 import kotlinx.android.synthetic.main.user_profile_pet_element.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class PetAdapter(private val pets: List<ParseObject>, private val viewPetCallback: ViewPetCallback) :
+class PetAdapter(private val pets: List<Pet>, private val viewPetCallback: ViewPetCallback) :
     RecyclerView.Adapter<PetAdapter.PetHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): PetHolder {
@@ -35,40 +34,35 @@ class PetAdapter(private val pets: List<ParseObject>, private val viewPetCallbac
         var view: View = v
         val vpCallback: ViewPetCallback = viewPetCallback
 
-        private lateinit var pet: ParseObject
+        private lateinit var pet: Pet
 
         init {
             v.setOnClickListener(this)
         }
 
-        fun bindPetInfo(pet: ParseObject) {
+        fun bindPetInfo(pet: Pet) {
             this.pet = pet
-            view.editPetElementName.text = pet.get("name") as String
+            view.editPetElementName.text = pet.getName()
 
-             val namerace = pet.get("nameRace") as ParseObject
-
-            val query = ParseQuery.getQuery<ParseObject>("Race")
-            query.whereEqualTo("objectId", namerace.objectId)
-            val result =  query.find().first();
-
-            if(Locale.getDefault().displayLanguage  == "català") {
-                view.race.text = result.get("name_ca").toString()
+            val result =  pet.getFirstRace()
+            when (Locale.getDefault().displayLanguage) {
+                "català" -> {
+                    view.race.text = result.get("name_ca").toString()
+                }
+                "español" -> {
+                    view.race.text = result.get("name").toString()
+                }
+                else -> view.race.text = result.get("name_en").toString()
             }
-            else if (Locale.getDefault().displayLanguage == "español") {
-                view.race.text = result.get("name").toString()
-            }
-            else view.race.text = result.get("name_en").toString()
 
-            val birth = pet.get("birthday")
-            if(birth!=null){
+            if(pet.hasBirthday()){
                 view.birthday.visibility = View.VISIBLE
                 val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-                view.birthday.text = sdf.format(birth)
+                view.birthday.text = sdf.format(pet.getBirthday())
             }
             else {
                 view.birthday.visibility = View.GONE
             }
-
 
             ImageUtils.retrieveImage(pet, view.petImage)
         }

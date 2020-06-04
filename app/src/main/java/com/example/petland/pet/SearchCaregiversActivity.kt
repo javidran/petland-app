@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petland.R
-import com.parse.ParseObject
 import com.parse.ParseQuery
-import com.parse.ParseRelation
 import com.parse.ParseUser
 
 class SearchCaregiversActivity : AppCompatActivity() {
@@ -23,31 +21,18 @@ class SearchCaregiversActivity : AppCompatActivity() {
     }
 
     private fun search() {
-        val myPet = intent.extras?.get("pet") as ParseObject
-        val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
-        val listCaregivers = caregivers.query
-   
+        val myPet = intent.extras?.get("pet") as Pet
         val listUsers = ParseQuery.getQuery<ParseUser>("_User")
         listUsers.orderByAscending("username")
-        listUsers.whereDoesNotMatchKeyInQuery("objectId", "objectId", listCaregivers)
-
+        listUsers.whereDoesNotMatchKeyInQuery("objectId", "objectId", myPet.getCaregiversQuery())
         val list = listUsers.find()
 
-        if (list != null) {
-            viewManager = LinearLayoutManager(this)
-            viewAdapter = CaregiversAdapter(list.toList(), myPet)
-            recyclerView = findViewById<RecyclerView>(R.id.recyclerView2).apply {
-                // use this setting to improve performance if you know that changes
-                // in content do not change the layout size of the RecyclerView
-                setHasFixedSize(true)
-
-                // use a linear layout manager
-                layoutManager = viewManager
-
-                // specify an viewAdapter (see also next example)
-                adapter = viewAdapter
-
-            }
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = CaregiversAdapter(list, myPet)
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerView2).apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
         }
     }
 }
