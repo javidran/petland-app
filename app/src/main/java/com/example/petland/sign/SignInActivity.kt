@@ -1,6 +1,5 @@
 package com.example.petland.sign
 
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -12,7 +11,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -20,7 +18,7 @@ import com.example.petland.Application
 import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.events.model.PetEvent
-import com.example.petland.pet.Pets
+import com.example.petland.pet.Pet
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.utils.ParseError
 import com.parse.ParseObject
@@ -81,7 +79,7 @@ class SignInActivity : AppCompatActivity() {
                 ) { user, e ->
                     if (user != null) {
                         Log.d(TAG, "User logged in correctly.")
-                        if(Pets.userHasPets()){
+                        if(Pet.userHasPets()){
                             val intent = Intent(this, HomeActivity::class.java).apply {}
                             startActivity(intent)
                             finish()

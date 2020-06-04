@@ -1,23 +1,18 @@
 package com.example.petland.health
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.FragmentTransaction
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.events.ui.view.ViewEventActivity
-import kotlinx.android.synthetic.main.activity_edit_event.*
 import kotlinx.android.synthetic.main.activity_medical_history.*
-import kotlinx.android.synthetic.main.content_home.*
-import kotlinx.android.synthetic.main.fragment_health.view.*
 
 class MedicalHistoryActivity : AppCompatActivity(), ViewEventCallback {
 

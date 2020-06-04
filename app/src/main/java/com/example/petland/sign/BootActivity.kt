@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
-import com.example.petland.pet.Pets
+import com.example.petland.pet.Pet
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.utils.ParseError
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -103,7 +103,7 @@ class BootActivity : AppCompatActivity() {
                 }
                 else {
                     // Signed in successfully, show authenticated UI.
-                    if(Pets.userHasPets()){
+                    if(Pet.userHasPets()){
                         val intent = Intent(this, HomeActivity::class.java).apply {}
                         startActivity(intent)
                         finish()

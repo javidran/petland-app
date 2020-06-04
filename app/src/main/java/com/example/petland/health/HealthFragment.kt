@@ -22,7 +22,7 @@ import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.locations.model.PetlandLocation
-import com.parse.ParseObject
+import com.example.petland.pet.Pet
 import kotlinx.android.synthetic.main.fragment_health.view.*
 
 
@@ -67,8 +67,9 @@ class HealthFragment : Fragment(), ViewEventCallback {
     }
 
     private fun createFragment() {
-        val myVet = PetlandLocation.getVeterinary()
-        if (myVet != null) hasVet(myVet)
+        if (Pet.getSelectedPet().hasVeterinary()) {
+            hasVet(Pet.getSelectedPet().getVeterinary())
+        }
         else visibilities(false)
 
         this.adapter = EventAdapter(PetEvent.getEventsFromPetNotDone(FilterEvent.ONLY_VACCINE), requireContext(), this)

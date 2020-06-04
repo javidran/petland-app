@@ -4,7 +4,7 @@ import com.example.petland.Application
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.enums.FilterEvent
-import com.example.petland.pet.Pets
+import com.example.petland.pet.Pet
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -16,13 +16,13 @@ import java.util.*
 @ParseClassName("PetEvent")
 open class PetEvent : ParseObject() {
 
-    fun getPet() : ParseObject {
-        val obj = getParseObject(PET) ?: throw NullPointerException()
-        obj.fetch<ParseObject>()
+    fun getPet() : Pet {
+        val obj = getParseObject(PET) as Pet
+        obj.fetch<Pet>()
         return obj
     }
 
-    fun setPet(pet: ParseObject) {
+    fun setPet(pet: Pet) {
         put(PET, pet)
     }
 
@@ -54,7 +54,7 @@ open class PetEvent : ParseObject() {
 
     fun checkAssignedIsCorrect() : Boolean {
         if(hasAssigned()) {
-            val q = getPet().getRelation<ParseUser>("caregivers").query
+            val q = getPet().getCaregiversQuery()
             val result = q.whereContains("username", getAssigned().username).find()
             if (result.isNotEmpty()) return true
         }
@@ -213,19 +213,19 @@ open class PetEvent : ParseObject() {
         private const val DATA_TYPE = "data_type"
 
         fun getEventsFromPet() : List<PetEvent> {
-            return getEventsFromPet(Pets.getSelectedPet(), FilterEvent.NEWEST_FIRST)
+            return getEventsFromPet(Pet.getSelectedPet(), FilterEvent.NEWEST_FIRST)
         }
 
         fun getEventsFromPet(filter: FilterEvent) : List<PetEvent> {
-            return getEventsFromPet(Pets.getSelectedPet(), filter)
+            return getEventsFromPet(Pet.getSelectedPet(), filter)
         }
 
         fun getEventsFromPetNotDone(filter: FilterEvent) : List<PetEvent> {
-            return getEventsFromPetNotDone(Pets.getSelectedPet(), filter)
+            return getEventsFromPetNotDone(Pet.getSelectedPet(), filter)
         }
 
         fun getEventsFromPetDone(filter: FilterEvent) : List<PetEvent> {
-            return getEventsFromPetDone(Pets.getSelectedPet(), filter)
+            return getEventsFromPetDone(Pet.getSelectedPet(), filter)
         }
 
         fun getEventsFromPet(pet: ParseObject) : List<PetEvent> {
@@ -314,7 +314,7 @@ open class PetEvent : ParseObject() {
         }
 
         fun getEventsFromUser() : List<PetEvent> {
-            val pets = Pets.getPetsFromCurrentUser()
+            val pets = Pet.getPetsFromCurrentUser()
             val events = ArrayList<PetEvent>()
 
             for(p in pets) {

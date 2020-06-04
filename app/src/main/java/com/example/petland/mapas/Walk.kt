@@ -2,7 +2,10 @@ package com.example.petland.mapas
 
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.model.WalkEvent
-import com.parse.*
+import com.parse.ParseClassName
+import com.parse.ParseObject
+import com.parse.ParseQuery
+import com.parse.ParseUser
 import java.text.SimpleDateFormat
 import java.util.*
 

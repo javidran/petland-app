@@ -26,7 +26,6 @@ class SearchCaregiversActivity : AppCompatActivity() {
         val myPet = intent.extras?.get("pet") as ParseObject
         val caregivers: ParseRelation<ParseUser> = myPet.getRelation<ParseUser>("caregivers")
         val listCaregivers = caregivers.query
-   
         val listUsers = ParseQuery.getQuery<ParseUser>("_User")
         listUsers.orderByAscending("username")
         listUsers.whereDoesNotMatchKeyInQuery("objectId", "objectId", listCaregivers)
