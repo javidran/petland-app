@@ -152,7 +152,7 @@ class PetlandLocation : ParseObject() {
             if(placeTag != null) {
                 query.whereEqualTo(PLACE_TAG, placeTag.toString())
             }
-            return query.find().toList()
+            return query.find()
         }
     }
 }
