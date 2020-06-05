@@ -156,4 +156,53 @@
     <string name="assigned_to_no_one">No one</string>
     <string name="error_caregivers_updated">Error: Caregivers have been updated</string>
     <string name="error_caregiver_deleted">Error: The previous assigned caregiver is no longer eligible</string>
+    <string name="distance_value">"Distance: "</string>
+    <string name="time">"Time: "</string>
+    <string name="view_map">View Map</string>
+    <string name="datos_del_paseo">Walk data</string>
+    <string name="noAssignedToEvent">Do not assign to any event</string>
+    <string name="eventPet">one of this events?</string>
+    <string name="walkev">"Is this walk from "</string>
+    <string name="hairdresser">Hairdresser</string>
+    <string name="veterinary">Veterinary</string>
+    <string name="park">Park</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="other">Other</string>
+    <string name="filter_location_text">Show:</string>
+    <string name="all">All</string>
+    <string name="reviews">Reviews</string>
+    <string name="notsaved">Changes not saved</string>
+    <string name="dialogReview">Are you sure you don\'t want to save your reviews changes?</string>
+    <string name="add_review">Add Review</string>
+    <string name="save_review">Save Review</string>
+    <string name="modify_review">Modify your review:</string>
+    <string name="modify_comment">\"Modify your comment: \"</string>
+    <string name="add_comment">Add a comment:</string>
+    <string name="rate_the_location">Rate the location:</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="no_vaccines_are_scheduled">No vaccines are scheduled</string>
+    <string name="no_medications_are_scheduled">No medications are scheduled</string>
+    <string name="upcoming_medications">Upcoming medications:</string>
+    <string name="upcoming_vaccines">Upcoming vaccines:</string>
+    <string name="look_for_a_new_vet">Look for a new vet</string>
+    <string name="look_for_a_vet_near_you">Look for a vet near you</string>
+    <string name="see_medical_history">See medical history</string>
+    <string name="medical_history">Medical history</string>
+    <string name="medicines_supplied">Medications supplied:</string>
+    <string name="vaccines_supplied">Vaccines supplied:</string>
+    <string name="invi_exists">Invitation already exists</string>
+    <string name="invi_sent">Invitation sent</string>
+    <string name="invitation_caregiver">" Accepted caregiver invitations"</string>
+    <string name="new_caregiver">New caregiver invitations</string>
+    <string name="events_pet">You have pet events for today</string>
+    <string name="have_event">have an event the</string>
+    <string name="number_invitations_caregiver">caregiver invitations accepted</string>
+    <string name="accepted_invitations">invitations accepted</string>
+    <string name="invitation_accepted">accepted your invitation to caregive</string>
+    <string name="number_invitations">caregiver invitatios</string>
+    <string name="have">You have</string>
+    <string name="invitation_caregive">invited you to caregive</string>
+    <string name="new_invitations">New invitations to take care of a pet</string>
 </resources>

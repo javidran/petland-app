@@ -2,6 +2,8 @@ package com.example.petland.user_profile
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
+import com.example.petland.pet.Pet
 import com.example.petland.sign.BootActivity
 import com.example.petland.utils.ParseError
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -115,7 +118,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         builder.setPositiveButton((getString(R.string.ok))){dialog, which ->
             Toast.makeText(applicationContext,"Cuenta borrada correctamente",Toast.LENGTH_SHORT).show()
-           deleteUser()
+            deleteUser()
         }
         builder.setNeutralButton(getString(R.string.cancel)){_,_ ->
         }
@@ -127,12 +130,12 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun deleteUser() {
         val user = ParseUser.getCurrentUser()
-        val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.whereEqualTo("owner", user) //Query para obtener todas lƒas mascotas propiedad del user a eliminar, para eliminarlas tambien
+        val query = ParseQuery.getQuery(Pet::class.java)
+        query.whereEqualTo("owner", user) //Query para obtener todas las mascotas propiedad del user a eliminar, para eliminarlas tambien
         query.findInBackground { petsList, e ->
             if (e == null) {
                 for (pet in petsList) {
-                    deletePet(pet)
+                    pet.deletePet()
                 }
                 user.deleteInBackground { e ->
                     if (e == null) {
@@ -142,25 +145,27 @@ class EditProfileActivity : AppCompatActivity() {
                                 .build()
                         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
                         Log.d(TAG,"User correctly deleted!") //Mensaje en logcat
-                        startActivity(Intent(this@EditProfileActivity, BootActivity::class.java))
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                        finish()
                         mGoogleSignInClient.signOut()
+                            .addOnCompleteListener(this) {
+                                val notificationManager =
+                                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                                notificationManager.cancelAll()
+                                val currentUser = ParseUser.getCurrentUser()
+                                if (currentUser != null) {
+                                    Log.d(TAG, getString(R.string.loggedOut)) //Mensaje en logcat
+                                    ParseUser.logOut()
+                                    Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
+                                }
+                                startActivity(Intent(this, BootActivity::class.java).apply {})
+                                finish()
+                                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                            }
                     } else {
                         Log.d(TAG,"An error occurred!") //Mensaje en logcat
                     }
                 }
             } else {
                 Log.d(TAG, "An error happened while retrieving user pets.")
-            }
-        }
-    }
-    private fun deletePet(pet: ParseObject) {
-        pet.deleteInBackground { e ->
-            if (e == null) {
-                Log.d(TAG, "Pet correctly deleted!") //Mensaje en logcat
-            } else {
-                Log.d(TAG, "An error occurred while deleting a pet!") //Mensaje en logcat
             }
         }
     }

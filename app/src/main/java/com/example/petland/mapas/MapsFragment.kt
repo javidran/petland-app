@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +17,10 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.petland.HomeActivity
-import com.example.petland.HomePrincipalFragment
 import com.example.petland.R
-import com.example.petland.pet.Pets
+import com.example.petland.events.enums.FilterEvent
+import com.example.petland.events.model.PetEvent
+import com.example.petland.pet.Pet
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -29,31 +31,32 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.SphericalUtil
-import com.parse.ParseObject
 import com.parse.ParseQuery
-import com.parse.ParseUser
 import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_maps.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class MapsFragment : Fragment(), OnMapReadyCallback,
-    GoogleMap.OnMarkerClickListener{
+    GoogleMap.OnMarkerClickListener {
     private lateinit var map: GoogleMap
     private lateinit var lastLocation: Location
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
     private var locationUpdateState = false
-    private var geoPoints:  MutableList<LatLng> = arrayListOf()
+    private var geoPoints: MutableList<LatLng> = arrayListOf()
     private var zoom = 16f
     private var num: Long = 0
-    private lateinit var  listPets:  Array<String>
+    private lateinit var listPets: Array<String>
     private lateinit var dateIni: Date
     private lateinit var dateEnd: Date
     private lateinit var rootView: View
     private lateinit var distance: TextView
-    private lateinit var listPetsSelected: MutableList<String>
+    private lateinit var listObjectsPet: List<Pet>
+    var selection = ""
+    var time: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,30 +65,30 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         createDialogPets()
 
     }
+
     private fun createDialogPets() {
-        val selectedItems = ArrayList<String>()
+        val selectedItems = ArrayList<Pet>()
         val builder = AlertDialog.Builder(context)
-        val pet : ParseObject = Pets.getSelectedPet()
-        val name : String = pet.get("name").toString()
         builder.setTitle(getString(R.string.walkpet))
-        listPets = Pets.getNamesFromPetList(Pets.getPetsFromCurrentUser())
-        val num : Int = listPets.indexOf(name)
+        listObjectsPet = Pet.getPetsFromCurrentUser()
+        listPets = Pet.getNamesFromPetList(listObjectsPet)
+        val listObjectId = Pet.getIdFromPetsList(listObjectsPet)
+        val num: Int = listObjectId.indexOf(Pet.getSelectedPet().objectId)
         val checkedItems = BooleanArray(listPets.size)
         checkedItems[num] = true
-        selectedItems.add(listPets[num])
+        selectedItems.add(listObjectsPet[num])
         builder.setMultiChoiceItems(listPets, checkedItems) { dialog, which, isChecked ->
-            if(isChecked) {
-                selectedItems.add(listPets[which])
-            }
-            else if (selectedItems.contains(listPets[which])) {
-                selectedItems.removeAt(selectedItems.indexOf(listPets[which]))
+            if (isChecked) {
+                selectedItems.add(listObjectsPet[which])
+            } else if (selectedItems.contains(listObjectsPet[which])) {
+                selectedItems.removeAt(selectedItems.indexOf(listObjectsPet[which]))
             }
         }
 
         builder.setPositiveButton("OK") { dialog, which ->
 
-            listPetsSelected =  selectedItems
-            if (listPetsSelected.size == 0 ) {
+            listObjectsPet = selectedItems
+            if (listObjectsPet.isEmpty()) {
                 val builder = AlertDialog.Builder(context)
                 builder.setMessage(getString(R.string.listNotNull))
                 builder.setPositiveButton("OK") { dialog, which ->
@@ -98,26 +101,25 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
 
         }
 
-            val dialog = builder.create()
-            dialog.setCanceledOnTouchOutside(false)
-            dialog.setCancelable(false)
-            dialog.show()
+        val dialog = builder.create()
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+        dialog.show()
 
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-         rootView = inflater.inflate(R.layout.fragment_maps, container, false)
+        rootView = inflater.inflate(R.layout.fragment_maps, container, false)
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.frg) as SupportMapFragment
         mapFragment.getMapAsync { mMap ->
             mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             map = mMap
-
             onMapReady(map)
-
         }
 
         locationCallback = object : LocationCallback() {
@@ -132,7 +134,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
 
         }
 
-        rootView.buttonFinalizarPaseo.setOnClickListener {endWalkConfirmation()}
+        rootView.buttonFinalizarPaseo.setOnClickListener { endWalkConfirmation() }
 
         createLocationRequest()
         return rootView
@@ -152,7 +154,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         }
         map.isMyLocationEnabled = true
         fusedLocationClient.lastLocation
-            .addOnSuccessListener { location : Location? ->
+            .addOnSuccessListener { location: Location? ->
                 if (location != null) {
                     lastLocation = location
                     val currentLatLng = LatLng(location.latitude, location.longitude)
@@ -188,8 +190,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
             return
         }
 
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null /* Looper */)
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            null /* Looper */
+        )
     }
+
     override fun onMapReady(p0: GoogleMap?) {
         map.uiSettings.isZoomControlsEnabled = false
         zoom = map.cameraPosition.zoom
@@ -203,44 +210,72 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         builder.setTitle(getString(R.string.end_walk))
         builder.setMessage(getString(R.string.end_walk_message))
 
-        builder.setPositiveButton((getString(R.string.ok))){dialog, which ->
-            finalizarPaseo()
+        builder.setPositiveButton((getString(R.string.ok))) { dialog, which ->
+            ShowEventDialog()
+
         }
-        builder.setNeutralButton(getString(R.string.cancel)){_,_ ->
+        builder.setNeutralButton(getString(R.string.cancel)) { _, _ ->
         }
         val dialog: AlertDialog = builder.create()
 
         dialog.show()
     }
 
-     private fun finalizarPaseo() {
+    private fun ShowEventDialog() {
+        selection = ""
+        time = SystemClock.elapsedRealtime() - chronometer.base
+        chronometer.stop()
+        dateEnd = Calendar.getInstance().time
+        for (pets in listObjectsPet) {
+            val query = ParseQuery.getQuery<Pet>(Pet::class.java)
+            query.whereEqualTo("objectId", pets.objectId)
+            val result = query.find().first()
+            val listEventsPet = ArrayList<PetEvent>()
+            val petEvents = PetEvent.getEventsFromPet(result, FilterEvent.ONLY_WALK)
 
-         val time: Long =
-             SystemClock.elapsedRealtime() - chronometer.base
-         chronometer.stop()
-         dateEnd = Calendar.getInstance().time
-         val walk = ParseObject.create("Walk")
-         walk.put("user", ParseUser.getCurrentUser())
-         val query = ParseQuery.getQuery<ParseObject>("Pet")
-         for (pets in listPetsSelected) {
-         query.whereEqualTo("name", pets)
-         val result = query.find().first()
-             val relation = walk.getRelation<ParseObject>("pets")
-             relation.add(result)
+            for (event in petEvents) {
+                val sdf = SimpleDateFormat("dd/MM/yy", Locale.US)
+                if (sdf.format(event.getDate()) == sdf.format(dateIni) && !event.isDone()) {
+                    listEventsPet.add(event)
+                }
+            }
+            if (listEventsPet.isNotEmpty()) {
+                val dateEvents = ArrayList<String>()
+                for (event in listEventsPet) {
+                    val sdf = SimpleDateFormat("dd/MM HH:mm", Locale.US)
+                    dateEvents.add(sdf.format(event.getDate()))
+                }
+                dateEvents.add(getString(R.string.noAssignedToEvent))
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle(getString(R.string.walkev) + pets.getName() +  " " + getString(R.string.eventPet))
+                builder.setItems(dateEvents.toArray(arrayOfNulls<String>(0))) { dialog, which ->
+                    selection = dateEvents[which]
+                    val walk = Walk()
+                    walk.createWalk(dateEnd, dateIni, time.toInt(),
+                        distance.text as String, getLatitudes(),getLongitudes(),selection,listEventsPet,pets)
+                }
+                val dialog = builder.create()
+                dialog.setCanceledOnTouchOutside(false)
+                dialog.setCancelable(false)
+                dialog.show()
+            }
+            else {
+                val walk = Walk()
+                walk.createWalk(dateEnd, dateIni, time.toInt(),
+                    distance.text as String, getLatitudes(),getLongitudes(),selection,listEventsPet, pets)
+            }
         }
-         walk.put("startDate", dateIni)
-         walk.put("endDate", dateEnd)
-         walk.put("duration", time.toInt())
-         walk.put("distance", distance.text)
-         walk.put("locLatitudes", getLatitudes())
-         walk.put("locLongitudes", getLongitudes())
-         walk.saveInBackground()
+        changeToHomePrincipalFragment()
+    }
 
-         (activity as HomeActivity).volverHome()
-     }
+
+    fun changeToHomePrincipalFragment() {
+        (activity as HomeActivity).volverHome()
+    }
+
 
     private fun getLatitudes(): MutableList<Double> {
-        val latitudes:  MutableList<Double> = arrayListOf()
+        val latitudes: MutableList<Double> = arrayListOf()
 
         for (z in geoPoints.indices) {
             val point = geoPoints[z].latitude
@@ -250,7 +285,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     }
 
     private fun getLongitudes(): MutableList<Double> {
-        val longitudes:  MutableList<Double> = arrayListOf()
+        val longitudes: MutableList<Double> = arrayListOf()
 
         for (z in geoPoints.indices) {
             val point = geoPoints[z].longitude
@@ -284,8 +319,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                 try {
                     // Show the dialog by calling startResolutionForResult(),
                     // and check the result in onActivityResult().
-                    e.startResolutionForResult(activity,
-                        REQUEST_CHECK_SETTINGS)
+                    e.startResolutionForResult(
+                        activity,
+                        REQUEST_CHECK_SETTINGS
+                    )
                 } catch (sendEx: IntentSender.SendIntentException) {
                     // Ignore the error.
                 }
@@ -300,7 +337,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         if (requestCode == REQUEST_CHECK_SETTINGS) {
             if (resultCode == RESULT_OK) {
                 locationUpdateState = true
-
                 startLocationUpdates()
             }
         }
@@ -311,13 +347,15 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
-     override fun onResume() {
-         super.onResume()
-         if (!locationUpdateState) {
-             startLocationUpdates()
-         }
-     }
-    fun drawPolyline(){
+    override fun onResume() {
+        super.onResume()
+        if (locationUpdateState) {
+            onMapReady(map)
+            startLocationUpdates()
+        }
+    }
+
+    fun drawPolyline() {
         map.clear()
         val polyLine = PolylineOptions().width(5f).color(R.color.colorAccent)
 
@@ -326,7 +364,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
             polyLine.add(point)
         }
         distance = rootView.findViewById(R.id.distance)
-        distance.text =  String.format("%.2f", (SphericalUtil.computeLength(geoPoints)/1000))
+        distance.text = String.format("%.2f", (SphericalUtil.computeLength(geoPoints) / 1000))
         map.addPolyline(polyLine)
     }
 
@@ -335,6 +373,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val REQUEST_CHECK_SETTINGS = 2
+
         @JvmStatic
         fun newInstance() =
             MapsFragment().apply {}

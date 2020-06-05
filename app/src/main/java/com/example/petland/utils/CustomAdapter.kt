@@ -39,7 +39,7 @@ class CustomAdapter(
     ): View {
 
         val viewpet: View = inflter.inflate(R.layout.spinner_selection_pet, null)
-        val names = viewpet.editPetName
+       val names = viewpet.editPetName
 
         ImageUtils.retrieveImage(objectpet[i], viewpet.userImage)
         names.text = petNames[i]

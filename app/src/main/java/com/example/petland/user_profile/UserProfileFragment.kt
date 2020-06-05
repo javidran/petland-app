@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.R
 import com.example.petland.image.ImageActivity
 import com.example.petland.image.ImageUtils
-import com.example.petland.pet.Pets
+import com.example.petland.pet.Pet
 import com.example.petland.pet.ViewPetProfileActivity
 import com.example.petland.pet.creation.AddPetActivity
 import com.example.petland.user_profile.invitations.ViewInvitationsActivity
@@ -102,7 +102,7 @@ class UserProfileFragment : Fragment(), ViewPetCallback {
     }
 
     private fun updatePets() {
-        val petlist = Pets.getPetsFromCurrentUser()
+        val petlist = Pet.getPetsFromCurrentUser()
         adapter = PetAdapter(petlist, this)
         rootView.recyclerView.adapter = adapter
     }

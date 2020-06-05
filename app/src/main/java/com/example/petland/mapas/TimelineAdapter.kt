@@ -14,7 +14,7 @@ import java.util.*
 
 
 class TimelineAdapter(
-    private val walks: List<ParseObject>,
+    private val walks: List<Walk>,
     private val viewWalkCallback: ViewWalkCallback
 ) :
     RecyclerView.Adapter<TimelineAdapter.WalkHolder>() {
@@ -35,7 +35,7 @@ class TimelineAdapter(
 
     class WalkHolder(v: View, viewWalkCallback: ViewWalkCallback) : RecyclerView.ViewHolder(v), View.OnClickListener {
         var view: View = v
-        private lateinit var walk: ParseObject
+        private lateinit var walk: Walk
 
         private val vwCallback: ViewWalkCallback = viewWalkCallback
 
@@ -43,7 +43,7 @@ class TimelineAdapter(
             v.setOnClickListener(this)
         }
 
-        fun bindWalkHolder(walk: ParseObject) {
+        fun bindWalkHolder(walk: Walk) {
             this.walk = walk
             var num = walk.getNumber("duration") as Int
             num = num.div(60000) as Int

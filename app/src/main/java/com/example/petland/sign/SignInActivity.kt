@@ -1,6 +1,5 @@
 package com.example.petland.sign
 
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -12,7 +11,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -20,7 +18,7 @@ import com.example.petland.Application
 import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.events.model.PetEvent
-import com.example.petland.pet.Pets
+import com.example.petland.pet.Pet
 import com.example.petland.pet.creation.GetFirstPetActivity
 import com.example.petland.utils.ParseError
 import com.parse.ParseObject
@@ -81,7 +79,7 @@ class SignInActivity : AppCompatActivity() {
                 ) { user, e ->
                     if (user != null) {
                         Log.d(TAG, "User logged in correctly.")
-                        if(Pets.userHasPets()){
+                        if(Pet.userHasPets()){
                             val intent = Intent(this, HomeActivity::class.java).apply {}
                             startActivity(intent)
                             finish()
@@ -117,21 +115,21 @@ class SignInActivity : AppCompatActivity() {
 
     private fun createNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name: CharSequence = "Nuevas invitaciones a cuidador"
+            val name: CharSequence = getString(R.string.new_caregiver)
             val notificationChannel =
                 NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT)
             val notificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(notificationChannel)
 
-            val name2: CharSequence = "Invitaciones a cuidador aceptadas"
+            val name2: CharSequence = getString(R.string.invitation_caregiver)
             val notificationChannelX =
                 NotificationChannel(CHANNEL_IDX, name2, NotificationManager.IMPORTANCE_DEFAULT)
             val notificationManagerX =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManagerX.createNotificationChannel(notificationChannelX)
 
-            val name3: CharSequence = "Eventos"
+            val name3: CharSequence = getString(R.string.events)
             val notificationChannelY =
                 NotificationChannel(CHANNEL_IDY, name3, NotificationManager.IMPORTANCE_DEFAULT)
             val notificationManagerY =
@@ -156,7 +154,7 @@ class SignInActivity : AppCompatActivity() {
                         pet.fetch<ParseObject>()
                         val creatorN: String? = creator.getString("name")
                         val petN: String? = pet.getString("name")
-                        events[num] = ("$creatorN te ha invitado a ser cuidador de $petN")
+                        events[num] = ("$creatorN" + " " +  getString(R.string.invitation_caregive) + " " + "$petN")
                     }
 
                     val intent = Intent(this, HomeActivity::class.java).apply {
@@ -167,7 +165,7 @@ class SignInActivity : AppCompatActivity() {
 
                     val inboxStyle =
                         NotificationCompat.InboxStyle()
-                    inboxStyle.setBigContentTitle("Nuevas invitaciones para cuidar una mascota")
+                    inboxStyle.setBigContentTitle(getString(R.string.new_invitations))
 
                     for (element in events) {
                         inboxStyle.addLine(element)
@@ -175,8 +173,8 @@ class SignInActivity : AppCompatActivity() {
 
                     val builder = NotificationCompat.Builder(this, CHANNEL_ID)
                         .setSmallIcon(R.drawable.animal_paw)
-                        .setContentTitle("Nuevas invitaciones para cuidar una mascota")
-                        .setContentText("Tienes "+ invitationsList.size + " invitaciones de cuidador")
+                        .setContentTitle(getString(R.string.new_invitations))
+                        .setContentText(getString(R.string.have)+ " " + invitationsList.size + " " + getString(R.string.number_invitations))
                         .setStyle( inboxStyle )
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent)
@@ -204,20 +202,21 @@ class SignInActivity : AppCompatActivity() {
                         creator.fetch<ParseObject>()
                         val pet = i.get("petO") as ParseObject
                         pet.fetch<ParseObject>()
-                        events[num] = ("" + creator.getString("name") + " ha aceptado tu invitació para ser cuidador de " + pet.getString("name"))
+                        events[num] = ("" + creator.getString("name") + " " + getString(R.string.invitation_accepted) + " " +  pet.getString("name"))
                     }
 
                     val inboxStyle =
                         NotificationCompat.InboxStyle()
-                    inboxStyle.setBigContentTitle("Invitaciones aceptadas")
+                    inboxStyle.setBigContentTitle(getString(R.string.accepted_invitations))
                     for (element in events) {
                         inboxStyle.addLine(element)
                     }
 
                     val builder = NotificationCompat.Builder(this, CHANNEL_IDX)
                         .setSmallIcon(R.drawable.animal_paw)
-                        .setContentTitle("Invitaciones aceptadas")
-                        .setContentText("Tienes " + invitationsList.size + " invitaciones aceptadas de cuidadores de mascota")
+                        .setContentTitle(getString(R.string.accepted_invitations))
+                        .setContentText(getString(R.string.have) + " " + invitationsList.size + " " + getString(
+                                                    R.string.number_invitations_caregiver))
                         .setStyle( inboxStyle )
                         .setColor(Color.CYAN)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -250,9 +249,9 @@ class SignInActivity : AppCompatActivity() {
             if ( today < eventDate &&  eventDate < tomorrow) {
                 if (!mostrar) {mostrar = true}
                 val pet = i.getPet()
-                val sdf = SimpleDateFormat("HH:mm aa", Locale.US)
+                val sdf = SimpleDateFormat(" dd/MM/yyyy HH:mm aa", Locale.US)
                 events[num] =
-                    ("" + pet.getString("name") + " tiene un evento a las " + sdf.format(eventDate) + "")
+                    ("" + pet.getString("name")   +  " " + getString(R.string.have_event) + " " + sdf.format(eventDate) + "")
             }
         }
 
@@ -264,15 +263,15 @@ class SignInActivity : AppCompatActivity() {
             val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 20, intent, 0)
 
             val inboxStyle = NotificationCompat.InboxStyle()
-            inboxStyle.setBigContentTitle("Eventos")
+            inboxStyle.setBigContentTitle(getString(R.string.events))
             for (element in events) {
                 inboxStyle.addLine(element)
             }
 
             val builder = NotificationCompat.Builder(this, CHANNEL_IDY)
                 .setSmallIcon(R.drawable.animal_paw)
-                .setContentTitle("Evento")
-                .setContentText("Tienes eventos de mascotas para hoy")
+                .setContentTitle(getString(R.string.events))
+                .setContentText(getString(R.string.events_pet))
                 .setStyle(inboxStyle)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)

@@ -12,15 +12,14 @@ import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.model.PetEvent
 import com.example.petland.events.ui.callback.SaveDataCallback
-import com.example.petland.pet.Pets
-import com.parse.ParseObject
+import com.example.petland.pet.Pet
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_create_event.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    private lateinit var petList: List<ParseObject>
+    private lateinit var petList: List<Pet>
     private lateinit var caregiversList: List<ParseUser>
     private lateinit var event: PetEvent
     private lateinit var callback: SaveDataCallback
@@ -56,13 +55,13 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         spinnerEventType.adapter = adapter
         spinnerEventType.onItemSelectedListener = this
 
-        petList = Pets.getPetsFromCurrentUser()
-        event.setPet(Pets.getSelectedPet())
+        petList = Pet.getPetsFromCurrentUser()
+        event.setPet(Pet.getSelectedPet())
 
         spinnerPet = findViewById(R.id.spinnerPet)
         val adapterPet = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item, Pets.getNamesFromPetList(petList)
+            android.R.layout.simple_spinner_item, Pet.getNamesFromPetList(petList)
         )
         adapterPet.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerPet.adapter = adapterPet
@@ -211,8 +210,8 @@ class CreateEventActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
     }
 
     private fun setAssignedAdapter() {
-        caregiversList = Pets.getCaregiversFromPet(event.getPet())
-        val arrayAssigned  = ArrayList(Pets.getCaregiversNamesFromPet(event.getPet()))
+        caregiversList = Pet.getCaregiversFromPet(event.getPet())
+        val arrayAssigned  = ArrayList(Pet.getCaregiversNamesFromPet(event.getPet()))
         arrayAssigned.add(0, getString(R.string.assigned_to_no_one))
         val adapterAssigned = ArrayAdapter(
             this,

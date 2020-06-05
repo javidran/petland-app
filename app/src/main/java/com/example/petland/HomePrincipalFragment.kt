@@ -1,6 +1,5 @@
 package com.example.petland
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petland.events.enums.FilterEvent
 import com.example.petland.events.model.PetEvent
@@ -17,8 +15,8 @@ import com.example.petland.events.ui.EventAdapter
 import com.example.petland.events.ui.callback.ViewEventCallback
 import com.example.petland.events.ui.view.ViewEventActivity
 import com.example.petland.image.ImageUtils
-import com.example.petland.mapas.MapsFragment
-import com.example.petland.pet.Pets.Companion.getSelectedPet
+import com.example.petland.pet.Pet
+import com.example.petland.pet.Pet.Companion.getSelectedPet
 import com.example.petland.pet.ViewPetProfileActivity
 import com.parse.ParseObject
 import kotlinx.android.synthetic.main.fragment_home_principal.*
@@ -69,12 +67,14 @@ class HomePrincipalFragment : Fragment(), ViewEventCallback {
 
     private fun setPetInfo() {
        val pet = getSelectedPet()
+        pet.fetch<Pet>()
 
         val petNameText: TextView = rootView.findViewById(R.id.petName)
-        petNameText.text = pet.get("name").toString()
+        petNameText.text = pet.getName().toString()
 
         val birthDayText: TextView = rootView.findViewById(R.id.birthday)
-        birthDayText.text = sdf.format(pet.get("birthday"))
+        if (pet.hasBirthday()) birthDayText.text = sdf.format(pet.getBirthday())
+        else birthDayText.visibility = View.INVISIBLE
 
         val textWalkCard: Button = rootView.findViewById(R.id.textWalkCard)
         textWalkCard.text = PetEvent.getNextWalkEventDate(getSelectedPet())

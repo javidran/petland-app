@@ -14,12 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.HomeActivity
 import com.example.petland.R
 import com.example.petland.image.ImageOnCreationActivity
-import com.parse.ParseFile
-import com.parse.ParseObject
+import com.example.petland.pet.Pet
 import com.parse.ParseQuery
 import com.parse.ParseUser
 import kotlinx.android.synthetic.main.activity_add_pet.*
-import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,9 +25,9 @@ import java.util.*
 class AddPetActivity : AppCompatActivity() {
     private val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
     lateinit var date: Date
-    lateinit var raceobj: ParseObject
-    lateinit var raceobjopt: ParseObject
-    lateinit var animalspeciesobj: ParseObject
+    lateinit var raceobj: Race
+    lateinit var raceobjopt: Race
+    lateinit var animalspeciesobj: AnimalSpecies
     lateinit var check: CheckBox
     private var checkedRace: Boolean = false
 
@@ -53,7 +51,7 @@ class AddPetActivity : AppCompatActivity() {
 
         textViewBirthday.setOnClickListener {
             val dialog = DatePickerDialog(
-                this@AddPetActivity, dateSetListener,
+                this, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)
@@ -116,7 +114,7 @@ class AddPetActivity : AppCompatActivity() {
     }
 
 
-    private fun addElementsToSpinnerRace(animalSpecies: ParseObject) {
+    private fun addElementsToSpinnerRace(animalSpecies: AnimalSpecies) {
         val listRace: ArrayList<String> = ArrayList()
         val query = ParseQuery.getQuery(Race::class.java)
         query.whereEqualTo("nameSpecie", animalSpecies)
@@ -206,32 +204,31 @@ class AddPetActivity : AppCompatActivity() {
         when {
             TextUtils.isEmpty(textPetName.text) -> {
                 textPetName.error = getString(R.string.petNameNeeded)
+                }
+              TextUtils.isEmpty(editTextBirthday.text) ->  {
+                  editTextBirthday.error = getString(R.string.birthdayNeeded)
             }
             else -> {
                 val currentUser = ParseUser.getCurrentUser()
 
-                val pet = ParseObject("Pet")
-                pet.put("name", textPetName.text.toString())
-                if (!TextUtils.isEmpty(textViewBirthday.text)) pet.put("birthday", date)
-                if (!TextUtils.isEmpty(chipNumber.text)) pet.put(
-                    "chip",
-                    Integer.valueOf(chipNumber.text.toString())
-                )
-                pet.put("owner", currentUser)
+                val pet = Pet()
+                pet.setName(textPetName.text.toString())
+                if (!TextUtils.isEmpty(textViewBirthday.text)) pet.setBirthday(date)
+                if (!TextUtils.isEmpty(chipNumber.text))
+                    pet.setChipNumber(Integer.valueOf(chipNumber.text.toString()))
+                pet.setOwner(currentUser)
                 putImage(pet)
-                pet.put("nameSpecie", animalspeciesobj)
+                pet.setSpecie(animalspeciesobj)
                 if (checkedRace && raceobj.objectId == raceobjopt.objectId) {
                     Toast.makeText(
-                        this@AddPetActivity,
+                        this,
                         getString(R.string.samerace),
                         Toast.LENGTH_LONG
                     ).show()
                 } else {
-                    if (checkedRace) pet.put("nameRaceopt", raceobjopt)
-                    pet.put("nameRace", raceobj)
-                    val relation = pet.getRelation<ParseUser>("caregivers")
-                    relation.add(currentUser)
-                    pet.save()
+                    if (checkedRace) pet.setSecondRace(raceobjopt)
+                    pet.setFirstRace(raceobj)
+                    pet.savePet()
 
                     val intent = Intent(this, HomeActivity::class.java).apply {}
                     startActivity(intent)
@@ -245,16 +242,11 @@ class AddPetActivity : AppCompatActivity() {
         }
     }
 
-    private fun putImage(pet: ParseObject) {
+    private fun putImage(pet: Pet) {
         if(image != null) {
-            val byteArrayOutputStream = ByteArrayOutputStream()
-            image!!.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-            val bytes = byteArrayOutputStream.toByteArray()
-            val file = ParseFile("profileImage.png", bytes)
-            file.save()
-            pet.put("image", file)
+            pet.setImage(image!!)
         } else {
-            pet.remove("image")
+            pet.removeImage()
         }
     }
 
@@ -283,6 +275,7 @@ class AddPetActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == ImageOnCreationActivity.PICK_IMAGE) {

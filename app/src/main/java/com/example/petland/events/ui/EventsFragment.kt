@@ -42,7 +42,7 @@ class EventsFragment : Fragment(), ViewEventCallback, AdapterView.OnItemSelected
 
     override fun onResume() {
         super.onResume()
-        adapter = EventAdapter(PetEvent.getEventsFromPet(filter), context!!, this)
+        adapter = EventAdapter(PetEvent.getEventsFromPet(filter), requireContext(), this)
         rootView.recyclerViewEvents.adapter = adapter
     }
 
@@ -98,7 +98,7 @@ class EventsFragment : Fragment(), ViewEventCallback, AdapterView.OnItemSelected
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         filter = getFilterToEnum(parent?.getItemAtPosition(position).toString())
-        adapter = EventAdapter(PetEvent.getEventsFromPet(filter), context!!, this)
+        adapter = EventAdapter(PetEvent.getEventsFromPet(filter), requireContext(), this)
         rootView.recyclerViewEvents.adapter = adapter
     }
 

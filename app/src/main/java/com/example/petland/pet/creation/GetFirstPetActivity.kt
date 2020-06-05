@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.Application
 import com.example.petland.HomeActivity
 import com.example.petland.R
-import com.example.petland.pet.Pets
+import com.example.petland.pet.Pet
 import com.example.petland.sign.BootActivity
 import com.example.petland.user_profile.invitations.ViewInvitationsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -44,7 +44,7 @@ class GetFirstPetActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if(Pets.userHasPets()){
+        if(Pet.userHasPets()){
             val intent = Intent(this, HomeActivity::class.java).apply {}
             startActivity(intent)
             finish()

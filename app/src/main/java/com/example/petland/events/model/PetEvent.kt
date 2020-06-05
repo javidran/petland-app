@@ -4,7 +4,7 @@ import com.example.petland.Application
 import com.example.petland.R
 import com.example.petland.events.enums.EventType
 import com.example.petland.events.enums.FilterEvent
-import com.example.petland.pet.Pets
+import com.example.petland.pet.Pet
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseQuery
@@ -16,13 +16,13 @@ import java.util.*
 @ParseClassName("PetEvent")
 open class PetEvent : ParseObject() {
 
-    fun getPet() : ParseObject {
-        val obj = getParseObject(PET) ?: throw NullPointerException()
-        obj.fetch<ParseObject>()
+    fun getPet() : Pet {
+        val obj = getParseObject(PET) as Pet
+        obj.fetch<Pet>()
         return obj
     }
 
-    fun setPet(pet: ParseObject) {
+    fun setPet(pet: Pet) {
         put(PET, pet)
     }
 
@@ -54,7 +54,7 @@ open class PetEvent : ParseObject() {
 
     fun checkAssignedIsCorrect() : Boolean {
         if(hasAssigned()) {
-            val q = getPet().getRelation<ParseUser>("caregivers").query
+            val q = getPet().getCaregiversQuery()
             val result = q.whereContains("username", getAssigned().username).find()
             if (result.isNotEmpty()) return true
         }
@@ -123,7 +123,6 @@ open class PetEvent : ParseObject() {
         query.whereEqualTo("objectId", objId)
         return query.find().first()
     }
-
     fun getDataDuplicate() : ParseObject {
         when(getDataType()) {
             EventType.FOOD -> {
@@ -214,11 +213,19 @@ open class PetEvent : ParseObject() {
         private const val DATA_TYPE = "data_type"
 
         fun getEventsFromPet() : List<PetEvent> {
-            return getEventsFromPet(Pets.getSelectedPet(), FilterEvent.NEWEST_FIRST)
+            return getEventsFromPet(Pet.getSelectedPet(), FilterEvent.NEWEST_FIRST)
         }
 
         fun getEventsFromPet(filter: FilterEvent) : List<PetEvent> {
-            return getEventsFromPet(Pets.getSelectedPet(), filter)
+            return getEventsFromPet(Pet.getSelectedPet(), filter)
+        }
+
+        fun getEventsFromPetNotDone(filter: FilterEvent) : List<PetEvent> {
+            return getEventsFromPetNotDone(Pet.getSelectedPet(), filter)
+        }
+
+        fun getEventsFromPetDone(filter: FilterEvent) : List<PetEvent> {
+            return getEventsFromPetDone(Pet.getSelectedPet(), filter)
         }
 
         fun getEventsFromPet(pet: ParseObject) : List<PetEvent> {
@@ -230,6 +237,7 @@ open class PetEvent : ParseObject() {
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)
             query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            query.whereEqualTo(DONE_DATE, null)
             query.orderByDescending(DATE)
 
             if (query.count() == 0 ) {
@@ -242,19 +250,14 @@ open class PetEvent : ParseObject() {
         }
 
         fun getEventsWithoutWalk(pet: ParseObject) : List<PetEvent> {
-            val listPet: MutableList<PetEvent> = ArrayList()
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)
             query.whereNotEqualTo(DATA_TYPE, "WalkEvent")
-            query.orderByDescending(DATE)
-            val objects = query.find()
-            for(pets in objects) {
-                if(!pets.isDone()) {
-                    listPet.add(pets)
-                }
-            }
-            return listPet
+            query.whereEqualTo(DONE_DATE, null)
+            query.orderByAscending(DATE)
+            return query.find().toList()
         }
+
         fun getEventsFromPet(pet: ParseObject, filter: FilterEvent) : List<PetEvent> {
             val query = ParseQuery.getQuery(PetEvent::class.java)
             query.whereEqualTo(PET, pet)
@@ -271,8 +274,42 @@ open class PetEvent : ParseObject() {
             return query.find().toList()
         }
 
+        fun getEventsFromPetNotDone(pet: ParseObject, filter: FilterEvent) : List<PetEvent> {
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo(PET, pet)
+            when(filter) {
+                FilterEvent.NEWEST_FIRST -> query.orderByDescending(DATE)
+                FilterEvent.OLDEST_FIRST -> query.orderByAscending(DATE)
+                FilterEvent.ONLY_FOOD -> query.whereEqualTo(DATA_TYPE, "FoodEvent")
+                FilterEvent.ONLY_VACCINE -> query.whereEqualTo(DATA_TYPE, "VaccineEvent")
+                FilterEvent.ONLY_MEDICINE -> query.whereEqualTo(DATA_TYPE, "MedicineEvent")
+                FilterEvent.ONLY_MEASUREMENT -> query.whereEqualTo(DATA_TYPE, "MeasurementEvent")
+                FilterEvent.ONLY_HYGIENE -> query.whereEqualTo(DATA_TYPE, "HygieneEvent")
+                FilterEvent.ONLY_WALK -> query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            }
+            query.whereEqualTo(DONE_DATE, null)
+            return query.find().toList()
+        }
+
+        fun getEventsFromPetDone(pet: ParseObject, filter: FilterEvent) : List<PetEvent> {
+            val query = ParseQuery.getQuery(PetEvent::class.java)
+            query.whereEqualTo(PET, pet)
+            when(filter) {
+                FilterEvent.NEWEST_FIRST -> query.orderByDescending(DATE)
+                FilterEvent.OLDEST_FIRST -> query.orderByAscending(DATE)
+                FilterEvent.ONLY_FOOD -> query.whereEqualTo(DATA_TYPE, "FoodEvent")
+                FilterEvent.ONLY_VACCINE -> query.whereEqualTo(DATA_TYPE, "VaccineEvent")
+                FilterEvent.ONLY_MEDICINE -> query.whereEqualTo(DATA_TYPE, "MedicineEvent")
+                FilterEvent.ONLY_MEASUREMENT -> query.whereEqualTo(DATA_TYPE, "MeasurementEvent")
+                FilterEvent.ONLY_HYGIENE -> query.whereEqualTo(DATA_TYPE, "HygieneEvent")
+                FilterEvent.ONLY_WALK -> query.whereEqualTo(DATA_TYPE, "WalkEvent")
+            }
+            query.whereNotEqualTo(DONE_DATE, null)
+            return query.find().toList()
+        }
+
         fun getEventsFromUser() : List<PetEvent> {
-            val pets = Pets.getPetsFromCurrentUser()
+            val pets = Pet.getPetsFromCurrentUser()
             val events = ArrayList<PetEvent>()
 
             for(p in pets) {
