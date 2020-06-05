@@ -52,7 +52,7 @@
     <string name="petName">Nombre de tu mascota</string>
     <string name="petsbirthday">Cumpleaños de tu mascota</string>
     <string name="chip">Chip</string>
-    <string name="createNewPet">Registrar my mascota</string>
+    <string name="createNewPet">Registrar mi mascota</string>
     <string name="cancel">Cancelar</string>
     <string name="profileCreatedCorrectly">Perfil creado correctamente</string>
     <string name="petCaregivers"> Cuidadores</string>

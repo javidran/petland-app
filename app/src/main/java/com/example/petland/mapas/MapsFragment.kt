@@ -54,7 +54,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private lateinit var dateEnd: Date
     private lateinit var rootView: View
     private lateinit var distance: TextView
-    private lateinit var listPetsSelected: MutableList<String>
     private lateinit var listObjectsPet: List<Pet>
     var selection = ""
     var time: Long = 0
@@ -248,7 +247,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
                 }
                 dateEvents.add(getString(R.string.noAssignedToEvent))
                 val builder = AlertDialog.Builder(context)
-                builder.setTitle(getString(R.string.walkev) + pets + getString(R.string.eventPet))
+                builder.setTitle(getString(R.string.walkev) + pets.getName() +  " " + getString(R.string.eventPet))
                 builder.setItems(dateEvents.toArray(arrayOfNulls<String>(0))) { dialog, which ->
                     selection = dateEvents[which]
                     val walk = Walk()
@@ -271,7 +270,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
 
 
     fun changeToHomePrincipalFragment() {
-       (activity as HomeActivity).volverHome()
+        (activity as HomeActivity).volverHome()
     }
 
 
