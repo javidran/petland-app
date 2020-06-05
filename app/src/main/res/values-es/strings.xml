@@ -194,6 +194,6 @@
     <string name="invitation_accepted">\" ha aceptado tu invitació para ser cuidador de \"</string>
     <string name="accepted_invitations">Invitaciones aceptadas</string>
     <string name="number_invitations_caregiver">\" invitaciones aceptadas de cuidadores de mascota\"</string>
-    <string name="have_event">\" tiene un evento a las \"</string>
+    <string name="have_event">" tiene un evento el"</string>
     <string name="events_pet">Tienes eventos de mascotas para hoy</string>
 </resources>

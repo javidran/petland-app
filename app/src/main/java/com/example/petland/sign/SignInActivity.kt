@@ -249,7 +249,7 @@ class SignInActivity : AppCompatActivity() {
             if ( today < eventDate &&  eventDate < tomorrow) {
                 if (!mostrar) {mostrar = true}
                 val pet = i.getPet()
-                val sdf = SimpleDateFormat("HH:mm aa", Locale.US)
+                val sdf = SimpleDateFormat(" dd/MM/yyyy HH:mm aa", Locale.US)
                 events[num] =
                     ("" + pet.getString("name")   +  " " + getString(R.string.have_event) + " " + sdf.format(eventDate) + "")
             }

@@ -132,6 +132,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         listPets = getNamesFromPetList(objectpet.toList())
     }
 
+    override fun onResume() {
+        super.onResume()
+        invalidateOptionsMenu()
+    }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         createSpinnerPet()
