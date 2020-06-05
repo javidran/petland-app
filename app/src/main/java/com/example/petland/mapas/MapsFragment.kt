@@ -54,7 +54,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback,
     private lateinit var dateEnd: Date
     private lateinit var rootView: View
     private lateinit var distance: TextView
-    private lateinit var listPetsSelected: MutableList<String>
     private lateinit var listObjectsPet: List<Pet>
     var selection = ""
     var time: Long = 0
