@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petland.R
+import com.example.petland.pet.Pet
 import com.example.petland.sign.BootActivity
 import com.example.petland.utils.ParseError
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -115,7 +116,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         builder.setPositiveButton((getString(R.string.ok))){dialog, which ->
             Toast.makeText(applicationContext,"Cuenta borrada correctamente",Toast.LENGTH_SHORT).show()
-           deleteUser()
+            deleteUser()
         }
         builder.setNeutralButton(getString(R.string.cancel)){_,_ ->
         }
@@ -127,12 +128,12 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun deleteUser() {
         val user = ParseUser.getCurrentUser()
-        val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.whereEqualTo("owner", user) //Query para obtener todas lƒas mascotas propiedad del user a eliminar, para eliminarlas tambien
+        val query = ParseQuery.getQuery(Pet::class.java)
+        query.whereEqualTo("owner", user) //Query para obtener todas las mascotas propiedad del user a eliminar, para eliminarlas tambien
         query.findInBackground { petsList, e ->
             if (e == null) {
                 for (pet in petsList) {
-                    deletePet(pet)
+                    pet.deletePet()
                 }
                 user.deleteInBackground { e ->
                     if (e == null) {
@@ -152,15 +153,6 @@ class EditProfileActivity : AppCompatActivity() {
                 }
             } else {
                 Log.d(TAG, "An error happened while retrieving user pets.")
-            }
-        }
-    }
-    private fun deletePet(pet: ParseObject) {
-        pet.deleteInBackground { e ->
-            if (e == null) {
-                Log.d(TAG, "Pet correctly deleted!") //Mensaje en logcat
-            } else {
-                Log.d(TAG, "An error occurred while deleting a pet!") //Mensaje en logcat
             }
         }
     }

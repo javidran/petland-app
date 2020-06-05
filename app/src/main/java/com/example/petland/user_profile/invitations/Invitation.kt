@@ -55,6 +55,14 @@ class Invitation : ParseObject() {
             invitation.saveInBackground()
         }
 
+        fun deleteInvitationsThatIncludePet(pet: Pet) {
+            val query = ParseQuery.getQuery(Invitation::class.java)
+            query.whereEqualTo(PET, pet)
+            for (inv in query.find()) {
+                inv.deleteInBackground()
+            }
+        }
+
     }
 
 }
