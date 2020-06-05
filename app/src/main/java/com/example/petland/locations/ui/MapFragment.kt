@@ -209,6 +209,11 @@ class MapFragment : Fragment(), OnMapReadyCallback,
 
     override fun onResume() {
         super.onResume()
+        if(shownLocation != null ) {
+            shownLocation!!.fetch<PetlandLocation>()
+            rootView.ratingBar.rating = shownLocation!!.getAverageStars().toFloat()
+            rootView.ratingText.text = "(" + String.format("%.2f", shownLocation!!.getAverageStars()) + ")"
+        }
         if (locationUpdateState) {
             onMapReady(map)
             startLocationUpdates()
