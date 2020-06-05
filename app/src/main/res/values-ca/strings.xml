@@ -188,7 +188,7 @@
     <string name="invitation_caregiver">Invitacions a cuidador acceptades</string>
     <string name="new_caregiver">"Noves invitacions a cuidador "</string>
     <string name="events_pet">Avui tens events de mascota</string>
-    <string name="have_event">té un event a les</string>
+    <string name="have_event">té un event el</string>
     <string name="number_invitations_caregiver">invitacions de cuidador acceptades</string>
     <string name="accepted_invitations">invitaciones aceptadas</string>
     <string name="invitation_accepted">ha acceptat la teva invitació per ser cuidador</string>
