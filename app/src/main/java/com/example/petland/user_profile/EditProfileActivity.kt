@@ -2,6 +2,8 @@ package com.example.petland.user_profile
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -143,10 +145,21 @@ class EditProfileActivity : AppCompatActivity() {
                                 .build()
                         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
                         Log.d(TAG,"User correctly deleted!") //Mensaje en logcat
-                        startActivity(Intent(this@EditProfileActivity, BootActivity::class.java))
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                        finish()
                         mGoogleSignInClient.signOut()
+                            .addOnCompleteListener(this) {
+                                val notificationManager =
+                                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                                notificationManager.cancelAll()
+                                val currentUser = ParseUser.getCurrentUser()
+                                if (currentUser != null) {
+                                    Log.d(TAG, getString(R.string.loggedOut)) //Mensaje en logcat
+                                    ParseUser.logOut()
+                                    Toast.makeText(this, getString(R.string.loggedOut), Toast.LENGTH_SHORT).show()
+                                }
+                                startActivity(Intent(this, BootActivity::class.java).apply {})
+                                finish()
+                                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                            }
                     } else {
                         Log.d(TAG,"An error occurred!") //Mensaje en logcat
                     }
