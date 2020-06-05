@@ -7,6 +7,9 @@ import android.util.Log
 import com.example.petland.Application
 import com.example.petland.events.model.PetEvent
 import com.example.petland.locations.model.PetlandLocation
+import com.example.petland.mapas.Walk
+import com.example.petland.user_profile.EditProfileActivity
+import com.example.petland.user_profile.invitations.Invitation
 import com.parse.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -153,10 +156,25 @@ class Pet : ParseObject() {
         save()
     }
 
-
+    fun deletePet() {
+        for (ev in PetEvent.getEventsFromPet(this)) {
+            ev.deleteEvent()
+        }
+        for (wa in Walk.getWalksFromPet(this)) {
+            wa.deleteWalk()
+        }
+        Invitation.deleteInvitationsThatIncludePet(this)
+        deleteInBackground { e ->
+            if (e == null) {
+                Log.d(TAG, "Pet correctly deleted!") //Mensaje en logcat
+            } else {
+                Log.d(TAG, "An error occurred while deleting a pet!") //Mensaje en logcat
+            }
+        }
+    }
 
     companion object {
-        private val TAG = "Petland Pets"
+        private const val TAG = "Petland Pets"
 
         private const val NAME = "name"
         private const val BIRTHDAY = "birthday"

@@ -47,11 +47,7 @@ class TimelineFragment : Fragment(), ViewWalkCallback {
     }
 
     private fun updatePaseos() {
-        val pet = Pet.getSelectedPet()
-        val walks = ParseQuery(Walk::class.java)
-        walks.whereEqualTo("pets", pet)
-        walks.orderByDescending("createdAt")
-        this.adapter = TimelineAdapter(walks.find(), this)
+        this.adapter = TimelineAdapter(Walk.getWalksFromPet(Pet.getSelectedPet()), this)
         rootView.recyclerViewTimeline.adapter = adapter
     }
 

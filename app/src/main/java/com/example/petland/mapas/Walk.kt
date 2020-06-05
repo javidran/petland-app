@@ -13,23 +13,24 @@ import java.util.*
 
 @ParseClassName("Walk")
 class Walk  : ParseObject() {
+
     fun getTime(): Int {
         return getInt("duration")
     }
+
     fun getRecorrido(): String {
         return getString("distance").toString()
     }
+
     fun createWalk(
          dateEnd: Date, dateIni: Date, time: Int,
         distance: String, latitudes: MutableList<Double>,
         longitudes: MutableList<Double>, selection: String, listEvents: ArrayList<PetEvent>, pet: Pet
     ) {
-        val query = ParseQuery.getQuery<ParseObject>("Pet")
-        query.whereEqualTo("objectId", pet.objectId)
-       val  result = query.find().first()
-        val relation = this.getRelation<ParseObject>("pets")
+        pet.fetch<Pet>()
+        val relation = this.getRelation<Pet>("pets")
+        relation.add(pet)
         put("user", ParseUser.getCurrentUser())
-        relation.add(result)
         put("user", ParseUser.getCurrentUser())
         put("startDate", dateIni)
         put("endDate", dateEnd)
@@ -49,5 +50,19 @@ class Walk  : ParseObject() {
             }
         }
         saveInBackground()
+    }
+
+    fun deleteWalk() {
+        deleteInBackground()
+    }
+
+    companion object {
+
+        fun getWalksFromPet(pet: Pet) : List<Walk> {
+            val walks = ParseQuery(Walk::class.java)
+            walks.whereEqualTo("pets", pet)
+            walks.orderByDescending("createdAt")
+            return walks.find()
+        }
     }
 }
